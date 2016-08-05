@@ -1,0 +1,4 @@
+#! /bin/csh
+
+scrubArchiveDisks.py --minSpace 200 --debug \
+    |& LogFilter -d $ERRORS_LOG_DIR -p scrubArchiveDisks >& /dev/null &

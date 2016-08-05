@@ -1,0 +1,146 @@
+sunscan_howto.txt
+=================
+
+Howto file for dealing with sunscan data.
+
+Mike Dixon
+2008/05/22
+
+Collecting the data - mgen.
+---------------------------
+
+Run the antenna in SunBoxDay/SolarOffset to scan the sun.
+Do this for at least 15 minutes.
+
+When the radar is run in sunscan mode, the time series
+data should be automatically saved on mgen into the following
+location:
+
+  ~/projDir/data/tsarchive/sunscan/yyyymmdd
+
+You can check this directory to make sure data is being saved.
+
+Also, if you click 'Check Ts Recording' on eng you should see
+tsarchive/sunscan data being updated.
+
+Analyzing the data - mgen.
+--------------------------
+
+Run SunCal.
+
+Here is an example, for 20080518:
+
+  cd ~/projDir/analysis/params
+  SunCal -debug -params SunCal.zdr -f ~/projDir/data/tsarchive/sunscan/20080518/*tsarchive
+
+The results will be saved, in this example, as follows:
+
+  ~/projDir/data/analysis/suncal/20080518_003222/*
+  ~/projDir/data/analysis/suncal/SunCal.out.20080518_003222.txt
+
+Plotting the results - spol-dm.
+-------------------------------
+
+The files in the 20080518_003222 subdirectory are 2-d grids around the
+sun location. You can plot them with the matlab program.
+
+Copy them over to spol-dm, as operator, and put them in:
+
+  ~/suncal/data
+
+For example, on mgen:
+
+   scp -r ~/projDir/data/analysis/suncal/20080518_003222 spol-dm:suncal/data
+
+Log in to spol-dm.
+
+Change directories to the matlab code:
+
+  ~/suncal/matlab
+  matlab
+  
+In matlab, run:
+
+  sunplot_simple('../data/20080518_003222')
+
+Interpreting the summary files - mgen.
+--------------------------------------
+
+The SunCal.out.20080518_003222.txt file contains the detailed results for
+a single sun scan.
+
+You will see summary data at the top of the file, showing
+noise powers, solar offset, and sun powers.
+
+  SunCal output
+  =============
+
+  Data time: 2008/05/18 00:32:22
+
+  Radar lat (deg): 22.5267
+  Radar lon (deg): 120.433
+
+  N samples per beam: 128
+  N sun scans used: 1
+
+  ========================
+  Noise powers
+  Noise computed for off-sun angles > 2 deg
+  N beams noise: 1472
+
+  noiseDbm   (dBm):   -77.8768
+  noiseDbmHc (dBm):   -77.7754
+  noiseDbmHx (dBm):   -77.8540
+  noiseDbmVc (dBm):   -77.8824
+  noiseDbmVx (dBm):   -77.9982
+
+  =================================
+  Sun offsets and max power
+
+  Hc channel
+  Hc Sun max power          (dBm):   -64.2913
+  Hc Sun quadratic power    (dBm):   -64.3882
+  Hc Sun centroid offset az (deg):    -0.0093
+  Hc Sun centroid offset el (deg):    -0.0937
+
+  Vc channel
+  Vc Sun max power          (dBm):   -64.6157
+  Vc Sun quadratic power (   dBm):   -64.6881
+  Vc Sun centroid offset az (deg):    -0.0062
+  Vc Sun centroid offset el (deg):    -0.0961
+
+  Mean of Hc & Vc
+  Mc Sun max power          (dBm):   -64.5094
+  Mc Sun quadratic power    (dBm):   -64.5706
+  Mc Sun centroid offset az (deg):    -0.0083
+  Mc Sun centroid offset el (deg):    -0.0949
+
+
+Further down, you will find the S1S2 values used by the
+cross-polar power method for calibrating ZDR.
+Use the data for the 1 degree solid angle:
+
+  ========================
+  Cross-polar power ratios
+  Solid angle (deg): 1
+  n beamns used        :        312
+  mean power      (dBm):   -66.0440
+  min power       (dBm):   -67.8005
+  quad peak power (dBm):   -64.5706
+  min below peak  (dBm):    -3.2298
+  mean Vc/Hc      (dBm):    -0.3051
+  mean Vx/Hx      (dBm):    -0.3415
+  mean Vc/Hx      (dBm):    -0.2507
+  mean Vx/Hc      (dBm):    -0.3958
+  S1S2 from ratios(dBm):    -0.6465
+  sdev S1S2       (dBm):     0.0870
+  sdev of mean    (dBm):     0.0049
+  meanVc/meanHc   (dBm):    -0.3036
+  meanVx/meanHx   (dBm):    -0.3417
+  S1S2 from means (dBm):    -0.6453
+
+Use 'S1S2 from means'.
+
+See also zdr_cp_cal_howto.txt.
+
+

@@ -1,0 +1,9 @@
+#! /bin/csh
+
+# get the archive status for nagios, write nagios file
+
+mkdir -p /tmp/nagios
+
+getArchiveStatus4Nagios.py --warnSpace 183 --critSpace 40 \
+    > /tmp/nagios/usb_archive_status
+

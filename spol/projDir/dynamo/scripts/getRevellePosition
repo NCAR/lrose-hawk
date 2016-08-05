@@ -1,0 +1,16 @@
+#! /bin/csh
+
+getCatalogFilesBySftp.py --debug --pastSecs=86400 --sshPort=22 \
+--sourceDir=/var/www/html/dynamo/data/revelle \
+--tmpDir=/tmp/raw/revelle_posn \
+--targetDir=${DATA_DIR}/raw/revelle_posn \
+--subStrList=txt --dataType=txt --checkNames \
+|& LogFilter -d $ERRORS_LOG_DIR -p getRevellePosition >& /dev/null &
+
+getCatalogFilesByHttp.py --debug --pastSecs=286400 \
+--sourceDir=/dynamo/data/revelle \
+--tmpDir=/tmp/raw/revelle_posn \
+--targetDir=${DATA_DIR}/raw/revelle_posn \
+--subStrList=txt --dataType=txt --checkNames
+|& LogFilter -d $ERRORS_LOG_DIR -p getRevellePosition >& /dev/null &
+

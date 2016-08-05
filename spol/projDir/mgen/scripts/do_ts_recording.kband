@@ -1,0 +1,10 @@
+#! /bin/csh
+
+# save for 3600 secs
+# logging will be printed to stderr
+
+cd $PROJ_DIR/mgen/params
+
+snuff "TsSmartSave -params TsSmartSave.manual_kband"
+
+TsSmartSave -params TsSmartSave.manual_kband -debug -runSecs 3600

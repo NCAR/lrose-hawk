@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "ChillTsTcp2Fmq -params ChillTsTcp2Fmq.ops"
+if ($status == 1) then
+  ChillTsTcp2Fmq -params ChillTsTcp2Fmq.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ChillTsTcp2Fmq -i ops &
+endif
+

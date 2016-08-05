@@ -1,0 +1,6 @@
+#! /bin/csh
+
+xterm -title RadMon -bg black -fg orange -g 76x3-0+0 -fn fixed -e RadMon -params $PROJ_DIR/params/RadMon.kband -summary &
+
+
+

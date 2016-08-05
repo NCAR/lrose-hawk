@@ -1,0 +1,9 @@
+####################################
+# list of requried TITAN libraries
+####################################
+libdataport.a
+libdidss.a
+libdsserver.a
+librvp8_rap.a
+libtdrp.a
+libtoolsa.a

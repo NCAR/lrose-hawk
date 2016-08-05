@@ -1,0 +1,18 @@
+#!/bin/csh
+
+# reset serial line to kadrx transmitter
+
+# first stop triggers
+
+signal_process -s HUP kadrx
+
+# sleep a bit
+
+sleep 5
+
+# restart triggers
+
+signal_process -s USR1 kadrx
+
+
+

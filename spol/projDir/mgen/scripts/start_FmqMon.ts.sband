@@ -1,0 +1,5 @@
+#! /bin/csh
+
+FmqMon -url fmq/ts/sband/shmem_10000
+
+

@@ -1,0 +1,32 @@
+####################################################################
+# SYSTEM
+#
+# Process restarters
+*/1 * * * *  csh -c "start_auto_restart_check_cron" 1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "start_procmap_check_cron"      1> /dev/null 2> /dev/null
+#
+# Build links to log date subdirs
+*/5 * * * *   csh -c "start_build_logdir_links" 1> /dev/null 2> /dev/null
+#
+####################################################################
+# ARCHIVE TO USB
+#
+# monitor archive job once every 5 minutes
+#
+*/5 * * * *  csh -c "run_getArchiveStatus4Nagios" 1> /dev/null 2> /dev/null
+#
+# run archive job once every 5 minutes
+#
+*/5 * * * *  csh -c "run_archive_check_cron" 1> /dev/null 2> /dev/null
+#
+# scrub the drives if they get too full
+#0 */3 * * *  csh -c "run_scrubArchiveDisks" 1> /dev/null 2> /dev/null
+####################################################################
+# RUN MATLAB MONITORING
+#
+10 0 * * *  csh -c "run_MATLAB.monitoring" 1> /dev/null 2> /dev/null
+####################################################################
+# RUN HUMIDITY RETRIEVAL
+#
+00 04 * * * csh -c "run_spec_hum_sounding_ret"    1> /dev/null 2> /dev/null
+15 04 * * * csh -c "run_plot_sounding_timeseries" 1> /dev/null 2> /dev/null

@@ -1,0 +1,3 @@
+#! /bin/bash
+
+snuff "TsTcp2Fmq -instance ops"

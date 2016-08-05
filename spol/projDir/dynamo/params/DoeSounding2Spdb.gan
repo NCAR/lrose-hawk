@@ -1,0 +1,317 @@
+/**********************************************************************
+ * TDRP params for DoeSounding2Spdb
+ **********************************************************************/
+
+//======================================================================
+//
+// DoeSounding2Spdb reads US DOE sounding data, converts them to 
+//   sounding format and writes them to an SPDB data base.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed with the appropriate level of 
+//   detail.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "gan";
+
+//======================================================================
+//
+// PROGRAM MODES OF OPERATION.
+//
+//======================================================================
+ 
+///////////// mode ////////////////////////////////////
+//
+// Operating mode.
+// In REALTIME mode, the program waits for a new input file. In this 
+//   mode it is optional to watch for a latest_data_info file. In ARCHIVE 
+//   mode, it processes all of the data files in the input directory 
+//   between the start and end times set on the command line. In FILELIST 
+//   mode, it processes all of the files in the list specified on the 
+//   command line. In FILELIST mode paths must be fully qualified with 
+//   respect to the date and time - so if each date has a separate 
+//   subdirectory the date part of the path must be included.
+//
+// Type: enum
+// Options:
+//     ARCHIVE
+//     REALTIME
+//     FILELIST
+//
+
+mode = REALTIME;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_dir ///////////////////////////////
+//
+// Input directory.
+// Directory where input data files can be found.
+// Type: string
+//
+
+input_dir = "$(DATA_DIR)/raw/doe/soundings/gan/netcdf";
+
+///////////// latest_data_info_avail //////////////////
+//
+// Set to true if there is a latest_data_info file available in the 
+//   input directory.
+// REALTIME mode only.
+// Type: boolean
+//
+
+latest_data_info_avail = TRUE;
+
+///////////// max_realtime_valid_age //////////////////
+//
+// Max valid age of rdata input files in realtime mode (secs).
+// This the max valid age for an incoming file. The program will wait 
+//   for a data file more recent than this age.
+// Minimum val: 1
+// Type: int
+//
+
+max_realtime_valid_age = 3600;
+
+///////////// strict_subdir_check /////////////////////
+//
+// When set, only checks input_dir for subdirs of the form YYYYMMDD.
+// Only in REALTIME mode with latest_data_info_avail FALSE.
+// Type: boolean
+//
+
+strict_subdir_check = FALSE;
+
+///////////// file_name_check /////////////////////////
+//
+// When set, check file name contains specified sub-string.
+// See file_match_string.
+// Type: boolean
+//
+
+file_name_check = FALSE;
+
+///////////// file_match_string ///////////////////////
+//
+// Input filename match string.
+// Files must contain this string to be processed.
+// Type: string
+//
+
+file_match_string = "nc";
+
+//======================================================================
+//
+// STATION LOCATION.
+//
+//======================================================================
+ 
+///////////// override_station_location ///////////////
+//
+// Override the station location - lat/lon/alt.
+// Otherwise use position info in file.
+// Type: boolean
+//
+
+override_station_location = FALSE;
+
+///////////// station_latitude ////////////////////////
+//
+// Latitude for sounding station (deg).
+// Only a single sounding station can be handled at a time by this 
+//   application.
+// Type: double
+//
+
+station_latitude = 0;
+
+///////////// station_longitude ///////////////////////
+//
+// Longitude for sounding station (deg).
+// Only a single sounding station can be handled at a time by this 
+//   application.
+// Type: double
+//
+
+station_longitude = 0;
+
+///////////// station_altitude ////////////////////////
+//
+// Altitude for sounding station (m).
+// Only a single sounding station can be handled at a time by this 
+//   application.
+// Type: double
+//
+
+station_altitude = 0;
+
+//======================================================================
+//
+// DATA FIELDS BY NAME.
+//
+// Set empty if field is not available.
+//
+//======================================================================
+ 
+///////////// pressure_field_name /////////////////////
+//
+// NetCDF variable name for pressure field.
+// Set to empty string if missing.
+// Type: string
+//
+
+pressure_field_name = "pres";
+
+///////////// temp_dry_field_name /////////////////////
+//
+// NetCDF variable name for dry bulb temp field.
+// Set to empty string if missing.
+// Type: string
+//
+
+temp_dry_field_name = "tdry";
+
+///////////// dewpoint_field_name /////////////////////
+//
+// NetCDF variable name for dewpoint field.
+// Set to empty string if missing.
+// Type: string
+//
+
+dewpoint_field_name = "dp";
+
+///////////// wind_speed_field_name ///////////////////
+//
+// NetCDF variable name for wind_speed field.
+// Set to empty string if missing.
+// Type: string
+//
+
+wind_speed_field_name = "wspd";
+
+///////////// wind_dirn_field_name ////////////////////
+//
+// NetCDF variable name for wind_dirn field.
+// Set to empty string if missing.
+// Type: string
+//
+
+wind_dirn_field_name = "deg";
+
+///////////// rh_field_name ///////////////////////////
+//
+// NetCDF variable name for RH field.
+// Set to empty string if missing.
+// Type: string
+//
+
+rh_field_name = "rh";
+
+///////////// u_wind_field_name ///////////////////////
+//
+// NetCDF variable name for u_wind field.
+// Set to empty string if missing.
+// Type: string
+//
+
+u_wind_field_name = "u_wind";
+
+///////////// v_wind_field_name ///////////////////////
+//
+// NetCDF variable name for v_wind field.
+// Set to empty string if missing.
+// Type: string
+//
+
+v_wind_field_name = "v_wind";
+
+///////////// ascent_rate_field_name //////////////////
+//
+// NetCDF variable name for ascent rate field.
+// Set to empty string if missing.
+// Type: string
+//
+
+ascent_rate_field_name = "asc";
+
+///////////// latitude_field_name /////////////////////
+//
+// NetCDF variable name for latitude field.
+// Set to empty string if missing.
+// Type: string
+//
+
+latitude_field_name = "lat";
+
+///////////// longitude_field_name ////////////////////
+//
+// NetCDF variable name for longitude field.
+// Set to empty string if missing.
+// Type: string
+//
+
+longitude_field_name = "lon";
+
+///////////// altitude_field_name /////////////////////
+//
+// NetCDF variable name for altitude field.
+// Set to empty string if missing.
+// Type: string
+//
+
+altitude_field_name = "alt";
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// output_url //////////////////////////////
+//
+// Output URL for decoded soundings.
+// See the DIDSS docs for details on URL usage.
+// Type: string
+//
+
+output_url = "spdbp:://localhost::spdb/soundings/gan";
+
+///////////// expire_seconds //////////////////////////
+//
+// Expire time in seconds for each sounding.
+// This value will be added to the sounding time to determine the expire 
+//   time for the metar.
+// Type: int
+//
+
+expire_seconds = 10800;
+

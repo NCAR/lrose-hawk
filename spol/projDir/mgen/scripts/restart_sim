@@ -1,0 +1,5 @@
+#! /bin/csh
+
+snuff TsFile2Fmq
+start_TsFile2Fmq.sband_sim
+#start_TsFile2Fmq.kband_sim

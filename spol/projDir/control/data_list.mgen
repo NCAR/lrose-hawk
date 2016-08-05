@@ -1,0 +1,14 @@
+#################################################
+# required data for mgen
+#
+# Format is:
+#
+#  dir               late_secs  very_late_secs
+#################################################
+fmq/syscon                      180  300
+fmq/ts/sband/shmem_10000        60   120
+#fmq/ts/kband/shmem_11000        60   120
+fmq/angles/shmem_30000          60   120
+#fmq/moments/kband/shmem_21000   60   120
+fmq/moments/sband/shmem_20000   60   120
+fmq/sixnet                      120  240

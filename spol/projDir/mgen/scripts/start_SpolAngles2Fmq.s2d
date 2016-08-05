@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SpolAngles2Fmq -params SpolAngles2Fmq.s2d"
+if ($status == 1) then
+  SpolAngles2Fmq -params SpolAngles2Fmq.s2d |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SpolAngles2Fmq -i s2d &
+endif
+

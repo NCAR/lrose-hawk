@@ -1,0 +1,11 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "RadMon -params RadMon.log_x"
+if ($status == 1) then
+  nice RadMon -params RadMon.log_x |& \
+    LogFilter -d $ERRORS_LOG_DIR -p RadMon -i log_x &
+endif
+
+

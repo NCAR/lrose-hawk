@@ -1,0 +1,4 @@
+#! /bin/csh
+
+TsPrint -fmq ~/projDir/data/fmq/ts/sband/shmem_10000.lock -nsamples 10000 -gate 200 -ngates 50 -ripple_min_dbm -30 -alt_ripple
+

@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+set today=`date +%Y%m%d`
+
+echo Running SunCal for day: $today
+
+cd $PROJ_DIR/analysis/params
+
+SunCal -params SunCal.ops -f $DATA_DIR/tsarchive/sunscan/${today}/*.iwrf_ts -debug
+

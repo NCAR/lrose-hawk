@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "SynopObsIngest -params SynopObsIngest.dynamo"
+if ($status == 1) then
+  SynopObsIngest -params SynopObsIngest.dynamo -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SynopObsIngest -i dynamo &
+endif
+

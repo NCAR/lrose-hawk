@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/titan/params
+
+running "Titan -params Titan.BrisMerge"
+if ($status == 1) then
+  nice Titan -params Titan.BrisMerge |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Titan -i BrisMerge &
+endif
+

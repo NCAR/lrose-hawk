@@ -1,0 +1,8 @@
+#! /bin/csh -f
+
+xterm -title RadMon -bg black -fg cyan -g 80x3-0+0 -e "ssh cpolserver RadMon -params projDir/display/params/RadMon.cpol " &
+
+#RadMon -fmq ~/projDir/data/fmq/moments/shmem_20000 -summary -update -1
+
+
+

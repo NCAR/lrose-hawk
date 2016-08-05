@@ -1,0 +1,48 @@
+HOW TO CALIBRATE THE KBAND
+==========================
+
+1. Calibrate the H channel
+--------------------------
+
+  * Set up siggen etc for injecting into the H channel
+  * cd ~/projDir/calibration/params
+  * edit TsCalAuto.kband_h, setting correct values
+  * run 'TsCalAuto -params TsCalAuto.kband_h'
+  * follow instructions, perform cal
+  * when complete, the cal curve will be displayed
+  * note the output .txt file produced:
+    e.g. ~/projDir/data/cal/kband/TsCalAuto_KbandH_20110929_083523.txt
+
+2. Calibrate the V channel
+--------------------------
+
+  * Set up siggen etc for injecting into the V channel
+  * cd ~/projDir/calibration/params
+  * edit TsCalAuto.kband_v, setting correct values
+  * run 'TsCalAuto -params TsCalAuto.kband_v'
+  * follow instructions, perform cal
+  * when complete, the cal curve will be displayed
+  * note the output .txt file produced:
+    e.g. ~/projDir/data/cal/kband/TsCalAuto_KbandV_20110929_082739.txt
+
+3. Combine the 2 channels into a single cal
+-------------------------------------------
+  
+  * cd ~/projDir/calibration/params
+  * edit TsCalAuto.kband, setting correct values
+  * run 'TsCalAuto -params TsCalAuto.kband -debug -fh ~/projDir/data/cal/kband/TsCalAuto_KbandH_20110929_083523.txt -fv ~/projDir/data/cal/kband/TsCalAuto_KbandV_20110929_082739.txt' (substitude relevant file names) 
+  * the combined cal curve will be displayed
+  * note the output .xml file produced:
+    e.g. ~/projDir/data/cal/kband/combined/TsCalAuto_KbandHV_20111110_175001.xml
+
+4. Install and restart
+----------------------
+
+If this cal is to be used operationally:
+ 
+  * copy the file into place:
+    cp ~/projDir/data/cal/kband/combined/TsCalAuto_KbandHV_20111110_175001.xml ~/projDir/mgen/params/kband_cal.xml
+
+  * restart Iq2Dsr.kband:
+      snuff Iq2Dsr.kband; start_Iq2Dsr.kband
+

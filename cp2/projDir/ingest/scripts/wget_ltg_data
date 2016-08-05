@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# get latest lightning data file
+
+while ( true )
+do
+today=$(date -u +%Y%m%d)
+cd $DATA_DIR/raw/ltg/tmp
+wget -N -nv -nd -r http://comms.ho.bom.gov.au/gpats/lgt_01.axf
+sleep 10
+done

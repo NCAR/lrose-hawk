@@ -1,0 +1,287 @@
+/**********************************************************************
+ * TDRP params for TsOverlay
+ **********************************************************************/
+
+//======================================================================
+//
+// TsOverlay reads raw time-series data from two sets of files. It 
+//   combines these time series by summing the I and Q data, to create an 
+//   overlaid data set. Typically this is used for combining clutter and 
+//   weather data together, for testing the clutter mitigation algorithms.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "overlay";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = FALSE;
+
+//======================================================================
+//
+// INPUT DATA.
+//
+//======================================================================
+ 
+///////////// primary_file_paths //////////////////////
+//
+// Primary time series data files.
+// This is an array of file paths, that are read in sequence, for the 
+//   primary data set.
+// Type: string
+// 1D array - variable length.
+//
+
+primary_file_paths = {
+ "$(DATA_DIR)/time_series/overlay/weather/20111221_091607_005_153.sur_trans.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/weather/20111221_091608_015_162.sur.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/weather/20111221_091644_015_163.sur_trans.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/weather/20111221_091645_025_172.sur.iwrf_ts"
+};
+
+///////////// secondary_file_paths ////////////////////
+//
+// Secondary time series data files.
+// This is an array of file paths, that are read in sequence, for the 
+//   secondary data set.
+// Type: string
+// 1D array - variable length.
+//
+
+secondary_file_paths = {
+ "$(DATA_DIR)/time_series/overlay/clutter/20110421_143511_005_092.sur.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/clutter/20110421_143551_005_093.sur_trans.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/clutter/20110421_143552_015_100.sur.iwrf_ts",
+ "$(DATA_DIR)/time_series/overlay/clutter/20110421_143632_015_101.sur_trans.iwrf_ts"
+};
+
+///////////// primary_cal_file_path ///////////////////
+//
+// Path to XML calibration file for primary data.
+// Type: string
+//
+
+primary_cal_file_path = "$(PROJ_DIR)/alg/params/primary_cal.xml";
+
+///////////// secondary_cal_file_path /////////////////
+//
+// Path to XML calibration file for secondary data.
+// Type: string
+//
+
+secondary_cal_file_path = "$(PROJ_DIR)/alg/params/secondary_cal.xml";
+
+//======================================================================
+//
+// CONFIGURING THE INPUT DATA.
+//
+//======================================================================
+ 
+///////////// primary_start_azimuth ///////////////////
+//
+// Starting azimuth for the primary time series (deg).
+// The primary data set is prepositioned, by reading until this azimuth 
+//   is reached. Pulses before this are discarded.
+// Type: double
+//
+
+primary_start_azimuth = 140;
+
+///////////// primary_start_range /////////////////////
+//
+// Starting range for the primary data (km).
+// Gates before this range will be discarded.
+// Type: double
+//
+
+primary_start_range = 70;
+
+///////////// primary_end_range ///////////////////////
+//
+// Ending range for the primary data (km).
+// Gates after this range will be discarded.
+// Type: double
+//
+
+primary_end_range = 150;
+
+///////////// primary_attenuation_db //////////////////
+//
+// Attenuation applied to primary data before merging (dB).
+// Negative attenuation will imply a gain.
+// Type: double
+//
+
+primary_attenuation_db = -10;
+// primary_attenuation_db = 200;
+
+///////////// secondary_start_azimuth /////////////////
+//
+// Starting azimuth for the secondary time series (deg).
+// The secondary data set is prepositioned, by reading until this 
+//   azimuth is reached. Pulses before this are discarded.
+// Type: double
+//
+
+secondary_start_azimuth = 100;
+
+///////////// secondary_start_range ///////////////////
+//
+// Starting range for the secondary data (km).
+// Gates before this range will be discarded.
+// Type: double
+//
+
+secondary_start_range = 0;
+
+///////////// secondary_end_range /////////////////////
+//
+// Ending range for the secondary data (km).
+// Gates after this range will be discarded.
+// Type: double
+//
+
+secondary_end_range = 55;
+
+///////////// secondary_attenuation_db ////////////////
+//
+// Attenuation applied to secondary data before merging (dB).
+// Negative attenuation will imply a gain.
+// Type: double
+//
+
+secondary_attenuation_db = 200;
+// secondary_attenuation_db = 0;
+// secondary_attenuation_db = 10;
+// secondary_attenuation_db = 20;
+// secondary_attenuation_db = 30;
+// secondary_attenuation_db = 40;
+// secondary_attenuation_db = 50;
+// secondary_attenuation_db = 60;
+
+//======================================================================
+//
+// CONFIGURING THE ACTIVE SECTOR WIDTH.
+//
+//======================================================================
+ 
+///////////// overlay_sector_width ////////////////////
+//
+// How wide is the sector to be processed (deg)?.
+// We will process the pulses for up to this angular width, and then 
+//   quit.
+// Type: double
+//
+
+overlay_sector_width = 420;
+
+//======================================================================
+//
+// OUTPUT FMQ DETAILS.
+//
+//======================================================================
+ 
+///////////// output_fmq_path /////////////////////////
+//
+// Path to output FMQ.
+// The FMQ consists of 2 files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path = "/tmp/fmq/overlay_ts";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer.
+// Type: int
+//
+
+output_fmq_size = 1000000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in the output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 100;
+
+///////////// output_fmq_blocking /////////////////////
+//
+// Option to set up the FMQ as blocking.
+// If TRUE, FMQ will be set up FMQ for blocking operation. If the FMQ 
+//   becomes full, Test2Dsr will then block until there is space for more 
+//   data. This should only be used if there is a single client reading 
+//   the FMQ.
+// Type: boolean
+//
+
+output_fmq_blocking = TRUE;
+
+//======================================================================
+//
+// OUTPUT MESSAGE DETAILS.
+//
+// The output messages are written to the FMQ. To improve performance, 
+//   each message contains a number of time series pulses.
+//
+//======================================================================
+ 
+///////////// n_pulses_per_message ////////////////////
+//
+// Number of pulses per output message.
+// The actual number will sometimes be 1 less than this, because an info 
+//   data part may will be written once in a while.
+// Type: int
+//
+
+n_pulses_per_message = 10;
+
+///////////// n_pulses_per_info ///////////////////////
+//
+// How often to write an info part.
+// The info part includes data which does not change on a pulse-to-pulse 
+//   basis.
+// Type: int
+//
+
+n_pulses_per_info = 1000;
+

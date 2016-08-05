@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "CP2Udp2Fmq -params CP2Udp2Fmq.ops"
+if ($status == 1) then
+  CP2Udp2Fmq -params CP2Udp2Fmq.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CP2Udp2Fmq -i ops &
+endif
+

@@ -1,0 +1,8 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+snuff "SpolTsMonitor -params SpolTsMonitor.kband"
+SpolTsMonitor -params SpolTsMonitor.kband.down |& \
+ LogFilter -d $ERRORS_LOG_DIR -p SpolTsMonitor -i kband &
+

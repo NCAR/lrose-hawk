@@ -1,0 +1,19 @@
+#  List of directories for secondary data
+
+spdb/metar
+spdb/metar_ascii
+spdb/monitor/sband
+spdb/monitor/kband
+spdb/rhi/sband
+spdb/ship_obs
+spdb/ship_obs_ascii
+spdb/soundings/gan
+spdb/synop_obs
+spdb/synop_obs_ascii
+spdb/suncal/kband
+spdb/suncal/sband
+spdb/synop_obs
+spdb/synop_obs_ascii
+spdb/wwlln
+spdb/ac_posn/falcon
+

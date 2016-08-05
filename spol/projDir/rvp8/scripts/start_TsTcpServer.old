@@ -1,0 +1,10 @@
+#! /bin/csh
+
+running "TsTcpServer -port 12000"
+if ($status == 1) then
+  TsTcpServer -port 12000 -mustmove -readcal >& /dev/null &
+endif
+
+
+
+

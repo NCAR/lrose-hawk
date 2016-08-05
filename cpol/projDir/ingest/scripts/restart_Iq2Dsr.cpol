@@ -1,0 +1,8 @@
+#! /bin/csh
+
+snuff "Iq2Dsr -params Iq2Dsr.cpol"
+start_Iq2Dsr.cpol 
+
+snuff TsTcp2Fmq.cpol
+start_TsTcp2Fmq.cpol
+

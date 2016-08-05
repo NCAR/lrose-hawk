@@ -1,0 +1,35 @@
+Power PMAC notes
+Logging in:
+ssh -l root powerpmac  # 192.168.4.52
+see Joe or Mike for the password.
+
+System logs for "antcon", aka capp1:
+/var/log/capp1
+
+capp1 executable is:
+/var/ftp/usrflash/Project/C Language/Background Programs/capp1.out
+
+The powerpmac project is configured to run capp1.out with its output piped through
+ /usr/local/bin/timestamper -m 30000 /var/log/capp1/capp1.log
+
+This provides autorotation of logs, so the /var/log/capp1 directory doesn't fill up.
+
+
+
+
+
+Backup powerpmac:
+The backup powerpmac has I.P. address 192.168.4.39
+
+If the primary powerpmac fails, you will need to edit
+control1:/home/operator/projDir/syscon/spol.syscon.conf
+
+and change 
+deltatau_server = powerpmac.gate.rtf
+
+to
+deltatau_server = powerpmac.gate2.rtf
+
+After editing spol.syscon.conf,
+type
+$ restart_control

@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Distributing the data</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Distributing the data</h2>
+
+<p>
+There are 2 mechanisms for distributing the data:
+
+<ul>
+<li><b>DsFileDist:</b> distributes individual files (raw, NetCDF, MDV etc.)</li><p>
+<li><b>DsSpdbServer:</b> distributes SPDB data</li><p>
+</ul>
+
+<hr>
+
+<h3>DsFileDist</h3>
+DsFileDist sends a file by contacting the DsFCopyServer process on the
+target machine. It is the DsFCopyServer which actually writes the data
+to the remote machine's disk.
+
+<p>The DsFileDist program scans the data directories, searching for special
+parameter files which control how the data is to be distributed.
+
+<p>The special files are named <b>_DsFileDist</b>, with an optional extension.
+They are placed in
+directories for which the data is to be distributed.
+
+<p>For example, on the control host, the file:
+
+<pre>    ~/projDir/data/images/spol_cams/_DsFileDist.ext_data</pre>
+
+controls the distribution of the spol camera images to the pgen hosts.
+
+<p>
+Most _DsFileDist files will have the following parameter set true:
+
+<p><pre>    use_dest_host_list_file = TRUE;</pre>
+
+In that case the hosts to which the data will be sent are set in the
+<a href=#dist_host_list>dist_host_list</a> file.
+
+<p>If <b>use_dest_host_list_file</b> is set to FALSE, DsFileDist will
+use the <b>dest_url_list</b> parameter to determine to which hosts the
+data should be sent. In this case, the dist_host_list file is ignored.
+
+<p>In addition to the <b>_DsFileDist</b> files, DsFileDist can be instructed
+to look for <b>_latest_data_info</b> files. If that is done, DsFileDist
+will scan the directory tree for these files, and will distribute
+all data sets for which the files are found.
+
+<hr>
+
+<h3>DsSpdbServer</h3> The DsSpdbServer is a server which both writes
+the Spdb data to the local disk on a host and optionally copies the data
+to remote hosts.
+
+<p>The DsSpdbServer on the local machine copies data by contacting the 
+DsSpdbServer on the remote machine. It is the DsSpdbServer on the remote
+machine which actually writes the data to the disk.
+
+<p>The DsSpdbServer looks for special files in the data directories,
+to determine whether to forward the data to remote hosts.
+
+<p>The special files are named <b>_DsSpdbServer.distrib</b>. They are placed in
+directories for which the data is to be distributed.
+
+<p>For example, the file:
+
+<pre>    ~/projDir/data/spdb/ltg/_DsSpdbServer.distrib</pre>
+
+controls the distribution of the SPDB lightning data.
+
+<p>
+Most _DsSpdbServer.distrib files will have the following parameter set true:
+
+<p><pre>    use_dest_host_list_file = TRUE;</pre>
+
+In that case the hosts to which the data will be sent are set in the
+<a href=#dist_host_list>dist_host_list</a> file.
+
+<p>If <b>use_dest_host_list_file</b> is set to FALSE, DsFileDist will
+use the <b>dest_url_list</b> parameter to determine to which hosts the
+data should be sent. In this case, the dist_host_list file is ignored.
+
+<hr>
+<h3><a name="dist_host_list">dist_host_list file<a></h3>
+The dist_host_list files are stred in the systems params directory:
+
+<pre>    ~/projDir/system/params</pre>
+
+<p>These files contains a list of hosts to which the data must be sent,
+for both DsFileDist and DsSpdbServer.
+
+<p>For example, the dist_host_list.ext_data file on the control host
+contains the following:
+
+<pre>
+  #########################
+  # Distribution hosts
+  #
+  localhost
+  pgen1
+  pgen2
+</pre>
+
+<p>DsFileDist will ignore the 'localhost' entry because the files already exist
+on the local host. However, the DsSpdbServer will use this entry to indicate
+that data should be put to the local host as well as to the remote hosts.
+
+<hr>
+
+
+
+

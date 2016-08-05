@@ -1,0 +1,1336 @@
+/**********************************************************************
+ * TDRP params for SpolTsMonitor
+ **********************************************************************/
+
+//======================================================================
+//
+// SpolTsMonitor reads IWRF time-series data from a file message queue 
+//   (FMQ). It locates monitoring information in the time series, and 
+//   writes that information out to SPDB, and in a form suitable for 
+//   Nagios.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "kband";
+
+//======================================================================
+//
+// DATA INPUT - from file message queue (FMQ).
+//
+//======================================================================
+ 
+///////////// fmq_name ////////////////////////////////
+//
+// FMQ name. For FMQ input_mode only.
+// Path to FMQ files. There are 2 files, one with a .buf extension and 
+//   one with a .stat extention. This path does not include the 
+//   extensions.
+// Type: string
+//
+
+fmq_name = "$(DATA_DIR)/fmq/ts/kband/shmem_11000";
+
+///////////// data_valid_interval_secs ////////////////
+//
+// Maximum interval with no data (secs).
+// After this time elapses with no data, the status data is considered 
+//   invalid until the data restarts.
+// Type: int
+//
+
+data_valid_interval_secs = 300;
+
+//======================================================================
+//
+// XML STATUS INPUT.
+//
+//======================================================================
+ 
+///////////// xml_entries /////////////////////////////
+//
+// Details of XML entries to process.
+// 	xml_outer_tag: the main tag for the entry
+// 	xml_inner_tag: the sub tag for the entry
+// 	entry_type: the type of data stored
+// 	ok_boolean: BOOLEAN only: the value for an OK state
+// 	boolean_failure_is_critical: true if FAILURE is critical, false if 
+//   failure indicates IMPAIRED
+// 	ok_value_lower_limit: INT or DOUBLE: the lower limit for an OK state
+// 	ok_value_upper_limit: INT or DOUBLE: the upper limit for an OK state
+// 	impaired_value_lower_limit: INT or DOUBLE: the lower limit for an 
+//   IMPAIRED state
+// 	impaired_value_upper_limit: INT or DOUBLE: the upper limit for an 
+//   IMPAIRED state
+// 	graph_min_val: minimum value for history graph
+// 	graph_max_val: maximim value for history graph
+// 	comment: if set, appears at end of status line
+// .
+//
+// Type: struct
+//   typedef struct {
+//      string xml_outer_tag;
+//      string xml_inner_tag;
+//      xml_entry_type_t entry_type;
+//        Options:
+//          XML_ENTRY_BOOLEAN
+//          XML_ENTRY_INT
+//          XML_ENTRY_DOUBLE
+//          XML_ENTRY_STRING
+//      boolean ok_boolean;
+//      boolean boolean_failure_is_critical;
+//      double ok_value_lower_limit;
+//      double ok_value_upper_limit;
+//      double impaired_value_lower_limit;
+//      double impaired_value_upper_limit;
+//      string label;
+//      string units;
+//      double graph_min_val;
+//      double graph_max_val;
+//      string comment;
+//   }
+//
+// 1D array - variable length.
+//
+
+xml_entries = {
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "SerialConnected",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "FaultSummary",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsRunup",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "Standby",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = FALSE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HeaterWarmup",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = FALSE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "Cooldown",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = FALSE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "UnitOn",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "MagnetronCurrentFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "BlowerFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsOn",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "RemoteEnabled",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = FALSE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "SafetyInterlock",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "ReversePowerFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "PulseInputFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsCurrentFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "WaveguidePressureFault",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsUnderVoltage",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsOverVoltage",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = FALSE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 0,
+    impaired_value_upper_limit = 0,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsVoltage",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 20,
+    ok_value_upper_limit = 23,
+    impaired_value_lower_limit = 18,
+    impaired_value_upper_limit = 20,
+    label = "",
+    units = "kV",
+    graph_min_val = 0,
+    graph_max_val = 25,
+    comment = "Power supply high volts"
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "MagnetronCurrent",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 5.3,
+    ok_value_upper_limit = 7.6,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 8,
+    label = "",
+    units = "mA",
+    graph_min_val = 5,
+    graph_max_val = 10,
+    comment = "Average current"
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsCurrent",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 11.5,
+    ok_value_upper_limit = 14.5,
+    impaired_value_lower_limit = 11,
+    impaired_value_upper_limit = 15,
+    label = "",
+    units = "mA",
+    graph_min_val = 10,
+    graph_max_val = 20,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "Temperature",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 39,
+    ok_value_upper_limit = 48,
+    impaired_value_lower_limit = 25,
+    impaired_value_upper_limit = 50,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 50,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "G0PowerDbm",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -13,
+    ok_value_upper_limit = -9,
+    impaired_value_lower_limit = -14,
+    impaired_value_upper_limit = -8,
+    label = "",
+    units = "dBm",
+    graph_min_val = -15,
+    graph_max_val = -5,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "MagnetronCurrentFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 20,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "BlowerFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "SafetyInterlockCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "ReversePowerFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "PulseInputFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 5,
+    impaired_value_lower_limit = 6,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsCurrentFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "WaveguidePressureFaultCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsUnderVoltageCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "HvpsOverVoltageCount",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 0,
+    impaired_value_lower_limit = 1,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaTransmitterStatus",
+    xml_inner_tag = "AutoPulseFaultResets",
+    entry_type = XML_ENTRY_INT,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 5,
+    impaired_value_lower_limit = 6,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "ProcEnclosureTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 38,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 40,
+    label = "",
+    units = "C",
+    graph_min_val = 5,
+    graph_max_val = 40,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "ProcDrxTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 40,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 45,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 60,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "TxEnclosureTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 52,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 55,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 60,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "RxTopTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 43,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 50,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 60,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "RxBackTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 45,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 50,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 60,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "RxFrontTemp",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 10,
+    ok_value_upper_limit = 43,
+    impaired_value_lower_limit = 5,
+    impaired_value_upper_limit = 50,
+    label = "",
+    units = "C",
+    graph_min_val = 0,
+    graph_max_val = 60,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "HTxPowerRaw",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+// Disable limit checking here, since HTxPowerRaw and HTxPowerCorrected 
+// differ by a constant, and we're doing limit tests on HTxPowerCorrected 
+// below. 2011-11-13 cb
+//    ok_value_lower_limit = -1,
+//    ok_value_upper_limit = 1,
+//    impaired_value_lower_limit = -2,
+//    impaired_value_upper_limit = 2,
+    ok_value_lower_limit = -999,
+    ok_value_upper_limit = 999,
+    impaired_value_lower_limit = -999,
+    impaired_value_upper_limit = 999,
+    label = "",
+    units = "dB",
+    graph_min_val = -10,
+    graph_max_val = 10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "HTxPowerCorrected",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 70,
+    ok_value_upper_limit = 72,
+    impaired_value_lower_limit = 68,
+    impaired_value_upper_limit = 74,
+    label = "",
+    units = "dBm",
+    graph_min_val = 68,
+    graph_max_val = 76,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "TestTargetPowerRaw",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -25,
+    ok_value_upper_limit = -0,
+    impaired_value_lower_limit = -999,
+    impaired_value_upper_limit = 999,
+    label = "",
+    units = "dB",
+    graph_min_val = -20,
+    graph_max_val = -5,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "TestTargetPowerCorrected",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -85,
+    ok_value_upper_limit = -57,
+    impaired_value_lower_limit = -999,
+    impaired_value_upper_limit = 999,
+    label = "",
+    units = "dBm",
+    graph_min_val = -74,
+    graph_max_val = -66,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "PsVoltage",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 4.95,
+    ok_value_upper_limit = 5.05,
+    impaired_value_lower_limit = 4.9,
+    impaired_value_upper_limit = 5.1,
+    label = "",
+    units = "V",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "WgPressureGood",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 10,
+    impaired_value_lower_limit = 11,
+    impaired_value_upper_limit = 20,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "Locked100MHz",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 10,
+    impaired_value_lower_limit = 11,
+    impaired_value_upper_limit = 20,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "GpsTimeServerGood",
+    entry_type = XML_ENTRY_BOOLEAN,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 0,
+    ok_value_upper_limit = 10,
+    impaired_value_lower_limit = 11,
+    impaired_value_upper_limit = 20,
+    label = "",
+    units = "",
+    graph_min_val = 0,
+    graph_max_val = 1,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "Oscillator0Frequency",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 1.51e+09,
+    ok_value_upper_limit = 1.59e+09,
+    impaired_value_lower_limit = 1.499e+09,
+    impaired_value_upper_limit = 1.601e+09,
+    label = "",
+    units = "Hz",
+    graph_min_val = 1.45e+09,
+    graph_max_val = 1.65e+09,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "Oscillator1Frequency",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 1.32e+08,
+    ok_value_upper_limit = 1.33e+08,
+    impaired_value_lower_limit = 1.31e+08,
+    impaired_value_upper_limit = 1.34e+08,
+    label = "",
+    units = "Hz",
+    graph_min_val = 1.31e+08,
+    graph_max_val = 1.34e+08,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "Oscillator2Frequency",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 1.645e+10,
+    ok_value_upper_limit = 1.655e+10,
+    impaired_value_lower_limit = 1.64e+10,
+    impaired_value_upper_limit = 1.66e+10,
+    label = "",
+    units = "Hz",
+    graph_min_val = 1.64e+10,
+    graph_max_val = 1.66e+10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "Oscillator3Frequency",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 1.07e+08,
+    ok_value_upper_limit = 1.08e+08,
+    impaired_value_lower_limit = 1.06e+08,
+    impaired_value_upper_limit = 1.09e+08,
+    label = "",
+    units = "Hz",
+    graph_min_val = 1e+08,
+    graph_max_val = 1.1e+08,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaReceiverStatus",
+    xml_inner_tag = "TransmitterFrequency",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = 3.4e+10,
+    ok_value_upper_limit = 3.5e+10,
+    impaired_value_lower_limit = 3.4e+10,
+    impaired_value_upper_limit = 3.6e+10,
+    label = "",
+    units = "",
+    graph_min_val = 3.4e+10,
+    graph_max_val = 3.6e+10,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaBandTestPulse",
+    xml_inner_tag = "TestPulsePowerDbHc",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -37,
+    ok_value_upper_limit = -30,
+    impaired_value_lower_limit = -40,
+    impaired_value_upper_limit = -20,
+    label = "",
+    units = "dBm",
+    graph_min_val = -40,
+    graph_max_val = -20,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaBandTestPulse",
+    xml_inner_tag = "TestPulsePowerDbVc",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -38,
+    ok_value_upper_limit = -30,
+    impaired_value_lower_limit = -40,
+    impaired_value_upper_limit = -20,
+    label = "",
+    units = "dBm",
+    graph_min_val = -40,
+    graph_max_val = -20,
+    comment = ""
+  }
+  ,
+  {
+    xml_outer_tag = "KaBandG0Velocity",
+    xml_inner_tag = "G0VelHc",
+    entry_type = XML_ENTRY_DOUBLE,
+    ok_boolean = TRUE,
+    boolean_failure_is_critical = TRUE,
+    ok_value_lower_limit = -0.1,
+    ok_value_upper_limit = 0.1,
+    impaired_value_lower_limit = -10,
+    impaired_value_upper_limit = 10,
+    label = "",
+    units = "m/s",
+    graph_min_val = -2,
+    graph_max_val = 2,
+    comment = ""
+  }
+};
+
+//======================================================================
+//
+// MONITOR TEST PULSE POWER.
+//
+// If test pulse monitoring is active, an extra XML block will be 
+//   generate to hold the test pulse powers. The main tag for this block 
+//   is specified in test_pulse_tag. Within the test pulse block, the 
+//   following values will the stored, as applicable:
+// 	TestPulsePowerHcDb
+// 	TestPulsePowerVcDb
+// 	TestPulsePowerHxDb
+// 	TestPulsePowerVxDb.
+//
+//======================================================================
+ 
+///////////// monitor_test_pulse //////////////////////
+//
+// Option to compute test pulse power and add to monitoring.
+// Type: boolean
+//
+
+monitor_test_pulse = FALSE;
+
+///////////// test_pulse_xml_tag //////////////////////
+//
+// Tag to delineate test pulse block in output XML.
+// Type: string
+//
+
+test_pulse_xml_tag = "KaBandTestPulse";
+
+///////////// test_pulse_range_km /////////////////////
+//
+// Range to test pulse (km).
+// We compute the gate number from this range. The power at this gate is 
+//   averaged over the monitoring interval.
+// Type: double
+//
+
+test_pulse_range_km = 72.9;
+
+///////////// test_pulse_n_samples ////////////////////
+//
+// Number of samples used to compute test pulse power.
+// Type: int
+//
+
+test_pulse_n_samples = 5000;
+
+///////////// dual_pol_alternating_mode ///////////////
+//
+// If this is a dual-polarization system, is it operating in fast 
+//   alternating mode?.
+// If true, the HV flag is used to determine which receiver path to use.
+// Type: boolean
+//
+
+dual_pol_alternating_mode = FALSE;
+
+///////////// dual_pol_switching_receivers ////////////
+//
+// If this is a dual-polarization system, does it have switching 
+//   receivers?.
+// If true, then there is a co-pol receiver path and a cross-pol 
+//   receiver path. If false, there is an H and V receiver path.
+// Type: boolean
+//
+
+dual_pol_switching_receivers = FALSE;
+
+//======================================================================
+//
+// MONITOR GATE 0 VELOCITY.
+//
+// This is used to make sure the Ka-band is cohering correctly.
+//
+//======================================================================
+ 
+///////////// monitor_g0_velocity /////////////////////
+//
+// Option to monitor the gate 0 velocity - intended for the ka-band.
+// Type: boolean
+//
+
+monitor_g0_velocity = TRUE;
+
+///////////// g0_velocity_xml_tag /////////////////////
+//
+// Tag to delineate G0 velocity blocki in output XML.
+// Type: string
+//
+
+g0_velocity_xml_tag = "KaBandG0Velocity";
+
+///////////// g0_velocity_range_km ////////////////////
+//
+// Range to test pulse (km).
+// We compute the gate number from this range. The velocity at this gate 
+//   is averaged over the monitoring interval.
+// Type: double
+//
+
+g0_velocity_range_km = 0.15;
+
+///////////// g0_velocity_n_samples ///////////////////
+//
+// Number of samples used to compute g0 velocity.
+// Type: int
+//
+
+g0_velocity_n_samples = 1000;
+
+//======================================================================
+//
+// NAGIOS OUTPUT.
+//
+//======================================================================
+ 
+///////////// write_to_nagios /////////////////////////
+//
+// If true, writes  one file only and then quit.
+// Type: boolean
+//
+
+write_to_nagios = TRUE;
+
+///////////// nagios_file_path ////////////////////////
+//
+// File path for NAGIOS data.
+// This file is overwritten at regular intervals.
+// Type: string
+//
+
+nagios_file_path = "/tmp/nagios/status_kband";
+
+///////////// nagios_interval_secs ////////////////////
+//
+// Interval at which the data is written to NAGIOS (secs).
+// Type: int
+//
+
+nagios_interval_secs = 15;
+
+///////////// nagios_nsecs_missing_for_warning ////////
+//
+// Length of missing data to generate a warning (secs).
+// Type: int
+//
+
+nagios_nsecs_missing_for_warning = 120;
+
+///////////// nagios_nsecs_missing_for_critical ///////
+//
+// Length of missing data to generate a critical state (secs).
+// Type: int
+//
+
+nagios_nsecs_missing_for_critical = 300;
+
+//======================================================================
+//
+// CHECK FOR ANTENNA MOVEMENT.
+//
+//======================================================================
+ 
+///////////// check_for_moving_antenna ////////////////
+//
+// Option to only process status if antenna is moving.
+// Type: boolean
+//
+
+check_for_moving_antenna = TRUE;
+
+///////////// antenna_movement_xml_tag ////////////////
+//
+// Tag to delineate antenna movement block in output XML.
+// Type: string
+//
+
+antenna_movement_xml_tag = "AntennaMovement";
+
+///////////// movement_check_interval /////////////////
+//
+// Minimim time between checks for movement (secs).
+// Type: int
+//
+
+movement_check_interval = 2;
+
+///////////// stationary_max_angle_change /////////////
+//
+// Maximum angle change for stationary mode (deg).
+// For the antenna to be considered stationary, it must not move by more 
+//   than this angle in the lockon period.
+// Type: double
+//
+
+stationary_max_angle_change = 0.01;
+
+///////////// nagios_monitor_antenna_movement /////////
+//
+// Option to add movement monitoring to nagios.
+// Type: boolean
+//
+
+nagios_monitor_antenna_movement = FALSE;
+
+///////////// nagios_antenna_movement_warn_secs ///////
+//
+// Number of stationary seconds to generate a warning.
+// Type: int
+//
+
+nagios_antenna_movement_warn_secs = 30;
+
+///////////// nagios_antenna_movement_crit_secs ///////
+//
+// Number of stationary seconds to generate a critical condition.
+// Type: int
+//
+
+nagios_antenna_movement_crit_secs = 60;
+
+///////////// nagios_antenna_movement_label ///////////
+//
+// Name for antenna movement entry in nagios.
+// Type: string
+//
+
+nagios_antenna_movement_label = "SBandAntennaMovement";
+
+//======================================================================
+//
+// SPDB OUTPUT.
+//
+//======================================================================
+ 
+///////////// write_to_spdb ///////////////////////////
+//
+// If true, writes status out to SPDB in XML format.
+// Type: boolean
+//
+
+write_to_spdb = TRUE;
+
+///////////// spdb_url ////////////////////////////////
+//
+// URL for SPDB output.
+// SPDB data is written to this location.
+// Type: string
+//
+
+spdb_url = "spdbp::distrib//localhost::spdb/monitor/kband";
+
+///////////// spdb_interval_secs //////////////////////
+//
+// Interval at which the data is written to SPDB (secs).
+// Type: int
+//
+
+spdb_interval_secs = 60;
+
+///////////// compress_spdb ///////////////////////////
+//
+// If true, compress the SPDB chunks on write.
+// Type: boolean
+//
+
+compress_spdb = FALSE;
+

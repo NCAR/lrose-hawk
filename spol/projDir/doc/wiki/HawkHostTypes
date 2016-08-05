@@ -1,0 +1,37 @@
+== HAWK host types ==
+
+HAWK comprises hosts of the following types:
+
+ * rvp8 (SIGMET rvp8 signal processor)
+ * mgen (moments generation)
+ * pgen (products generation)
+ * display (CIDD and engineering display)
+ * gate (gateway, system monitor, web server)
+
+The following hosts are used:
+
+ * rvp8
+  * rvp8.gate.rtf
+
+ * mgen
+  * mgen.gate.rtf
+
+ * pgen
+   * pgen.gate.rtf
+
+
+ * display
+   * eng.gate.rtf
+   * iris.gate.rtf
+   * iq.gate.rtf
+
+ * gate
+   * spol-gate.ucar.edu
+
+The following script returns the host type for the host on which it is run.
+
+{{{
+ projDir/system/scripts/get_host_type
+}}}
+
+If you are testing on a non-operational host, add your host name to the script in the relevant place for the host type you are trying to emulate.

@@ -1,0 +1,9 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "BomSounding2Spdb -params BomSounding2Spdb.darwin"
+if ($status == 1) then
+  nice BomSounding2Spdb -params BomSounding2Spdb.darwin |& \
+    LogFilter -d $ERRORS_LOG_DIR -p BomSounding2Spdb -i darwin &
+endif

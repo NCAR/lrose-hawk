@@ -1,0 +1,9 @@
+#! /bin/csh
+
+tcpscope --host localhost --port 12500 --simul &
+
+
+
+
+
+

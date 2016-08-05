@@ -1,0 +1,23 @@
+#! /bin/csh
+
+# first get on the fast link
+
+getSmartrFilesByFtp.py --debug --pastSecs 200000 \
+    --sftpServer smartr_priv \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrFilesByFtp >& /dev/null
+
+getSmartrImagesByFtp.py --debug --pastSecs 200000 \
+    --sftpServer smartr_priv \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrImagesByFtp >& /dev/null
+
+# then get on the slow link, in case the fast link is down
+# If the fast link is up this will do nothing
+
+getSmartrFilesByFtp.py --debug --pastSecs 7200 \
+    --sftpServer smartr \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrFilesByFtp >& /dev/null
+
+getSmartrImagesByFtp.py --debug --pastSecs 7200 \
+    --sftpServer smartr \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrImagesByFtp >& /dev/null
+

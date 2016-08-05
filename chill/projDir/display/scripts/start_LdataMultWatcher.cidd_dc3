@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/display/params
+
+running "LdataMultWatcher -params LdataMultWatcher.cidd_dc3"
+if ($status == 1) then
+  LdataMultWatcher -params LdataMultWatcher.cidd_dc3 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataMultWatcher -i cidd_dc3 &
+endif
+

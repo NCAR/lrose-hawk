@@ -1,0 +1,5 @@
+#! /bin/csh
+
+snuff "Iq2Dsr -params Iq2Dsr.ops"
+start_Iq2Dsr.ops 
+

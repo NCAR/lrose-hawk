@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Stopping HAWK</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Stopping HAWK</h2>
+
+<p>
+Each host in the system is stopped separately:
+
+<p>To stop the system on a host, type the command:
+
+<p><pre>    stop_all</pre>
+
+<p>This script performs the following steps:
+
+<DIV CLASS="indent25">
+
+<p>1. Removes the cron table.
+
+<p>2. Stops the auto_restart script.
+
+<p>3. Stops the process mapper.
+
+<p>4. Stops all of HAWK processes.
+
+<p>5. Removes any shared memory segments.
+
+</DIV>
+
+

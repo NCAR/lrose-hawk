@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# given a new sounding file transferred from 'dataserver(cwb)'
+# translate to the CLASS format needed by particle id
+# and install in a location used PID
+
+echo 'arguments =' $* >/tmp/update_pid_sounding.log
+
+file=$1
+output=${DATA_DIR}/sounding/current/current.class
+
+timrex_sounding_trans.py -r $file -o $output
+
+

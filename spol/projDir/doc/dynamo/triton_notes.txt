@@ -1,0 +1,21 @@
+Triton Raid Information:
+
+IP Address - 192.168.4.206
+Default Username - admin
+Default Password - Normal Root Password on Servers
+SN - 000200609 (Unit 34080)
+Firmware Version - V1.46 2009-02-06
+
+Support Information:
+support@partnersdata.com
+1-800-550-3005
+
+Open normal M-F business hours.  Not 24/7.
+
+Replacement Parts on Hand:
+Basic Uptime Kit
+  Power Supply for Triton
+  Dual Hot-Swap Blower Cooling Fan
+Spare HBA
+Spare Controller Card for Server
+Spare Fiber Cables

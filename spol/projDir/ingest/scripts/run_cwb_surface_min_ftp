@@ -1,0 +1,7 @@
+#! /bin/csh
+
+# run the script
+
+cd $PROJ_DIR/ingest/scripts
+cwb_surface_min_ftp.pl -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p cwb_surface_min_ftp.pl &

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+# go back 3 days - 259200 secs
+
+getDOEFilesBySftp.py --debug --pastSecs 259200 --sshPort=22222 \
+--sourceDir=/data/datastream/gan/ganmplpolfsM1.b1 \
+--subStrList=cdf --checkNames \
+--targetDir=${DATA_DIR}/raw/doe/mplpolfs \
+--dataType=nc \
+|& LogFilter -d $ERRORS_LOG_DIR -p getDOELidar >& /dev/null &

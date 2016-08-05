@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>Checking the data sets</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Checking the data sets on a host</h2>
+
+<p>To print a table of all data sets available on a host, type the following command:
+
+<p><pre>    pdm</pre>
+
+<p>Or, for data sets on a different host:
+
+<p><pre>    pdm -host hostname</pre>
+
+<p>To see the print repeated every 5 seconds, type:
+
+<p><pre>    pdm -c 5</pre>
+
+<p>ppm is an alias for:
+
+<p><pre>   PrintDataMap -all -relt -lreg</pre>
+
+<hr>
+
+<p>pdm will produce a printout similar to the following:
+
+<pre>
+
+=========== Data on host 'control' at time 2011/12/25 04:01:59 ==========
+DataType  Dir                              HostName              Latest   Last reg  Start date    End date  nFiles  nBytes
+========  ===                              ========              ======   ========  ==========    ========  ======  ======
+gif       images/smartr                    control1.gate.rtf  -00:01:37  -00:00:02  2011/09/30  2011/12/25    101K    2.7G
+gif       raw/revelle_radar                control1.gate.rtf  -23:02:59  -22:46:45  2011/10/15  2011/12/24    2.8K     51M
+html      sysview                          control1.gate.rtf  -00:01:59  -00:01:40  2009/12/31  2029/12/31     672    987K
+jpg       images/spol_cams                 control1.gate.rtf  -00:00:45  -00:00:39  2011/09/19  2011/12/24    3.0M    215G
+nc        raw/doe/mplpolfs                 control1.gate.rtf  -28:01:51  -00:44:00  2011/10/07  2011/12/24      88     19G
+nc        raw/doe/soundings/gan/netcdf     control1.gate.rtf  -04:26:59  -02:16:34  2011/10/13  2011/12/24     705    211M
+nc        raw/sat                          control1.gate.rtf  -00:31:59  -00:00:45  2011/09/14  2011/12/24     14K     57G
+nc        raw/soundings/diego              control1.gate.rtf  -04:43:52  -02:31:36  2011/10/13  2011/12/24     672    433M
+nc        raw/soundings/revelle            control1.gate.rtf  -04:25:41  -03:31:43  2011/10/13  2011/12/24     661    392M
+png       images/cidd                      control1.gate.rtf                        2011/09/21  2011/12/24    204K     16G
+png       images/cidd/catalog_radar        control1.gate.rtf  -00:14:38  -00:09:38                                        
+png       images/cidd/catalog_sat          control1.gate.rtf  -01:01:59  -00:01:30                                        
+png       images/cidd/catalog_transparent  control1.gate.rtf  -00:14:38  -00:09:51                                        
+png       matlab/analysis                  control1.gate.rtf  -28:01:59  -03:29:44  2011/10/03  2011/12/25     157    4.6M
+png       matlab/monitoring                control1.gate.rtf  -28:01:59  -03:39:00  2011/10/03  2011/12/25      76    3.3M
+raw       raw/smartr                       control1.gate.rtf  -00:06:02  -00:01:34                                        
+txt       raw/doe/soundings/gan/text       control1.gate.rtf  -04:30:59  -01:31:53  2011/10/07  2011/12/24     704    167M
+txt       raw/revelle_posn                 control1.gate.rtf  -23:01:59  -22:56:38  2011/10/15  2011/12/24    2.5K     98K
+txt       raw/soundings/gts                control1.gate.rtf  -22:31:59  -22:26:19  2011/10/15  2011/12/24     11K    6.9M
+txt       raw/surface_obs                  control1.gate.rtf  -00:01:59  -00:01:07  2011/09/14  2011/12/24    7.3K    4.7G
+txt       raw/wwlln                        control1.gate.rtf  -00:21:59  -00:01:37  2011/09/19  2011/12/24     14K    517M
+                                                                                                            ======  ======
+                                                                                                              6.0K    2.9G
+</pre>
+<hr>
+
+<p>The columns in the above list mean the following:
+
+<h4>DataType:</h4>
+
+<p CLASS="indent25">
+  Category of data:
+
+<div CLASS="indent50">
+    <p>raw:   data in native input format
+    <p>mdv:   gridded format
+    <p>spdb:  symbolic product format (non-gridded)
+    <p>nc:    netCDF
+    <p>web:   web content
+</div>
+
+<h4>Dir:</h4>
+
+<p CLASS="indent25">
+  The directory for the data.
+  This is relative to $DATA_DIR, which is normally ~/projDir/data.
+
+<h4>HostName:</h4>
+
+<p CLASS="indent25">
+  The hostname on which the data is stored.
+
+<h4>Latest:</h4>
+
+<p CLASS="indent25">
+  The time of the latest data on the disk.
+  This is relative to 'now'.
+
+<h4>Last reg:</h4>
+
+<p CLASS="indent25">
+  The time at which the data set was last regsitered with DataMapper.
+  This is relative to 'now'.
+  The process which writes the data to disk is responsible for regsitering
+  with DataMapper.
+
+<p CLASS="indent25">
+  The last registration time gives you an idea about whether the data
+  is coming in on time.
+
+<h4>Start date:</h4>
+
+<p CLASS="indent25">
+  The start date of the data set.
+  This is reported by the Scout.
+
+<h4>End date:</h4>
+
+<p CLASS="indent25">
+  The end date of the data set.
+  This is reported by the Scout.
+
+<h4>nFiles:</h4>
+
+<p CLASS="indent25">
+  The number of files in the data set.
+  This is reported by the Scout.
+
+<h4>nBytes:</h4>
+
+<p CLASS="indent25">
+  The number of bytes in the data set.
+  This is reported by the Scout.
+
+
+
+

@@ -1,0 +1,2 @@
+#!/bin/sh
+cat /tmp/nagios/usb_archive_status

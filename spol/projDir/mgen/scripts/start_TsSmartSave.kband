@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "TsSmartSave -params TsSmartSave.kband"
+if ($status == 1) then
+  TsSmartSave -params TsSmartSave.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsSmartSave -i kband &
+endif
+

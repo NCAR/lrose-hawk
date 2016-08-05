@@ -1,0 +1,11 @@
+#! /bin/csh 
+
+
+cd $PROJ_DIR/system/params
+
+running "DsFileDist -params DsFileDist.front"
+if ($status == 1) then
+  DsFileDist -params DsFileDist.front |& \
+	LogFilter -d $ERRORS_LOG_DIR -p DsFileDist -i front >& /dev/null &
+endif
+

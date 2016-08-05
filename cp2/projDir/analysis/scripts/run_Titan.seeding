@@ -1,0 +1,18 @@
+#! /bin/csh
+
+cd $PROJ_DIR/analysis/params
+
+Titan -params Titan.MtStapl -start "2008 02 02 00 00 00" -end "2008 02 03 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 02 09 00 00 00" -end "2008 02 10 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 02 13 00 00 00" -end "2008 02 14 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 02 20 00 00 00" -end "2008 02 21 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 03 00 00 00" -end "2008 03 04 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 06 00 00 00" -end "2008 03 07 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 09 00 00 00" -end "2008 03 11 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 15 00 00 00" -end "2008 03 16 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 22 00 00 00" -end "2008 03 23 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 24 00 00 00" -end "2008 03 25 00 00 00" -debug
+Titan -params Titan.MtStapl -start "2008 03 26 00 00 00" -end "2008 03 29 00 00 00" -debug
+
+
+

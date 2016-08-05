@@ -1,0 +1,6 @@
+#  List of directories for archive data
+
+time_series/sband/save
+time_series/sband/sunscan
+time_series/sband/vert
+

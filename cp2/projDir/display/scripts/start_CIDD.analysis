@@ -1,0 +1,15 @@
+#! /bin/csh
+
+# following is for sarge
+#xset fp= /usr/X11R6/lib/X11/fonts/misc/,/usr/X11R6/lib/X11/fonts/75dpi/,/usr/X11R6/lib/X11/fonts/100dpi/
+
+# following is for etch
+xset fp= /usr/share/fonts/X11/misc/,/usr/share/fonts/X11/75dpi/,/usr/share/fonts/X11/100dpi/
+
+setenv DATA_HOST wxmod3
+
+cd $PROJ_DIR/display/params
+
+/rap/dev/bin/CIDD_titan -p CIDD.cp2 -i cp2 -fn fixed -t 20080102170000
+
+

@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "AcSpdb2Rapic -params AcSpdb2Rapic.ops"
+if ($status == 1) then
+  AcSpdb2Rapic -params AcSpdb2Rapic.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p AcSpdb2Rapic -i ops &
+endif
+

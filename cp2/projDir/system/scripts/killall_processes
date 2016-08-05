@@ -1,0 +1,21 @@
+#!/bin/csh -f
+
+foreach dir ($BUILD_DIR/bin*)
+  if (-d $dir) then
+    cd $dir
+    foreach file (*)
+      if (-f $file && -x $file) then
+        pkill $file >& /dev/null
+      endif
+    end
+  endif
+end
+
+
+pkill rapicDataServer
+pkill wget_ltg_data
+pkill wget_aws_data
+
+pkill vchilld
+pkill java
+pkill Xvfb

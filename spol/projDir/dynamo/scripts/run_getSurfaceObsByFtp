@@ -1,0 +1,7 @@
+#! /bin/csh
+
+snuff getSurfaceObsByFtp.py
+
+getSurfaceObsByFtp.py --debug \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSurfaceObsByFtp >& /dev/null &
+

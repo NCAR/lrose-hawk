@@ -1,0 +1,22 @@
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090221/05[3-6]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090221/06[0-1]*mdv
+
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090221/05[3-6]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090221/06[0-1]*mdv
+
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20080207/04*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20080207/04*mdv
+
+
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090123/0[1-4]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090123/0[1-4]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090123/0[6-8]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090123/0[6-8]*mdv
+
+#MdvPartRain -params MdvPartRain.cp2_s.rhi.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20090127/0[1-4]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090127/0[1-4]*mdv
+#MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090127/0[1-4]*mdv
+
+ MdvPartRain -params MdvPartRain.cp2_s.rhi.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20090127/0[5-8]*mdv
+ MdvPartRain -params MdvPartRain.cp2_s.sur.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090127/0[5-8]*mdv
+ MdvPartRain -params MdvPartRain.cp2_s.sec.kyoko.v2 -debug -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20090127/0[5-8]*mdv

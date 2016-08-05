@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+xterm -title WXMOD -bg black -fg cyan -g 80x25-0+500 -e "ssh cp2server show_wxmod " &
+

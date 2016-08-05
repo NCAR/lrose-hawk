@@ -1,0 +1,27 @@
+#! /bin/csh
+
+#
+# ensure that no archive tasks are still running
+#
+
+kill_archive
+
+#
+# run archive job
+#
+
+doArchive.py --debug \
+    --source $DATA_DIR \
+    --dirListPath $PROJ_DIR/archive/params/archiveDirList \
+    --project $PROJECT_NAME \
+    --maxAgeHours 2 \
+    --driveIndex 0 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p doArchive -i drive0 >& /dev/null &
+
+#runArchive.py --debug \
+#    --source $DATA_DIR \
+#    --primaryListPath $PROJ_DIR/archive/params/primaryDirList \
+#    --secondaryListPath $PROJ_DIR/archive/params/secondaryDirList \
+#    --project $PROJECT_NAME \
+#    |& LogFilter -d $ERRORS_LOG_DIR -p runArchive >& /dev/null &
+

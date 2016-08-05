@@ -1,0 +1,65 @@
+INSTALL NOTES FOR SPOL HAWK DATA SYSTEM
+=======================================
+
+1. Make data directory
+
+/data/operator must exist and be owned by operator.
+
+The data dir will be /data/operator/data
+
+2. Evoke a c shell
+
+csh
+
+3. set the CVS USER and CVSROOT
+
+setenv CVS_USER dixon
+setenv CVSROOT :pserver:$CVSUSER@localhost:/cvs
+
+4. make cvs dir
+
+mkdir cvs
+
+5. check out distrib for your host type
+
+cd cvs
+cvs co distribs/spol
+
+Run one of the following:
+
+  ./distribs/spol/hawk/spol_rvp8_checkout
+  ./distribs/spol/hawk/spol_mgen_checkout
+  ./distribs/spol/hawk/spol_pgen_checkout
+  ./distribs/spol/hawk/spol_display_checkout
+
+6. For an operational installation, the host_type will be
+determined by the script:
+
+  ./projects/spol/hawk/projDir/system/scripts/get_host_type
+
+If you want to emulate a host type on a non-operational host,
+edit this file and put your host name in the file appropriately.
+
+7. configure the links and directories
+
+  ./projects/spol/hawk/projDir/system/scripts/configure_host
+
+8. source the .cshrc 
+
+source ~/.cshrc
+
+9. build and install the apps
+
+cd ~/projDir/build/scripts
+build_libs
+build_apps
+
+10. start up
+
+start_all
+
+11. Check the processes
+
+ppm (print_procmap)
+pcheck (are all processes running?)
+crontab -l (what are the installed cron tasks?)

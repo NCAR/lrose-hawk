@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rapic/params
+
+running "Rapic2Dsr -params Rapic2Dsr.Tindal"
+if ($status == 1) then
+  nice Rapic2Dsr -params Rapic2Dsr.Tindal |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rapic2Dsr -i Tindal &
+endif
+

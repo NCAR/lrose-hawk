@@ -1,0 +1,7 @@
+#! /bin/csh
+
+# snuff getP3TracksByHttp.py
+
+getP3TracksByHttp.py --debug \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getP3TracksByHttp >& /dev/null &
+

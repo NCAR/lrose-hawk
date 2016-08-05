@@ -1,0 +1,9 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "BomAws2Spdb -params BomAws2Spdb.ops"
+if ($status == 1) then
+  nice BomAws2Spdb -params BomAws2Spdb.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p BomAws2Spdb -i ops &
+endif

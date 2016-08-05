@@ -1,0 +1,18 @@
+HOW TO ENABLE/DISABLE TRIGGERS ON THE Ka-BAND
+=============================================
+
+1. From control1, log in to kadrx using ssh.
+
+   (control1.gate.rtf) operator 1 % ssh kadrx
+   Last login: Tue Dec 20 14:12:33 2011 from control1.gate.rtf
+
+2. Run the script:
+
+    reset_kadrx_serial
+
+   from the command line.
+
+3. Check the transmitter status using the transmitter control GUI.
+
+   (kadrx) operator 5 % start_ka_xmitctl
+

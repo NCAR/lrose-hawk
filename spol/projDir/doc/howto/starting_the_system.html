@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>Starting HAWK</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Starting HAWK</h2>
+
+<p>
+The HAWK system runs on a number of hosts. Most of these run LINUX:
+
+<ul>
+<li>control (antenna control, monitoring, external data download)</li><p>
+<li>rvp8 (RVP8 time series generation)</li><p>
+<li>kadrx (Ka-band time series generation)</li><p>
+<li>mgen (moments generation)</li><p>
+<li>pgen1 (product generation host 1)</li><p>
+<li>pgen2 (product generation host 2)</li><p>
+<li>spol-dm (data management)</li><p>
+<li>spol-dm2 (data management backup, also sci3)</li><p>
+<li>sci1, sci2, sci3, sci4, sci5 (displays)</li><p>
+<li>eng (engineering display)</li><p>
+<li>tech (windows host, PMAC access)</li><p>
+</ul>
+
+<p>
+Each host in the system is started separately:
+
+<p>To start the system on a host, type the command:
+
+<p><pre>    start_all</pre>
+
+<p>This script performs the following steps:
+
+<DIV CLASS="indent25">
+
+<p>1. Starts the process mapper
+
+<p>2. Starts all of the processes listed in the process list file:
+
+<p CLASS="indent50">~/projDir/control/proc_list
+
+<p>3. Starts the auto_restart script.
+
+<p>4. Installs the cron table:
+
+<p CLASS="indent50">~/projDir/control/crontab
+
+</DIV>
+
+<p>To check that the system started correctly, type the command:
+
+<p><pre>    pcheck</pre>
+
+<p>You should get the message:
+
+<p><pre>    0 processes down</pre>
+
+<p>If any processes are down, use <a href="http://ncar-spol.dyndns.org:10080/data/sysview/_index.php">SysView</a> to monitor the state system.
+
+<p><a href="http://ncar-spol.dyndns.org:10080/prod">Nagios</a> is available as an overall system monitor.
+
+
+
+
+
+
+
+

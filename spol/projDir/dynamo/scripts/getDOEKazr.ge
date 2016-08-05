@@ -1,0 +1,12 @@
+#! /bin/csh
+
+# KAZR general mode
+
+# go back 3 days - 259200 secs
+
+getDOEFilesBySftp.py --debug --pastSecs 25920000 --sshPort=22222 \
+--sourceDir=/data/datastream/gan/gankazrgeM1.b1 \
+--subStrList=cdf --checkNames \
+--targetDir=${DATA_DIR}/raw/doe/kazr_ge \
+--dataType=nc \
+|& LogFilter -d $ERRORS_LOG_DIR -p getDOEKazr.ge >& /dev/null &

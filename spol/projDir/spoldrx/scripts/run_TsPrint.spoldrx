@@ -1,0 +1,4 @@
+#! /bin/csh
+
+TsPrint -fmq ~/projDir/data/fmq/spoldrx/shmem_spoldrx_40000 -nsamples 1000 -dual -alt -gate 700 -ngates 100
+

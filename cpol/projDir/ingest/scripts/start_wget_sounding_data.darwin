@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/scripts
+
+running "wget_sounding_data.darwin"
+if ($status == 1) then
+  pkill wget_sounding_data.darwin
+  wget_sounding_data.darwin |& \
+    LogFilter -d $ERRORS_LOG_DIR -p wget_sounding_data.darwin &
+endif

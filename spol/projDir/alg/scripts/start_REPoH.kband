@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/alg/params
+
+running "REPoH -params REPoH.kband"
+if ($status == 1) then
+  REPoH -params REPoH.kband -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p REPoH -i kband &
+endif
+

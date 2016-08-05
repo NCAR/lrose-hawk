@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>Checking the processes</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Checking the processes on a host</h2>
+
+<h3>Quick check: are all processes running?</h3>
+
+<p>To check that all processes are running, type the command:
+
+<p><pre>    pcheck</pre>
+
+<p>This is an alias for:
+
+<p><pre>    procmap_list_check -proc_list ~/projDir/control/proc_list</pre>
+
+<p>This will report on any processes which are down.
+<p>If none are down you will get the message:
+
+<p><pre>    0 processes down</pre>
+
+<h3>Detailed check: print out all processes</h3>
+
+<p>To print a table of all processes running on a host, type the following command:
+
+<p><pre>    ppm</pre>
+
+<p>Or, for processes on a different host:
+
+<p><pre>    ppm -host hostname</pre>
+
+<p>To see the print repeated every 5 seconds, type:
+
+<p><pre>    ppm -c 5</pre>
+
+<p>ppm is an alias for:
+
+<p><pre>   print_procmap -hb -up -status</pre>
+
+<hr>
+
+<p>ppm will produce a printout similar to the following:
+
+<pre>
+
+PROCS REGISTERED - control - Sun Dec 25 04:04:23 2011
+Uptime: 1.93 d
+
+Name           Instance              Host      User      Pid    Htbeat   Uptime   Status
+====           ========              ====      ====      ===    ======   ======   ======
+DataMapper     primary               control1  operator  11899  0:0:21   1.93 d   Listening, port: 5434
+DsFCopyServer  manager               control1  operator  7108   0:0:13   1.15 d   Listening, port: 5445
+DsFileDist     ext_data              control1  operator  11928  0:0:20   1.93 d   In DsFileDist main loop
+DsServerMgr    primary               control1  operator  11816  0:0:22   1.93 d   Listening, port: 5435
+InputWatcher   spol_cams             control1  operator  12170  0:0:39   1.93 d   touch_spol_cam_dirs took 0 secs
+Janitor        logs                  control1  operator  11957  0:0:19   1.93 d   Sleeping between passes
+Janitor        sysview               control1  operator  11989  0:0:10   1.93 d   Reading dir ...
+LdataWatcher   catalog_radar         control1  operator  12285  0:0:11   1.93 d   Waiting for data
+LdataWatcher   catalog_sat           control1  operator  12202  0:0:12   1.93 d   Waiting for data
+LdataWatcher   catalog_transparent   control1  operator  12399  0:0:12   1.93 d   Waiting for data
+LdataWatcher   matlab_analysis       control1  operator  12536  0:0:12   1.93 d   Waiting for data
+LdataWatcher   smartr_images         control1  operator  12463  0:0:12   1.93 d   Waiting for data
+LdataWatcher   soundings_gan_netcdf  control1  operator  12774  0:0:12   1.93 d   Waiting for data
+LdataWatcher   soundings_gan_text    control1  operator  12642  0:0:12   1.93 d   Waiting for data
+LdataWatcher   sysview               control1  operator  12135  0:0:18   1.93 d   Waiting for data
+Scout          primary               control1  operator  11865  0:0:37   1.93 d   Processing...
+SysView        ops                   control1  operator  20704  0:0:27   1.91 d   Zzzzzz ....
+
+</pre>
+<hr>
+
+<p>The columns in the above list mean the following:
+
+<h4>Name:</h4>
+
+<p CLASS="indent25">
+The process name.
+
+<h4>Instance:</h4>
+
+<p CLASS="indent25">
+  The process instance. There may be more that one instance of a program
+  running. Therefore, the instance is required for a unique reference to
+  each instance.
+
+<h4>Host:</h4>
+
+<p CLASS="indent25">
+  The host on which the process is running.
+
+<h4>User:</h4>
+
+<p CLASS="indent25">
+  The user who started the process.
+
+<h4>Pid:</h4>
+
+<p CLASS="indent25">
+  The process ID.
+
+<h4>Heartbeat:</h4>
+
+<p CLASS="indent25">
+  The time since the latest heartbeat, in seconds. Each program registers with
+  the process mapper (procmap) at regular intervals, normally every minute.
+  The heartbeat time gives the time since the last heartbeat.
+
+<p CLASS="indent25">
+  If you run 'ppm -maxint', you will see the maximum heartbeat interval, which
+  is generally twice the normal heartbeat interval. So for most processes this
+  will be 120 secs. If the process fails to heartbeat within this interval,
+  it will be killed and restarted by the auto_restart script.
+
+<h4>Uptime:</h4>
+
+<p CLASS="indent25">
+  The time, in secs, since the process started.
+
+<h4>Status:</h4>
+
+<p CLASS="indent25">
+  The status message sent when the process last regsitered.
+
+
+

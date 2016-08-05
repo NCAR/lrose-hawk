@@ -1,0 +1,5 @@
+#! /bin/csh
+
+snuff_slow spoldrx
+start_spoldrx.ops
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+setenv PROJ_DIR /h/eol/dixon/projDir
+
+setenv DATA_HOST tikal.eol.ucar.edu
+cd $PROJ_DIR/display/params
+
+
+CIDD -p CIDD.timrex2 >& /dev/null &
+

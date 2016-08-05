@@ -1,0 +1,4 @@
+# to install all packages in list:
+
+yum -y install `cat package-list`
+

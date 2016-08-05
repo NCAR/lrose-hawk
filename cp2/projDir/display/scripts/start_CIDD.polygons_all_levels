@@ -1,0 +1,17 @@
+#! /bin/csh
+
+#set_font_path
+
+setenv DATA_HOST cp2data
+
+# Start the processes.  We need to have a DrawFmqPolygonStats and a CIDD
+# process running.  We can use a DrawFmqPolygonStats process that is already
+# running.
+
+cd $PROJ_DIR/display/params
+
+start_DrawFmqPolygonStats.all_levels
+
+CIDD -p CIDD.polygons_all_levels -fn fixed -t 20081108040600 >& /dev/null &
+
+

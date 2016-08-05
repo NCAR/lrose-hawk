@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+xterm -title SEEDA1 -bg black -fg orange -g 80x25-0+150 -e "ssh cp2server show_seeda1 " &
+

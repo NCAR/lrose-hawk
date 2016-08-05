@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SpolTs2Fmq -params SpolTs2Fmq.spoldrx"
+if ($status == 1) then
+  SpolTs2Fmq -params SpolTs2Fmq.spoldrx |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SpolTs2Fmq -i spoldrx &
+endif
+

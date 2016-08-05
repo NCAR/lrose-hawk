@@ -1,0 +1,24 @@
+######################################################
+# required data for pgen
+#
+# Format is:
+#
+#  dir  late_secs  very_late_secs
+######################################################
+
+cfradial/covar/sband            600     800
+cfradial/covar/kband            600     800
+cfradial/moments/sband          600     800
+cfradial/moments/kband          600     800
+cfradial/partrain/sband         600     800
+
+dorade/moments/kband            600     800
+dorade/moments/sband            600     800
+dorade/partrain/sband           600     800
+
+images/spol_cams              43200   86400
+
+raw/sat                        3600   86400
+raw/surface_obs                5400   86400
+raw/wwlln                      5400   86400
+

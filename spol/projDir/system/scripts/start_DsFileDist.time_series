@@ -1,0 +1,11 @@
+#! /bin/csh 
+
+
+cd $PROJ_DIR/system/params
+
+running "DsFileDist -params DsFileDist.time_series"
+if ($status == 1) then
+  DsFileDist -params DsFileDist.time_series |& \
+	LogFilter -d $ERRORS_LOG_DIR -p DsFileDist -i time_series >& /dev/null &
+endif
+

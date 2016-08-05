@@ -1,0 +1,6 @@
+
+matlab -nosplash -nodesktop -r "PID_RHI_fraction_batch( '${MYDATE}' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null
+
+matlab -nosplash  -r "PID_readback_plot( '/home/operator/projDir/data/matlab/analysis/PID_RHI_summary.${MYDATE}.out' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null

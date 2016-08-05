@@ -1,0 +1,14 @@
+#!/bin/csh 
+# 
+# Set IP address etc on PowerMeter GPIB/Ethernet adapter
+
+nfcli \
+    --eth_addr=00-21-69-01-1A-79 \
+    --ip_type=static \
+    --ip_addr=192.168.4.57 \
+    --netmask=255.255.255.0 \
+    --gateway=192.168.4.251
+
+nfcli --list
+
+

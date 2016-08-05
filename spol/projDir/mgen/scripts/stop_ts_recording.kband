@@ -1,0 +1,3 @@
+#! /bin/csh
+
+ssh mgen "snuff do_ts_recording.kband"

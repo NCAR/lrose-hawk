@@ -1,0 +1,33 @@
+#!/bin/csh
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/sat/vis
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/sat/ir
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/sat/wv
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/moments/sband/sur
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/moments/sband/rhi
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/moments/kband/sur
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/moments/kband/rhi
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/partrain/sband/sur
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/dorade/partrain/sband/rhi
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/moments/sband/sur
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/partrain/sband/sur
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/moments/kband/sur
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/moments/sband/rhi
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/partrain/sband/rhi
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/zebra/moments/kband/rhi
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/doe/mplpolfs
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/doe/soundings/gan/netcdf
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/doe/soundings/gan/text
+
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/soundings/diego
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/soundings/revelle
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/soundings/male
+createSubdirLinks.py --debug --dirPath /home/disk/mjo/operator/data.server/raw/soundings/vtjr
+
+

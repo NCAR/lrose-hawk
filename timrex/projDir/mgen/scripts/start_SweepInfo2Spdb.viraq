@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SweepInfo2Spdb -params SweepInfo2Spdb.viraq"
+if ($status == 1) then
+  SweepInfo2Spdb -params SweepInfo2Spdb.viraq |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SweepInfo2Spdb -i viraq &
+endif
+

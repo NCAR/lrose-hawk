@@ -1,0 +1,62 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+DsFileDist   primary    start_DsFileDist          snuff_inst        localhost
+#
+###############################################################################
+# CP2 MOMENTS - moved to cp2cloud from cp2server
+# To use cp2server instead, comment these out and uncomment
+# them in proc_list.server
+#
+CP2Udp2Fmq    ops        start_CP2Udp2Fmq.ops      snuff_inst    localhost
+Iq2Dsr        cp2_s      start_Iq2Dsr.cp2_s        snuff_inst    localhost
+Iq2Dsr        cp2_x      start_Iq2Dsr.cp2_x        snuff_inst    localhost
+#SpectraPrint  fmq_s      start_SpectraPrint.fmq_s  snuff_inst    localhost
+#SpectraPrint  cp2_s      start_SpectraPrint.cp2_s  snuff_inst    localhost
+Dsr2CP2Mom    ops        start_Dsr2CP2Mom.ops      snuff_inst    localhost
+Fmq2Fmq       cp2_s      start_Fmq2Fmq.cp2_s       snuff_inst    localhost
+Fmq2Fmq       cp2_x      start_Fmq2Fmq.cp2_x       snuff_inst    localhost
+RadMon        log_s      start_RadMon.log_s        snuff_inst    localhost
+RadMon        log_x      start_RadMon.log_x        snuff_inst    localhost
+###############################################################################
+# Time series recording
+#
+TsSmartSave   cp2_s      start_TsSmartSave.cp2_s   snuff_inst    localhost
+TsSmartSave   cp2_x      start_TsSmartSave.cp2_x   snuff_inst    localhost
+###############################################################################
+# RHI location
+#
+Rhi2Spdb      cp2_s      start_Rhi2Spdb.cp2_s      snuff_inst  localhost
+#
+###############################################################################
+# TITAN
+#
+Titan         BrisMerge  start_Titan.BrisMerge         snuff_inst    localhost
+Tstorms2Spdb  BrisMerge  start_Tstorms2Spdb.BrisMerge  snuff_inst    localhost
+Mdvx2Vil      BrisMerge  start_Mdvx2Vil.BrisMerge      snuff_inst    localhost
+#
+Titan         MtStapl    start_Titan.MtStapl           snuff_inst    localhost
+Tstorms2Spdb  MtStapl    start_Tstorms2Spdb.MtStapl    snuff_inst    localhost
+Mdvx2Vil      MtStapl    start_Mdvx2Vil.MtStapl        snuff_inst    localhost
+#
+###############################################################################
+# PRECIP
+#
+PrecipAccum  single    start_PrecipAccum.single     snuff_inst  localhost
+PrecipAccum  1hr       start_PrecipAccum.1hr        snuff_inst  localhost
+PrecipAccum  24hr      start_PrecipAccum.24hr       snuff_inst  localhost
+#
+##############################################################################
+# CIDD snapshot images
+#
+LdataWatcher snapshot_BrisMerge start_LdataWatcher.snapshot_BrisMerge snuff_inst localhost
+LdataWatcher snapshot_sat       start_LdataWatcher.snapshot_sat       snuff_inst localhost
+##############################################################################
+# Solar cals
+#
+SunCal   cp2_s   start_SunCal.cp2_s             snuff_inst    localhost
+SunCal   cp2_x   start_SunCal.cp2_x             snuff_inst    localhost
+##############################################################################

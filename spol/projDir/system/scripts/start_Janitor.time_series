@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/system/params
+
+running "Janitor -params Janitor.time_series"
+if ($status == 1) then
+    Janitor -params Janitor.time_series -debug |& \
+	LogFilter -d $ERRORS_LOG_DIR -p Janitor -i time_series >& /dev/null &
+endif
+

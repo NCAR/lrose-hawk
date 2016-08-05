@@ -1,0 +1,13 @@
+#!/bin/csh 
+# HAWK startup script for ui_server
+
+#
+# Start sitecon (Site Controller server) task
+
+# is there one running?
+pgrep -x "sitecon_server"
+if ($status == 1) then
+    /usr/local/anaconda/envs/sitecon/bin/sitecon_server \
+ |& LogFilter -d $ERRORS_LOG_DIR -p sitecon  >& /dev/null &
+endif
+#    /usr/local/sitecon_python/bin/sitecon_server \

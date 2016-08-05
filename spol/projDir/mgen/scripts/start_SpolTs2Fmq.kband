@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SpolTs2Fmq -params SpolTs2Fmq.kband"
+if ($status == 1) then
+  SpolTs2Fmq -params SpolTs2Fmq.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SpolTs2Fmq -i kband &
+endif
+

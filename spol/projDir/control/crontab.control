@@ -1,0 +1,61 @@
+SHELL=/bin/sh
+PATH=/home/spol/projDir/UI_Server/scripts:/home/spol/projDir/alg/scripts:/home/spol/projDir/analysis/scripts:/home/spol/projDir/archive/scripts:/home/spol/projDir/build/scripts:/home/spol/projDir/calibration/scripts:/home/spol/projDir/calsvr/scripts:/home/spol/projDir/display/scripts:/home/spol/projDir/dynamo/scripts:/home/spol/projDir/gtkdisplay/scripts:/home/spol/projDir/ingest/scripts:/home/spol/projDir/kadrx/scripts:/home/spol/projDir/matlab/scripts:/home/spol/projDir/mgen/scripts:/home/spol/projDir/pgen/scripts:/home/spol/projDir/rvp8/scripts:/home/spol/projDir/sitecon/scripts:/home/spol/projDir/syscon/scripts:/home/spol/projDir/system/scripts:/home/spol/projDir/sysview/scripts:/home/spol/projDir/test/scripts:/home/spol/projDir/zebra/scripts:/home/spol/install/bin:/home/spol/bin:/opt/local/bin:/usr/java/latest/bin:/usr/local/ant/bin:/usr/local/ncarg/bin:/usr/local/bin:/usr/local/sbin:/usr/bin/X11:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin:/opt/gfortran/irun/bin:/opt/spol/bin:/usr/sigmet/bin:/usr/sigmet/bin/rda:/usr/lib/qt4/bin
+#
+# master copy of crontab is ~spol/install/projects/hawk/spol/projDir/control/crontab
+# 
+####################################################################
+# SYSTEM
+#
+# Process restarters
+*/1 * * * *  csh -c "source ~/.cshrc; start_auto_restart_check_cron" 1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_procmap_check_cron"      1> /dev/null 2> /dev/null
+#
+# Build links to log date subdirs
+*/5 * * * *   csh -c "source ~/.cshrc; start_build_logdir_links" 1> /dev/null 2> /dev/null
+#
+#####################################################################
+#
+# Make sure powermeter GPIB device has address
+#
+#*/10 * * * *  csh -c "source ~/.cshrc; run_set_powermeter_ipaddress"  1> /dev/null 2> /dev/null
+#####################################################################
+#
+# Keep Xvfb running for SysView
+#
+*/1 * * * *  csh -c "source ~/.cshrc; start_Xvfb"      1> /dev/null 2> /dev/null
+#####################################################################
+#
+# Antenna control etc
+#
+*/1 * * * *  csh -c "source ~/.cshrc; start_syscon"      1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_calsvr"      1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_UI_Server"   1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_rsmmon"  1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_sitecon"  1> /dev/null 2> /dev/null
+#####################################################################
+#
+# Download external data
+#
+#*/30 * * * *  csh -c "run_getSatFilesByFtp"    1> /dev/null 2> /dev/null
+#*/15 * * * *  csh -c "run_getSurfaceObsByFtp"  1> /dev/null 2> /dev/null
+#*/30 * * * *  csh -c "run_getSoundingsByFtp"   1> /dev/null 2> /dev/null
+#*/10 * * * *  csh -c "run_getLtgDataByHttp"    1> /dev/null 2> /dev/null
+#*/5  * * * *  csh -c "getSmartrData"           1> /dev/null 2> /dev/null
+#*/15 * * * *  csh -c "getDOESoundings"         1> /dev/null 2> /dev/null
+#0    3 * * *  csh -c "getDOELidar"             1> /dev/null 2> /dev/null
+#*/5  * * * *  csh -c "getGtsSoundings"         1> /dev/null 2> /dev/null
+#*/5  * * * *  csh -c "getRevellePosition"      1> /dev/null 2> /dev/null
+#*/5  * * * *  csh -c "getRevelleImages"        1> /dev/null 2> /dev/null
+#20   * * * *  csh -c "run_updateTrimbleMirror" 1> /dev/null 2> /dev/null
+##*/2  * * * *  csh -c "run_getP3TracksByHttp"   1> /dev/null 2> /dev/null
+#################################################################
+# fetch Falcon flight tracks
+#*/2 * * * *   csh -c "run_falcon_flight_tracks" 1> /dev/null 2> /dev/null
+#####################################################################
+#
+# Create images, upload to catalog
+#
+#0,30       * * * * csh -c "run_CIDD.catalog_sat"     1> /dev/null 2> /dev/null
+#7,22,37,52 * * * * csh -c "run_CIDD.catalog_radar"   1> /dev/null 2> /dev/null
+#7,22,37,52 * * * * csh -c "run_CIDD.catalog_transparent"   1> /dev/null 2> /dev/null
+#0,15,30,45 * * * * csh -c "run_putCamFilesToCatalog" 1> /dev/null 2> /dev/null

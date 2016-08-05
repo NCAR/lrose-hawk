@@ -1,0 +1,23 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+#Janitor       logs       start_Janitor.logs        snuff_inst        localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+###############################################################################
+# MDV to ZEBRA
+#
+Mdv2ZebraNetCDF moments.sband.sur  start_Mdv2ZebraNetCDF.moments.sband.sur  snuff_inst localhost
+Mdv2ZebraNetCDF moments.kband.sur  start_Mdv2ZebraNetCDF.moments.kband.sur  snuff_inst localhost
+Mdv2ZebraNetCDF partrain.sband.sur start_Mdv2ZebraNetCDF.partrain.sband.sur snuff_inst localhost
+#
+Mdv2ZebraNetCDF moments.sband.rhi  start_Mdv2ZebraNetCDF.moments.sband.rhi  snuff_inst localhost
+Mdv2ZebraNetCDF moments.kband.rhi  start_Mdv2ZebraNetCDF.moments.kband.rhi  snuff_inst localhost
+Mdv2ZebraNetCDF partrain.sband.rhi start_Mdv2ZebraNetCDF.partrain.sband.rhi snuff_inst localhost
+###############################################################################
+# Compress files
+#
+#Janitor       zebra      start_Janitor.zebra       snuff_inst        localhost
+#Janitor       dorade     start_Janitor.dorade      snuff_inst        localhost
+#Janitor       raw        start_Janitor.raw         snuff_inst        localhost

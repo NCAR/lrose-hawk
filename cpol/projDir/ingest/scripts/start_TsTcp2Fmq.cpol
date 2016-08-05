@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "TsTcp2Fmq -params TsTcp2Fmq.cpol"
+if ($status == 1) then
+  nice TsTcp2Fmq -params TsTcp2Fmq.cpol |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsTcp2Fmq -i cpol &
+endif
+

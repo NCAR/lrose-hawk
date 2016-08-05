@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/zebra/params
+
+running "Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.moments.sband.sur"
+if ($status == 1) then
+  Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.moments.sband.sur |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Mdv2ZebraNetCDF -i moments.sband.sur &
+endif
+

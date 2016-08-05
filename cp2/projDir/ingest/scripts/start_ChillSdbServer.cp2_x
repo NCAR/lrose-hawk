@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "ChillSdbServer -params ChillSdbServer.cp2_x"
+if ($status == 1) then
+  nice ChillSdbServer -params ChillSdbServer.cp2_x |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ChillSdbServer -i cp2_x &
+endif
+

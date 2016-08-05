@@ -1,0 +1,148 @@
+#! /bin/csh
+
+# set echo on if -debug
+
+if ($# > 0) then
+  set echo
+endif
+
+#--------------------------------------------------------------------
+#
+# script to configure a host in the CP2 TITAN data system
+#
+# Mike Dixon, EOL, NCAR, Boulder, CO, USA
+# Nov 2007
+#
+#--------------------------------------------------------------------
+#
+# Makes links to the proc_list and crontab files
+#
+#--------------------------------------------------------------------
+
+# set directory paths
+
+set cvs_dir=$HOME/cvs
+set cvs_proj_dir=$cvs_dir/projects/hawk/cp2/projDir
+set cvs_data_dir=$cvs_dir/projects/hawk/cp2/data
+set system_dir=$cvs_proj_dir/system
+
+# source the .cshrc file to create the environment
+
+source $system_dir/dotfiles/cshrc
+
+# get the host type
+
+set host_type = `get_host_type`
+set date_str = `date -u +%Y%m%d_%H%M%S`
+
+echo
+echo "*********************************************************************"
+echo
+echo "  configure_host for CP2 TITAN"
+echo
+echo "  `date`"
+echo
+echo "  host type: $host_type"
+echo
+echo "*********************************************************************"
+echo
+
+########################
+# make links to dotfiles
+
+cd $HOME
+foreach dotfile (cshrc emacs cvsignore Xdefaults)
+  /bin/rm -f .$dotfile
+  ln -s $system_dir/dotfiles/$dotfile .$dotfile
+end
+
+######################
+# make link to projDir
+
+cd $HOME
+/bin/rm -f projDir
+ln -s $cvs_proj_dir
+
+############################################
+# data dir
+# copy data dir into /data/titan5,
+#   which must be writable by titan5
+# make link to data dir
+
+cd $HOME/projDir
+
+switch ($host_type)
+case archive:
+  /bin/rm -f data
+  ln -s /d2/data/qld data
+  breaksw
+default:
+  /bin/cp -r $cvs_data_dir /data/titan5
+  /bin/rm -f data
+  ln -s /data/titan5/data
+endsw
+
+#######################
+# make link to log dir
+
+/bin/rm -f logs
+ln -s data/logs
+
+########################
+# distribution host list
+
+cd $HOME/projDir/data
+if ( ! -f _distHostList ) then
+  cp _distHostList.template _distHostList
+#  /bin/mv -f _distHostList _distHostList.${date_str}
+endif
+
+############################################
+# set up distribution to hangar from cp2cloud
+# Only move the radarCart/Brismerge directory
+# so move mdv/_DsFileDist down to this level
+
+cd $HOME/projDir/data/mdv
+set hostname = `hostname`
+switch ($hostname)
+case cp2server.bom.gov.au:
+  breaksw
+case cp2cloud.bom.gov.au:
+  /bin/mv ./_DsFileDist ./radarCart/BrisMerge
+  breaksw
+default:
+endsw
+
+#############################################
+# link _Janitor files according to host type
+
+cd $HOME/projDir/data
+/bin/rm -f _Janitor
+ln -s _Janitor.$host_type _Janitor
+
+cd $HOME/projDir/data/mdv
+/bin/rm -f _Janitor
+ln -s _Janitor.$host_type _Janitor
+
+cd $HOME/projDir/data/spdb
+/bin/rm -f _Janitor
+ln -s _Janitor.$host_type _Janitor
+
+cd $HOME/projDir/data/titan
+/bin/rm -f _Janitor
+ln -s _Janitor.$host_type _Janitor
+
+##########################
+# display config directory
+
+cd $HOME
+/bin/rm -f .display
+ln -s projDir/gtkdisplay/params .display
+
+##############################
+# set up links in control dir
+
+cd $HOME/projDir/control
+/bin/rm -f crontab proc_list
+ln -s proc_list.$host_type proc_list
+ln -s crontab.$host_type crontab

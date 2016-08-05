@@ -1,0 +1,4 @@
+#! /bin/csh
+
+xterm -T TsPrint.spoldrx -g 146x30+0+0 -bg black -fg orange -sb -sl 2000 -e TsPrint -fmq ~/projDir/data/fmq/spoldrx/shmem_spoldrx_40000 -nsamples 1000 -dual -alt -gate 700 -ngates 100
+

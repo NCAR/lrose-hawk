@@ -1,0 +1,27 @@
+#! /bin/csh
+
+#set_font_path
+
+setenv DATA_HOST cp2data
+
+# Start the polygon stats symprod server.  This is just needed until a new
+# build is done since the current DsServerMgr wouldn't recognize this new
+# server yet.
+
+running "GenPolyStats2Symprod"
+if ($status == 1) then
+  GenPolyStats2Symprod &
+endif
+
+# Start the processes.  We need to have a DrawFmqPolygonStats and a CIDD
+# process running.  We can use a DrawFmqPolygonStats process that is already
+# running.
+
+# set_font_path
+
+cd $PROJ_DIR/display/params
+
+start_DrawFmqPolygonStats.cp2_draw
+
+CIDD -p CIDD.cp2_draw -v7 -fn fixed -t 20080202030000 >& /dev/null &
+

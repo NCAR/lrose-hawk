@@ -1,0 +1,307 @@
+/**********************************************************************
+ * TDRP params for DrawFmqPolygonStats
+ **********************************************************************/
+
+//======================================================================
+//
+// DrawFmqPolygonStats.
+//
+// This program works with CIDD to allow the user to enter a polygon 
+//   that is then used to calculate some statistics in the defined fields.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING PARAMETERS.
+//
+// Parameters controlling debug outputs.
+//
+//======================================================================
+ 
+///////////// debug_level /////////////////////////////
+//
+// Debug level.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_EXTRA
+//     DEBUG_VERBOSE
+//
+
+debug_level = DEBUG_NORM;
+
+//======================================================================
+//
+// PROCESS PARAMETERS.
+//
+//======================================================================
+ 
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "cp2_draw.update";
+
+//======================================================================
+//
+// INPUT/OUTPUT PARAMETERS.
+//
+//======================================================================
+ 
+///////////// input_type //////////////////////////////
+//
+// Type of program input.
+// 	INPUT_DRAW_FMQ - The input comes from a CIDD draw fmq.
+// 	INPUT_GEN_POLY_SPDB - The input comes from a GenPoly polygon 
+//   statistics SPDB database. This is used to regenerate statistics for 
+//   previously entered polygons.
+//
+// Type: enum
+// Options:
+//     INPUT_DRAW_FMQ
+//     INPUT_GEN_POLY_SPDB
+//
+
+input_type = INPUT_GEN_POLY_SPDB;
+
+///////////// cidd_draw_fmq ///////////////////////////
+//
+// URL for the CIDD drawing FMQ.
+// Must match the FMQ URL specified in the dexport_info parameter in the 
+//   associated CIDD parameter file.
+// Used only if input_type is set to INPUT_DRAW_FMQ.
+// Type: string
+//
+
+cidd_draw_fmq = "fmqp:://$(DATA_HOST)::analysis/fmq/polygon_stats";
+
+///////////// input_gen_poly_url //////////////////////
+//
+// URL for the input GenPoly SPDB database.
+// Used only if input_type is set to INPUT_GEN_POLY.
+// Type: string
+//
+
+input_gen_poly_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats";
+
+///////////// start_time //////////////////////////////
+//
+// Reprocessing start time.
+// Used only if input_type is set to INPUT_GEN_POLY.
+// Type: string
+//
+
+start_time = "2008 2 2 0 0 0";
+
+///////////// end_time ////////////////////////////////
+//
+// Reprocessing end time.
+// Used only if input_type is set to INPUT_GEN_POLY.
+// Type: string
+//
+
+end_time = "2009 2 23 0 0 0";
+
+///////////// input_mdv_url ///////////////////////////
+//
+// URL for the MDV grids used to calculate the statistics.
+// These grids must be PPI grids.
+// Type: string
+//
+
+input_mdv_url = "mdvp:://$(DATA_HOST)::analysis/mdv/radarPpi/cp2_s";
+
+///////////// mdv_search_margin ///////////////////////
+//
+// Search margin, in seconds, for the input MDV data files.
+// Type: long
+//
+
+mdv_search_margin = 600;
+
+///////////// use_mdv_field_names /////////////////////
+//
+// Flag indicating whether to use field names or field numbers to 
+//   identify the fields in the input MDV files.
+// All fields must be identified in the same manner.
+// Type: boolean
+//
+
+use_mdv_field_names = TRUE;
+
+///////////// output_spdb_url /////////////////////////
+//
+// URL for the GenPoly SPDB database that will contain the entered 
+//   polygon and the associated statistics.
+// Type: string
+//
+
+output_spdb_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.new";
+
+///////////// stat_fields /////////////////////////////
+//
+// Statistics will be calculated for each of these fields.
+// 	field_name - The name of the field as it appears in the MDV file. 
+//   Used only if use_mdv_field_names is set to true.
+// 	field_num - The 0-based index of the field in the MDV file. Used 
+//   only if use_mdv_field_names is set to false.
+// 	is_log - Flag indicating whether this is a dBz value. If true, the 
+//   statistics will be calculated on the inverse log of the data values.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      int field_num;
+//      boolean is_log;
+//   }
+//
+// 1D array - variable length.
+//
+
+stat_fields = {
+};
+
+///////////// dbz_field ///////////////////////////////
+//
+// Dbz field to use in calculating the statistics on the ZDR field.
+// Statistics will be calculated on this field as well, so it shouldn't 
+//   be included in the stat_fields list.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      int field_num;
+//   }
+//
+//
+
+dbz_field = {
+    field_name = "DBZ_F",
+    field_num = 0
+};
+
+///////////// zdr_field ///////////////////////////////
+//
+// Zdr field.
+// The dbz_field will be used to separate the ZDR values into their 
+//   horizontal and vertical components for statistics calculations. The 
+//   output will include statistics for the horizontal components (the 
+//   dbz_field), the veritcal components and ZDR itself.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      int field_num;
+//   }
+//
+//
+
+zdr_field = {
+    field_name = "ZDR_F",
+    field_num = 0
+};
+
+///////////// threshold_fields ////////////////////
+//
+// Fields to use for thresholding.
+// This field must be in the MDV file with the statistics fields.
+// 	field_name - The name of the field as it appears in the MDV file. 
+//   Used only if use_mdv_field_names is set to true.
+// 	field_num - The 0-based index of the field in the MDV file. Used 
+//   only if use_mdv_field_names is set to false.
+// 	comparison - Comparison to use on the threshold field. For example, 
+//   if this is set to THRESH_GREATER_THAN, then the statistics will only 
+//   be calculated using the statistic field values with in the polygon 
+//   where the threshold field value is greater than the specified 
+//   threshold value.
+// 	value - Value to use for thresholding.
+// Note that data values where the threshold field is missing will not 
+//   be included in the calculated statistics.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      int field_num;
+//      thresh_compare_t comparison;
+//        Options:
+//          THRESH_GREATER_THAN
+//          THRESH_GREATER_THAN_OR_EQUAL
+//          THRESH_LESS_THAN
+//          THRESH_LESS_THAN_OR_EQUAL
+//          THRESH_EQUAL
+//          THRESH_NOT_EQUAL
+//      double value;
+//   }
+//
+//
+
+threshold_fields = {
+  {
+    field_name = "DBZ_F",
+    field_num = 0,
+    comparison = THRESH_GREATER_THAN_OR_EQUAL,
+    value = 10
+  }
+};
+
+///////////// dropsize_thresh_fields //////////////////
+//
+// List of threshold fields to use when calculating the drop size 
+//   statistics.
+// The grid values must satisfy the threhsold_field_info criteria along 
+//   with all of these criteria in order to be included in the drop size 
+//   statistic calculations.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      int field_num;
+//      thresh_compare_t comparison;
+//        Options:
+//          THRESH_GREATER_THAN
+//          THRESH_GREATER_THAN_OR_EQUAL
+//          THRESH_LESS_THAN
+//          THRESH_LESS_THAN_OR_EQUAL
+//          THRESH_EQUAL
+//          THRESH_NOT_EQUAL
+//      double value;
+//   }
+//
+// 1D array - variable length.
+//
+
+dropsize_thresh_fields = {
+  {
+    field_name = "RHOHV",
+    field_num = 0,
+    comparison = THRESH_GREATER_THAN_OR_EQUAL,
+    value = 0.95
+  }
+};
+
+///////////// min_dropsize_zdr ////////////////////////
+//
+// Minimum ZDR value used when calculating dropsize statistics.
+// If the ZDR value is greater than this value, then this value will be 
+//   used in the calculations instead.
+// Type: double
+//
+
+min_dropsize_zdr = 0;
+
+///////////// max_dropsize_zdr ////////////////////////
+//
+// Maximum ZDR value used when calculating dropsize statistics.
+// If the ZDR value is greater than this value, then this value will be 
+//   used in the calculations instead.
+// Type: double
+//
+
+max_dropsize_zdr = 4;
+

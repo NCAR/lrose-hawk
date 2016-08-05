@@ -1,0 +1,74 @@
+== HAWK INSTALLATION ==
+
+=== Pre-compiled library requirements ===
+
+The following should be available in /opt/local
+
+ * netCDF
+ * fftw3
+ * Foray
+
+When Foray is built, the .h and .a files are installed one directory too low. These files need to be copied into
+
+ * /opt/local/include and
+ * /opt/local/lib
+
+respectively.
+
+=== Check out HAWK system ===
+See ["HawkCheckout"]
+
+Make sure you have the check-out system available in
+
+  ~/cvs
+
+=== Configure the host for your host type ===
+
+Run the configuration script:
+
+  ~/cvs/projects/spol/hawk/projDir/system/scripts/configure_host
+
+This will create a number of links for your host:
+
+{{{
+ 
+  ~/.cshrc --> ~/projects/spol/hawk/projDir/system/dotfiles/cshrc
+  ~/.emacs --> ~/projects/spol/hawk/projDir/system/dotfiles/emacs
+  ~/.cvsignore --> ~/projects/spol/hawk/projDir/system/dotfiles/cvsignore
+  ~/.Xdefaults --> ~/projects/spol/hawk/projDir/system/dotfiles/Xdefaults
+  ~/.sigmet_env --> ~/projects/spol/hawk/projDir/system/dotfiles/sigmet_env
+ 
+  ~/projDir -> ~/projects/spol/hawk/projDir
+
+  ~/projDir/data --> /data/operator/data
+  ~/projDir/logs --> ~/projDir/data/logs
+  ~/projDir/data/current --> /net/data/PGEN/current
+
+  ~/.display --> ~/projDir/gtkdisplay/params
+
+  ~/projDir/control/proc_list --> ~/projDir/control/proc_list.$host_type
+  ~/projDir/control/crontab --> ~/projDir/control/crontab.$host_type
+
+}}}
+  
+=== Source the .cshrc file ===
+
+{{{
+  source ~/.cshrc
+}}}
+
+=== Build the libs and apps ===
+
+{{{
+  cd ~/projDir/build/scripts
+  build_libs
+  build_apps
+}}}
+
+=== Check the build ===
+
+{{{
+  cd ~/projDir/build/scripts
+  do_check_libs
+  do_check_apps
+}}}

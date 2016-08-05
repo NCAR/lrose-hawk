@@ -1,0 +1,3 @@
+#! /bin/csh
+
+TsGrabber -gate 400 -ngates 500 -summary -nsamples 1 -binang

@@ -1,0 +1,51 @@
+
+How to create new map boundary files.
+
+
+
+bash
+
+cd /d1/aoaws/build/cvs
+cvs co java/src/edu/ucar/rap/aoaws/apps/printNetcdf
+cd java/src/edu/ucar/rap/aoaws/apps/printNetcdf
+ant
+
+export CLASSPATH=/d1/aoaws/build/cvs/java/build:/d1/aoaws/build/cvs/java/ext_lib/netcdf/2.2.18/netcdf-2.2.18.jar:/d1/aoaws/build/cvs/java/ext_lib/netcdf/2.2.18/nlog4j-1.2.21.jar
+
+# Show usage info
+java edu.ucar.rap.aoaws.apps.printNetcdf.PrintNetcdf
+
+cd /d1/aoaws/data/temp.testwrf
+
+make a shell file mkmaps.sh:
+
+#!/bin/sh
+for ii in 1 2 3; do
+  java \
+  -Dlog4j.configuration=file:///d1/aoaws/build/cvs/java/src/edu/ucar/rap/aoaws/apps/printNetcdf/log4j.config \
+  edu.ucar.rap.aoaws.apps.printNetcdf.PrintNetcdf \
+  func printBoundaries \
+  inFile d${ii}.2007072506.tm0000.wrf \
+  outFile wrf_domain${ii}.map \
+  title "WRF_domain_${ii}_boundaries" \
+  latField XLAT \
+  lonField XLONG \
+  xIndex 2 \
+  yIndex 1
+done
+
+
+# Run it:
+sh mkmaps.sh
+
+# Combine the three output files into one.
+cat wrf_domain1.map wrf_domain2.map wrf_domain3.map > wrf_domain_all.map
+
+
+# Commit the maps to cvs
+cd /d1/aoaws/build/cvs/projects/aoaws/rte/display/params/maps
+cvs up
+cp /d1/aoaws/data/temp.testwrf/wrf_domain*.map .
+cvs commit -m 'new boundary maps'
+
+

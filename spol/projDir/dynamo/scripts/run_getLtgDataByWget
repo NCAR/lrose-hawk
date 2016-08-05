@@ -1,0 +1,5 @@
+#! /bin/csh
+
+getLtgDataByWget \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getLtgDataByWget >& /dev/null &
+

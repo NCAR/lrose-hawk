@@ -1,0 +1,31 @@
+Notes on PECAN Network.
+We are using OpenDNS for nameservice.
+control1 and control2 are caching name servers. 
+
+
+Fiber optic network is provided by Golden Belt Telephone
+Technical contact is Kirby Hagans, (785) 372-4236, 785) 372-1005 (cell).
+
+
+Gateway 104.128.35.105
+Mask 255.255.255.248
+
+We have 5 IP addresses:
+104.128.35.106/29  # Juniper router, spol.dyndns.org
+104.128.35.107     # KVM
+104.128.35.108     # GPS water vapor instrument
+104.128.35.109     # spare
+104.128.35.110     # spare
+
+The Golden Belt Telephone network is attached to "reth1" on the Juniper SRX240s.
+
+The cradlepoint cellular router provides a backup network using the Verizon LTE network.
+Our address is 166.154.14.59/29  spol-cradlepoint.dyndns.org (this is a  routable fixed IP address)
+The Verizon gateway is 166.154.14.57,  Mask 255.255.255.248
+
+The cradlepoint router is attached to "reth5" on the Juniper SRX240s.
+
+If the Golden Belt Telephone fiber circuit is down, the cradlepoint router will be used automatically for outgoing network traffic.
+
+Anyone trying to control the radar remotely when the primary network is down will have to point their web browser to
+spol-cradlepoint.dyndns.org

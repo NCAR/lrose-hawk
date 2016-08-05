@@ -1,0 +1,204 @@
+SPOL-Ka UPGRADE LIST
+====================
+
+Lessons learned from DYNAMO.
+Preparing for FRONT and later projects.
+
+1. Angle measurement system
+---------------------------
+
+Upgrade to faster processor for S2D.
+
+Upgrade to LINUX kernel with faster interrupt rate.
+
+Perhaps change from chrony to ntpd for time sync.
+
+Change to use FPGA instead of the LINUX CPU to manipulate
+angles and encode the angles on the output parallel lines.
+
+Use LINUX host for UDP and LCD output only.
+
+2. S-band arcing / arc detection
+--------------------------------
+
+Find cause of arcing.
+
+Determine whether arcing can be prevented with dry air only.
+
+Install arc detector system for remote ops monitoring.
+
+Would it make sense to add a purge valve on the waveguide
+high on the antenna, to assist with purging the waveguide?
+
+3. Mitch switch
+---------------
+
+Investigate further why bearings only last a month or two.
+
+Try to improve bearing reliability.
+
+4. Rotary joint with fiber optic cable
+--------------------------------------
+
+We need a spare rotary joint with fiber fitted.
+
+Determine the cost of purchasing a spare.
+
+Can we upgrade our existing spare to have a fiber installed?
+
+5. Slip rings
+-------------
+
+Are the slip rings OK?
+
+What causes the Ka-band transmitter breaker to trip?
+
+Can we change the system so that the ATE does not use as many
+slip rings? (See 6 below).
+
+6. Monitoring / ATE on antenna
+------------------------------
+
+Investigate installing computer on antenna for monitoring,
+controlling the ATE, etc.
+
+Would doing this free up some slip rings?
+
+Can we use redundant slip rings for k-band power to make it more reliable?
+
+7. Remote operations
+--------------------
+
+Enable remote control and monitoring of:
+
+  generator
+  power system
+  transmitter
+  mitch switch
+
+Add more monitoring of temperatures in transmitter container, and
+in the transmitter itself.
+
+Add camera inside transmitter container.
+
+8. Air conditioning for S-band transmitter
+------------------------------------------
+
+Review AC needs for S-band transmitter container.
+
+Install sufficient cooling units so that a single unit can
+fail without compromising the transmitter - i.e. we can run
+with one AC unit down.
+
+9. Computers / RAIDS
+--------------------
+
+Review existing computer hardware.
+
+triton RAID on pgen1 is bad.
+
+Replace aging hardware.
+
+Install RAIDS of sufficient size that the data from an entire
+project can be stored.
+
+10. S-band signal processing
+----------------------------
+
+Add new signal processor, probably using CHILL system.
+Run RVP8 and new processor in parallel for development and testing.
+
+Add phase-coding capability for range unfolding for 3 trips.
+
+Add oversampling in range capability.
+
+Upgrade clutter filtering to use 'waterfall' methods similar
+to profilers.
+
+11. Ka-band
+-----------
+
+Consider circular polarization for Ka-band.
+
+Consider new antenna.
+
+Investigate reasons for arcing at full power.
+
+Consider upgrading single-board computers to latest model.
+
+Check temperature of CPU and hard drive in drx.
+
+12. K-band cooling and air conditioning
+---------------------------------------
+
+Review cooling needs for all 3 Ka-band units.
+
+Add active cooling as required.
+
+13. Product generation
+----------------------
+
+Add algorithms for generating products for science team.
+For example:
+
+  upgraded PID algorithm
+  precip estimation
+  refractivity
+  storm tracking
+  upgraded gridding
+  liquid water from S/Ka-band
+  non-rain cloud fraction using Ka-band
+  updated REPoH as required
+
+14. Infrastructure
+------------------
+
+Do we need a permanent container 9?
+
+Can we replace the bad chairs?
+
+Consider spare AC units for personnel containers.
+
+15. Tech windows computer
+-------------------------
+
+All windows hosts must be set up for field ops, and be independent
+from the typical hosts at EOL.
+
+We need all of the administrator passwords.
+
+The PPMAC IDE must be installed with all necessary plug-ins and packages.
+
+We need a laptop or spare computer, which can be used if tech goes down.
+
+16. Antenna control / K-band transmitter control
+------------------------------------------------
+
+Add feature to let a user 'take control', so we don't have
+more than one user controlling the antenna or transmitter at
+a time.
+
+17. kadrx
+---------
+
+The kadrx app has a number of problems:
+
+(a) velocity loses coherence
+
+(b) kadrx aborts with message:
+
+   p7142sd3cdnThread for channel 1 got data for channel 0!
+
+(c) We get lots of missing pulses.
+
+(d) burst power and phase should be computed using a coherent mean.
+
+18. S-band simultaneous HV mode
+-------------------------------
+
+Automate SHV mode.
+
+Test ops.
+
+Test moments generation.
+

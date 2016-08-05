@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/alg/params
+
+running "MdvRemapRadarGeom -params MdvRemapRadarGeom.repoh_pid"
+if ($status == 1) then
+  MdvRemapRadarGeom -params MdvRemapRadarGeom.repoh_pid -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p MdvRemapRadarGeom -i repoh_pid &
+endif
+

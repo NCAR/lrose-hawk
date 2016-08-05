@@ -1,0 +1,783 @@
+/**********************************************************************
+ * TDRP params for PrintMdv
+ **********************************************************************/
+
+//======================================================================
+//
+// DEBUGGING.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_NORM;
+
+//======================================================================
+//
+// DATA RETRIEVAL CONTROL.
+//
+//======================================================================
+ 
+///////////// specify_file_by_time ////////////////////
+//
+// Option to specify file by time.
+// If true, paths for reads and writes are based on time and the data 
+//   directory. If false, reads and writes use the specified path.
+// Type: boolean
+//
+
+specify_file_by_time = FALSE;
+
+///////////// url /////////////////////////////////////
+//
+// Url string - for timed read/write.
+// On read, files will be searched for in this url. On write, files will 
+//   be written to this url.
+// Type: string
+//
+
+url = "mdvp:://localhost::mdv/radarCart/N_Aust";
+
+///////////// path ////////////////////////////////////
+//
+// Path string - full path specified.
+// File will be read from ro written to this path.
+// Type: string
+//
+
+path = "$(DATA_DIR)/mdv/radarCart/N_Aust";
+
+///////////// get_mode ////////////////////////////////
+//
+// Mode for get request.
+// For GET_VSECTION, you must fill out the waypoint array. A single 
+//   waypoint yields a column of data.
+//
+// Type: enum
+// Options:
+//     GET_VOLUME
+//     GET_VSECTION
+//     GET_TIME_LIST
+//     GET_TIME_HEIGHT
+//     GET_GIS
+//     GET_TABLE
+//     GET_ALL_HEADERS
+//
+
+get_mode = GET_VOLUME;
+
+///////////// threaded ////////////////////////////////
+//
+// Option to use threaded calls.
+// If true, a DsMdvxThreaded object is used. If false, a DsMdvx object 
+//   is used.
+// Type: boolean
+//
+
+threaded = FALSE;
+
+///////////// read_search_mode ////////////////////////
+//
+// Mode for searching for data in time domain.
+// For all except LATEST, you must specify the search time and the 
+//   search margin. For SPECIFIED_FORECAST you must also specify the lead 
+//   time.
+//
+// Type: enum
+// Options:
+//     READ_LATEST
+//     READ_CLOSEST
+//     READ_FIRST_BEFORE
+//     READ_FIRST_AFTER
+//     READ_BEST_FORECAST
+//     READ_SPECIFIED_FORECAST
+//
+
+read_search_mode = READ_LATEST;
+
+///////////// read_search_time ////////////////////////
+//
+// Data time string.
+// Time for data requested. Format is YYYY MM DD HH MM SS.
+// Type: string
+//
+
+read_search_time = "2005 01 01 00 00 00";
+
+///////////// read_search_margin //////////////////////
+//
+// Margin around search time (secs).
+// Applies to all search modes except LATEST.
+// Type: int
+//
+
+read_search_margin = 3600;
+
+///////////// read_forecast_lead_time /////////////////
+//
+// Forecast lead time - uses search_time as the model gen time.
+// Applies to READ_SPECIFIED_FORECAST search mode only.
+// Type: int
+//
+
+read_forecast_lead_time = 0;
+
+///////////// set_latest_valid_mod_time ///////////////
+//
+// Option to only consider files written before a specified time.
+// Setting this TRUE causes Mdvx to ignore files written AFTER the 
+//   specified modify time.
+// Type: boolean
+//
+
+set_latest_valid_mod_time = FALSE;
+
+///////////// latest_valid_mod_time ///////////////////
+//
+// Latest valid modify time for file retrieval.
+// See 'read_set_latest_valid_mod_time'.
+// Type: string
+//
+
+latest_valid_mod_time = "2005 01 01 00 00 00";
+
+///////////// set_valid_time_search_wt ////////////////
+//
+// Option to sey valid time search weight.
+//  Set the weight given to valid time differences, over gen time 
+//   differences, when searching for the best forecast for a specified 
+//   time. Finding the best forecast for a given time is tricky. Do you 
+//   care more about differences between the valid time and the requested 
+//   time, or do you want to give more weight to the closest gen time. The 
+//   default value is 2.5. This works well for most situations. If the 
+//   time between model runs is long (say 6 hours) as compared to the time 
+//   between model output times (say 30 mins) then you need to increase 
+//   the weight to say 25. Setting it to 100 will weight the decision very 
+//   heavily in favor of the diff between the valid and requested time, 
+//   and put very little weight on which model run to use.
+// Type: boolean
+//
+
+set_valid_time_search_wt = FALSE;
+
+///////////// valid_time_search_wt ////////////////////
+//
+// See 'set_valid_time_search_wt.'.
+// Type: double
+//
+
+valid_time_search_wt = 2.5;
+
+///////////// constrain_forecast_lead_times ///////////
+//
+// Option to constrain the lead times to be considered.
+// If true, only forecast lead times within the specified limits will be 
+//   considerd. Also, you can specify to request the data by generate time 
+//   rather than valid time. The valid time will be computed as the 
+//   request_time plus the mean of the min and max lead times.
+// Type: boolean
+//
+
+constrain_forecast_lead_times = FALSE;
+
+///////////// forecast_constraints ////////////////////
+//
+// Set constraints for forecast lead times.
+// See constrain_forecast_lead_times. Only forecast lead times within 
+//   the specified limits will be considerd. If request_by_gen_time is 
+//   true, the search_time specified will be interpreted as the generate 
+//   time rather than the valid time. The valid time will be computed as 
+//   the search_time plus the mean of the min and max lead times 
+//   specified.
+//
+// Type: struct
+//   typedef struct {
+//      int min_lead_time;
+//      int max_lead_time;
+//      boolean request_by_gen_time;
+//   }
+//
+//
+
+forecast_constraints = {
+    min_lead_time = 0,
+    max_lead_time = 0,
+    request_by_gen_time = FALSE
+};
+
+//======================================================================
+//
+// READ CONTROL OPTIONS.
+//
+//======================================================================
+ 
+///////////// read_set_horiz_limits ///////////////////
+//
+// Option to set horizontal limits.
+// Type: boolean
+//
+
+read_set_horiz_limits = FALSE;
+
+///////////// read_horiz_limits ///////////////////////
+//
+// Horizontal limits for read.
+//
+// Type: struct
+//   typedef struct {
+//      float min_lat;
+//      float min_lon;
+//      float max_lat;
+//      float max_lon;
+//   }
+//
+//
+
+read_horiz_limits = {
+    min_lat = -90,
+    min_lon = -180,
+    max_lat = 90,
+    max_lon = 180
+};
+
+///////////// read_set_vlevel_limits //////////////////
+//
+// Option to set plane vlevel limits.
+// Mutually exclusive with read_set_plane_num_limits.
+// Type: boolean
+//
+
+read_set_vlevel_limits = FALSE;
+
+///////////// read_lower_vlevel ///////////////////////
+//
+// Lower plane vlevel limit.
+// Type: float
+//
+
+read_lower_vlevel = 0;
+
+///////////// read_upper_vlevel ///////////////////////
+//
+// Upper plane vlevel limit.
+// Type: float
+//
+
+read_upper_vlevel = 0;
+
+///////////// read_set_plane_num_limits ///////////////
+//
+// Option to set plane number limits.
+// Mutually exclusive with read_set_vlevel_limits.
+// Type: boolean
+//
+
+read_set_plane_num_limits = FALSE;
+
+///////////// read_lower_plane_num ////////////////////
+//
+// Lower plane num limit.
+// Type: int
+//
+
+read_lower_plane_num = 0;
+
+///////////// read_upper_plane_num ////////////////////
+//
+// Upper plane num limit.
+// Type: int
+//
+
+read_upper_plane_num = 0;
+
+///////////// read_set_vlevel_type ////////////////////
+//
+// Set vlevel type for return data.
+// Type: boolean
+//
+
+read_set_vlevel_type = FALSE;
+
+///////////// read_vlevel_type ////////////////////////
+//
+// Read vlevel type.
+//
+// Type: enum
+// Options:
+//     VERT_TYPE_PRESSURE
+//     VERT_TYPE_Z
+//     VERT_FLIGHT_LEVEL
+//
+
+read_vlevel_type = VERT_TYPE_Z;
+
+///////////// read_encoding_type //////////////////////
+//
+// Read encoding type.
+//
+// Type: enum
+// Options:
+//     ENCODING_ASIS
+//     ENCODING_INT8
+//     ENCODING_INT16
+//     ENCODING_FLOAT32
+//
+
+read_encoding_type = ENCODING_ASIS;
+
+///////////// read_compression_type ///////////////////
+//
+// Read compression type.
+//
+// Type: enum
+// Options:
+//     COMPRESSION_ASIS
+//     COMPRESSION_NONE
+//     COMPRESSION_RLE
+//     COMPRESSION_LZO
+//     COMPRESSION_ZLIB
+//     COMPRESSION_BZIP
+//     COMPRESSION_GZIP
+//     COMPRESSION_GZIP_VOL
+//
+
+read_compression_type = COMPRESSION_ASIS;
+
+///////////// read_scaling_type ///////////////////////
+//
+// Read scaling type.
+//
+// Type: enum
+// Options:
+//     SCALING_NONE
+//     SCALING_ROUNDED
+//     SCALING_INTEGRAL
+//     SCALING_DYNAMIC
+//     SCALING_SPECIFIED
+//
+
+read_scaling_type = SCALING_ROUNDED;
+
+///////////// read_scale //////////////////////////////
+//
+// Read scaling scale.
+// For SCALING_SPECIFIED only.
+// Type: float
+//
+
+read_scale = 1;
+
+///////////// read_bias ///////////////////////////////
+//
+// Read scaling bias.
+// For SCALING_SPECIFIED only.
+// Type: float
+//
+
+read_bias = 0;
+
+///////////// read_composite //////////////////////////
+//
+// Option for creating composite in the read operation.
+// Type: boolean
+//
+
+read_composite = FALSE;
+
+///////////// read_set_fill_missing ///////////////////
+//
+// Option to set fill_missing flag for read.
+// Type: boolean
+//
+
+read_set_fill_missing = FALSE;
+
+///////////// read_transform_to_linear ////////////////
+//
+// Option to force a transform to linear on read.
+// Type: boolean
+//
+
+read_transform_to_linear = FALSE;
+
+///////////// read_set_field_nums /////////////////////
+//
+// Option to set field numbers.
+// Type: boolean
+//
+
+read_set_field_nums = FALSE;
+
+///////////// read_field_nums /////////////////////////
+//
+// Field number list.
+// Type: int
+// 1D array - variable length.
+//
+
+read_field_nums = {
+ 0
+};
+
+///////////// read_set_field_names ////////////////////
+//
+// Option to set field names.
+// Type: boolean
+//
+
+read_set_field_names = FALSE;
+
+///////////// read_field_names ////////////////////////
+//
+// Field name list.
+// Type: string
+// 1D array - variable length.
+//
+
+read_field_names = {
+ "DBZ"
+};
+
+///////////// read_vsect_waypts ///////////////////////
+//
+// Waypts for vertical section.
+// For READ_VSECTION mode only.
+//
+// Type: struct
+//   typedef struct {
+//      float lat;
+//      float lon;
+//   }
+//
+// 1D array - variable length.
+//
+
+read_vsect_waypts = {
+  {
+    lat = 0,
+    lon = 0
+  }
+};
+
+///////////// disable_vsection_interp /////////////////
+//
+// Option to disable interpolation for a vert section.
+// By default, data in a vertical section will be interpolated from the 
+//   grid. If this is set to true, nearest neighbor will be used.
+// Type: boolean
+//
+
+disable_vsection_interp = FALSE;
+
+///////////// read_set_decimation /////////////////////
+//
+// Option to decimate data on return.
+// This allows you to request that the data is returned to you 
+//   decimated, so that the number of points in a plane does not exceed 
+//   'decimation_max_nxy'.
+// Type: boolean
+//
+
+read_set_decimation = FALSE;
+
+///////////// decimation_max_nxy //////////////////////
+//
+// Max number of points in plane, when decimation is on.
+// See 'read_set_decimation'.
+// Type: int
+//
+
+decimation_max_nxy = 10000000;
+
+///////////// read_time_list_also /////////////////////
+//
+// Option to get time list in addition to field data.
+// Intended for GET_VOLUME and GET_VSECTION modes. If true, you must 
+//   specify the time list options. The time list will be returned in 
+//   addition to the main fields requested. If you only want the time 
+//   list, use the GET_TIME_LIST mode.
+// Type: boolean
+//
+
+read_time_list_also = FALSE;
+
+///////////// read_field_file_headers_also ////////////
+//
+// Option to also read field file headers.
+// If true, the field and vlevel headers, exactly as in the file, will 
+//   be sent across for each field read.
+// Type: boolean
+//
+
+read_field_file_headers_also = FALSE;
+
+///////////// read_as_single_part /////////////////////
+//
+// Option to read file as a single part in the message.
+// If true, the MDV main object will be sent across as a single part. 
+//   This option is used by the Java MDV API.
+// Type: boolean
+//
+
+read_as_single_part = FALSE;
+
+//======================================================================
+//
+// TIME LIST MODE AND OPTIONS.
+//
+// Specifying mode for time lists:
+//   TIME_LIST_VALID: valid data times in a given time range.
+//     For model data, if more than 1 gen time produces data
+//     for the same valid time, only a single time is returned.
+//   TIME_LIST_GENERATE: model generate times within a given time range.
+//   TIME_LIST_FORECAST: model foreast times for a given gen time.
+//   TIME_LIST_FIRST: the first time in the data set
+//   TIME_LIST_LAST: the last time in the data set
+//   TIME_LIST_GEN_PLUS_FORECASTS: gen times within a given time range,
+//     plus all forecast times for each gen time.
+//   TIME_LIST_VALID_MULT_GEN: valid times in a given data range.
+//     Often different gen times produce forecasts at the same valid 
+//   time,
+//     i.e., the results overlap. In this case, there will be multiple
+//     instances of the same valid time, each with a different gen time.
+//   TIME_LIST_CLOSEST: get closest data time to search time,
+//     within search_margin
+//   TIME_LIST_FIRST_BEFORE: get first time at or before search_time,
+//     within search_margin
+//   TIME_LIST_FIRST_AFTER: get first time at or after search_time,
+//     within search_margin
+//   TIME_LIST_BEST_FORECAST: get best forecast time closest to 
+//     search time, withing search_margin.
+//   TIME_LIST_SPECIFIED_FORECAST: get forecast generated at search 
+//   time,
+//     closest to forecast time, within search_margin.
+//
+//======================================================================
+ 
+///////////// time_list_mode //////////////////////////
+//
+// Mode for searching for data in time list.
+// For VALID and GEN you must specify time_list_start time_list_end 
+//   times. For LEAD you must specify the time_list_gen_time.
+//
+// Type: enum
+// Options:
+//     TIME_LIST_VALID
+//     TIME_LIST_GEN
+//     TIME_LIST_FORECAST
+//     TIME_LIST_FIRST
+//     TIME_LIST_LAST
+//     TIME_LIST_GEN_PLUS_FORECASTS
+//     TIME_LIST_VALID_MULT_GEN
+//     TIME_LIST_CLOSEST
+//     TIME_LIST_FIRST_BEFORE
+//     TIME_LIST_FIRST_AFTER
+//     TIME_LIST_BEST_FORECAST
+//     TIME_LIST_SPECIFIED_FORECAST
+//
+
+time_list_mode = TIME_LIST_VALID;
+
+///////////// time_list_start /////////////////////////
+//
+// Time list start time.
+// For VALID, GEN, GEN_PLUS_FORECASTS and VALID_PLUS_MULT_GEN modes. 
+//   Format is YYYY MM DD HH MM SS.
+// Type: string
+//
+
+time_list_start = "2005 01 01 00 00 00";
+
+///////////// time_list_end ///////////////////////////
+//
+// Time list end time.
+// For VALID, GEN, GEN_PLUS_FORECASTS and VALID_PLUS_MULT_GEN modes. 
+//   Format is YYYY MM DD HH MM SS.
+// Type: string
+//
+
+time_list_end = "2005 01 01 00 00 00";
+
+///////////// time_list_gen ///////////////////////////
+//
+// Time list generate time.
+// For GEN, GEN_PLUS_FORECASTS and SPECIFIED_FORECAST modes. Format is 
+//   YYYY MM DD HH MM SS.
+// Type: string
+//
+
+time_list_gen = "2005 01 01 00 00 00";
+
+///////////// time_list_search ////////////////////////
+//
+// Search time.
+// For CLOSEST, FIRST_BEFORE, FIRST_AFTER, BEST_FORECAST and 
+//   SPECIFIED_FORECAST modes. Format is YYYY MM DD HH MM SS.
+// Type: string
+//
+
+time_list_search = "2005 01 01 00 00 00";
+
+///////////// time_list_margin ////////////////////////
+//
+// Time list time margin.
+// For CLOSEST, FIRST_BEFORE, FIRST_AFTER, BEST_FORECAST and 
+//   SPECIFIED_FORECAST modes.
+// Type: int
+//
+
+time_list_margin = 86400;
+
+//======================================================================
+//
+// PRINT CONTROL.
+//
+//======================================================================
+ 
+///////////// print_summary ///////////////////////////
+//
+// Option to print out summary only.
+// If true, only header summaries will be printed.
+// Type: boolean
+//
+
+print_summary = FALSE;
+
+///////////// print_data //////////////////////////////
+//
+// Option to print out data.
+// If true, data values will be printed.
+// Type: boolean
+//
+
+print_data = TRUE;
+
+///////////// print_native ////////////////////////////
+//
+// Option to print out in native format.
+// If false, printout will be in float mode.
+// Type: boolean
+//
+
+print_native = TRUE;
+
+///////////// start_at_top ////////////////////////////
+//
+// Option to start with top row in GIS mode.
+// If true, the top row is printed first. If false, the bottom is 
+//   printed first.
+// Type: boolean
+//
+
+start_at_top = TRUE;
+
+///////////// print_canonical /////////////////////////
+//
+// Option to print out in canonical.
+// If set, the compressed type of output is not used, and every single 
+//   value is printed out.
+// Type: boolean
+//
+
+print_canonical = FALSE;
+
+//======================================================================
+//
+// SAVING THE DATA TO AN MDV FILE.
+//
+//======================================================================
+ 
+///////////// save_to_file ////////////////////////////
+//
+// Option to save the resulting object to an Mdv file.
+// If true, the Mdvx object which results from the read will be saved to 
+//   the specified url. Only works for volumes and vsections.
+// Type: boolean
+//
+
+save_to_file = FALSE;
+
+///////////// no_print ////////////////////////////////
+//
+// Option to save only, without printing.
+// If true, the Mdvx object will be saved to a file, but the normal 
+//   print to stdout will be suppressed.
+// Type: boolean
+//
+
+no_print = FALSE;
+
+///////////// save_url ////////////////////////////////
+//
+// URL to which the file should be saved.
+// See 'save_to_file.
+// Type: string
+//
+
+save_url = "mdpv:://localhost::mdv/print";
+
+//======================================================================
+//
+// FILE FORMAT.
+//
+// The data may be represented in normal MDV format, or in alternate XML 
+//   and NCF formats. For converions to/from NCF, the NcMdvServer must be 
+//   running on the host to which the URL points.
+//
+//======================================================================
+ 
+///////////// file_format /////////////////////////////
+//
+// Specify format of file on read and save.
+// FORMAT_MDV: normal MDV formal. FORMAT_XML: XML format. XML format 
+//   consists of 2 files: *.mdv.xml and *.mdv.buf. The xml file contains 
+//   the meta-data. The buf file contains the binary fields.
+// NOTE: only COMPRESSION_NONE and COMPRESSION_GZIP_VOL are supported in 
+//   XML. FORMAT_NCF: represent data in netCDF CF format. Extension will 
+//   be .nc.
+//
+// Type: enum
+// Options:
+//     FORMAT_MDV
+//     FORMAT_XML
+//     FORMAT_NCF
+//
+
+file_format = FORMAT_MDV;
+
+//======================================================================
+//
+// PERFORMANCE TESTING.
+//
+// Option to retrieve data without printing, to test retrieval speed.
+//
+//======================================================================
+ 
+///////////// test_no_print ///////////////////////////
+//
+// Option to test retrieval speed.
+// If true, printing is suppressed, and the data is retrieved 
+//   test_n_retrievals times.
+// Type: boolean
+//
+
+test_no_print = FALSE;
+
+///////////// test_n_retrievals ///////////////////////
+//
+// Number of retrievals for performance monitoring.
+// Type: int
+//
+
+test_n_retrievals = 1;
+

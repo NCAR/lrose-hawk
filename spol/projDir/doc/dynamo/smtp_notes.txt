@@ -1,0 +1,9 @@
+Control1 and control2 have been setup to send e-mail out through gmail as it's SMTP host using postfix.
+
+Instructions on how to set this up can be found here - http://www.freelinuxtutorials.com/quick-tips-and-tricks/configure-postfix-to-use-gmail-in-rhelcentos/
+
+Gmail Account Info
+Username - spolsmtp@gmail.com
+Password - 12#radar
+
+Note - This was being tested using the spolphone gmail account and at the same time the spolphone account got locked out.  Whether this is because of us trying to use it as a relay host we are not sure.  

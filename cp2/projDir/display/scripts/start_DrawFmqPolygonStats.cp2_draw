@@ -1,0 +1,10 @@
+#! /bin/csh
+
+setenv DATA_HOST cp2data
+
+cd $PROJ_DIR/display/params
+
+running "DrawFmqPolygonStats -params DrawFmqPolygonStats.cp2_draw"
+if ($status == 1) then
+  DrawFmqPolygonStats -params DrawFmqPolygonStats.cp2_draw &
+endif

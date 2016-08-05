@@ -1,0 +1,10 @@
+echo Grabbing gate 0 thru gate $2 to test.log using $1 samples each gate
+count=0
+while [ $count -lt $2 ]
+do
+    echo "Gate set $count"
+TsGrabber -gate $count -ngates 1 -nsamples $1 -summary -alt -once >> test.log
+    count=`expr $count + 1`
+done
+
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "Metar2Spdb -params Metar2Spdb.dynamo"
+if ($status == 1) then
+  Metar2Spdb -params Metar2Spdb.dynamo -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Metar2Spdb -i dynamo &
+endif
+

@@ -1,0 +1,5 @@
+#############################################################################
+# SysView processes
+#
+SysView       aoaws        start_SysView               kill_SysView localhost
+LdataWatcher  sysview      start_LdataWatcher.sysview  snuff_inst   localhost

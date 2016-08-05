@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/spoldrx/params
+
+running "Fmq2Fmq -params Fmq2Fmq.spoldrx"
+if ($status == 1) then
+  Fmq2Fmq -params Fmq2Fmq.spoldrx |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Fmq2Fmq -i spoldrx &
+endif
+

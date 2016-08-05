@@ -1,0 +1,551 @@
+SPOL LOG - PECAN
+================
+
+All times in UTC.
+
+PUN = PECAN unattended mode
+
+2015/06/01-02
+-------------
+
+SPOL operational
+
+First day of project.
+Tested scanning strategies.
+Belay Demoz and his group from FP2 set up Vaisala ceilometer at SPOL site.
+
+IOP1: Shakedown
+Mobile units to NW Kansas, 22:00 - 04:00
+
+PUN ran overnight, to 11:00
+11:00 - 21:50 sunscans
+22:00 - resumed PUN
+
+2015/06/02-03
+-------------
+
+IOP2 - LLJ, centered on SPOL.
+
+SPOL operational
+David Bodine installed Parsival disdrometer.
+
+Collected 90 mins of data for refractivity.
+PUN ran overnight for the IOP.
+
+2015/06/03-04
+-------------
+
+IOP3: MCS centered on Salina
+
+Completed disdrometer installation.
+
+PUN ran overnight.
+18:00 Nice low-level waves in velocity and sat data - bore?
+21:18 stopped scan. 2 problems:
+
+  (a) azimuth drive oil pump
+  (b) arcing
+
+Replaced oil pump.
+Decreased xmit power by 0.7 dB (from 9.4 dBm to 8.7 dBm on top of cabinet) to prevent arcing.
+
+01:52  Back up and scanning in PUN.
+07:58  Antenna breaker tripped, scan stopped.
+
+control1 server had problem, shut down. Boot problems.
+No data from 07:58 for remainder of IOP. 
+
+2015/06/04-05
+-------------
+
+IOP4 - bore
+
+15:00  Installed nitrogen bottle for waveguide pressurization, to try to mitigate arcing.
+       Reseated boards in control1, to remove boot error. Successful.
+       Installed replacement AC in annex.
+
+17:30  Warmed up tramsmitter.
+       Purged waveguide with nitrogen.
+       Reset PMAC.
+
+20:30  Reduced xmit power to avoid arcing. Reduced by 1.4 dB, to 8.0 dBm on top of cabinet.
+       Still having various power-supply-related problems.
+       Major attempt to diagnose problems.
+       Found 140V DC in transmitter cabinet, even with power off.
+       Unable to fully diagnose problem.
+       
+No useful data during IOP4.
+
+2015/06/05-06
+-------------
+
+IOP5 - bore
+
+Contined diagnosis of power-supply related problems.
+No SPOL operations.
+No data aquired for IOP5.
+
+2015/06/06-07
+-------------
+
+UFO1 - bore
+
+Contined diagnosis of power-supply related problems.
+
+13:00 Found bad MOV surge protector on azimuth motor 1.
+      Brought system up again.
+      Recalibrated for 1 us pulse, peak power 86 dBm = 400 KW.
+
+22:40 Resumed PUN.
+      Data aquired for UFO1 at reduced power.
+
+2015/06/07-08
+-------------
+
+IOP6 - CI
+
+PUN ran overnight.
+18:10  Elevation brake breaker tripped. Stopped scanning in elevation.
+20:45  Reset breaker.
+20:53  Resume PUN.
+
+PUN ran through the mission.
+Data collected for IOP6 at reduced power.
+
+2015/06/08-09
+-------------
+
+Down day for PECAN.
+Maintenance day for SPOL.
+
+PUN ran overnight.
+
+13:00 started solar scans
+15:18 resumed PUN
+17:00 fuel delivery
+17:27 Stopped scanning
+
+Replaced rotary joint with spare.
+Adjusted transmit power back up to normal, ~87.5 dBm.
+
+21:10 solar scans, siggen calibration
+22:00 resumed PUN
+
+2015/06/09-10
+------------
+
+IOP7 - LLJ
+
+PUN ran overnight.
+
+12:30  start solar scans for ZDR cal
+16:30  stopped solars, shut down radar
+
+Replaced motor on xmitter AC end unit.
+Moved GPS antenna to north end of tech container.
+
+19:00 tried starting radar, transmitter overvoltage fault.
+      also problems with xmitter AC end-unit.
+
+Determined that transmitter AC end unit had failed completely.
+Arranged for AC contractor to come to site to assess.
+
+Replaced transmitter trigamp.
+Got transmitter working, but at reduced power because of pulse timing mismatch.
+Decided not to operate because of AC and 
+
+No SPOL operations for IOP7.
+
+2015/06/10-11
+-------------
+
+IOP8 - MCS
+
+AC problems persisted throughout the day.
+We decided to try running with only the external AC unit, after the evening cools.
+Xmitter down by 2.3 dB, H power 85.5 dBm, V power 85.25 dBm.
+
+23:00  Started PUN
+00:05  Stopped to let transmitter cool down
+00:10  Resumed PUN
+00:28 - 00:38 Vert pointing in anvil
+              Good returns 6 km to 10 km range, Zdrm -0.091 dB
+              This value used for remainder of project.
+
+00:40  Resumed PUN
+00:50  Shut down transmitter, klystron temp too high
+04:00  Resumed PUN
+05:30  Shut down, klystron temp too high
+
+No SPOL ops after 05:30.
+
+2015/06/11-12
+-------------
+
+IOP9 - MCS
+
+AC contractor repaired xmitter AC end unit.
+Eric and Al tuned the klystron for the new trigamp.
+
+02:20  Started PUN
+07:40  Stopped scanning.
+
+2015/06/12-13
+-------------
+
+No PECAN ops.
+
+SPOL up - PUN.
+
+2015/06/13-14
+-------------
+
+UFO2 - CI
+
+SPOL up - PUN.
+
+2015/06/14-15
+-------------
+
+IOP10 - MCS
+
+SPOL up - PUN.
+
+2015/06/15-16
+-------------
+
+No PECAN ops.
+
+SPOL up - PUN.
+
+2015/06/16-17
+-------------
+
+IOP11 - MCS
+
+SPOL up - PUN.
+
+2015/06/17-18
+-------------
+
+No PECAN ops.
+
+SPOL up - PUN.
+
+Fixed RHI moments problem with beam smearing.
+
+2015/06/18-19
+-------------
+
+UFO3 - AET/CI
+
+SPOL up - PUN
+
+2015/06/19-20
+-------------
+
+IOP12 - LLJ
+UFO4 - MCS
+UFO5 - bore
+
+SPOL up - PUN
+
+2015/06/20-21
+-------------
+
+UFO6 - AET/CI
+
+SPOL up - PUN
+
+2015/06/21-22
+-------------
+
+No PECAN ops.
+
+SPOL up - PUN
+
+2015/06/22-23
+-------------
+
+IOP13 - LLJ
+
+22:00 Stopped scanning to reboot pgen2.
+22:18 Resumed PUN.
+22:40 pgen2 back up.
+23:27 Main fuel tank empty.
+      Switched generators to internal tanks.
+
+PUN ran overnight.
+
+2015/06/23-24
+-------------
+
+IOP14 - CI/LLJ
+
+12:04 started solar scanning
+      Fuel delivery
+
+18:30 switched to generator #1 - inside
+
+19:16 resumed PUN
+
+2015/06/24-25
+-------------
+
+IOP15 - MCS
+
+SPOL up - PUN
+
+2015/06/25-26
+-------------
+
+IOP16 - bore
+
+SPOL up - PUN
+
+2015/06/26-27
+-------------
+
+No PECAN ops.
+
+08:27 - 08:37: vert pointing, ZDRm 0.004 dB
+
+08:37 resumed PUN
+18:45 stopped scanning - photographs of horizon from pedestal
+19:00 resumed PUN
+20:25 - 21:18: solar scans
+21:20 resumed PUN
+
+Note: replaced defective RAID1 system disk on pgen1.
+
+2015/06/27-28
+-------------
+
+No PECAN ops.
+
+PUN ran overnight.
+16:05 shutdown for software maintenance
+16:57 resumed PUN
+
+2015/06/28-29
+-------------
+
+No PECAN ops.
+
+PUN ran overnight
+16:02 - 18:10 solar scans
+18:10 resumed PUN
+
+2015/06/29-30
+-------------
+
+UFO7 - AET/CI
+
+PUN ran overnight
+14:39 shutdown for EOL directorate visitors
+15:50 resumed PUN
+17:45 stopped scanning for maintenance
+18:00 resumed PUN
+
+2015/06/30 - 07/01
+------------------
+
+IOP17 - MCS
+
+PUN ran overnight
+14:30 fuel delivery
+15:40 - 16:04 solar scans
+16:04 resumed PUN
+
+05:58 angle problem with PMAC - scan stopped automatically
+      reset sixnet and PMAC
+07:50 restarted scan with PUNFixed - had 0.4 degree error in elevation
+      so files needed to be fixed later (this was done)
+16:53 fixed PMAC angle offset
+      resumed PUN
+
+2015/07/01-02
+-------------
+
+UFO8A - MCS
+UFO8B - bore
+
+SPOL up - PUN
+
+2015/07/02-03
+-------------
+
+UFO9 - CI
+
+PUN ran overnight
+
+14:02 start vert point
+14:55 resume PUN
+18:42 start vert point
+19:02 resume PUN
+19:38 start solars
+19:54 resume PUN
+21:00 shutdown for generator problems
+21:30 resume PUN
+
+2015/07/03-04
+-------------
+
+IOP18 - CI
+
+SPOL up - PUN
+
+2015/07/04-05
+-------------
+
+IOP19 - bore
+
+SPOL up - PUN
+
+2015/07/05-06
+-------------
+
+IOP20 - MCS
+
+PUN ran overnight.
+
+15:41 stop scanning to reset PMAC and SIXNET.
+15:55 resumed PUN
+16:33 started solars
+17:11 resumed PUN
+
+2015/07/06-07
+-------------
+
+UFO10 - MCS
+
+PUN ran overnight
+
+13:16 start solars, Zdr corr: -0.028, -0.040, -0.076, -0.091, -0.078, -0.086
+14:01 resume PUN
+16:30 start vert pointing, Zdr corr: -0.006
+16:17 resume PUN
+16:37 start vert pointing, Zdr corr: +0.010
+16:55 resume PUN
+17:34 start solars, Zdr corr: -0.080, 0.068
+18:05 resume PUN
+
+2015/07/07-08
+-------------
+
+UFO11 - CI
+
+PUN ran overnight
+
+00:25 shut down, visit from journalist
+00:35 resume PUN
+
+2015/07/08-09
+-------------
+
+IOP21 - MCS
+IOP22 - CI
+
+PUN ran overnight
+
+19:18 start vert point, Zdr corr: -0.040
+19:45 resume PUN
+21:22 start solars, Zdr corr: -0.051, -0.015, -0.033, -0.055
+21:53 resume PUN
+
+2015/07/09-10
+-------------
+
+IOP23 - MCS
+IOP24 - CI-LLJ
+
+PUN ran overnight
+17:19 stopped scan for maintenance
+17:47 resumed PUN
+
+2015/07/10-11
+-------------
+
+IOP25 - bore
+
+SPOL up - PUN
+
+2015/07/11-12
+-------------
+
+IOP26 - CI-LLJ
+UFO12 - MCS
+
+PUN ran overnight with extra 10 deg RHI.
+15:33 removed extra 10 deg RHI, PUN running
+
+2015/07/12-13
+-------------
+
+IOP27 - MCS
+UFO13 - bore
+
+PUN ran overnight.
+
+18:10 shutdown for visitor tour
+18:30 resumed PUN
+
+2015/07/13-14
+-------------
+
+IOP28 - MCS
+IOP29 - CI
+
+PUN ran overnight
+SPOL up - PUN
+
+00:28 start vert point, anvil 5-10 km range, zdrCorr -0.150 dB
+00:40 resume PUN
+00:48 start solar scan (2 scans) through anvil, zdrCorr -0.160, -0.189 dB
+01:02 start vert point, anvil, zdrCorr -0.135 dB
+01:12 resume PUN
+
+2015/07/14-15
+-------------
+
+IOP30 - CI
+
+PUN running
+08:00 - strong MCS moved through radar site and Hays area
+
+2015/07/15-16
+-------------
+
+IOP31 - MCS
+
+PUN running
+
+17:35 blue sky pointing, for ATE cals, ran 3 cals
+18:00 Resume PUN
+18:23 solar scans, zdrCorr: -0.026, -0.045, -0.038 dB
+18:46 Resume PUN
+03:25 Running V-point
+03:30 Resume PUN
+
+2015/07/16-17
+-------------
+
+PUN ran overnight.
+
+Absorber still in place.
+
+13:58 Start solars x 7 (zdrCorr: -0.090)
+14:53 Start hubbert sur (0.25, 0.5, 1.0, 1.5)
+15:13 Vpoint x 6
+15:13 Stow for absorber removal
+
+Absorber removed
+
+16:28 Starting PUN to let transmitter warm up, includes RHIs
+17:07 Starting solars x 6
+17:53 Start HubbertSur x 3
+18:11 Start vert point
+18:22 Start PUN schedule
+19:00 Shut down PUN
+
+END OF PECAN

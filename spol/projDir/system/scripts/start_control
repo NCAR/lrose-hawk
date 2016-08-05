@@ -1,0 +1,7 @@
+#/bin/sh
+
+# start the system controller and control GUI
+
+start_syscon
+start_UI_Server
+start_sitecon

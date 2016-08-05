@@ -1,0 +1,11 @@
+#! /bin/csh 
+
+
+cd $PROJ_DIR/system/params
+
+running "DsFileDist -params DsFileDist.suncal"
+if ($status == 1) then
+  DsFileDist -params DsFileDist.suncal |& \
+	LogFilter -d $ERRORS_LOG_DIR -p DsFileDist -i suncal >& /dev/null &
+endif
+

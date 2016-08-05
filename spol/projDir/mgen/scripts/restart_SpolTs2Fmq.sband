@@ -1,0 +1,5 @@
+#! /bin/csh
+
+snuff SpolTs2Fmq.sband
+start_SpolTs2Fmq.sband
+

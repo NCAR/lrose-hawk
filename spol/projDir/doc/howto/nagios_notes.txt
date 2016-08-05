@@ -1,0 +1,75 @@
+Notes on Nagios monitoring:
+Read the pages under https://wiki.ucar.edu/display/spoltech/Nagios+Pages for background.
+
+
+The web login for check_mk/nagios is:
+login: omdadmin
+passwd: omd4spol!!
+
+
+To change any Nagios configuration, you must be logged in as 'prod'.
+(you can always login as root, then type 'su - prod')
+
+(Note if you change files as root, you may mess up the permissions.)
+
+Nagios Configuration is located under  
+control1:~prod
+
+Key configuration files:
+~prod/etc/check_mk/main.mk
+
+~prod/etc/nagios/conf.d/contacts.cfg  
+	- defines phone numbers, time periods,  contact groups
+
+
+
+After changing the configuration files or modifying host configuration or scripts:
+
+control1 # su - prod 
+
+OMD[prod]:~$ cmk -II # run inventory
+OMD[prod]:~$ cmk -R # regenerate Nagios configuration
+
+OMD[prod]:~$ check_mk -O   
+
+Adding more checks:
+For each computer we monitor, check_mk automatically invokes all scripts located under
+/usr/share/check_mk_agent/local
+
+These scripts generate lines of the form:
+------------
+2 HawkSummary_Data - 7 ok, 9 problems
+0 HD_mdv/radial/moments/sband - OK
+------------
+Each line contains a status (0=ok, 1=warn, 2=Error), the name of the checked item, and a text summary.
+The "check_mk -II" command looks at the output from each script and generates the 
+necessary nagios configuration files.
+
+mgen:projDir/mgen/params/SpolTsMonitor.kband
+contains the settings for the Ka band nagios monitoring.
+
+
+Troubleshooting:
+If Dell OpenManage isn't reporting results ("Unknown ..."), 
+/opt/dell/srvadmin/sbin/srvadmin-services.sh restart
+
+
+
+
+
+Fine tuning  Nagios:
+To ignore particular services, add them to the 'ignored_services' line in
+etc/check_mk/main.mk
+
+Useful features in check_mk/Nagios web page:
+Master Control -> Notifications - to Enable/Disable
+
+Notifications are send by /usr/local/bin/send_sms.  send_sms limits the number of SMS messages 
+to 1 every 'N' minutes, so as to not be overly annoying.  send_sms stores the time of the last 
+notification and the notification interval in /var/local/nagios/notifications.json .
+
+Create using the command:
+htpasswd ~prod/etc/htpasswd <user>
+
+and adding the user to ~prod/etc/check_mk/multisite.mk
+

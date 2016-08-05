@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "InputWatcher -params InputWatcher.spol_cams"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.spol_cams |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i spol_cams &
+endif
+

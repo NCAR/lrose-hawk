@@ -1,0 +1,11 @@
+
+
+
+
+
+
+nagios configuration:  control1:~prod
+
+Hawk repository:
+git clone gitosis@control1:hawk.git
+

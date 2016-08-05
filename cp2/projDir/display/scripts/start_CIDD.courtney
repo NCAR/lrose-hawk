@@ -1,0 +1,10 @@
+#! /bin/csh
+
+#set_font_path
+
+setenv DATA_HOST cp2data
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.cp2 -fn fixed -t 20080202030000 >& /dev/null &
+

@@ -1,0 +1,53 @@
+#! /bin/csh
+
+# Process any command line arguments.  The only allowed argument is a time
+# string to be sent to CIDD for processing archive data.
+
+# Ensure virtual X server is running and set display accordingly. 
+
+start_Xvfb
+set display_num = 101
+setenv DISPLAY :${display_num}.0
+
+set_font_path
+setenv DATA_HOST localhost
+
+# use CIDD to create normal images
+
+setenv CIDD_LABEL N_AUST-image-generation
+setenv CREATING_IMAGES 1
+setenv TRANSPARENT_IMAGES 0
+setenv FIELD_LABEL
+setenv PLOT_MAPS 1
+setenv FOREGROUND_COLOR white
+setenv BACKGROUND_COLOR black
+setenv MISSING_DATA_COLOR gray20
+setenv RANGE_RING_FLAG 1
+setenv SHOW_HEIGHT_SEL 0
+setenv TIME_INTERVAL 10.0
+setenv IMAGE_DIR $DATA_DIR/www/N_Aust/images/ops_radars
+setenv OUTPUT_GEO_XML 0
+
+cd $PROJ_DIR/radars/N_Aust/params
+CIDD -p CIDD.Gunn_Pt -i Gunn_Pt.web.normal -fn fixed -v 2
+
+# use CIDD to create transparent images
+
+setenv CIDD_LABEL N_AUST-image-generation
+setenv CREATING_IMAGES 1
+setenv TRANSPARENT_IMAGES 1
+setenv FIELD_LABEL -TRANS
+setenv PLOT_MAPS 0
+setenv FOREGROUND_COLOR white
+setenv BACKGROUND_COLOR black
+setenv MISSING_DATA_COLOR gray20
+setenv RANGE_RING_FLAG 0
+setenv SHOW_HEIGHT_SEL 0
+setenv TIME_INTERVAL 10.0
+setenv IMAGE_DIR $DATA_DIR/www/N_Aust/images/ops_radars
+setenv OUTPUT_GEO_XML 0
+
+cd $PROJ_DIR/radars/N_Aust/params
+CIDD -p CIDD.Gunn_Pt -i Gunn_Pt.web.transparent -fn fixed -v 2
+
+

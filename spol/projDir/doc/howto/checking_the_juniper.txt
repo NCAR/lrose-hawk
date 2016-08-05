@@ -1,0 +1,35 @@
+How to check the juniper firewalls
+
+Login 
+ssh -l root 192.168.4.251
+password: TakeMe2Fr0nt
+
+Show basic status:
+If a node status is not  "primary" or "secondary", it is not working properly.
+
+root@spol-fw-node0% cli
+root@spol-fw-node0> show chassis cluster status
+Cluster ID: 1
+Node                  Priority          Status    Preempt  Manual failover
+
+Redundancy group: 0 , Failover count: 1
+    node0                   100         primary        no       no
+    node1                   1           secondary      no       no
+
+Redundancy group: 1 , Failover count: 3
+    node0                   100         primary        no       no
+    node1                   1           secondary      no       no
+
+{primary:node0}
+========================
+
+root@spol-fw-node0> show chassis alarms
+node0:
+--------------------------------------------------------------------------
+No alarms currently active
+
+node1:
+--------------------------------------------------------------------------
+No alarms currently active
+
+{primary:node0}

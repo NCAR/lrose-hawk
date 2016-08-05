@@ -1,0 +1,408 @@
+/**********************************************************************
+ * TDRP params for SunCal
+ **********************************************************************/
+
+//======================================================================
+//
+// SunCal analyses data from tsarchive time series files taken during 
+//   sun scans.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "zdr";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = FALSE;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_mode //////////////////////////////
+//
+// Input mode - files or time series API.
+// If TS_FMQ_INPUT, the application will read the time series from a 
+//   file message queue and process the pulses as they come in. If 
+//   TS_FILE_INPUT, the application will process all the files specified 
+//   on the command line.
+//
+// Type: enum
+// Options:
+//     TS_FILE_INPUT
+//     TS_FMQ_INPUT
+//
+
+input_mode = TS_FILE_INPUT;
+
+///////////// input_fmq_name //////////////////////////
+//
+// FMQ name. For TS_FMQ_INPUT only.
+// Path to FMQ files. There are 2 files, one with a .buf extension and 
+//   one with a .stat extention. This path does not include the 
+//   extensions.
+// Type: string
+//
+
+input_fmq_name = "/tmp/fmq/ts";
+
+///////////// n_samples ///////////////////////////////
+//
+// Number of pulse samples in a beam.
+// Type: int
+//
+
+n_samples = 128;
+
+///////////// start_gate //////////////////////////////
+//
+// Start gate for analysis.
+// Type: int
+//
+
+start_gate = 50;
+
+///////////// n_gates /////////////////////////////////
+//
+// Number of gates for analysis.
+// Type: int
+//
+
+n_gates = 500;
+
+///////////// invert_hv_flag //////////////////////////
+//
+// Option to invert H/V flag in pulse data.
+// Normally, the HV flag is set to 1 for H, 0 for V. If the flag in the 
+//   data has the opposite sense, set this to true.
+// Type: boolean
+//
+
+invert_hv_flag = FALSE;
+
+//======================================================================
+//
+// SCAN IDENTIFICATION OPTIONS.
+//
+//======================================================================
+ 
+///////////// analysis_scan_by_scan ///////////////////
+//
+// Option to identify separate sun scans for the analysis.
+// If false, all of the input data will be analyzed together. If true, 
+//   the program will identify individual sun scans for analysis by 
+//   monitoring the antenna elevation angle for a decrease which indicates 
+//   that the scan is restarting. You have the option of including more 
+//   than 1 scan in the analysis - see nscans_for_analysis.
+// Type: boolean
+//
+
+analysis_scan_by_scan = TRUE;
+
+///////////// n_scans_for_analysis ////////////////////
+//
+// Number of consecutive scans to be included in the analysis.
+// This is the ideal. See analysis_scan_by_scan.
+// Type: int
+//
+
+n_scans_for_analysis = 1;
+
+///////////// min_scans_for_analysis //////////////////
+//
+// Minimum number of consecutive scans to be included in the analysis.
+// If all of the data has been ingested, or a time change occurs, the 
+//   program checks for the number of available scans. If it exceeds this 
+//   number, the data is saved out.
+// Type: int
+//
+
+min_scans_for_analysis = 1;
+
+///////////// min_beams_per_scan //////////////////////
+//
+// Min number of beams per scan.
+// Type: int
+//
+
+min_beams_per_scan = 100;
+
+///////////// elev_change_for_end_of_scan /////////////
+//
+// Minimum delta elevation to indicate end of scan (deg).
+// At the end of a scan, the elevation angle will be reset to the 
+//   starting angle. When this happens the program can detect the end of 
+//   scan by the rapid change in elevation angle. This is the minimum 
+//   angular change to signal and end of scan.
+// Type: double
+//
+
+elev_change_for_end_of_scan = 2;
+
+///////////// scan_starts_at_bottom ///////////////////
+//
+// Scan starts at lowest elevation angle and moves upwards.
+// If false, scan starts at top and moves downwards.
+// Type: boolean
+//
+
+scan_starts_at_bottom = TRUE;
+
+///////////// max_time_gap_within_scan ////////////////
+//
+// Max time gap within a scan (secs).
+// If the time between pulses exceeds this value, the current analysis 
+//   will be terminated and a new analysis begun.
+// Type: int
+//
+
+max_time_gap_within_scan = 900;
+
+//======================================================================
+//
+// RADAR LOCATION.
+//
+//======================================================================
+ 
+///////////// radar_lat ///////////////////////////////
+//
+// Latiitude of radar location (deg).
+// North is positive, South is negative.
+// Type: double
+//
+
+radar_lat = $(RADAR_LAT);
+
+///////////// radar_lon ///////////////////////////////
+//
+// Longitude of radar location (deg).
+// East is positive, West is negative.
+// Type: double
+//
+
+radar_lon = $(RADAR_LON);
+
+///////////// radar_alt_km ////////////////////////////
+//
+// Altitude of radar (km).
+// Type: double
+//
+
+radar_alt_km = $(RADAR_ALT_KM);
+
+//======================================================================
+//
+// GRID DETAILS.
+//
+//======================================================================
+ 
+///////////// grid_min_az /////////////////////////////
+//
+// Min azimiuth for the grid (deg).
+// Type: double
+//
+
+grid_min_az = -5;
+
+///////////// grid_max_az /////////////////////////////
+//
+// Max azimiuth for the grid (deg).
+// Type: double
+//
+
+grid_max_az = 5;
+
+///////////// grid_delta_az ///////////////////////////
+//
+// Resolution of regular grid in azimuth (deg).
+// Type: double
+//
+
+grid_delta_az = 0.05;
+
+///////////// grid_min_el /////////////////////////////
+//
+// Min elevation for the grid (deg).
+// Type: double
+//
+
+grid_min_el = -2;
+
+///////////// grid_max_el /////////////////////////////
+//
+// Max elevation for the grid (deg).
+// Type: double
+//
+
+grid_max_el = 2;
+
+///////////// grid_delta_el ///////////////////////////
+//
+// Resolution of regular grid in elevation (deg).
+// Type: double
+//
+
+grid_delta_el = 0.05;
+
+//======================================================================
+//
+// NOISE COMPUTATION.
+//
+//======================================================================
+ 
+///////////// max_solid_angle_for_sun_power ///////////
+//
+// Max solid angle for power from the sun (deg).
+// The noise will be computed as the mean of power from beams outside 
+//   this solid angle.
+// Type: double
+//
+
+max_solid_angle_for_sun_power = 4;
+
+///////////// use_min_for_noise ///////////////////////
+//
+// Option to use min value in grid for noise.
+// If true, the minimum value in the grid will be use as the noise 
+//   value. If false, the noise value will be computed as the mean of all 
+//   values away from the sun. See noise_min_delta_angle_from_sun.
+// Type: boolean
+//
+
+use_min_for_noise = FALSE;
+
+///////////// adjust_powers_for_noise /////////////////
+//
+// Option to subtract noise from powers.
+// If true, the noise power is subtracted from the received power.
+// Type: boolean
+//
+
+adjust_powers_for_noise = TRUE;
+
+//======================================================================
+//
+// CROSS-POLAR POWER ANALYSIS.
+//
+//======================================================================
+ 
+///////////// sun_edge_below_peak_db //////////////////
+//
+// Power of sun edge relative to the peak (dB).
+// The sun position is computed using the power at each point. Only 
+//   powers within this margin of the peak power are used in the 
+//   computations.
+// Type: double
+//
+
+sun_edge_below_peak_db = 8;
+
+///////////// n_s1s2_ratios_computed //////////////////
+//
+// Number of ratios computed for S1S2.
+// Each ratio is computed for a different solid angle.
+// Type: int
+//
+
+n_s1s2_ratios_computed = 8;
+
+///////////// min_solid_angle_for_s1s2 ////////////////
+//
+// Min solid angle over which to compute S1S2 mean (deg).
+// This is the min angle for computing S1S2. The angle is centered on 
+//   the sun, and the mean ratio is computed over the entire angle. For 
+//   example, if set to 1.0, all points in the grid within 0.5 degrees of 
+//   the sun centroid will be used.
+// Type: double
+//
+
+min_solid_angle_for_s1s2 = 0.25;
+
+///////////// delta_solid_angle_for_s1s2 //////////////
+//
+// Delta solid angle over which to compute S1S2 mean (deg).
+// A number of ratios are computed for a range of solid angles. This is 
+//   the delta between each solid angle.
+// Type: double
+//
+
+delta_solid_angle_for_s1s2 = 0.25;
+
+///////////// npoints_power_ranking ///////////////////
+//
+// Number of grid points used to compute ratios using ranked powers.
+// In this method, the points in the grids are ranked, and a mean is 
+//   computed using the top npoints_power_ranking points, after dropping 
+//   the tops few points. See npoints_dropped_ranking.
+// Type: int
+//
+
+npoints_power_ranking = 9;
+
+//======================================================================
+//
+// OUTPUT RESULTS.
+//
+//======================================================================
+ 
+///////////// output_dir //////////////////////////////
+//
+// Dir for output files.
+// The results will be written to sub-directories named from the cal 
+//   time.
+// Type: string
+//
+
+output_dir = "$(PROJ_DIR)/data/analysis/suncal";
+
+///////////// append_to_global_results_file ///////////
+//
+// Option to append results to global file.
+// Type: boolean
+//
+
+append_to_global_results_file = TRUE;
+
+///////////// global_file_name ////////////////////////
+//
+// Name for global output file.
+// Type: string
+//
+
+global_file_name = "suncal.global.txt";
+

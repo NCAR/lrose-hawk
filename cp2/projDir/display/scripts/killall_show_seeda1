@@ -1,0 +1,5 @@
+#! /bin/csh
+
+killall show_seeda1
+killall tail
+

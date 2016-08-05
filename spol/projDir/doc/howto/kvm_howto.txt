@@ -1,0 +1,30 @@
+How to access S-Pol via the KVM
+
+For the FRONT location, the KVM is accessible as spol-kvm.front.ucar.edu.  In the field, we will create a DYNDNS hostname,
+spol-kvm.dyndns.org.
+
+First, you may have to configure your browser to connect to the Avocent KVM.  (We can't replace the security certificate, 
+and your browser may object to connecting to an "insecure" web site.)
+
+For Chrome, if you get the message "Your connection is not private", 
+click 'Advanced',
+
+click "proceed to spol-kvm.front.ucar.edu(unsafe)"
+
+Login to the KVM (see Joe or Mike for the username/password)
+
+1) To login to a computer:
+         a) click on a computer name (with the computer icon).
+         b) On the next screen, click on "KVM Session".
+         c) Find the downloaded file 'session_launchxx.jnlp'
+         d) doubleclick the jnlp file
+         e) On a Mac, you may have to open the System Preference "Security & Privacy" control panel to give the KVM session app
+            permission to run.  (The app isn't signed).
+         f) give Java permission to run the KVM console session.
+
+2) To control power on a specific outlet:
+        a) click the outlet name , e.g. "DELTA_TAU_PDU 1 7"
+        b) click the checkbox, and then click 'On', 'Off', or 'Cycle'.
+        c) click the 'Save Button' (Upper right)
+
+

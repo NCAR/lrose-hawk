@@ -1,0 +1,3 @@
+#! /bin/csh
+
+/opt/local/bin/PrintDataMap -host eldora.eol.ucar.edu -all -relt -lreg

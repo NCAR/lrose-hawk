@@ -1,0 +1,11 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST localhost
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.BrisMerge.flight_level -i BrisMerge -fn fixed |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CIDD -i BrisMerge.flight_level &
+

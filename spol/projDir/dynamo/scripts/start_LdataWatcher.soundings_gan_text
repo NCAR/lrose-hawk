@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "LdataWatcher -params LdataWatcher.soundings_gan_text"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.soundings_gan_text |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i soundings_gan_text &
+endif
+

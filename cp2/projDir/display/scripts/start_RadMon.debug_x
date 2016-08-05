@@ -1,0 +1,5 @@
+#! /bin/csh -f
+
+ssh cp2server RadMon -url fmq/moments_x -summary -update -1
+
+

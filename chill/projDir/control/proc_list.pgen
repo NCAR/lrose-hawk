@@ -1,0 +1,38 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst
+Scout         primary    start_Scout               kill_Scout        
+DataMapper    primary    start_DataMapper          kill_DataMapper   
+DsFileDist    chill      start_DsFileDist.chill    snuff_inst
+Janitor       logs       start_Janitor.logs        snuff_inst
+#Janitor       cfradial  start_Janitor.cfradial    snuff_inst
+#
+###############################################################################
+# CHILL SDB moments into CfRadial
+#
+Dsr2Radx      moments.sdb  start_Dsr2Radx.moments.sdb  snuff_inst
+#
+###############################################################################
+# Converting DSR radial data to CfRadial
+#
+Dsr2Radx  moments.sband   start_Dsr2Radx.moments.sband snuff_inst
+Dsr2Radx  covar.sband     start_Dsr2Radx.covar.sband   snuff_inst
+###############################################################################
+# RHI location
+#
+Rhi2Spdb      ops        start_Rhi2Spdb.ops        snuff_inst
+###############################################################################
+# Vertical pointing calibration from moments
+#
+#VertCompute   mom      start_VertCompute.mom      snuff_inst
+###############################################################################
+# VCHILL
+#
+#ChillSdbServer  ops   start_ChillSdbServer.ops     snuff_inst
+#
+#############################################################################
+# SysView
+#
+#SysView       ops      start_SysView                kill_SysView 
+#LdataWatcher  SysView  start_LdataWatcher.SysView   snuff_inst

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "Ltg2Spdb -params Ltg2Spdb.dynamo"
+if ($status == 1) then
+  Ltg2Spdb -params Ltg2Spdb.dynamo -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Ltg2Spdb -i dynamo &
+endif
+

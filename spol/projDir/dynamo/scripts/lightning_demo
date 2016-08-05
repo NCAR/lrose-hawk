@@ -1,0 +1,26 @@
+#!/usr/bin/python
+import httplib
+import base64
+
+conn = httplib.HTTPConnection("wwlln.net")
+auth = base64.b64encode("dynamo:BrodzikWWLLN")
+print 'auth =', auth
+
+headers = { "Authorization" : "Basic %s" % auth }
+print "headers = ", headers
+
+# grab the page listing available file:
+conn.request("GET", "/dynamo/", "", headers)
+response = conn.getresponse()
+print response.status, response.reason, response.read()
+
+# retrieve a sample file
+conn.request("GET", "/dynamo/A201109190550.dynamo.loc", "", headers)
+response = conn.getresponse()
+print response.status, response.reason, response.read()
+
+
+conn.close()
+
+
+

@@ -1,0 +1,36 @@
+/**********************************************************************
+ * TDRP params for DsMdvServer
+ **********************************************************************/
+
+//======================================================================
+//
+// VERTICAL UNITS SPECIFICATION.
+//
+//======================================================================
+ 
+///////////// specify_vertical_units //////////////////
+//
+// Option to specify the vertical units for the returned data.
+// If set, the vertical units will be converted, if possible, as 
+//   specified by 'vertical_units'. If the conversion is not possible, the 
+//   data will be returned in the normal units.
+// Type: boolean
+//
+
+specify_vertical_units = TRUE;
+
+///////////// vertical_units //////////////////////////
+//
+// Vertical units.
+// See 'specify_vertical_units'. If this is TRUE, vert units will be 
+//   converted as specified if possible.
+//
+// Type: enum
+// Options:
+//     HEIGHT_KM
+//     PRESSURE_MB
+//     FLIGHT_LEVEL
+//
+
+vertical_units = FLIGHT_LEVEL;
+

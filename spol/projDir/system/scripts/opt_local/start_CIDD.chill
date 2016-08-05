@@ -1,0 +1,10 @@
+#! /bin/csh
+
+set_font_path >& /dev/null
+setenv PROJ_DIR /h/eol/dixon/local_el6_64/cvs/projects/hawk/projDir
+
+setenv DATA_HOST eldora.eol.ucar.edu
+source $PROJ_DIR/system/params/site_info.front
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.chill -font fixed >& /dev/null &

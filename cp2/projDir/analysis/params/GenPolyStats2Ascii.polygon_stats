@@ -1,0 +1,266 @@
+/**********************************************************************
+ * TDRP params for GenPolyStats2Ascii
+ **********************************************************************/
+
+//======================================================================
+//
+// GenPolyStats2Ascii.
+//
+// This process reads polygons from a GenPoly statistics database and 
+//   writes the statistics to stdout.  The GenPoly statistics database is 
+//   generated using CIDD and DrawFmqPolygonStats.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING PARAMETERS.
+//
+// Parameters controlling debug outputs.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// debug flag.
+// Debug flag.
+// Type: boolean
+//
+
+debug = FALSE;
+
+//======================================================================
+//
+// PROCESS I/O PARAMETERS.
+//
+// Parameters describing the input and output locations.
+//
+//======================================================================
+ 
+///////////// start_time //////////////////////////////
+//
+// TIME_LIST mode start time.
+// Type: string
+//
+
+start_time = "2008 02 02 00 0 0";
+
+///////////// end_time ////////////////////////////////
+//
+// TIME_LIST mode end time.
+// Type: string
+//
+
+end_time = "2009 02 23 12 0 0";
+
+///////////// input_url ///////////////////////////////
+//
+// Input URL.
+// URL for the input SPDB database.
+// Type: string
+//
+  input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh-10";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh0";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh10.rhohv95";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh0.rhohv90";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh20.rhohv95";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh-5.rhohv70";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh0.rhohv80";
+//input_url = "spdbp:://$(DATA_HOST)::analysis/spdb/polygon_stats.thresh10";
+///////////// storm_substring /////////////////////////
+//
+// Substring of the storm id for storms to include in output.
+// If set to an empty string, all storms in the SPDB database will be 
+//   included in the output. If set, only storms whose storm id contains 
+//   this string will be included in the output.
+// Type: string
+//
+
+storm_substring = "020708 01"; 
+
+///////////// output_fields ///////////////////////////
+//
+// List of fields to include in the output.
+// 	field_name - The name of the field as it appears in the GenPoly 
+//   database.
+// 	field_label - The label to use for this field. Set to an empty 
+//   string to use the field name as the label.
+//
+// Type: struct
+//   typedef struct {
+//      string field_name;
+//      string field_label;
+//   }
+//
+// 1D array - variable length.
+//
+
+output_fields = {
+  {
+    field_name = "mean DBZ_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "median DBZ_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "max DBZ_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "min DBZ_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "std dev DBZ_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "mean ZDR_F",
+    field_label = ""
+  }
+  ,
+  {
+   field_name = "max ZDR_F",
+   field_label = ""
+  }
+  , 
+  {
+   field_name = "min ZDR_F",
+   field_label =""
+  }
+  ,
+  {
+   field_name = "std dev ZDR_F",
+   field_label = ""
+  }
+  ,
+  {
+    field_name = "median ZDR_F",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "max ZDR",
+    field_label = ""
+  }
+  ,
+  {
+   field_name = "mean sdmax_z",
+   field_label=""
+  } 
+  ,
+  {
+   field_name = "mean sdmax_zdr",
+   field_label = ""
+  }
+  ,
+  {
+   field_name = "mean sd0_z",
+   field_label = ""
+  }
+  ,
+  {
+   field_name = "mean sd0_zdr",
+   field_label = ""
+  }
+  ,
+  {
+   field_name = "mean sdmax",
+   field_label =""
+  }
+  ,
+  {
+   field_name = "mean sd0",
+   field_label =""
+  } 
+  ,
+  {
+    field_name = "min ZDR",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "std dev ZDR",
+    field_label = ""
+  }
+    ,
+  {
+    field_name = "mean dmax_z",
+    field_label = ""
+  }
+    ,
+  {
+    field_name = "mean dmax_zdr",
+    field_label = ""
+  }
+    ,
+  {
+    field_name = "mean d0_z",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "mean d0_zdr",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "mean dmax",
+    field_label = ""
+  }
+  ,
+  {
+    field_name = "mean d0",
+    field_label = ""
+  }
+  
+};
+
+///////////// include_polygon_time ////////////////////
+//
+// Flag indicating whether to include the polygon time in the output.
+// The polygon time is the time entered in the dialog box when the 
+//   polygon was created. This is generally the same as the MDV volume 
+//   time.
+// Type: boolean
+//
+
+include_polygon_time = TRUE;
+
+///////////// polygon_time_label //////////////////////
+//
+// Label to use for the polygon time field.
+// Used only if include_polygon_time is set to TRUE.
+// Type: string
+//
+
+polygon_time_label = "Polygon time";
+
+///////////// include_scan_time ///////////////////////
+//
+// Flag indicating whether to include the scan time in the output.
+// The scan time is the time of the scan for this polygon within the 
+//   volume. It is calculated assuming that each scan in the volume takes 
+//   the same amount of time.
+// Type: boolean
+//
+
+include_scan_time = TRUE;
+
+///////////// scan_time_label /////////////////////////
+//
+// Label to use for the scan time field.
+// Used only if include_scan_time is set to TRUE.
+// Type: string
+//
+
+scan_time_label = "Scan time";
+

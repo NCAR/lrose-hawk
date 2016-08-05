@@ -1,0 +1,13 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST cp2server
+
+cd $PROJ_DIR/display/params
+
+cat CIDD.cp2 CIDD.ops > /tmp/CIDD.cp2_ops
+
+CIDD -p /tmp/CIDD.cp2_ops -i ops -fn fixed |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CIDD -i ops &
+

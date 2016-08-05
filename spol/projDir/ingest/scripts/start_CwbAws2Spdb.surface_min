@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "CwbAws2Spdb -params CwbAws2Spdb.surface_min"
+if ($status == 1) then
+  CwbAws2Spdb -params CwbAws2Spdb.surface_min |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CwbAws2Spdb -i surface_min &
+endif
+

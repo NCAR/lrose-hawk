@@ -1,0 +1,24 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+Janitor       primary    start_Janitor             kill_Janitor      localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+#DsFileDist   primary    start_DsFileDist          snuff_inst        localhost
+#
+###############################################################################
+# INGEST processes
+#
+TsTcp2Fmq       ops       start_TsTcp2Fmq.ops         snuff_inst    localhost
+TsSmartSave     ops       start_TsSmartSave.ops       snuff_inst    localhost
+SweepInfo2Spdb  viraq     start_SweepInfo2Spdb.viraq  snuff_inst    localhost
+InputWatcher    ts_save   start_InputWatcher.ts_save  snuff_inst    localhost
+Iq2Dsr          ops       start_Iq2Dsr.ops            snuff_inst    localhost
+Fmq2Fmq         moments   start_Fmq2Fmq.moments       snuff_inst    localhost
+#
+##############################################################################
+# VCHILL processes
+#
+ChillSdbServer  ops      start_ChillSdbServer.ops        snuff_inst    localhost
+#

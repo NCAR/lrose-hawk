@@ -1,0 +1,8 @@
+#! /bin/csh
+
+running "Janitor -instance time_series"
+if ($status == 1) then
+    Janitor -instance time_series -top $DATA_DIR/time_series -delay 60 -debug |& \
+	LogFilter -d $ERRORS_LOG_DIR -p Janitor -i time_series >& /dev/null &
+endif
+

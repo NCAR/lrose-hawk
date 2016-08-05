@@ -1,0 +1,1219 @@
+//
+// time: Fri Nov  9 14:43:38 2007
+//
+// version: 3.2.0 (format), 4.4.4 (DX)
+//
+//
+// MODULE main
+//
+// comment: In this visualization, a general purpose visual program has been used to visualize scattered, two-dimensional, multivariate data. The points have been connected using the Connect module. Glyphs are shown at the original scattered points, and contour lines are drawn on the connected surface. 
+// comment: 
+// comment: The control panel allows you to modify the contour line values, reset the contour line values (if for example you have modified them), reset the image camera (if for example you have brought in a new data set). You can also choose which data set to visualize.
+// comment: 
+// comment: If you would like to modify and use this visual program in the future, choose Open Visual Program Editor from the Windows menu, and then Save As in the File menu of the VPE.
+// page assignment: connected_v	order=4, windowed=0, showing=0
+// page assignment: glyphs	order=3, windowed=0, showing=0
+// page assignment: image	order=5, windowed=0, showing=0
+// page assignment: import	order=2, windowed=0, showing=1
+// workspace: width = 538, height = 593
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+macro main(
+) -> (
+) {
+    // 
+    // node Value[1]: x = 23, y = 294, inputs = 0, label = Value
+    // output[1]: visible = 1, type = 29, value = 1
+    // page group: import
+    //
+    // 
+    // node FileSelector[2]: x = 29, y = 110, inputs = 0, label = FileSelector
+    // output[1]: visible = 1, type = 32, value = "/home/pjp/src/nowcast/cp2_dx/cp2_antpatt/cp2_antpatt_s.general"
+    // output[2]: visible = 1, type = 32, value = "cp2_antpatt_s.general"
+    // page group: import
+    //
+    // 
+    // node String[3]: x = 234, y = 111, inputs = 0, label = String
+    // output[1]: visible = 1, type = 32, value = "general"
+    // page group: import
+    //
+    // 
+    // node Import[1]: x = 110, y = 187, inputs = 6, label = Import
+    // input[1]: defaulting = 1, visible = 1, type = 32, value = "/usr/lpp/dx/samples/data/southeastern_topo.dx"
+    // page group: import
+    //
+main_Import_1_out_1 = 
+    Import(
+    main_FileSelector_2_out_1,
+    main_Import_1_in_2,
+    main_String_3_out_1,
+    main_Import_1_in_4,
+    main_Import_1_in_5,
+    main_Import_1_in_6
+    ) [instance: 1, cache: 1];
+    // 
+    // node Selector[8]: x = 239, y = 234, inputs = 7, label = Selector
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "Selector_8"
+    // input[2]: defaulting = 0, visible = 0, type = 32, value = "v" 
+    // input[3]: defaulting = 0, visible = 0, type = 29, value = 10 
+    // input[4]: defaulting = 1, visible = 1, type = 16777248, value = {"Year" "Month" "Day" "Hour" "Min" "Sec" "JulDate" "Volnum" "TiltNum" "h" "v" "diff" }
+    // input[5]: defaulting = 1, visible = 0, type = 16777245, value = {0  1  2  3  4  5  6  7  8  9  10  11  }
+    // output[1]: visible = 1, type = 29, value = 10 
+    // output[2]: visible = 1, type = 32, value = "v" 
+    // page group: import
+    //
+main_Selector_8_out_1[cache: 2],
+main_Selector_8_out_2[cache: 2] = 
+    Selector(
+    main_Selector_8_in_1,
+    main_Selector_8_in_2,
+    main_Selector_8_in_3,
+    main_Import_1_out_1,
+    main_Selector_8_in_5,
+    main_Selector_8_in_6,
+    main_Selector_8_in_7
+    ) [instance: 8, cache: 1];
+    // 
+    // node Select[5]: x = 122, y = 271, inputs = 3, label = Select
+    // page group: import
+    //
+main_Select_5_out_1 = 
+    Select(
+    main_Import_1_out_1,
+    main_Selector_8_out_1,
+    main_Select_5_in_3
+    ) [instance: 5, cache: 1];
+    // 
+    // node FileSelector[3]: x = 352, y = 101, inputs = 0, label = FileSelector
+    // output[1]: visible = 1, type = 32, value = "/home/pjp/src/nowcast/cp2_dx/cp2_antpatt/cp2_antpatt_x.general"
+    // output[2]: visible = 1, type = 32, value = "cp2_antpatt_x.general"
+    // page group: import
+    //
+    // 
+    // node Import[2]: x = 366, y = 181, inputs = 6, label = Import
+    // input[1]: defaulting = 1, visible = 1, type = 32, value = "/usr/lpp/dx/samples/data/southeastern_topo.dx"
+    // page group: import
+    //
+main_Import_2_out_1 = 
+    Import(
+    main_FileSelector_3_out_1,
+    main_Import_2_in_2,
+    main_String_3_out_1,
+    main_Import_2_in_4,
+    main_Import_2_in_5,
+    main_Import_2_in_6
+    ) [instance: 2, cache: 1];
+    // 
+    // node Select[6]: x = 364, y = 260, inputs = 3, label = Select
+    // page group: import
+    //
+main_Select_6_out_1 = 
+    Select(
+    main_Import_2_out_1,
+    main_Selector_8_out_1,
+    main_Select_6_in_3
+    ) [instance: 6, cache: 1];
+    // 
+    // node Switch[3]: x = 100, y = 354, inputs = 3, label = Switch
+    // input[1]: defaulting = 1, visible = 1, type = 1, value = NULL
+    // page group: import
+    //
+main_Switch_3_out_1 = 
+    Switch(
+    main_Value_1_out_1,
+    main_Select_5_out_1,
+    main_Select_6_out_1
+    ) [instance: 3, cache: 1];
+    // 
+    // node Connect[1]: x = 143, y = 447, inputs = 3, label = Connect
+    // page group: import
+    //
+main_Connect_1_out_1 = 
+    Connect(
+    main_Switch_3_out_1,
+    main_Connect_1_in_2,
+    main_Connect_1_in_3
+    ) [instance: 1, cache: 1];
+    // 
+    // node Transmitter[45]: x = 131, y = 531, inputs = 1, label = connected
+    // page group: import
+    //
+connected = main_Connect_1_out_1;
+    // 
+    // node Receiver[55]: x = 4, y = 4, inputs = 1, label = connected
+    // page group: connected_v
+    //
+main_Receiver_55_out_1[cache: 0] = connected;
+    // 
+    // node Inquire[1]: x = 37, y = 131, inputs = 3, label = Inquire
+    // input[2]: defaulting = 0, visible = 1, type = 32, value = "is vector + 1"
+    // page group: connected_v
+    //
+main_Inquire_1_out_1 = 
+    Inquire(
+    main_Receiver_55_out_1,
+    main_Inquire_1_in_2,
+    main_Inquire_1_in_3
+    ) [instance: 1, cache: 1];
+    // 
+    // node Rotate[2]: x = 261, y = 154, inputs = 7, label = Rotate
+    // input[2]: defaulting = 0, visible = 1, type = 32, value = "z"
+    // input[3]: defaulting = 0, visible = 1, type = 5, value = 90.0
+    // page group: connected_v
+    //
+main_Rotate_2_out_1 = 
+    Rotate(
+    main_Receiver_55_out_1,
+    main_Rotate_2_in_2,
+    main_Rotate_2_in_3,
+    main_Rotate_2_in_4,
+    main_Rotate_2_in_5,
+    main_Rotate_2_in_6,
+    main_Rotate_2_in_7
+    ) [instance: 2, cache: 1];
+    // 
+    // node Compute[1]: x = 200, y = 86, inputs = 2, label = Compute
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "mag($0)"
+    // page group: connected_v
+    // expression: value = mag(a)
+    // name[2]: value = a
+    //
+main_Compute_1_out_1 = 
+    Compute(
+    main_Compute_1_in_1,
+    main_Receiver_55_out_1
+    ) [instance: 1, cache: 1];
+    // 
+    // node Switch[2]: x = 135, y = 172, inputs = 3, label = Switch
+    // page group: connected_v
+    //
+main_Switch_2_out_1 = 
+    Switch(
+    main_Inquire_1_out_1,
+    main_Rotate_2_out_1,
+    main_Compute_1_out_1
+    ) [instance: 2, cache: 1];
+    // 
+    // node AutoColor[2]: x = 177, y = 276, inputs = 10, label = AutoColor
+    // input[7]: defaulting = 1, visible = 1, type = 5, value = -114.0
+    // page group: connected_v
+    //
+main_AutoColor_2_out_1,
+main_AutoColor_2_out_2 = 
+    AutoColor(
+    main_Switch_2_out_1,
+    main_AutoColor_2_in_2,
+    main_AutoColor_2_in_3,
+    main_AutoColor_2_in_4,
+    main_AutoColor_2_in_5,
+    main_AutoColor_2_in_6,
+    main_AutoColor_2_in_7,
+    main_AutoColor_2_in_8,
+    main_AutoColor_2_in_9,
+    main_AutoColor_2_in_10
+    ) [instance: 2, cache: 1];
+    // 
+    // node Transmitter[46]: x = 220, y = 523, inputs = 1, label = scattered
+    // page group: import
+    //
+scattered = main_Connect_1_out_1;
+    // 
+    // node Receiver[56]: x = 123, y = 117, inputs = 1, label = scattered
+    // page group: glyphs
+    //
+main_Receiver_56_out_1[cache: 0] = scattered;
+    // 
+    // node AutoGlyph[2]: x = 107, y = 203, inputs = 7, label = AutoGlyph
+    // input[2]: defaulting = 0, visible = 1, type = 32, value = "speedy"
+    // input[4]: defaulting = 0, visible = 1, type = 5, value = .02
+    // input[5]: defaulting = 0, visible = 1, type = 5, value = 1.0
+    // page group: glyphs
+    //
+main_AutoGlyph_2_out_1 = 
+    AutoGlyph(
+    main_Receiver_56_out_1,
+    main_AutoGlyph_2_in_2,
+    main_AutoGlyph_2_in_3,
+    main_AutoGlyph_2_in_4,
+    main_AutoGlyph_2_in_5,
+    main_AutoGlyph_2_in_6,
+    main_AutoGlyph_2_in_7
+    ) [instance: 2, cache: 1];
+    // 
+    // node AutoGrid[1]: x = 658, y = 460, inputs = 6, label = AutoGrid
+    // page group: connected_v
+    //
+main_AutoGrid_1_out_1 = 
+    AutoGrid(
+    main_AutoGrid_1_in_1,
+    main_AutoGrid_1_in_2,
+    main_AutoGrid_1_in_3,
+    main_AutoGrid_1_in_4,
+    main_AutoGrid_1_in_5,
+    main_AutoGrid_1_in_6
+    ) [instance: 1, cache: 1];
+    // 
+    // node Rotate[3]: x = 231, y = 307, inputs = 7, label = Rotate
+    // input[2]: defaulting = 0, visible = 1, type = 32, value = "z"
+    // input[3]: defaulting = 0, visible = 1, type = 5, value = 90.0
+    // page group: glyphs
+    //
+main_Rotate_3_out_1 = 
+    Rotate(
+    main_AutoGlyph_2_out_1,
+    main_Rotate_3_in_2,
+    main_Rotate_3_in_3,
+    main_Rotate_3_in_4,
+    main_Rotate_3_in_5,
+    main_Rotate_3_in_6,
+    main_Rotate_3_in_7
+    ) [instance: 3, cache: 1];
+    // 
+    // node Transmitter[47]: x = 157, y = 455, inputs = 1, label = glyphs
+    // page group: glyphs
+    //
+glyphs = main_Rotate_3_out_1;
+    // 
+    // node Receiver[58]: x = 23, y = 373, inputs = 1, label = glyphs
+    // page group: connected_v
+    //
+main_Receiver_58_out_1[cache: 0] = glyphs;
+    // 
+    // node RubberSheet[4]: x = 29, y = 455, inputs = 4, label = RubberSheet
+    // page group: connected_v
+    //
+main_RubberSheet_4_out_1 = 
+    RubberSheet(
+    main_Receiver_58_out_1,
+    main_RubberSheet_4_in_2,
+    main_RubberSheet_4_in_3,
+    main_RubberSheet_4_in_4
+    ) [instance: 4, cache: 1];
+    // 
+    // node RubberSheet[2]: x = 105, y = 363, inputs = 4, label = RubberSheet
+    // page group: connected_v
+    //
+main_RubberSheet_2_out_1 = 
+    RubberSheet(
+    main_AutoColor_2_out_1,
+    main_RubberSheet_2_in_2,
+    main_RubberSheet_2_in_3,
+    main_RubberSheet_2_in_4
+    ) [instance: 2, cache: 1];
+    // 
+    // node ColorBar[2]: x = 275, y = 330, inputs = 16, label = ColorBar
+    // input[3]: defaulting = 0, visible = 1, type = 8, value = [500 25]
+    // input[4]: defaulting = 0, visible = 1, type = 3, value = 0
+    // input[8]: defaulting = 0, visible = 1, type = 32, value = "Power"
+    // page group: connected_v
+    //
+main_ColorBar_2_out_1 = 
+    ColorBar(
+    main_AutoColor_2_out_2,
+    main_ColorBar_2_in_2,
+    main_ColorBar_2_in_3,
+    main_ColorBar_2_in_4,
+    main_ColorBar_2_in_5,
+    main_ColorBar_2_in_6,
+    main_ColorBar_2_in_7,
+    main_ColorBar_2_in_8,
+    main_ColorBar_2_in_9,
+    main_ColorBar_2_in_10,
+    main_ColorBar_2_in_11,
+    main_ColorBar_2_in_12,
+    main_ColorBar_2_in_13,
+    main_ColorBar_2_in_14,
+    main_ColorBar_2_in_15,
+    main_ColorBar_2_in_16
+    ) [instance: 2, cache: 1];
+    // 
+    // node RubberSheet[3]: x = 503, y = 287, inputs = 4, label = RubberSheet
+    // page group: connected_v
+    //
+main_RubberSheet_3_out_1 = 
+    RubberSheet(
+    main_Switch_2_out_1,
+    main_RubberSheet_3_in_2,
+    main_RubberSheet_3_in_3,
+    main_RubberSheet_3_in_4
+    ) [instance: 3, cache: 1];
+    // 
+    // node Reset[2]: x = 496, y = 203, inputs = 6, label = Reset
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "main_Reset_2_out_1"
+    // input[2]: defaulting = 0, visible = 0, type = 29, value = 0
+    // input[3]: defaulting = 0, visible = 0, type = 3, value = 0
+    // input[4]: defaulting = 1, visible = 0, type = 29, value = 1
+    // input[5]: defaulting = 1, visible = 0, type = 29, value = 0
+    // output[1]: visible = 1, type = 29, value = 0
+    // page group: connected_v
+    // toggle : 0
+    //
+    // 
+    // node ScalarList[3]: x = 339, y = 243, inputs = 11, label = ScalarList
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "ScalarList_3"
+    // input[3]: defaulting = 0, visible = 0, type = 16777221, value = { -111.384 -105.0716 -98.759201 -92.4468 -86.134399 -79.821999 -73.509598 -67.197197 -60.8848 -54.572399 -48.259998 }
+    // input[4]: defaulting = 1, visible = 1, type = 3, value = 0
+    // input[5]: defaulting = 1, visible = 0, type = 5, value = -111.384
+    // input[6]: defaulting = 1, visible = 0, type = 5, value = -48.259998
+    // input[7]: defaulting = 1, visible = 0, type = 5, value = 1.0
+    // input[9]: defaulting = 1, visible = 0, type = 1, value = 1
+    // output[1]: visible = 1, type = 16777221, value = { -111.384 -105.0716 -98.759201 -92.4468 -86.134399 -79.821999 -73.509598 -67.197197 -60.8848 -54.572399 -48.259998 }
+    // page group: connected_v
+    //
+main_ScalarList_3_out_1[cache: 2] = 
+    ScalarList(
+    main_ScalarList_3_in_1,
+    main_Switch_2_out_1,
+    main_ScalarList_3_in_3,
+    main_Reset_2_out_1,
+    main_ScalarList_3_in_5,
+    main_ScalarList_3_in_6,
+    main_ScalarList_3_in_7,
+    main_ScalarList_3_in_8,
+    main_ScalarList_3_in_9,
+    main_ScalarList_3_in_10,
+    main_ScalarList_3_in_11
+    ) [instance: 3, cache: 1];
+    // 
+    // node Isosurface[1]: x = 415, y = 316, inputs = 6, label = Isosurface
+    // input[3]: defaulting = 1, visible = 1, type = 1, value = 5
+    // page group: connected_v
+    //
+main_Isosurface_1_out_1 = 
+    Isosurface(
+    main_RubberSheet_3_out_1,
+    main_ScalarList_3_out_1,
+    main_Isosurface_1_in_3,
+    main_Isosurface_1_in_4,
+    main_Isosurface_1_in_5,
+    main_Isosurface_1_in_6
+    ) [instance: 1, cache: 1];
+    // 
+    // node Colormap[1]: x = 621, y = 347, inputs = 19, label = Colormap
+    // input[1]: defaulting = 0, visible = 0, type = 16777224, value = { [0.0 0.95789474] [0.58805031 0.55789474] [1.0 0.2] }
+    // input[2]: defaulting = 0, visible = 0, type = 16777224, value = { [0.0 1.0] [1.0 1.0] }
+    // input[3]: defaulting = 0, visible = 0, type = 16777224, value = { [0.0 1.0] [1.0 1.0] }
+    // input[4]: defaulting = 0, visible = 0, type = 16777224, value = { [0.0062893082 1.0] [1.0 1.0] }
+    // input[5]: defaulting = 0, visible = 0, type = 32, value = "Colormap_1"
+    // input[7]: defaulting = 1, visible = 0, type = 5, value = -105.0716
+    // input[8]: defaulting = 1, visible = 0, type = 5, value = -54.572399
+    // input[9]: defaulting = 1, visible = 0, type = 1, value = 20
+    // input[12]: defaulting = 0, visible = 0, type = 16777221, value = { -105.0716 -54.572399 }
+    // input[17]: defaulting = 0, visible = 0, type = 5, value = -105.0716
+    // input[18]: defaulting = 0, visible = 0, type = 5, value = -54.572399
+    // page group: connected_v
+    // window: position = (0.4175,0.2750), size = 0.4062x0.3750, screen = 0
+    //
+main_Colormap_1_out_1[cache: 2],
+main_Colormap_1_out_2[cache: 2] = 
+    Colormap(
+    main_Colormap_1_in_1,
+    main_Colormap_1_in_2,
+    main_Colormap_1_in_3,
+    main_Colormap_1_in_4,
+    main_Colormap_1_in_5,
+    main_Isosurface_1_out_1,
+    main_Colormap_1_in_7,
+    main_Colormap_1_in_8,
+    main_Colormap_1_in_9,
+    main_Colormap_1_in_10,
+    main_Colormap_1_in_11,
+    main_Colormap_1_in_12,
+    main_Colormap_1_in_13,
+    main_Colormap_1_in_14,
+    main_Colormap_1_in_15,
+    main_Colormap_1_in_16,
+    main_Colormap_1_in_17,
+    main_Colormap_1_in_18,
+    main_Colormap_1_in_19
+    ) [instance: 1, cache: 1];
+    // 
+    // node Color[2]: x = 335, y = 404, inputs = 5, label = Color
+    // input[2]: defaulting = 1, visible = 1, type = 32, value = "black"
+    // page group: connected_v
+    //
+main_Color_2_out_1 = 
+    Color(
+    main_Isosurface_1_out_1,
+    main_Colormap_1_out_1,
+    main_Colormap_1_out_2,
+    main_Color_2_in_4,
+    main_Color_2_in_5
+    ) [instance: 2, cache: 1];
+    // 
+    // node Collect[2]: x = 329, y = 509, inputs = 2, label = Collect
+    // page group: connected_v
+    //
+main_Collect_2_out_1 = 
+    Collect(
+    main_ColorBar_2_out_1,
+    main_Color_2_out_1
+    ) [instance: 2, cache: 1];
+    // 
+    // node Collect[1]: x = 142, y = 453, inputs = 3, label = Collect
+    // page group: connected_v
+    //
+main_Collect_1_out_1 = 
+    Collect(
+    main_RubberSheet_4_out_1,
+    main_RubberSheet_2_out_1,
+    main_Collect_2_out_1
+    ) [instance: 1, cache: 1];
+    // 
+    // node Transmitter[49]: x = 128, y = 534, inputs = 1, label = connected_viz
+    // page group: connected_v
+    //
+connected_viz = main_Collect_1_out_1;
+    // 
+    // node Receiver[60]: x = 136, y = 128, inputs = 1, label = connected_viz
+    // page group: image
+    //
+main_Receiver_60_out_1[cache: 0] = connected_viz;
+    // 
+    // node Switch[1]: x = 173, y = 294, inputs = 3, label = Switch
+    // input[1]: defaulting = 0, visible = 1, type = 1, value = 1
+    // page group: image
+    //
+main_Switch_1_out_1 = 
+    Switch(
+    main_Switch_1_in_1,
+    main_Receiver_60_out_1,
+    main_Switch_1_in_3
+    ) [instance: 1, cache: 1];
+    // 
+    // node Vector[1]: x = 19, y = 196, inputs = 11, label = Vector
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "Vector_1"
+    // input[3]: defaulting = 0, visible = 0, type = 8, value = [ -324 0 0 ]
+    // input[5]: defaulting = 1, visible = 0, type = 8, value = [-1000000 -1000000 -1000000]
+    // input[6]: defaulting = 1, visible = 0, type = 8, value = [ 1000000  1000000  1000000]
+    // input[7]: defaulting = 1, visible = 0, type = 8, value = [       1        1        1]
+    // input[9]: defaulting = 1, visible = 0, type = 8, value = [       5        5        5]
+    // output[1]: visible = 1, type = 8, value = [ -324 0 0 ]
+    // page group: image
+    //
+    // 
+    // node Vector[2]: x = 95, y = 194, inputs = 11, label = Vector
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "Vector_2"
+    // input[3]: defaulting = 0, visible = 0, type = 8, value = [ 0 0 0 ]
+    // input[5]: defaulting = 1, visible = 0, type = 8, value = [-1000000 -1000000 -1000000]
+    // input[6]: defaulting = 1, visible = 0, type = 8, value = [ 1000000  1000000  1000000]
+    // input[7]: defaulting = 1, visible = 0, type = 8, value = [       1        1        1]
+    // input[9]: defaulting = 1, visible = 0, type = 8, value = [       5        5        5]
+    // output[1]: visible = 1, type = 8, value = [ 0 0 0 ]
+    // page group: image
+    //
+    // 
+    // node ClipPlane[1]: x = 59, y = 356, inputs = 3, label = ClipPlane
+    // input[2]: defaulting = 1, visible = 1, type = 8, value = [-336.5,0,0]
+    // input[3]: defaulting = 1, visible = 1, type = 8, value = [0 1 0]
+    // page group: image
+    //
+main_ClipPlane_1_out_1 = 
+    ClipPlane(
+    main_Switch_1_out_1,
+    main_Vector_1_out_1,
+    main_Vector_2_out_1
+    ) [instance: 1, cache: 1];
+    // 
+    // node Reset[8]: x = 261, y = 388, inputs = 6, label = Reset
+    // input[1]: defaulting = 0, visible = 0, type = 32, value = "main_Reset_8_out_1"
+    // input[2]: defaulting = 0, visible = 0, type = 29, value = 0
+    // input[3]: defaulting = 0, visible = 0, type = 3, value = 0
+    // input[4]: defaulting = 1, visible = 0, type = 29, value = 1
+    // input[5]: defaulting = 1, visible = 0, type = 29, value = 0
+    // output[1]: visible = 1, type = 29, value = 0
+    // page group: image
+    // toggle : 0
+    //
+    // 
+    // node Image[3]: x = 169, y = 426, inputs = 49, label = Image
+    // input[1]: defaulting = 0, visible = 0, type = 67108863, value = "Image_3"
+    // input[4]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[5]: defaulting = 0, visible = 0, type = 8, value = [-339.056 -0.320512 -42.94]
+    // input[6]: defaulting = 0, visible = 0, type = 8, value = [-365.086 -702.829 500.443]
+    // input[7]: defaulting = 1, visible = 0, type = 5, value = 77.2978
+    // input[8]: defaulting = 0, visible = 0, type = 1, value = 1232
+    // input[9]: defaulting = 0, visible = 0, type = 5, value = 0.770698
+    // input[10]: defaulting = 0, visible = 0, type = 8, value = [0.0325051 0.610748 0.791158]
+    // input[11]: defaulting = 0, visible = 0, type = 5, value = 4.98139
+    // input[12]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[14]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[15]: defaulting = 1, visible = 0, type = 32, value = "none"
+    // input[16]: defaulting = 0, visible = 0, type = 32, value = "none"
+    // input[17]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[18]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[19]: defaulting = 0, visible = 0, type = 1, value = 1
+    // input[21]: visible = 1
+    // input[25]: defaulting = 0, visible = 0, type = 32, value = "cp2_x_h_feedhorn.png"
+    // input[26]: defaulting = 0, visible = 0, type = 32, value = "ImageMagick supported format"
+    // input[29]: defaulting = 0, visible = 0, type = 3, value = 1
+    // input[31]: defaulting = 0, visible = 0, type = 16777217, value = { 40 20 15 }
+    // input[32]: defaulting = 1, visible = 0, type = 16777224, value = {[0 0 0] [0 0 0]}
+    // input[33]: defaulting = 0, visible = 0, type = 3, value = 1
+    // input[34]: defaulting = 0, visible = 0, type = 3, value = 1
+    // input[35]: defaulting = 0, visible = 0, type = 8, value = [0,0,0]
+    // input[36]: defaulting = 0, visible = 0, type = 3, value = 1
+    // input[37]: defaulting = 0, visible = 0, type = 16777248, value = {"grey30", "grey80", "yellow", "white"}
+    // input[38]: defaulting = 0, visible = 0, type = 16777248, value = {"background", "grid", "ticks", "labels"}
+    // input[39]: defaulting = 0, visible = 0, type = 5, value = 2.0
+    // input[40]: defaulting = 0, visible = 0, type = 32, value = "roman_tser"
+    // input[41]: defaulting = 0, visible = 0, type = 32, value = "rotate"
+    // input[42]: defaulting = 0, visible = 0, type = 32, value = "CP2 Antenna Pattern Viewer"
+    // page group: image
+    // title: value = CP2 Antenna Pattern Viewer
+    // depth: value = 24
+    // window: position = (   inf,   nan), size =    infx   inf
+    // internal caching: 1
+    //
+main_Image_3_out_1,
+main_Image_3_out_2,
+main_Image_3_out_3 = 
+    Image(
+    main_Image_3_in_1,
+    main_ClipPlane_1_out_1,
+    main_Image_3_in_3,
+    main_Image_3_in_4,
+    main_Image_3_in_5,
+    main_Image_3_in_6,
+    main_Image_3_in_7,
+    main_Image_3_in_8,
+    main_Image_3_in_9,
+    main_Image_3_in_10,
+    main_Image_3_in_11,
+    main_Image_3_in_12,
+    main_Image_3_in_13,
+    main_Image_3_in_14,
+    main_Image_3_in_15,
+    main_Image_3_in_16,
+    main_Image_3_in_17,
+    main_Image_3_in_18,
+    main_Image_3_in_19,
+    main_Image_3_in_20,
+    main_Reset_8_out_1,
+    main_Image_3_in_22,
+    main_Image_3_in_23,
+    main_Image_3_in_24,
+    main_Image_3_in_25,
+    main_Image_3_in_26,
+    main_Image_3_in_27,
+    main_Image_3_in_28,
+    main_Image_3_in_29,
+    main_Image_3_in_30,
+    main_Image_3_in_31,
+    main_Image_3_in_32,
+    main_Image_3_in_33,
+    main_Image_3_in_34,
+    main_Image_3_in_35,
+    main_Image_3_in_36,
+    main_Image_3_in_37,
+    main_Image_3_in_38,
+    main_Image_3_in_39,
+    main_Image_3_in_40,
+    main_Image_3_in_41,
+    main_Image_3_in_42,
+    main_Image_3_in_43,
+    main_Image_3_in_44,
+    main_Image_3_in_45,
+    main_Image_3_in_46,
+    main_Image_3_in_47,
+    main_Image_3_in_48,
+    main_Image_3_in_49
+    ) [instance: 3, cache: 1];
+    // 
+    // node Probe[1]: x = 340, y = 406, inputs = 0, label = Probe_1
+    // page group: import
+    //
+    // 
+    // node Receiver[57]: x = 240, y = 184, inputs = 1, label = glyphs
+    // page group: image
+    //
+main_Receiver_57_out_1[cache: 0] = glyphs;
+    //
+    // decorator Annotate	pos=(49,25) size=489x60 style(Label), font=bold, value = <NULL>
+    // annotation user_begin: 195
+    // annotation user: This page imports the data, and uses the Connect module to connect
+    // annotation user: the scattered points. A data-driven Selector interactor is used to
+    // annotation user: allow the user to choose which data in the file to visualize.
+    // annotation user_end: <NULL>
+    // resource *decorator.alignment:XmALIGNMENT_BEGINNING
+    // page group: import
+    //
+    // decorator Annotate	pos=(95,31) size=349x28 style(Label), font=bold, value = <NULL>
+    // annotation user_begin: 49
+    // annotation user: This page creates glyphs at the scattered points.
+    // annotation user_end: <NULL>
+    // page group: glyphs
+    //
+    // decorator Annotate	pos=(415,40) size=323x76 style(Label), font=bold, value = <NULL>
+    // annotation user_begin: 149
+    // annotation user: This page visualizes the connected data with 
+    // annotation user: a colored surface (AutoColor), contour
+    // annotation user: lines (Isosurface), and glyphs at the original
+    // annotation user: scattered points.
+    // annotation user_end: <NULL>
+    // resource *decorator.alignment:XmALIGNMENT_BEGINNING
+    // page group: connected_v
+    //
+    // decorator Annotate	pos=(44,13) size=395x44 style(Label), font=bold, value = <NULL>
+    // annotation user_begin: 105
+    // annotation user: This page allows the user to choose whether to see the 
+    // annotation user: scattered glyphs, or the connected visualization.
+    // annotation user_end: <NULL>
+    // resource *decorator.alignment:XmALIGNMENT_BEGINNING
+    // page group: image
+// network: end of macro body
+CacheScene(main_Image_3_in_1, main_Image_3_out_1, main_Image_3_out_2);
+}
+main_Value_1_out_1 = 1;
+main_FileSelector_2_out_1 = "/home/pjp/src/nowcast/cp2_dx/cp2_antpatt/cp2_antpatt_s.general";
+main_String_3_out_1 = "general";
+main_Import_1_in_2 = NULL;
+main_Import_1_in_4 = NULL;
+main_Import_1_in_5 = NULL;
+main_Import_1_in_6 = NULL;
+main_Import_1_out_1 = NULL;
+main_Selector_8_in_1 = "Selector_8";
+main_Selector_8_in_2 = "v" ;
+main_Selector_8_in_3 = 10 ;
+main_Selector_8_in_5 = NULL;
+main_Selector_8_in_6 = NULL;
+main_Selector_8_in_7 = NULL;
+main_Selector_8_out_1 = 10 ;
+main_Select_5_in_3 = NULL;
+main_Select_5_out_1 = NULL;
+main_FileSelector_3_out_1 = "/home/pjp/src/nowcast/cp2_dx/cp2_antpatt/cp2_antpatt_x.general";
+main_Import_2_in_2 = NULL;
+main_Import_2_in_4 = NULL;
+main_Import_2_in_5 = NULL;
+main_Import_2_in_6 = NULL;
+main_Import_2_out_1 = NULL;
+main_Select_6_in_3 = NULL;
+main_Select_6_out_1 = NULL;
+main_Switch_3_out_1 = NULL;
+main_Connect_1_in_2 = NULL;
+main_Connect_1_in_3 = NULL;
+main_Connect_1_out_1 = NULL;
+main_Transmitter_45_out_1 = NULL;
+main_Receiver_55_out_1 = NULL;
+main_Inquire_1_in_2 = "is vector + 1";
+main_Inquire_1_in_3 = NULL;
+main_Inquire_1_out_1 = NULL;
+main_Rotate_2_in_2 = "z";
+main_Rotate_2_in_3 = 90.0;
+main_Rotate_2_in_4 = NULL;
+main_Rotate_2_in_5 = NULL;
+main_Rotate_2_in_6 = NULL;
+main_Rotate_2_in_7 = NULL;
+main_Rotate_2_out_1 = NULL;
+main_Compute_1_in_1 = "mag($0)";
+main_Compute_1_out_1 = NULL;
+main_Switch_2_out_1 = NULL;
+main_AutoColor_2_in_2 = NULL;
+main_AutoColor_2_in_3 = NULL;
+main_AutoColor_2_in_4 = NULL;
+main_AutoColor_2_in_5 = NULL;
+main_AutoColor_2_in_6 = NULL;
+main_AutoColor_2_in_7 = NULL;
+main_AutoColor_2_in_8 = NULL;
+main_AutoColor_2_in_9 = NULL;
+main_AutoColor_2_in_10 = NULL;
+main_AutoColor_2_out_1 = NULL;
+main_AutoColor_2_out_2 = NULL;
+main_Transmitter_46_out_1 = NULL;
+main_Receiver_56_out_1 = NULL;
+main_AutoGlyph_2_in_2 = "speedy";
+main_AutoGlyph_2_in_3 = NULL;
+main_AutoGlyph_2_in_4 = .02;
+main_AutoGlyph_2_in_5 = 1.0;
+main_AutoGlyph_2_in_6 = NULL;
+main_AutoGlyph_2_in_7 = NULL;
+main_AutoGlyph_2_out_1 = NULL;
+main_AutoGrid_1_in_1 = NULL;
+main_AutoGrid_1_in_2 = NULL;
+main_AutoGrid_1_in_3 = NULL;
+main_AutoGrid_1_in_4 = NULL;
+main_AutoGrid_1_in_5 = NULL;
+main_AutoGrid_1_in_6 = NULL;
+main_Rotate_3_in_2 = "z";
+main_Rotate_3_in_3 = 90.0;
+main_Rotate_3_in_4 = NULL;
+main_Rotate_3_in_5 = NULL;
+main_Rotate_3_in_6 = NULL;
+main_Rotate_3_in_7 = NULL;
+main_Rotate_3_out_1 = NULL;
+main_Transmitter_47_out_1 = NULL;
+main_Receiver_58_out_1 = NULL;
+main_RubberSheet_4_in_2 = NULL;
+main_RubberSheet_4_in_3 = NULL;
+main_RubberSheet_4_in_4 = NULL;
+main_RubberSheet_4_out_1 = NULL;
+main_RubberSheet_2_in_2 = NULL;
+main_RubberSheet_2_in_3 = NULL;
+main_RubberSheet_2_in_4 = NULL;
+main_RubberSheet_2_out_1 = NULL;
+main_ColorBar_2_in_2 = NULL;
+main_ColorBar_2_in_3 = [500 25];
+main_ColorBar_2_in_4 = 0;
+main_ColorBar_2_in_5 = NULL;
+main_ColorBar_2_in_6 = NULL;
+main_ColorBar_2_in_7 = NULL;
+main_ColorBar_2_in_8 = "Power";
+main_ColorBar_2_in_9 = NULL;
+main_ColorBar_2_in_10 = NULL;
+main_ColorBar_2_in_11 = NULL;
+main_ColorBar_2_in_12 = NULL;
+main_ColorBar_2_in_13 = NULL;
+main_ColorBar_2_in_14 = NULL;
+main_ColorBar_2_in_15 = NULL;
+main_ColorBar_2_in_16 = NULL;
+main_ColorBar_2_out_1 = NULL;
+main_RubberSheet_3_in_2 = NULL;
+main_RubberSheet_3_in_3 = NULL;
+main_RubberSheet_3_in_4 = NULL;
+main_RubberSheet_3_out_1 = NULL;
+main_Reset_2_in_1 = "main_Reset_2_out_1";
+main_Reset_2_in_2 = 0;
+main_Reset_2_in_3 = 0;
+main_Reset_2_in_4 = NULL;
+main_Reset_2_in_5 = NULL;
+main_Reset_2_in_6 = NULL;
+main_Reset_2_out_1 = 0;
+main_ScalarList_3_in_1 = "ScalarList_3";
+main_ScalarList_3_in_3 = { -111.384 -105.0716 -98.759201 -92.4468 -86.134399 -79.821999 -73.509598 -67.197197 -60.8848 -54.572399 -48.259998 };
+main_ScalarList_3_in_5 = NULL;
+main_ScalarList_3_in_6 = NULL;
+main_ScalarList_3_in_7 = NULL;
+main_ScalarList_3_in_8 = NULL;
+main_ScalarList_3_in_9 = NULL;
+main_ScalarList_3_in_10 = NULL;
+main_ScalarList_3_in_11 = NULL;
+main_ScalarList_3_out_1 = { -111.384 -105.0716 -98.759201 -92.4468 -86.134399 -79.821999 -73.509598 -67.197197 -60.8848 -54.572399 -48.259998 };
+main_Isosurface_1_in_3 = NULL;
+main_Isosurface_1_in_4 = NULL;
+main_Isosurface_1_in_5 = NULL;
+main_Isosurface_1_in_6 = NULL;
+main_Isosurface_1_out_1 = NULL;
+main_Colormap_1_in_1 = { [0.0 0.95789474] [0.58805031 0.55789474] [1.0 0.2] };
+main_Colormap_1_in_2 = { [0.0 1.0] [1.0 1.0] };
+main_Colormap_1_in_3 = { [0.0 1.0] [1.0 1.0] };
+main_Colormap_1_in_4 = { [0.0062893082 1.0] [1.0 1.0] };
+main_Colormap_1_in_5 = "Colormap_1";
+main_Colormap_1_in_7 = NULL;
+main_Colormap_1_in_8 = NULL;
+main_Colormap_1_in_9 = NULL;
+main_Colormap_1_in_10 = NULL;
+main_Colormap_1_in_11 = NULL;
+main_Colormap_1_in_12 = { -105.0716 -54.572399 };
+main_Colormap_1_in_13 = NULL;
+main_Colormap_1_in_14 = NULL;
+main_Colormap_1_in_15 = NULL;
+main_Colormap_1_in_16 = NULL;
+main_Colormap_1_in_17 = -105.0716;
+main_Colormap_1_in_18 = -54.572399;
+main_Colormap_1_in_19 = NULL;
+main_Colormap_1_out_1 = NULL;
+main_Colormap_1_out_2 = NULL;
+main_Color_2_in_4 = NULL;
+main_Color_2_in_5 = NULL;
+main_Color_2_out_1 = NULL;
+main_Collect_2_out_1 = NULL;
+main_Collect_1_out_1 = NULL;
+main_Transmitter_49_out_1 = NULL;
+main_Receiver_60_out_1 = NULL;
+main_Switch_1_in_1 = 1;
+main_Switch_1_in_3 = NULL;
+main_Switch_1_out_1 = NULL;
+main_Vector_1_in_1 = "Vector_1";
+main_Vector_1_in_2 = NULL;
+main_Vector_1_in_3 = [ -324 0 0 ];
+main_Vector_1_in_4 = NULL;
+main_Vector_1_in_5 = NULL;
+main_Vector_1_in_6 = NULL;
+main_Vector_1_in_7 = NULL;
+main_Vector_1_in_8 = NULL;
+main_Vector_1_in_9 = NULL;
+main_Vector_1_in_10 = NULL;
+main_Vector_1_in_11 = NULL;
+main_Vector_1_out_1 = [ -324 0 0 ];
+main_Vector_2_in_1 = "Vector_2";
+main_Vector_2_in_2 = NULL;
+main_Vector_2_in_3 = [ 0 0 0 ];
+main_Vector_2_in_4 = NULL;
+main_Vector_2_in_5 = NULL;
+main_Vector_2_in_6 = NULL;
+main_Vector_2_in_7 = NULL;
+main_Vector_2_in_8 = NULL;
+main_Vector_2_in_9 = NULL;
+main_Vector_2_in_10 = NULL;
+main_Vector_2_in_11 = NULL;
+main_Vector_2_out_1 = [ 0 0 0 ];
+main_ClipPlane_1_out_1 = NULL;
+main_Reset_8_in_1 = "main_Reset_8_out_1";
+main_Reset_8_in_2 = 0;
+main_Reset_8_in_3 = 0;
+main_Reset_8_in_4 = NULL;
+main_Reset_8_in_5 = NULL;
+main_Reset_8_in_6 = NULL;
+main_Reset_8_out_1 = 0;
+macro Image(
+        id,
+        object,
+        where,
+        useVector,
+        to,
+        from,
+        width,
+        resolution,
+        aspect,
+        up,
+        viewAngle,
+        perspective,
+        options,
+        buttonState = 1,
+        buttonUpApprox = "none",
+        buttonDownApprox = "none",
+        buttonUpDensity = 1,
+        buttonDownDensity = 1,
+        renderMode = 0,
+        defaultCamera,
+        reset,
+        backgroundColor,
+        throttle,
+        RECenable = 0,
+        RECfile,
+        RECformat,
+        RECresolution,
+        RECaspect,
+        AAenable = 0,
+        AAlabels,
+        AAticks,
+        AAcorners,
+        AAframe,
+        AAadjust,
+        AAcursor,
+        AAgrid,
+        AAcolors,
+        AAannotation,
+        AAlabelscale,
+        AAfont,
+        interactionMode,
+        title,
+        AAxTickLocs,
+        AAyTickLocs,
+        AAzTickLocs,
+        AAxTickLabels,
+        AAyTickLabels,
+        AAzTickLabels,
+        webOptions) -> (
+        object,
+        camera,
+        where)
+{
+    ImageMessage(
+        id,
+        backgroundColor,
+        throttle,
+        RECenable,
+        RECfile,
+        RECformat,
+        RECresolution,
+        RECaspect,
+        AAenable,
+        AAlabels,
+        AAticks,
+        AAcorners,
+        AAframe,
+        AAadjust,
+        AAcursor,
+        AAgrid,
+        AAcolors,
+        AAannotation,
+        AAlabelscale,
+        AAfont,
+        AAxTickLocs,
+        AAyTickLocs,
+        AAzTickLocs,
+        AAxTickLabels,
+        AAyTickLabels,
+        AAzTickLabels,
+        interactionMode,
+        title,
+        renderMode,
+        buttonUpApprox,
+        buttonDownApprox,
+        buttonUpDensity,
+        buttonDownDensity) [instance: 1, cache: 1];
+    autoCamera =
+        AutoCamera(
+            object,
+            "front",
+            object,
+            resolution,
+            aspect,
+            [0,1,0],
+            perspective,
+            viewAngle,
+            backgroundColor) [instance: 1, cache: 1];
+    realCamera =
+        Camera(
+            to,
+            from,
+            width,
+            resolution,
+            aspect,
+            up,
+            perspective,
+            viewAngle,
+            backgroundColor) [instance: 1, cache: 1];
+    coloredDefaultCamera = 
+	 UpdateCamera(defaultCamera,
+            background=backgroundColor) [instance: 1, cache: 1];
+    nullDefaultCamera =
+        Inquire(defaultCamera,
+            "is null + 1") [instance: 1, cache: 1];
+    resetCamera =
+        Switch(
+            nullDefaultCamera,
+            coloredDefaultCamera,
+            autoCamera) [instance: 1, cache: 1];
+    resetNull = 
+        Inquire(
+            reset,
+            "is null + 1") [instance: 2, cache: 1];
+    reset =
+        Switch(
+            resetNull,
+            reset,
+            0) [instance: 2, cache: 1];
+    whichCamera =
+        Compute(
+            "($0 != 0 || $1 == 0) ? 1 : 2",
+            reset,
+            useVector) [instance: 1, cache: 1];
+    camera = Switch(
+            whichCamera,
+            resetCamera,
+            realCamera) [instance: 3, cache: 1];
+    AAobject =
+        AutoAxes(
+            object,
+            camera,
+            AAlabels,
+            AAticks,
+            AAcorners,
+            AAframe,
+            AAadjust,
+            AAcursor,
+            AAgrid,
+            AAcolors,
+            AAannotation,
+            AAlabelscale,
+            AAfont,
+            AAxTickLocs,
+            AAyTickLocs,
+            AAzTickLocs,
+            AAxTickLabels,
+            AAyTickLabels,
+            AAzTickLabels) [instance: 1, cache: 1];
+    switchAAenable = Compute("$0+1",
+	     AAenable) [instance: 2, cache: 1];
+    object = Switch(
+	     switchAAenable,
+	     object,
+	     AAobject) [instance:4, cache: 1];
+    SWapproximation_options =
+        Switch(
+            buttonState,
+            buttonUpApprox,
+            buttonDownApprox) [instance: 5, cache: 1];
+    SWdensity_options =
+        Switch(
+            buttonState,
+            buttonUpDensity,
+            buttonDownDensity) [instance: 6, cache: 1];
+    HWapproximation_options =
+        Format(
+            "%s,%s",
+            buttonDownApprox,
+            buttonUpApprox) [instance: 1, cache: 1];
+    HWdensity_options =
+        Format(
+            "%d,%d",
+            buttonDownDensity,
+            buttonUpDensity) [instance: 2, cache: 1];
+    switchRenderMode = Compute(
+	     "$0+1",
+	     renderMode) [instance: 3, cache: 1];
+    approximation_options = Switch(
+	     switchRenderMode,
+            SWapproximation_options,
+	     HWapproximation_options) [instance: 7, cache: 1];
+    density_options = Switch(
+	     switchRenderMode,
+            SWdensity_options,
+            HWdensity_options) [instance: 8, cache: 1];
+    renderModeString = Switch(
+            switchRenderMode,
+            "software",
+            "hardware")[instance: 9, cache: 1];
+    object_tag = Inquire(
+            object,
+            "object tag")[instance: 3, cache: 1];
+    annoted_object =
+        Options(
+            object,
+            "send boxes",
+            0,
+            "cache",
+            1,
+            "object tag",
+            object_tag,
+            "ddcamera",
+            whichCamera,
+            "rendering approximation",
+            approximation_options,
+            "render every",
+            density_options,
+            "button state",
+            buttonState,
+            "rendering mode",
+            renderModeString) [instance: 1, cache: 1];
+    RECresNull =
+        Inquire(
+            RECresolution,
+            "is null + 1") [instance: 4, cache: 1];
+    ImageResolution =
+        Inquire(
+            camera,
+            "camera resolution") [instance: 5, cache: 1];
+    RECresolution =
+        Switch(
+            RECresNull,
+            RECresolution,
+            ImageResolution) [instance: 10, cache: 1];
+    RECaspectNull =
+        Inquire(
+            RECaspect,
+            "is null + 1") [instance: 6, cache: 1];
+    ImageAspect =
+        Inquire(
+            camera,
+            "camera aspect") [instance: 7, cache: 1];
+    RECaspect =
+        Switch(
+            RECaspectNull,
+            RECaspect,
+            ImageAspect) [instance: 11, cache: 1];
+    switchRECenable = Compute(
+          "$0 == 0 ? 1 : (($2 == $3) && ($4 == $5)) ? ($1 == 1 ? 2 : 3) : 4",
+            RECenable,
+            switchRenderMode,
+            RECresolution,
+            ImageResolution,
+            RECaspect,
+	     ImageAspect) [instance: 4, cache: 1];
+    NoRECobject, RECNoRerenderObject, RECNoRerHW, RECRerenderObject = Route(switchRECenable, annoted_object);
+    Display(
+        NoRECobject,
+        camera,
+        where,
+        throttle) [instance: 1, cache: 1];
+    image =
+        Render(
+            RECNoRerenderObject,
+            camera) [instance: 1, cache: 1];
+    Display(
+        image,
+        NULL,
+        where,
+        throttle) [instance: 2, cache: 1];
+    WriteImage(
+        image,
+        RECfile,
+        RECformat) [instance: 1, cache: 1];
+    rec_where = Display(
+        RECNoRerHW,
+        camera,
+        where,
+        throttle) [instance: 1, cache: 0];
+    rec_image = ReadImageWindow(
+        rec_where) [instance: 1, cache: 1];
+    WriteImage(
+        rec_image,
+        RECfile,
+        RECformat) [instance: 1, cache: 1];
+    RECupdateCamera =
+	UpdateCamera(
+	    camera,
+	    resolution=RECresolution,
+	    aspect=RECaspect) [instance: 2, cache: 1];
+    Display(
+        RECRerenderObject,
+        camera,
+        where,
+        throttle) [instance: 1, cache: 1];
+    RECRerenderObject =
+	ScaleScreen(
+	    RECRerenderObject,
+	    NULL,
+	    RECresolution,
+	    camera) [instance: 1, cache: 1];
+    image =
+        Render(
+            RECRerenderObject,
+            RECupdateCamera) [instance: 2, cache: 1];
+    WriteImage(
+        image,
+        RECfile,
+        RECformat) [instance: 2, cache: 1];
+}
+main_Image_3_in_1 = "Image_3";
+main_Image_3_in_3 = "X24,,CP2 Antenna Pattern Viewer";
+main_Image_3_in_4 = 1;
+main_Image_3_in_5 = [-339.056 -0.320512 -42.94];
+main_Image_3_in_6 = [-365.086 -702.829 500.443];
+main_Image_3_in_7 = NULL;
+main_Image_3_in_8 = 1232;
+main_Image_3_in_9 = 0.770698;
+main_Image_3_in_10 = [0.0325051 0.610748 0.791158];
+main_Image_3_in_11 = 4.98139;
+main_Image_3_in_12 = 1;
+main_Image_3_in_13 = NULL;
+main_Image_3_in_14 = 1;
+main_Image_3_in_15 = NULL;
+main_Image_3_in_16 = "none";
+main_Image_3_in_17 = 1;
+main_Image_3_in_18 = 1;
+main_Image_3_in_19 = 1;
+main_Image_3_in_20 = NULL;
+main_Image_3_in_22 = NULL;
+main_Image_3_in_23 = NULL;
+main_Image_3_in_25 = "cp2_x_h_feedhorn.png";
+main_Image_3_in_26 = "ImageMagick supported format";
+main_Image_3_in_27 = NULL;
+main_Image_3_in_28 = NULL;
+main_Image_3_in_29 = 1;
+main_Image_3_in_30 = NULL;
+main_Image_3_in_31 = { 40 20 15 };
+main_Image_3_in_32 = NULL;
+main_Image_3_in_33 = 1;
+main_Image_3_in_34 = 1;
+main_Image_3_in_35 = [0,0,0];
+main_Image_3_in_36 = 1;
+main_Image_3_in_37 = {"grey30", "grey80", "yellow", "white"};
+main_Image_3_in_38 = {"background", "grid", "ticks", "labels"};
+main_Image_3_in_39 = 2.0;
+main_Image_3_in_40 = "roman_tser";
+main_Image_3_in_41 = "rotate";
+main_Image_3_in_42 = "CP2 Antenna Pattern Viewer";
+main_Image_3_in_43 = NULL;
+main_Image_3_in_44 = NULL;
+main_Image_3_in_45 = NULL;
+main_Image_3_in_46 = NULL;
+main_Image_3_in_47 = NULL;
+main_Image_3_in_48 = NULL;
+main_Image_3_in_49 = NULL;
+main_Probe_1_out_1 = NULL;
+Executive("product version 4 4 4");
+$sync
+main();

@@ -1,0 +1,12 @@
+#! /bin/csh
+
+# the the proxy URL
+
+setenv http_proxy http://proxy2.cwb.gov.tw:8888
+
+# run the script
+
+cd $PROJ_DIR/ingest/scripts
+wget_caa_data.pl -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p wget_caa_data.pl &
+

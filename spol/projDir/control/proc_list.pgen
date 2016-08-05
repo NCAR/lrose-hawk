@@ -1,0 +1,64 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary       start_DsServerMgr               snuff_inst     
+#Janitor       logs          start_Janitor.logs              snuff_inst     
+#Janitor       time_series   start_Janitor.time_series       snuff_inst     
+Scout         primary       start_Scout                     snuff_inst     
+DataMapper    primary       start_DataMapper                snuff_inst     
+DsFmqServer   manager	    start_DsFmqServer	            snuff_inst     
+DsFileDist    front         start_DsFileDist.front          snuff_inst     
+#
+###############################################################################
+# S-BAND processes
+#
+Dsr2Radx   covar.sband      start_Dsr2Radx.covar.sband     snuff_inst 
+Dsr2Radx   moments.sband    start_Dsr2Radx.moments.sband   snuff_inst 
+Dsr2Radx   moments.spoldrx  start_Dsr2Radx.moments.spoldrx snuff_inst 
+Dsr2Radx   dorade.sband     start_Dsr2Radx.dorade.sband    snuff_inst 
+Dsr2Radx   moments.bragg    start_Dsr2Radx.moments.bragg   snuff_inst 
+#
+###############################################################################
+# K-BAND processes
+#
+#Dsr2Radx   covar.kband      start_Dsr2Radx.covar.kband    snuff_inst 
+#Dsr2Radx   moments.kband    start_Dsr2Radx.moments.kband  snuff_inst 
+#Dsr2Radx   dorade.kband     start_Dsr2Radx.dorade.kband   snuff_inst 
+#Dsr2Vol    moments.kband    start_Dsr2Vol.moments.kband   snuff_inst 
+#Dsr2Vol    cart.kband       start_Dsr2Vol.cart.kband      snuff_inst 
+#
+###############################################################################
+# PID, Rain-rate, moisture
+#
+RadxPartRain         sband.sur   start_RadxPartRain.sband.sur  snuff_inst
+RadxPartRain         sband.rhi   start_RadxPartRain.sband.rhi  snuff_inst
+###############################################################################
+# REPoH
+#
+#MdvRemapRadarGeom   repoh_sband      start_MdvRemapRadarGeom.repoh_sband snuff_inst 
+#MdvRemapRadarGeom   repoh_kband      start_MdvRemapRadarGeom.repoh_kband snuff_inst 
+#MdvRemapRadarGeom   repoh_pid        start_MdvRemapRadarGeom.repoh_pid   snuff_inst 
+#REPoH               kband            start_REPoH.kband                   snuff_inst 
+###############################################################################
+# TITAN
+#
+#Titan      sband             start_Titan.sband            snuff_inst 
+###############################################################################
+# Watch RHI files, write metadata to SPDB
+#
+Rhi2Spdb  sband            start_Rhi2Spdb.sband          snuff_inst 
+###############################################################################
+# EXTERNAL DATA INGEST
+#
+#McidasNcf2Mdv vis       start_McidasNcf2Mdv.vis   snuff_inst      
+#McidasNcf2Mdv ir        start_McidasNcf2Mdv.ir    snuff_inst      
+#McidasNcf2Mdv wv        start_McidasNcf2Mdv.wv    snuff_inst      
+#
+#Metar2Spdb      dynamo  start_Metar2Spdb.dynamo      snuff_inst   
+#ShipObsIngest   dynamo  start_ShipObsIngest.dynamo   snuff_inst   
+#SynopObsIngest  dynamo  start_SynopObsIngest.dynamo  snuff_inst   
+#Ltg2Spdb        dynamo  start_Ltg2Spdb.dynamo        snuff_inst   
+#DoeSounding2Spdb   gan  start_DoeSounding2Spdb.gan   snuff_inst   
+#AcData2Spdb	falcon  start_AcData2Spdb.falcon     snuff_inst	  
+#AcData2Spdb	p3      start_AcData2Spdb.p3         snuff_inst	  
+#AcData2Spdb	revelle start_AcData2Spdb.revelle    snuff_inst	  

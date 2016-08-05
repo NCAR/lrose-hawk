@@ -1,0 +1,182 @@
+/**********************************************************************
+ * TDRP params for SpolSysconRelay
+ **********************************************************************/
+
+//======================================================================
+//
+// SpolSysconRelay reads status packets from the Syscon server, and 
+//   relays relevant information to SPOL processes.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "monitor";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = FALSE;
+
+//======================================================================
+//
+// SYSCON DETAILS.
+//
+//======================================================================
+ 
+///////////// syscon_server_host //////////////////////
+//
+// Host name on which SysCon server is running.
+// Type: string
+//
+
+syscon_server_host = "control";
+
+///////////// syscon_ops_info_port ////////////////////
+//
+// TCP/IP port from which ops_info packets are available.
+// Type: int
+//
+
+syscon_ops_info_port = 2513;
+
+//======================================================================
+//
+// DEBUG - PRINT RSM INFO.
+//
+//======================================================================
+ 
+///////////// print_rsm_info //////////////////////////
+//
+// Option to print the RSM info packets.
+// RSM contains status information on the radar system. Enabling this 
+//   monitoring prints RSM packet information to stderr.
+// Type: boolean
+//
+
+print_rsm_info = TRUE;
+
+///////////// syscon_rsm_info_port ////////////////////
+//
+// TCP/IP port from which RSM packets are available.
+// Type: int
+//
+
+syscon_rsm_info_port = 2515;
+
+//======================================================================
+//
+// OUTPUT FMQ DETAILS.
+//
+//======================================================================
+ 
+///////////// output_fmq_path /////////////////////////
+//
+// Path to output FMQ.
+// The FMQ consists of 2 files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path = "$(DATA_DIR)/fmq/syscon";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer.
+// Type: int
+//
+
+output_fmq_size = 1000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in the output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 100;
+
+//======================================================================
+//
+// REGISTERING WITH DATA MAPPER.
+//
+//======================================================================
+ 
+///////////// register_with_data_mapper ///////////////
+//
+// Option to register writes to fmq with the DataMapper.
+// If true, the app will register with the DataMapper when data is 
+//   written to the FMQ.
+// Type: boolean
+//
+
+register_with_data_mapper = TRUE;
+
+///////////// data_mapper_report_interval /////////////
+//
+// Number of seconds between reports to DataMapper.
+// If > 0, the program will register with the DataMapper when the output 
+//   FMQ is written to. If <= 0, registration will not be performed.
+// Type: int
+//
+
+data_mapper_report_interval = 5;
+
+//======================================================================
+//
+// MONITOR MODE.
+//
+//======================================================================
+ 
+///////////// monitor_mode ////////////////////////////
+//
+// Option to monitor the output fmq from a different instance.
+// If true, this application will monitor the fmq written by a different 
+//   instance of this application, and print out debugging information.
+// Type: boolean
+//
+
+monitor_mode = TRUE;
+
+///////////// monitor_fmq_path ////////////////////////
+//
+// Path to monitor FMQ.
+// Type: string
+//
+
+monitor_fmq_path = "$(DATA_DIR)/fmq/syscon";
+

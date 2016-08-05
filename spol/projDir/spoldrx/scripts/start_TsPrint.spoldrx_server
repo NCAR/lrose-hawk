@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/spoldrx/params
+
+running "TsPrint -params TsPrint.spoldrx_server"
+if ($status == 1) then
+  TsPrint -params TsPrint.spoldrx_server |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsPrint -i spoldrx_server &
+endif
+

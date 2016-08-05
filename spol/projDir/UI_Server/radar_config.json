@@ -1,0 +1,50 @@
+{
+"radar_config" : {
+    "radar_name" : "SPOL",
+    "clutter_filters" : 
+    [ 
+    "None", 
+    "4 pole Chebyshev (1%)",
+    "4 pole Chebyshev (2%)",
+    "4 pole Chebyshev (3%)",
+    "4 pole Chebyshev (4%)",
+    "4 pole Chebyshev (5%)",
+    "4 pole Chebyshev (6%)",
+    "4 pole Chebyshev (7%)",
+    "4 pole elyptical (1%)",
+    "4 pole elyptical (2%)",
+    "4 pole elyptical (3%)",
+    "4 pole elyptical (4%)",
+    "4 pole elyptical (5%)",
+    "4 pole elyptical (6%)",
+    "4 pole elyptical(7%)"
+    ],
+    "calibration_modes" :
+    [
+	"None",
+"CW-Cal",
+"Solar-Cal-Fixed",
+"Solar-Cal-Scanning",
+"Noise-Source-H",
+"Noise-Source-V",
+"Noise-Source-HV",
+"Blue-Sky",
+"Save-Cal-Info"
+   ],
+    "pulse_widths" : [0.2, 1],
+    "usernames" : {
+	"vanandel" : {
+		"password": "foobar"
+	},
+	"admin" : {
+		"password": "pecan"
+	},
+	"operator" : {
+		"password": "firg4u$"
+	},
+	"spol" : {
+		"password": "hawk"
+	},
+    }
+}
+}

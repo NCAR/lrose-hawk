@@ -1,0 +1,60 @@
+#!/bin/csh
+
+#
+# run on pgen to rsync 1 day of zebra data
+# to catch up for a down period
+#
+
+if ($#argv != 1) then
+  echo "Rsync 1 day of data from pgen to uwraid"
+  echo "Usage: $argv[0] yyyymmdd"
+  exit 1
+endif
+
+# rsync 1 day of data
+
+set day_dir=$1
+set echo=1
+
+#
+# copy sat data from pgen to uwraid
+#
+
+cd $DATA_DIR/zebra/sat/ir
+rsync --size-only -av $day_dir uwraid:projDir/data/zebra/sat/ir
+
+cd $DATA_DIR/zebra/sat/wv
+rsync --size-only -av $day_dir uwraid:projDir/data/zebra/sat/wv
+
+cd $DATA_DIR/zebra/sat/vis
+rsync --size-only -av $day_dir uwraid:projDir/data/zebra/sat/vis
+
+#
+# copy MDV cartesian data from pgen to uwraid
+#
+
+cd $DATA_DIR/mdv/cart/moments/sband/sur
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/moments/sband/sur
+
+cd $DATA_DIR/mdv/cart/moments/sband/rhi
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/moments/sband/rhi
+
+cd $DATA_DIR/mdv/cart/moments/kband/sur
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/moments/kband/sur
+
+cd $DATA_DIR/mdv/cart/moments/kband/rhi
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/moments/kband/rhi
+
+cd $DATA_DIR/mdv/cart/moments/smartr/sur
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/moments/smartr/sur
+
+cd $DATA_DIR/mdv/cart/partrain/sband/sur
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/partrain/sband/sur
+
+cd $DATA_DIR/mdv/cart/partrain/sband/rhi
+rsync --size-only -av $day_dir uwraid:projDir/data/mdv/cart/partrain/sband/rhi
+
+
+
+
+

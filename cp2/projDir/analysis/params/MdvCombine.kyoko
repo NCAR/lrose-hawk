@@ -1,0 +1,163 @@
+/**********************************************************************
+ * TDRP params for MdvCombine
+ *   modified by Kyoko Ikeda (4/24/2009)
+ **********************************************************************/
+
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+// Type: boolean
+//
+
+debug = FALSE;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "Test";
+
+///////////// mode ////////////////////////////////////
+//
+// Operation mode.
+// Program may be run in two modes, archive and realtime. .
+//
+// Type: enum
+// Options:
+//     ARCHIVE
+//     REALTIME
+//     SPEC_FCAST_REALTIME
+//
+
+mode = ARCHIVE;
+
+///////////// fcast_lead_time /////////////////////////
+//
+// Forecast lead time information for forecast files to be processed.
+// Used only if mode is set to SPEC_FCAST_REALTIME.
+//
+// Type: struct
+//   typedef struct {
+//      int lead_time_secs;
+//      boolean use_gen_time;
+//   }
+//
+//
+
+fcast_lead_time = { 0, FALSE };
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// field_info //////////////////////////////
+//
+// An array of field descriptors.
+// If available, the indicated field from each URL will be combined in 
+//   the output file. If field_name is specified it will be used. 
+//   Otherwise, field_num will be used.
+//
+// Type: struct
+//   typedef struct {
+//      string url;
+//      long field_num;
+//      string field_name;
+//   }
+//
+// 1D array - variable length.
+//
+
+field_info = {
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "DBZ"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "VEL"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "SNR"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "ZDRM"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "PHIDP"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "RHOHV"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "KDP"},
+  { "mdvp:://localhost::mdv/radarPolar/cp2_s/sur", 0, "NCP"},
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "PID"}
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "PidInterest"}
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "PID2"}
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "PidInterest2"}
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "PidConfidence"}
+  { "mdvp:://localhost::mdv/radarPolar/derived_pid/sur", 0, "ZDR_FOR_PID"}
+};
+
+///////////// trigger_url /////////////////////////////
+//
+// Trigger URL.
+// This URL triggers the combination of the URLs list in field_info.
+// Type: string
+//
+
+trigger_url = "mdvp:://localhost::mdv/radarPolar/cp2_s/sur";
+
+///////////// time_trigger_interval ///////////////////
+//
+// Interval for TIME_TRIGGER - secs.
+// In REALTIME mode, a time trigger always occurs on the hour, and at 
+//   constant intervals thereafter. In ARCHIVE mode the trigger starts at 
+//   start_time and at constant intervals thereafter.
+// Minimum val: 0
+// Type: long
+//
+
+time_trigger_interval = 300;
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// output_url //////////////////////////////
+//
+// Output URL.
+// The merged files are placed in this URL.
+// Type: string
+//
+
+output_url = "mdvp:://localhost::mdv/radarPolar/derived_combined/sur";
+
+///////////// data_set_name ///////////////////////////
+//
+// Data set name.
+// This is placed in the MDV master header for documentation purposes.
+// Type: string
+//
+
+data_set_name = "Combined PID and radar measurements";
+
+///////////// data_set_source /////////////////////////
+//
+// Data set source details.
+// This is placed in the MDV master header for documentation purposes.
+// Type: string
+//
+
+data_set_source = "Combined data created by MdvCombine.";
+
+///////////// write_forecast //////////////////////////
+//
+// Write mdv files in a forecast directory structure.
+// If this is true, mdv files will be written in the rap forecast 
+//   directory structure. If this is FALSE, mdv files will be written in 
+//   the rap non-forecast directory structure.
+// Type: boolean
+//
+
+write_forecast = FALSE;
+

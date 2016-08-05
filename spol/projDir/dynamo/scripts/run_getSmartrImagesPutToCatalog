@@ -1,0 +1,7 @@
+#! /bin/csh
+
+snuff getSmartrImagesPutToCatalog.py
+
+getSmartrImagesPutToCatalog.py --debug --pastSecs 900 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrImagesPutToCatalog >& /dev/null &
+

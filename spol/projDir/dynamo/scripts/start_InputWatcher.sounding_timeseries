@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "InputWatcher -params InputWatcher.sounding_timeseries"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.sounding_timeseries -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i sounding_timeseries &
+endif
+

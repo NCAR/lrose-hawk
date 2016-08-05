@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# get latest surface obs file
+
+while ( true )
+do
+today=$(date -u +%Y%m%d)
+cd $DATA_DIR/raw/aws/tmp
+wget -N -nv -nd -r http://aifs-nt.bom.gov.au/data/metar/latest.axf
+sleep 10
+done
+

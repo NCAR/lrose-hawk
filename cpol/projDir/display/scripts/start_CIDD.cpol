@@ -1,0 +1,10 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST cpolserver
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.cpol -i cpol -fn fixed >& /dev/null &
+

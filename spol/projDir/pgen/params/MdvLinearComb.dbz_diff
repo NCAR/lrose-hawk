@@ -1,0 +1,324 @@
+/**********************************************************************
+ * TDRP params for MdvLinearComb
+ **********************************************************************/
+
+//======================================================================
+//
+// MdvLinearComb allows user to create a linear combination of Mdv 
+//   fields.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed with the appropriate level of 
+//   detail.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "dbz_diff";
+
+//======================================================================
+//
+// PROGRAM MODES OF OPERATION.
+//
+//======================================================================
+ 
+///////////// mode ////////////////////////////////////
+//
+// Operating mode.
+// In REALTIME mode, the program triggers off of a latest data info 
+//   file. In FILELIST mode the program processed data between start and 
+//   end times entered on the command line. In FILELIST mode the file 
+//   processes files entered on the command line.
+//
+// Type: enum
+// Options:
+//     TIME_INTERVAL
+//     FILELIST
+//     REALTIME
+//
+
+mode = FILELIST;
+
+///////////// is_forecast_data ////////////////////////
+//
+// Flag to set the Mdv read mode to READ_SPECIFIED_FORECAST .
+// Type: boolean
+//
+
+is_forecast_data = FALSE;
+
+///////////// trigger_url /////////////////////////////
+//
+// Trigger url, latest data after trigger will be found for all field 
+//   data files.
+// Type: string
+//
+
+trigger_url = "mdvp:://localhost::mdv/radial/moments/sband/sur";
+
+///////////// max_valid_realtime_age //////////////////
+//
+// max valid realtime age of trigger data.
+// Type: int
+//
+
+max_valid_realtime_age = 300;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// field_data //////////////////////////////
+//
+// Specify field and any preprocessing.
+// url - location of truth or predictor data
+// field_name - name of field of interest at input url
+// field_number - number of field of interest at input
+// use_field_name- option to use field name instead of number.
+//                  If false, field_number_will be used.
+// vert_action - Set vertical limits on data being read. You can choose
+//               a composite( VERT_ACTION_COMPOSITE) or choose to read
+//               data between vertical limits( VERT_ACTION_SET_LIMITS)
+//                If not VERT_ACTION_NONE, choose VERT_ACTION_SET_LIMITS
+//               or VERT_ACTION_COMPOSITE.
+// vlevel_type - If choosing VERT_ACTION_SET_LIMITS, choose
+//               VLEVEL_PLANE_NUM to specify the boundind planes by
+//               number or choose VLEVEL_DATA_UNITS to specify
+//               the bounding planes in vertical units defined in
+//                the data file.
+// vertical_min - This is the minimum vertical level plane in units
+//                 specified by vlevel_type.
+// vertical_max - This is the maximum vertical level plane in units
+//                specified by vlevel_type.
+// search_margin -defines time window around data search time.
+// scale, offset - multiple the field by the scale, and add the offset
+//                before summing them.
+//
+// Type: struct
+//   typedef struct {
+//      string url;
+//      string field_name;
+//      int field_number;
+//      boolean use_field_name;
+//      vert_action_t vert_action;
+//        Options:
+//          VERT_ACTION_NONE
+//          VERT_ACTION_SET_LIMITS
+//          VERT_ACTION_COMPOSITE
+//      vlevel_type_t vlevel_type;
+//        Options:
+//          VLEVEL_PLANE_NUM
+//          VLEVEL_DATA_UNITS
+//      double vertical_min;
+//      double vertical_max;
+//      int search_margin;
+//      double scale;
+//      double offset;
+//   }
+//
+// 1D array - variable length.
+//
+
+field_data = {
+  {
+    url = "mdvp:://localhost::mdv/radial/moments/sband/sur",
+    field_name = "DBZ_F",
+    field_number = 0,
+    use_field_name = TRUE,
+    vert_action = VERT_ACTION_SET_LIMITS,
+    vlevel_type = VLEVEL_PLANE_NUM,
+    vertical_min = 0,
+    vertical_max = 0,
+    search_margin = 600,
+    scale = 1,
+    offset = 0
+  }
+  ,
+  {
+    url = "mdvp:://localhost::mdv/radial/moments/kband/sur",
+    field_name = "DBZ",
+    field_number = 0,
+    use_field_name = TRUE,
+    vert_action = VERT_ACTION_SET_LIMITS,
+    vlevel_type = VLEVEL_PLANE_NUM,
+    vertical_min = 0,
+    vertical_max = 0,
+    search_margin = 600,
+    scale = -1,
+    offset = 0
+  }
+};
+
+///////////// remap_grid //////////////////////////////
+//
+// Set to true to remap the data.
+// Defaults to false.
+// Type: boolean
+//
+
+remap_grid = TRUE;
+
+///////////// grid_projection /////////////////////////
+//
+// Projection type for remapped grid.
+// Projections currently supported are PROJ_FLAT, PROJ_LATLON and 
+//   PROJ_LAMBERT.
+//
+// Type: enum
+// Options:
+//     PROJ_FLAT
+//     PROJ_LATLON
+//     PROJ_LAMBERT
+//
+
+grid_projection = PROJ_FLAT;
+
+///////////// grid_params /////////////////////////////
+//
+// Grid parameters for remapping in x,y.
+// These params apply to all projection types.
+//
+// Type: struct
+//   typedef struct {
+//      int nx;
+//      int ny;
+//      double minx;
+//      double miny;
+//      double dx;
+//      double dy;
+//   }
+//
+//
+
+grid_params = {
+    nx = 600,
+    ny = 600,
+    minx = -75,
+    miny = -75,
+    dx = 0.25,
+    dy = 0.25
+};
+
+///////////// origin_lat //////////////////////////////
+//
+// Remapped grid origin latitude.
+// This applies only to PROJ_FLAT and PROJ_LAMBERT projections.
+// Type: double
+//
+
+origin_lat = $(RADAR_LAT);
+
+///////////// origin_lon //////////////////////////////
+//
+// Remapped grid origin longitude.
+// This applies only to PROJ_FLAT and PROJ_LAMBERT projections.
+// Type: double
+//
+
+origin_lon = $(RADAR_LON);
+
+///////////// flat_rotation ///////////////////////////
+//
+// Rotation (in degrees) of grid from true north.
+// Usually 0 - applied to flat earth only.
+// Minimum val: -360
+// Type: double
+//
+
+flat_rotation = 0;
+
+///////////// lambert_lat1 ////////////////////////////
+//
+// First true latitude for PROJ_LAMBERT projection.
+// Applies only to PROJ_LAMBERT.
+// Minimum val: -90
+// Maximum val: 90
+// Type: double
+//
+
+lambert_lat1 = 25.1;
+
+///////////// lambert_lat2 ////////////////////////////
+//
+// Second true latitude for PROJ_LAMBERT projection.
+// Applies only to PROJ_LAMBERT.
+// Minimum val: -90
+// Maximum val: 90
+// Type: double
+//
+
+lambert_lat2 = 25;
+
+///////////// output_field_of_max_val /////////////////
+//
+// Option of output the 0-based integer representing the field which has 
+//   the max value at each grid point of all input fields.
+// Type: boolean
+//
+
+output_field_of_max_val = FALSE;
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// output_url //////////////////////////////
+//
+// Url of output mdv dataset.
+// Type: string
+//
+
+output_url = "mdvp:://localhost::mdv/dbz_diff";
+
+///////////// output_field_name ///////////////////////
+//
+// Name of output field.
+// Name given to output field.
+// Type: string
+//
+
+output_field_name = "dbz_s_minus_k";
+
+///////////// output_field_units //////////////////////
+//
+// Units for output field.
+// Type: string
+//
+
+output_field_units = "dB";
+
+///////////// write_as_forecast ///////////////////////
+//
+// Option to write output in forecast directory structure.
+// Type: boolean
+//
+
+write_as_forecast = FALSE;
+

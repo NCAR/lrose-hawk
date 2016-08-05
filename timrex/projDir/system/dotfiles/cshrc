@@ -1,0 +1,202 @@
+####################################
+# .cshrc file for SPOL RVP8 projects
+####################################
+
+if ( $?prompt ) then
+  set prompt = "`hostname`:\!>"
+  set autoexpand
+  set autolist
+  set cdpath = ( ~ )
+  set pushdtohome
+endif
+
+umask 002
+setenv TAPE /dev/st0
+setenv PRINTER lp
+
+# Set the HOST_OS for LINUX, based on hostname
+
+set hostname = `hostname`
+switch ($hostname)
+case mgen.gate.rtf:
+case pgen.gate.rtf:
+  setenv HOST_OS LINUX_64
+  breaksw
+default:
+  setenv HOST_OS LINUX
+endsw
+
+#setenv HOST_OS LINUX
+#setenv HOST_OS LINUX_64
+#setenv HOST_OS LINUX_64_32MODE
+#setenv HOST_OS DARWIN
+
+# CVS
+
+setenv CVSUSER dixon
+setenv CVSROOT :pserver:${CVSUSER}@localhost:/cvs
+
+setenv CVS_DIR $HOME/cvs
+setenv RAP_MAKE_INC_DIR $CVS_DIR/make_include
+setenv RAP_MAKE_BIN_DIR $CVS_DIR/make_bin
+
+# --- BUILDS ---
+
+setenv PROJ_DIR $HOME/projDir
+
+setenv RAP_BUILD_DIR $PROJ_DIR
+setenv RAP_BIN_DIR $RAP_BUILD_DIR/bin
+setenv RAP_LIB_DIR $RAP_BUILD_DIR/lib
+setenv RAP_INC_DIR $RAP_BUILD_DIR/include
+setenv RAP_MAN_DIR $RAP_BUILD_DIR/man
+setenv RAP_DOC_DIR $RAP_BUILD_DIR/doc 
+
+setenv RAP_SHARED_BIN_DIR $RAP_BIN_DIR
+setenv RAP_SHARED_LIB_DIR $RAP_LIB_DIR
+setenv RAP_SHARED_INC_DIR $RAP_INC_DIR
+setenv RAP_SHARED_MAN_DIR $RAP_MAN_DIR
+
+setenv RVP8_BIN_DIR $RAP_BIN_DIR
+setenv RVP8_LIB_DIR $RAP_LIB_DIR
+setenv RVP8_INC_DIR $RAP_INC_DIR
+
+setenv RAP_INSTALL_DIR $PROJ_DIR
+setenv RAP_INST_LIB_DIR $RAP_INSTALL_DIR/lib
+setenv RAP_INST_BIN_DIR $RAP_INSTALL_DIR/bin
+setenv RAP_INST_INC_DIR $RAP_INSTALL_DIR/include
+setenv RAP_INST_JAVA_DIR $RAP_INSTALL_DIR/lib
+
+setenv RAP_DEBUG_LIB_DIR $RAP_LIB_DIR
+setenv RAP_PROFILE_LIB_DIR $RAP_LIB_DIR
+
+# --- LD library path --
+
+setenv LD_LIBRARY_PATH $PROJ_DIR/lib
+
+# --- JAVA ---
+
+setenv JAVA_HOME /opt/jdk
+
+# --- RUNTIME ---
+
+setenv DATA_DIR $PROJ_DIR/data
+setenv RAP_DATA_DIR $DATA_DIR
+setenv TMP_DIR $DATA_DIR/tmp
+setenv LOG_DIR $DATA_DIR/logs
+setenv DATA_DISTRIB_LOG_DIR $LOG_DIR/distrib
+setenv ERRORS_LOG_DIR $LOG_DIR/errors
+setenv RESTART_LOG_DIR $LOG_DIR/restart
+
+setenv PROCMAP_HOST localhost
+setenv DATA_MAPPER_ACTIVE true
+setenv LDATA_FMQ_ACTIVE true
+
+setenv DS_COMM_TIMEOUT_MSECS 60000
+setenv DS_PING_TIMEOUT_MSECS 20000
+
+# --- Path ---
+
+# Assemble path to include all scripts directories
+# then projDir/bin, then the rest
+
+set path = (.)
+if ( -d $PROJ_DIR ) then
+  foreach dir ($PROJ_DIR/*)
+    if (-d $dir/scripts) then
+      set path = ($path $dir/scripts)
+    endif
+  end
+endif
+
+set path = ($path $RAP_INST_BIN_DIR $RAP_BIN_DIR ~/bin \
+	$JAVA_HOME/bin /opt/ant/bin \
+        /usr/X11R6/bin /usr/sbin /usr/bin /sbin /bin \
+	/usr/bin/X11 /usr/local/bin /usr/local/sbin \
+	/opt/gfortran/irun/bin \
+        /usr/sigmet/bin /usr/sigmet/bin/rda )
+
+set host_type = `get_host_type`
+
+# -- core files --
+# unlimit coredumpsize
+
+# --- Aliases ---
+if ($?prompt) then
+
+  alias sc source ~/.cshrc
+
+  alias setprompt 'set prompt="(`hostname`) `basename $cwd` ! % "'
+  alias cd 'cd \!*;setprompt; echo $cwd'
+  alias push 'pushd \!*; cd .'
+  alias pop 'popd; cd .'
+
+  set prompt = "%m:%~%# "             # tcsh
+  unset autologout                    # tcsh
+  set showdots                        # tcsh
+  set watch = (1 root any)            # tcsh
+  set history=200
+  set nobeep
+  set time = 5
+
+  setenv EDITOR nvi
+  setenv PAGER less
+  setenv LESS "-cMe"
+  setenv LESSOPEN "|lesspipe.sh %s"
+  setenv LESSCHARSET latin1
+
+  alias h history
+  alias ssh 'ssh -X'
+
+  alias rm 'rm -i'
+  alias mv 'mv -i'
+  alias cp 'cp -i' 
+
+  alias df 'df -h'
+  set filec
+  set fignore = (.o .ln)
+
+  alias catw 'cat `which \!*`'
+  alias lessw 'less `which \!*`'
+  alias emacsw 'emacs -nw `which \!*`'
+  alias viw 'vi `which \!*`'
+
+  alias lst 'ls -l \!* | awk \{s+=\$4\}END\{print\ s\}'
+  alias ll 'ls -al | more'
+  alias l 'ls -sF'
+  alias L ls -agl
+  alias LS ls -aFRts 
+
+  alias xx 'xrdb ~/.Xdefaults'
+  alias cvs 'cvs -d :pserver:${CVSUSER}@localhost:/cvs \!*'
+  alias cvsforward 'ssh -a -x -C -R 2401:localhost:2401'
+  alias cvsin 'ssh -a -x -C -L 2401:cvs:2401'
+  alias cvsout 'ssh -a -x -C -R 2401:cvs:2401'
+  alias gate 'xrdb ~/.Xdefaults; ssh ${CVSUSER}@gate.ucar.edu'
+
+  alias psg 'ps axww | sed -n "1p; \|sed .*/\!*/|d; /\!*/p"'
+  alias pslg 'ps alxww | sed -n "1p; \|sed .*/\!*/|d; /\!*/p"'
+  alias psug 'ps auxww | sed -n "1p; \|sed .*/\!*/|d; /\!*/p"'
+  alias psx 'ps xww | grep -v LogFilter'
+  alias ensc 'enscript -2r -fCourier7'
+
+  alias print_procmap 'print_procmap -hb -up -status'
+  alias PrintDataMap 'PrintDataMap -all -relt -lreg'
+  alias ppm 'print_procmap -hb -up -status'
+  alias pdm 'PrintDataMap -all -relt -lreg'
+  alias pcheck 'procmap_list_check -proc_list $PROJ_DIR/control/proc_list'
+  alias ph 'get_host_type'
+
+# save to dvd
+
+  alias savedvd 'growisofs -Z /dev/dvd -r -J'
+  alias saveiso2dvd 'growisofs -dvd-compat -Z /dev/dvd='
+
+#    eval `dircolors ~/.dircolors`      # Set up color-ls variables.
+
+endif
+
+# SIGMET environment on RVP8
+
+if ($host_type == "rvp8") then
+  source ~/.sigmet_env
+endif

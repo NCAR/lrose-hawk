@@ -1,0 +1,43 @@
+scrub_usb_disks_howto.txt
+=========================
+
+How to scrub UDB disks for reuse
+--------------------------------
+
+Mike Dixon
+2012/01/09
+
+1. Find the disks to be scrubbed
+--------------------------------
+
+Find the 2 disks with the oldest data on them
+
+2. Mount the disks on sci2
+--------------------------
+
+Plug the drives into sci2
+
+3. Check the drives are mounted
+-------------------------------
+
+Open and xterm:
+
+  ssh sci2
+  df -h
+
+You should see something like:
+
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda2              29G  6.4G   21G  24% /
+/dev/sda5             419G   22G  376G   6% /home
+/dev/sda1             190M   23M  158M  13% /boot
+tmpfs                 3.0G     0  3.0G   0% /dev/shm
+/dev/sdc1             917G  540G  331G  62% /media/SPOL-HD60
+/dev/sdb1             917G  801G   70G  92% /media/SPOL-HD64
+
+4. Run the script
+-----------------
+
+  cleanArchiveDisks
+
+You will see the script deleting files.

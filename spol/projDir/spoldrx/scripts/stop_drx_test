@@ -1,0 +1,8 @@
+#! /bin/csh
+
+snuff tcpscope
+snuff Iq2Dsr.drx
+snuff HawkEye.drx
+snuff procmap
+kill_spoldrx
+

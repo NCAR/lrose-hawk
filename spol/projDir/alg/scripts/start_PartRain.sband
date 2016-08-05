@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/alg/params
+
+running "PartRain -params PartRain.sband"
+if ($status == 1) then
+  PartRain -params PartRain.sband -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p PartRain -i sband &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "LdataWatcher -params LdataWatcher.smartr_data"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.smartr_data |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i smartr_data &
+endif
+

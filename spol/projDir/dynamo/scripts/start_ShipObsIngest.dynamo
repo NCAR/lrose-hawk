@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "ShipObsIngest -params ShipObsIngest.dynamo"
+if ($status == 1) then
+  ShipObsIngest -params ShipObsIngest.dynamo -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ShipObsIngest -i dynamo &
+endif
+

@@ -1,0 +1,43 @@
+ZDR calibration for SPOL at TIMREX - 2008/05/20
+===============================================
+
+Mike Dixon
+
+CP method:
+----------
+
+Sunscan:
+
+  20080518 003000 UTC: S1S2 = -0.660
+
+CP:
+
+  20080518 013000 UTC: Pvx-Phx = -0.235
+
+ZDRM = (Pvx-Phx) - S1S2 = 0.425
+
+Vert pointing method:
+---------------------
+
+  20080520 000000 UTC: ZDRM = 0.385
+
+Average ZDRM from CP and vert methods:
+--------------------------------------
+
+  ZDRM = (0.385 + 0.425) / 2.0 = 0.405
+
+ZDR correction:
+---------------
+
+  ZdrCorrection = -ZDRM - (dbz0Hc - dbz0Vc)
+
+    dbz0Hc = -43.940
+    dbz0Vc = -43.192
+    dbz0Hc - dbz0Vc = -0.748
+  
+  ZdrCorrection = -0.405 - (-0.748) = 0.343
+
+A correction of 0.34 was entered into the cal file at
+   
+  20080520 015000 UTC
+

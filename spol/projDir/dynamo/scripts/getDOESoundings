@@ -1,0 +1,14 @@
+#! /bin/csh
+
+getDOEFilesBySftp.py --debug --pastSecs 86400  --sshPort=22222 \
+--sourceDir=/data/datastream/gan/gansondewnpnM1.b1 --subStrList=cdf --checkNames \
+--targetDir=${DATA_DIR}/raw/doe/soundings/gan/netcdf \
+--dataType=nc \
+|& LogFilter -d $ERRORS_LOG_DIR -p getDOESoundings >& /dev/null &
+
+getDOEFilesBySftp.py --debug --pastSecs 86400  --sshPort=22222 \
+--sourceDir=/data/datastream/gan/gansonderawM1.00 \
+--subStrList=raw --checkNames \
+--targetDir=${DATA_DIR}/raw/doe/soundings/gan/text \
+--dataType=txt \
+|& LogFilter -d $ERRORS_LOG_DIR -p getDOESoundings >& /dev/null &

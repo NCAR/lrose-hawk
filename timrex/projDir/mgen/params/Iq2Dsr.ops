@@ -1,0 +1,1833 @@
+/**********************************************************************
+ * TDRP params for Iq2Dsr
+ **********************************************************************/
+
+//======================================================================
+//
+// Iq2Dsr reads raw time-series data, computes the moments and writes 
+//   the contents into a DsRadar FMQ.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "ops";
+
+//======================================================================
+//
+// MODE OF OPERATION.
+//
+//======================================================================
+ 
+///////////// mode ////////////////////////////////////
+//
+// Operating mode.
+// In REALTIME mode, the program waits for a new input file. In ARCHIVE 
+//   mode, it moves through the list of file names specified on the 
+//   command line. In SIMULATE mode, the program moves repeatedly through 
+//   the file list, creating output files with times set to now. This is 
+//   useful for simulating an operational radar. In FMQ mode, the program 
+//   opens the input_fmq, and reads time series data from the queue.
+//
+// Type: enum
+// Options:
+//     ARCHIVE
+//     REALTIME
+//     SIMULATE
+//     FMQ
+//
+
+mode = FMQ;
+
+///////////// use_multiple_threads ////////////////////
+//
+// Option to use multiple threads to improve performance.
+// The read, compute and write stages can overlap in time, to improve 
+//   performance. Also, the compute stage can be split into multiple 
+//   threads, with each thread working on a discrete number of gates.
+// Type: boolean
+//
+
+use_multiple_threads = TRUE;
+
+///////////// n_compute_threads ///////////////////////
+//
+// The number of compute threads.
+// The moments computations are segmented in range, with each thread 
+//   computing a fraction of the number of gates. For maximum performance, 
+//   n_threads should be set to the number of processors multiplied by 4. 
+//   For further tuning, use top to maximize CPU usage while varying the 
+//   number of threads.
+// Minimum val: 1
+// Type: int
+//
+
+n_compute_threads = 8;
+
+//======================================================================
+//
+// TIME-SERIES FILE DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_dir ///////////////////////////////
+//
+// Dir for input data files.
+// This is used in REALTIME mode only. In ARCHIVE and SIMULATE modes, 
+//   the file paths are specified on the command line.
+// Type: string
+//
+
+input_dir = "./input";
+
+///////////// use_ldata_info_file /////////////////////
+//
+// Option to use _latest_data_info file as input trigger.
+// REALTIME mode only. If true, waits on _latest_data_info file. If 
+//   false, scans the directory for new file.
+// Type: boolean
+//
+
+use_ldata_info_file = FALSE;
+
+///////////// max_realtime_valid_age //////////////////
+//
+// Max valid age of rdata input files in realtime mode (secs).
+// This the max valid age for an incoming file. The program will wait 
+//   for a data file more recent than this age.
+// Minimum val: 1
+// Type: int
+//
+
+max_realtime_valid_age = 360;
+
+///////////// input_fmq ///////////////////////////////
+//
+// FMQ name for time series data.
+// This is used in FMQ mode only.
+// Type: string
+//
+
+input_fmq = "$(DATA_DIR)/mgen/fmq/ts";
+
+///////////// position_fmq_at_start ///////////////////
+//
+// Option to position the input FMQ at the start of the queue.
+// FMQ mode only. If false, we start reading at the end of the queue. 
+//   This is the default behavior. If true, we position the read pointer 
+//   at the start of the queue, and read all data available in the queue 
+//   before starting to read new data.
+// Type: boolean
+//
+
+position_fmq_at_start = FALSE;
+
+///////////// invert_hv_flag //////////////////////////
+//
+// Option to invert the sense of the HV flag in alternating mode.
+// In alternating dual-pol mode, the HV flag indicates whether the pulse 
+//   is horizontally or vertically polarized. Normally 1 indicates H and 0 
+//   V. This parameter allows you to invert the sense of the flag, so that 
+//   1 is interpreted as V and 0 as H.
+// Type: boolean
+//
+
+invert_hv_flag = FALSE;
+
+//======================================================================
+//
+// RADAR PARAMETERS.
+//
+// If any of the params are set in the input data files, the values in 
+//   those params will be taken from the input data stream rather than 
+//   from the parameter file.
+//
+//======================================================================
+ 
+///////////// radar ///////////////////////////////////
+//
+// Default radar params. If any of the params are set in the input data 
+//   files, the values in those params will be taken from the input data 
+//   stream rather than from the parameter file.
+// ========== Radar params ==========
+// 	
+// altitude: km
+// latitude: degrees
+// longitude: degrees
+// horiz_beam_width: half-power beam width - degrees
+// vert_beam_width: half-power beam width - degrees
+// radar_constant: dB
+// xmit_peak_pwr: watts
+// receiver_mds: dBm
+// receiver_gain: dB
+// antenna_gain: dB
+// system_gain: dB
+// 	.
+//
+// Type: struct
+//   typedef struct {
+//      double altitude;
+//      double latitude;
+//      double longitude;
+//      double horiz_beam_width;
+//      double vert_beam_width;
+//      double radar_constant;
+//      double xmit_peak_pwr;
+//      double receiver_mds;
+//      double receiver_gain;
+//      double antenna_gain;
+//      double system_gain;
+//   }
+//
+//
+
+radar = {
+    altitude = 1.742,
+    latitude = 39.9502,
+    longitude = -105.195,
+    horiz_beam_width = 0.92,
+    vert_beam_width = 0.92,
+    radar_constant = 64.59,
+    xmit_peak_pwr = 956000,
+    receiver_mds = -113,
+    receiver_gain = 46.05,
+    antenna_gain = 45.8,
+    system_gain = 46.05
+};
+
+///////////// scan_type_id ////////////////////////////
+//
+// Scan type id.
+// Unique identifier for scan strategy.
+// Type: int
+//
+
+scan_type_id = 0;
+
+///////////// scan_type_name //////////////////////////
+//
+// Scan type name.
+// Descriptive name for scan strategy.
+// Type: string
+//
+
+scan_type_name = "Default";
+
+///////////// atmos_attenuation ///////////////////////
+//
+// Atmospheric attenuation (dB/km).
+// Reflectivity is corrected for this.
+// Type: double
+//
+
+atmos_attenuation = 0.012;
+
+//======================================================================
+//
+// RADAR CALIBRATION.
+//
+//======================================================================
+ 
+///////////// override_ts_cal /////////////////////////
+//
+// Option to override cal in time series data.
+// If false, the cal information in the time series data will be used. 
+//   If true, the cal info in the param file will be used.
+// Type: boolean
+//
+
+override_ts_cal = TRUE;
+
+///////////// hc_receiver /////////////////////////////
+//
+// Properties of horiz co-polar receiver.
+// noise_db: the blue-sky noise measured at the ifd, in dBm. gain: the 
+//   gain from the measurement plane to the ifd, in dB.
+//
+// Type: struct
+//   typedef struct {
+//      double noise_db;
+//      double gain;
+//      double radar_constant;
+//   }
+//
+//
+
+hc_receiver = {
+    noise_db = -77.031,
+    gain = 37.2704,
+    radar_constant = -68.3782
+};
+
+///////////// hx_receiver /////////////////////////////
+//
+// Properties of horiz cross-polar receiver.
+//
+// Type: struct
+//   typedef struct {
+//      double noise_db;
+//      double gain;
+//      double radar_constant;
+//   }
+//
+//
+
+hx_receiver = {
+    noise_db = -77.1704,
+    gain = 37.1916,
+    radar_constant = -68.3782
+};
+
+///////////// vc_receiver /////////////////////////////
+//
+// Properties of vertical co-polar receiver.
+//
+// Type: struct
+//   typedef struct {
+//      double noise_db;
+//      double gain;
+//      double radar_constant;
+//   }
+//
+//
+
+vc_receiver = {
+    noise_db = -77.4886,
+    gain = 35.6743,
+    radar_constant = -68.3782
+};
+
+///////////// vx_receiver /////////////////////////////
+//
+// Properties of vertical cross-polar receiver.
+//
+// Type: struct
+//   typedef struct {
+//      double noise_db;
+//      double gain;
+//      double radar_constant;
+//   }
+//
+//
+
+vx_receiver = {
+    noise_db = -77.7405,
+    gain = 35.4526,
+    radar_constant = -68.3782
+};
+
+///////////// dbz_calib_correction ////////////////////
+//
+// Correction to DBZ calibration.
+// DBZ values are corrected by this amount. Used in cases in which the 
+//   reflectivity calibration values provided in the time series appears 
+//   to be in error.
+// Type: double
+//
+
+dbz_calib_correction = 0;
+
+//======================================================================
+//
+// MOMENTS COMPUTATIONS.
+//
+//======================================================================
+ 
+///////////// index_beams_in_azimuth //////////////////
+//
+// Option to index the beams to azimuth.
+// If true, moments are computed for IQ series centered around azimuths 
+//   at a specified spacing.
+// Type: boolean
+//
+
+index_beams_in_azimuth = TRUE;
+
+///////////// azimuth_resolution //////////////////////
+//
+// Resolution in azimuth for beam indexing.
+// See index_beams_in_azimuth. This is the azimuth resolution for 
+//   computing the location at which to compute the moments. The azimuths 
+//   always start at 0.0 and increase at this resolution.
+// Minimum val: 0.001
+// Maximum val: 360
+// Type: double
+//
+
+azimuth_resolution = 1;
+
+///////////// correct_for_system_phidp ////////////////
+//
+// Option to correct for system phidp.
+// If true, the H and V correlation phases will be corrected by 
+//   adding/subtracting the system phidp value as appropriate. This avoids 
+//   premature wrapping of the phased from which phidp and velocity are 
+//   computed. If false, this correction will not be applied. To find the 
+//   system phidp, set this to false and compute phidp for 
+//   vertically-pointing data.
+// Type: boolean
+//
+
+correct_for_system_phidp = TRUE;
+
+///////////// system_phidp ////////////////////////////
+//
+// System differential between H and V receiving circuits (deg).
+// For dual pol operation only. Used to normalize phidp.
+// Type: double
+//
+
+system_phidp = 45;
+
+///////////// moments_params //////////////////////////
+//
+// Algorithm geometry - based on PRF.
+// Sets the moments algorithm parameters based on PRF. This is a 
+//   temporary solution until this information is available directly from 
+//   the data. pulse_width: microsecs. n_samples: the number of samples to 
+//   be used for computing moments. If apply_sz is true, n_samples will be 
+//   forced to 64. window: applied upstream of the moments computation. 
+//   For SZ, no window should be used upstream. xmit_rcv_mode: mode for 
+//   xmit and receive for polarization diversity. switching_receiver: set 
+//   to true if the receiver switches between channels every alternate 
+//   pulse. apply_clutter_filter: should we apply clutter filtering. 
+//   apply_sz indicates whether to apply SZ decoding.
+//
+// Type: struct
+//   typedef struct {
+//      prf_mode_t prf_mode;
+//        Options:
+//          PRF_MODE_FIXED
+//          PRF_MODE_STAGGERED_2_3
+//          PRF_MODE_STAGGERED_3_4
+//          PRF_MODE_STAGGERED_4_5
+//      double lower_prf;
+//      double upper_prf;
+//      double pulse_width;
+//      int n_samples;
+//      window_t window;
+//        Options:
+//          WINDOW_RECT
+//          WINDOW_VONHANN
+//          WINDOW_BLACKMAN
+//      xmit_rcv_mode_t xmit_rcv_mode;
+//        Options:
+//          SP
+//          DP_ALT_HV_CO_ONLY
+//          DP_ALT_HV_CO_CROSS
+//          DP_ALT_HV_FIXED_HV
+//          DP_SIM_HV_FIXED_HV
+//          DP_SIM_HV_SWITCHED_HV
+//          DP_H_ONLY_FIXED_HV
+//          DP_V_ONLY_FIXED_HV
+//      boolean switching_receiver;
+//      boolean apply_clutter_filter;
+//      boolean apply_sz;
+//   }
+//
+// 1D array - variable length.
+//
+
+moments_params = {
+  {
+    prf_mode = PRF_MODE_FIXED,
+    lower_prf = 0,
+    upper_prf = 500,
+    pulse_width = 1,
+    n_samples = 32,
+    window = WINDOW_VONHANN,
+    xmit_rcv_mode = DP_ALT_HV_CO_CROSS,
+    switching_receiver = TRUE,
+    apply_clutter_filter = FALSE,
+    apply_sz = FALSE
+  }
+  ,
+  {
+    prf_mode = PRF_MODE_FIXED,
+    lower_prf = 500,
+    upper_prf = 2000,
+    pulse_width = 1,
+    n_samples = 96,
+    window = WINDOW_VONHANN,
+    xmit_rcv_mode = DP_ALT_HV_CO_CROSS,
+    switching_receiver = TRUE,
+    apply_clutter_filter = TRUE,
+    apply_sz = FALSE
+  }
+};
+
+///////////// moments_snr_threshold ///////////////////
+//
+// Signal-to-noise value for thresholding (dB).
+// This is the signal-to-noise ratio used to thresholding based on the 
+//   noise.
+// Type: double
+//
+
+moments_snr_threshold = -100;
+
+//======================================================================
+//
+// REFRACTIVITY FIELDS.
+//
+//======================================================================
+ 
+///////////// change_aiq_sign /////////////////////////
+//
+// Option to change sign on AIQ field.
+// This affects refractt variables. Set to true to change the sign of 
+//   the computed AIQ field.
+// Type: boolean
+//
+
+change_aiq_sign = FALSE;
+
+//======================================================================
+//
+// SZ8-64 PHASE CODING.
+//
+//======================================================================
+ 
+///////////// negate_phase_codes //////////////////////
+//
+// Option to multiple phase codes by -1.
+// In some data sets the phase codes are negated. Set this to true for 
+//   such data cases.
+// Type: boolean
+//
+
+negate_phase_codes = FALSE;
+
+///////////// sz_strong_to_weak_power_ratio_threshold /
+//
+// Strong-to-weak power ratio censoring threshold (dB).
+// SZ decoding only. If the strong to weak trip power ratio is greater 
+//   than this, we censor the weak trip.
+// Type: double
+//
+
+sz_strong_to_weak_power_ratio_threshold = 50;
+
+///////////// sz_out_of_trip_power_ratio_threshold ////
+//
+// Ratio of peak power to off-peak replica power (dB).
+// SZ decoding only. When checking for out-of-trip power after 
+//   deconvolution, this is the threshold to be used. The power of the 
+//   spectral peak is compared with the peak for the 6 lowest replicas. If 
+//   the ratio is less that this for a given number of replicas, it is 
+//   assumed that out-of-trip power is present. See 
+//   'sz_out_of_trip_power_n_replicas'.
+// Type: double
+//
+
+sz_out_of_trip_power_ratio_threshold = 6;
+
+///////////// sz_out_of_trip_power_n_replicas /////////
+//
+// Number of replicas used for checking for out-of-trip power.
+// SZ decoding only. When checking for out-of-trip power after 
+//   deconvolution, this is the number of peaks to check. See 
+//   'sz_out_of_trip_power_ratio_threshold'.
+// Minimum val: 1
+// Maximum val: 6
+// Type: int
+//
+
+sz_out_of_trip_power_n_replicas = 3;
+
+///////////// zdr_correction //////////////////////////
+//
+// Correction for Zdr (dB).
+// It is difficult to calibrate accurately for Zdr. Therefore, a small 
+//   correction is generally required.
+// Type: double
+//
+
+zdr_correction = -0.8;
+
+//======================================================================
+//
+// CMD - CLUTTER MITIGATION DECISION system.
+//
+// Option to use the compute and use CMD fields. Note that the CMD can 
+//   only be used if beams are indexed in azimuth. Set 
+//   'index_beams_in_azimuth' to true.
+//
+//======================================================================
+ 
+///////////// clutter_filter_window ///////////////////
+//
+// Window type for clutter filter.
+// Window type to be applied to strong trip before computing spectra.
+//
+// Type: enum
+// Options:
+//     WINDOW_RECT
+//     WINDOW_VONHANN
+//     WINDOW_BLACKMAN
+//
+
+clutter_filter_window = WINDOW_VONHANN;
+
+///////////// cmd_kernel_ngates_tdbz //////////////////
+//
+// Length of CMD kernel in range for TDBZ (gates).
+// TDBZ is computed over a kernel in range.
+// Type: int
+//
+
+cmd_kernel_ngates_tdbz = 9;
+
+///////////// cmd_kernel_ngates_spin //////////////////
+//
+// Length of CMD kernel in range for SPIN (gates).
+// SPIN is computed over a kernel in range.
+// Type: int
+//
+
+cmd_kernel_ngates_spin = 11;
+
+///////////// cmd_kernel_ngates_zdr_sdev //////////////
+//
+// Length of CMD kernel in range for ZDR sdev (gates).
+// sdev_zdr are computed over a kernel in range.
+// Type: int
+//
+
+cmd_kernel_ngates_zdr_sdev = 7;
+
+///////////// cmd_kernel_ngates_phidp_sdev ////////////
+//
+// Length of CMD kernel in range for PHIDP sdev (gates).
+// sdev_phidp are computed over a kernel in range.
+// Type: int
+//
+
+cmd_kernel_ngates_phidp_sdev = 7;
+
+///////////// cmd_spin_dbz_threshold //////////////////
+//
+// Threshold for computing spin change in the CMD (dBZ).
+// The SPIN change variable is computed using the difference in dBZ 
+//   between adjacent gates. If the difference exceeds this threshold, the 
+//   change counter is incremented.
+// Type: double
+//
+
+cmd_spin_dbz_threshold = 5;
+
+///////////// cmd_snr_threshold ///////////////////////
+//
+// Signal-to-noise ratio value for CMD (dB).
+// Only gates which exceed this snr will be considered for the CMD flag.
+// Type: double
+//
+
+cmd_snr_threshold = 3;
+
+///////////// cpa_median_filter_len ///////////////////
+//
+// Length of median filter applied to CPA field in range (gates).
+// Set to 1 if you do not want a median filter applied.
+// Type: int
+//
+
+cpa_median_filter_len = 5;
+
+///////////// cmd_threshold_for_clutter ///////////////
+//
+// Threshold CMD value for identifying clutter.
+// If the CMD value exceeds this threshold, clutter is assumed to exist 
+//   at that point.
+// Type: double
+//
+
+cmd_threshold_for_clutter = 0.5;
+
+///////////// apply_db_for_db_correction //////////////
+//
+// Option to apply db-for-db correction after applying CMD.
+// When a significant level of clutter is present, the noise level in 
+//   the speactral skirts rises. It is not possible to adjust for this 
+//   directly in the filter. Therefore, and extra correction is needed. 
+//   The db-for-db correction was developed in the legacy NEXRAD system. 
+//   For every db of power removed by the filter below the 
+//   db_for_db_threshold, an extra db_for_db is removed. For every db of 
+//   power removed above the threshold, and extra 1 db is removed.
+// Type: boolean
+//
+
+apply_db_for_db_correction = TRUE;
+
+///////////// db_for_db_ratio /////////////////////////
+//
+// Ratio for computing clutter correction when below 
+//   db_for_db_threshold.
+// If the clutter power removed is less than db_for_db_threshold, the 
+//   db_for_db_corection is the clutter db multiplied by this ratio.
+// Type: double
+//
+
+db_for_db_ratio = 0.2;
+
+///////////// db_for_db_threshold /////////////////////
+//
+// Threshold for db_for_db correction.
+// If the computed clutter power is less than this threshold, then the 
+//   db_for_db correction is computed as the db_for_db_ratio multiplied by 
+//   the clutter power. If the clutter power exceeds this threshold, the 
+//   correction is 1 db for every db by which the clutter exceeds the 
+//   threshold.
+// Type: double
+//
+
+db_for_db_threshold = 40;
+
+///////////// apply_cmd_speckle_filter ////////////////
+//
+// Option to apply speckle filter to CMD flag field.
+// If true, a speckle filter will be applied to the flag field after 
+//   thresholding. There are two components to the filter: (a) it there 
+//   are small gaps in the CMD field with a significant number of gates 
+//   set on either side, then the gaps are filled in; (b) if there are 
+//   isolated gates where the CMD flag is set, surrounded by gates not 
+//   set, the flag is removed at those gates if the reflectivity at the 
+//   flagged region does not exceed max reflectivity at the surrounding 
+//   gates. See the following parameters for more details.
+// Type: boolean
+//
+
+apply_cmd_speckle_filter = TRUE;
+
+///////////// cmd_speckle_max_ngates_infilled /////////
+//
+// Max number of gates filled in by the speckle filter.
+// The filter will only fill in sections surrounded by at least the same 
+//   number of gates. For example, if one gate is not flagged but the 
+//   gates on either side are, it is filled in. If two gates are not 
+//   flagged but are surrounded by two flagged gates on either side, these 
+//   are filled in. And so on up to this max numbed of gates to be filled 
+//   in.
+// Type: int
+//
+
+cmd_speckle_max_ngates_infilled = 3;
+
+///////////// cmd_speckle_max_ngates_removed //////////
+//
+// Max number of gates removed by the speckle filter.
+// The filter will only remove sections surrounded by at least the same 
+//   number of gates. For example, if one gate is flagged but the gates on 
+//   either side are not, it is removed provided the reflectivity does not 
+//   exceed the surrounding gates by cmd_speckle_dbz_margin. If two gates 
+//   are flagged but are surrounded by two unflagged gates on either side, 
+//   these are removed if the max reflectivity in these two gates does not 
+//   exceed the max in the surrounding 4 gates by at least 
+//   cmd_speckle_dbz_margin. And so on up to this max numbed of gates to 
+//   be removed.
+// Type: int
+//
+
+cmd_speckle_max_ngates_removed = 2;
+
+///////////// cmd_speckle_dbz_margin //////////////////
+//
+// Threshold CMD value for identifying clutter.
+// If the CMD value exceeds this threshold, clutter is assumed to exist 
+//   at that point.
+// Type: double
+//
+
+cmd_speckle_dbz_margin = 0.5;
+
+///////////// apply_nexrad_spike_filter_after_cmd /////
+//
+// Option to apply spike filter after the CMD.
+// If true, the NEXRAD spike filter will be applied to the filtered 
+//   fields.
+// Type: boolean
+//
+
+apply_nexrad_spike_filter_after_cmd = TRUE;
+
+//======================================================================
+//
+// CMD INTEREST MAPS and WEIGHTS.
+//
+// Each map should hold at least 2 points. The points should be 
+//   increasing in value, i.e. the value should increase for each 
+//   subsequent point. The various interest values are combined using the 
+//   specified weights in a weighted mean to produce the final CMD value.
+//
+//======================================================================
+ 
+///////////// tdbz_interest_map ///////////////////////
+//
+// Interest mapping for TDBZ.
+//
+// Type: struct
+//   typedef struct {
+//      double value;
+//      double interest;
+//   }
+//
+// 1D array - variable length.
+//
+
+tdbz_interest_map = {
+  {
+    value = 20,
+    interest = 0.001
+  }
+  ,
+  {
+    value = 40,
+    interest = 1
+  }
+};
+
+///////////// spin_interest_map ///////////////////////
+//
+// Interest mapping for dBZ spin.
+//
+// Type: struct
+//   typedef struct {
+//      double value;
+//      double interest;
+//   }
+//
+// 1D array - variable length.
+//
+
+spin_interest_map = {
+  {
+    value = 10,
+    interest = 0.001
+  }
+  ,
+  {
+    value = 25,
+    interest = 1
+  }
+};
+
+///////////// max_of_tdbz_and_spin_interest_weight ////
+//
+// Weight for max of TDBZ and SPIN interest.
+// A combined interest field is formed by applying the interest maps to 
+//   TDBZ and SPIN, and taking the maximum of the result. The combined 
+//   field can then be used as an interest field instead of TDBZ and SPIN 
+//   individually.
+// Type: double
+//
+
+max_of_tdbz_and_spin_interest_weight = 1;
+
+///////////// cpa_interest_map ////////////////////////
+//
+// Interest mapping for clutter phase alignment.
+//
+// Type: struct
+//   typedef struct {
+//      double value;
+//      double interest;
+//   }
+//
+// 1D array - variable length.
+//
+
+cpa_interest_map = {
+  {
+    value = 0.6,
+    interest = 0
+  }
+  ,
+  {
+    value = 0.9,
+    interest = 1
+  }
+};
+
+///////////// cpa_interest_weight /////////////////////
+//
+// Weight for clutter phase alignment.
+// Type: double
+//
+
+cpa_interest_weight = 1.01;
+
+///////////// zdr_sdev_interest_map ///////////////////
+//
+// Interest mapping for zdr.
+//
+// Type: struct
+//   typedef struct {
+//      double value;
+//      double interest;
+//   }
+//
+// 1D array - variable length.
+//
+
+zdr_sdev_interest_map = {
+  {
+    value = 1.2,
+    interest = 0
+  }
+  ,
+  {
+    value = 2.4,
+    interest = 1
+  }
+};
+
+///////////// zdr_sdev_interest_weight ////////////////
+//
+// Weight for standard deviation of zdr.
+// Type: double
+//
+
+zdr_sdev_interest_weight = 0.5;
+
+///////////// phidp_sdev_interest_map /////////////////
+//
+// Interest mapping for standard deviation of phidp.
+//
+// Type: struct
+//   typedef struct {
+//      double value;
+//      double interest;
+//   }
+//
+// 1D array - variable length.
+//
+
+phidp_sdev_interest_map = {
+  {
+    value = 10,
+    interest = 0
+  }
+  ,
+  {
+    value = 15,
+    interest = 1
+  }
+};
+
+///////////// phidp_sdev_interest_weight //////////////
+//
+// Weight for standard deviation of phidp.
+// Type: double
+//
+
+phidp_sdev_interest_weight = 0.5;
+
+//======================================================================
+//
+// OUTPUT TO DSRADAR FMQ.
+//
+//======================================================================
+ 
+///////////// output_fmq_url //////////////////////////
+//
+// Output URL for DsRadar data via FMQ.
+// Type: string
+//
+
+output_fmq_url = "fmqp:://localhost::mgen/fmq/Iq2DsrOps";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer. Some of this buffer 
+//   will be used for control bytes (12 bytes per message).
+// Type: int
+//
+
+output_fmq_size = 50000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 7200;
+
+///////////// output_fmq_compress /////////////////////
+//
+// FMQ compression option.
+// If TRUE FMQ messages are compressed.
+// Type: boolean
+//
+
+output_fmq_compress = FALSE;
+
+///////////// write_blocking //////////////////////////
+//
+// Option to set up the FMQ as blocking.
+// If TRUE, FMQ will be set up FMQ for blocking operation. If the FMQ 
+//   becomes full, Test2Dsr will then block until there is space for more 
+//   data.
+// Type: boolean
+//
+
+write_blocking = FALSE;
+
+///////////// beam_wait_msecs /////////////////////////
+//
+// Wait per beam (milli-secs).
+// ARCHIVE and SIMULATE modes only.
+// Type: int
+//
+
+beam_wait_msecs = 0;
+
+///////////// set_end_of_vol_from_elev_angle //////////
+//
+// Option to set the end of vol flag based on elevation angle.
+// If true, the program will look for changes in antenna angle to 
+//   compute the end of volume.
+// Type: boolean
+//
+
+set_end_of_vol_from_elev_angle = TRUE;
+
+///////////// vol_starts_at_bottom ////////////////////
+//
+// Flag to indicate that elevation angles increase in the volume.
+// If the volume starts at the top, i.e. elevations decrease during the 
+//   volume, set this to FALSE.
+// Type: boolean
+//
+
+vol_starts_at_bottom = TRUE;
+
+///////////// elev_change_for_end_of_vol //////////////
+//
+// Change in elevation which triggers and end of volume.
+// If the elevation angle changes by this amount, and end of volume flag 
+//   will be set.
+// Minimum val: 0.1
+// Type: double
+//
+
+elev_change_for_end_of_vol = 1.5;
+
+///////////// min_beams_per_vol ///////////////////////
+//
+// Min number of beams per volume.
+// Used to prevent end-of-volume conditions being determined during 
+//   antenna transition to the start of the next volume. Only used for 
+//   set_end_of_vol_from_elev_angle.
+// Type: int
+//
+
+min_beams_per_vol = 360;
+
+///////////// set_end_of_vol_on_prf_change ////////////
+//
+// Option to set the end-of-vol flag when the PRF changes.
+// Type: boolean
+//
+
+set_end_of_vol_on_prf_change = TRUE;
+
+///////////// output_fields ///////////////////////////
+//
+// Indicate which fields should be written to the Dsr FMQ.
+// Choose the ID from the list. The name and units can be set however 
+//   the user prefers. The scale and bias are applied to the floating 
+//   point value to compute the 16-bit output value for the FMQ. The 
+//   write_filtered and write_unfiltered flags indicate which fields 
+//   should be written.
+//
+// Type: struct
+//   typedef struct {
+//      field_id_t id;
+//        Options:
+//          NCP
+//          SNR
+//          DBM
+//          DBZ
+//          VEL
+//          WIDTH
+//          CLUT
+//          ZDR
+//          ZDRM
+//          LDRH
+//          LDRV
+//          RHOHV
+//          PHIDP
+//          KDP
+//          SNRHC
+//          SNRHX
+//          SNRVC
+//          SNRVX
+//          DBMHC
+//          DBMHX
+//          DBMVC
+//          DBMVX
+//          CPA
+//          TDBZ
+//          SPIN
+//          MAX_TDBZ_SPIN
+//          ZDR_SDEV
+//          PHIDP_SDEV
+//          DBZ_DIFF_SQ
+//          DBZ_SPIN_CHANGE
+//          CMD
+//          CMD_FLAG
+//          AIQ
+//          NIQ
+//          MEANI
+//          MEANQ
+//          SZ_TRIP_FLAG
+//          SZ_LEAKAGE
+//          CENSORING_FLAG
+//          LAG0_HC_DB
+//          LAG0_HX_DB
+//          LAG0_VC_DB
+//          LAG0_VX_DB
+//          LAG1_HC_DB
+//          LAG1_HC_PHASE
+//          LAG1_VC_DB
+//          LAG1_VC_PHASE
+//          LAG2_HC_DB
+//          LAG2_VC_DB
+//          LAG2_MEAN_DB
+//          LAG3_HC_DB
+//          LAG3_VC_DB
+//          RA_DB
+//          RA_PHASE
+//          RB_DB
+//          RB_PHASE
+//          TEST
+//      string name;
+//      string units;
+//      double scale;
+//      double bias;
+//      boolean write_unfiltered;
+//      boolean write_filtered;
+//   }
+//
+// 1D array - variable length.
+//
+
+output_fields = {
+  {
+    id = NCP,
+    name = "NCP",
+    units = "",
+    scale = 0.0001,
+    bias = -0.01,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SNR,
+    name = "SNR",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBM,
+    name = "DBM",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBZ,
+    name = "DBZ",
+    units = "dBZ",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = TRUE
+  }
+  ,
+  {
+    id = VEL,
+    name = "VEL",
+    units = "m/s",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = TRUE
+  }
+  ,
+  {
+    id = WIDTH,
+    name = "WIDTH",
+    units = "m/s",
+    scale = 0.001,
+    bias = -0.01,
+    write_unfiltered = TRUE,
+    write_filtered = TRUE
+  }
+  ,
+  {
+    id = CLUT,
+    name = "CLUT",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = ZDR,
+    name = "ZDR",
+    units = "dB",
+    scale = 0.001,
+    bias = -32,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = ZDRM,
+    name = "ZDRM",
+    units = "dB",
+    scale = 0.001,
+    bias = -32,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LDRH,
+    name = "LDRH",
+    units = "dB",
+    scale = 0.005,
+    bias = -160,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LDRV,
+    name = "LDRV",
+    units = "dB",
+    scale = 0.005,
+    bias = -160,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = RHOHV,
+    name = "RHOHV",
+    units = "",
+    scale = 0.0001,
+    bias = -1,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = PHIDP,
+    name = "PHIDP",
+    units = "deg",
+    scale = 0.06,
+    bias = -200,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = KDP,
+    name = "KDP",
+    units = "deg/km",
+    scale = 0.001,
+    bias = -32,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SNRHC,
+    name = "SNRHC",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SNRHX,
+    name = "SNRHX",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SNRVC,
+    name = "SNRVC",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SNRVX,
+    name = "SNRVX",
+    units = "dB",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBMHC,
+    name = "DBMHC",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBMHX,
+    name = "DBMHX",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBMVC,
+    name = "DBMVC",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBMVX,
+    name = "DBMVX",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = CPA,
+    name = "CPA",
+    units = "",
+    scale = 0.0001,
+    bias = -1,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = TDBZ,
+    name = "TDBZ",
+    units = "dBzSq",
+    scale = 0.1,
+    bias = -0.1,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SPIN,
+    name = "SPIN",
+    units = "",
+    scale = 0.01,
+    bias = -0.1,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = MAX_TDBZ_SPIN,
+    name = "MAX_TDBZ_SPIN",
+    units = "",
+    scale = 0.0001,
+    bias = -1,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = ZDR_SDEV,
+    name = "ZDR_SDEV",
+    units = "dB",
+    scale = 0.001,
+    bias = -32,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = PHIDP_SDEV,
+    name = "PHIDP_SDEV",
+    units = "deg",
+    scale = 0.02,
+    bias = -640,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBZ_DIFF_SQ,
+    name = "DBZ_DIFF_SQ",
+    units = "dBzSq",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = DBZ_SPIN_CHANGE,
+    name = "DBZ_SPIN_CHANGE",
+    units = "",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = CMD,
+    name = "CMD",
+    units = "",
+    scale = 0.001,
+    bias = -0.01,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = CMD_FLAG,
+    name = "CMD_FLAG",
+    units = "",
+    scale = 1,
+    bias = -100,
+    write_unfiltered = TRUE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = AIQ,
+    name = "AIQ",
+    units = "deg",
+    scale = 0.02,
+    bias = -640,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = NIQ,
+    name = "NIQ",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = MEANI,
+    name = "MEANI",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = MEANQ,
+    name = "MEANQ",
+    units = "dBm",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SZ_TRIP_FLAG,
+    name = "SZ_TRIP_FLAG",
+    units = "",
+    scale = 1,
+    bias = -1000,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = SZ_LEAKAGE,
+    name = "SZ_LEAKAGE",
+    units = "",
+    scale = 0.0001,
+    bias = -1,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = CENSORING_FLAG,
+    name = "CENSORING_FLAG",
+    units = "",
+    scale = 1,
+    bias = -1000,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG0_HC_DB,
+    name = "LAG0_HC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG0_HX_DB,
+    name = "LAG0_HX_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG0_VC_DB,
+    name = "LAG0_VC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG0_VX_DB,
+    name = "LAG0_VX_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG1_HC_DB,
+    name = "LAG1_HC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG1_HC_PHASE,
+    name = "LAG1_HC_PHASE",
+    units = "deg",
+    scale = 0.06,
+    bias = -200,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG1_VC_DB,
+    name = "LAG1_VC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG1_VC_PHASE,
+    name = "LAG1_VC_PHASE",
+    units = "deg",
+    scale = 0.06,
+    bias = -200,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG2_HC_DB,
+    name = "LAG2_HC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG2_VC_DB,
+    name = "LAG2_VC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG2_MEAN_DB,
+    name = "LAG2_MEAN_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG3_HC_DB,
+    name = "LAG3_HC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = LAG3_VC_DB,
+    name = "LAG3_VC_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = RA_DB,
+    name = "RA_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = RA_PHASE,
+    name = "RA_PHASE",
+    units = "deg",
+    scale = 0.06,
+    bias = -200,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = RB_DB,
+    name = "RB_DB",
+    units = "dBm",
+    scale = 0.002,
+    bias = -90,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = RB_PHASE,
+    name = "RB_PHASE",
+    units = "deg",
+    scale = 0.06,
+    bias = -200,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+  ,
+  {
+    id = TEST,
+    name = "TEST",
+    units = "",
+    scale = 0.01,
+    bias = -320,
+    write_unfiltered = FALSE,
+    write_filtered = FALSE
+  }
+};
+
+//======================================================================
+//
+// SWEEP INFORMATION FROM SPDB.
+//
+// Option to read volume and tilt numbers from sweep information stored 
+//   in SPDB. In FMQ and REALTIME mode the program will look back from now 
+//   by the sweep_search_margin. In ARCHIVE mode the program will search 
+//   on either side of the beam time by the read search margin.
+//
+//======================================================================
+ 
+///////////// read_sweep_info_from_spdb ///////////////
+//
+// Option to read sweep info from SPDB.
+// Type: boolean
+//
+
+read_sweep_info_from_spdb = TRUE;
+
+///////////// sweep_url ///////////////////////////////
+//
+// URL for sweep information.
+// Type: string
+//
+
+sweep_url = "spdbp:://localhost::spdb/sweepinfo/viraq";
+
+///////////// sweep_search_margin /////////////////////
+//
+// Time margin for searching for relevant sweep info - secs.
+// This is the time margin, on either side of the beam time, to search 
+//   for sweep information. It should be at least as long as the maximum 
+//   sweep duratation.
+// Type: int
+//
+
+sweep_search_margin = 180;
+
+//======================================================================
+//
+// SPECTRAL PRINTS FOR DEBUGGING.
+//
+//======================================================================
+ 
+///////////// selected_region /////////////////////////
+//
+// Region for selected prints and spectra files.
+// See do_selected_print and write_spectra_files.
+//
+// Type: struct
+//   typedef struct {
+//      double min_el;
+//      double max_el;
+//      double min_az;
+//      double max_az;
+//      double min_range;
+//      double max_range;
+//   }
+//
+//
+
+selected_region = {
+    min_el = 0,
+    max_el = 1,
+    min_az = 310,
+    max_az = 311,
+    min_range = 80,
+    max_range = 85
+};
+
+///////////// do_selected_print ///////////////////////
+//
+// Option to print info for a selected region.
+// If true, debug info for a selected region will be printed to stderr.
+// Type: boolean
+//
+
+do_selected_print = FALSE;
+
+///////////// spectra_dir /////////////////////////////
+//
+// Directory to which spectra are written.
+// Type: string
+//
+
+spectra_dir = "/tmp/spectra";
+
+///////////// write_individual_spectra_files //////////
+//
+// Option to write individual spectral files.
+// If true, ASCII files with the spectra are written to the specified 
+//   directory, for the selected region. A separate file is written for 
+//   each spectrum.
+// Type: boolean
+//
+
+write_individual_spectra_files = FALSE;
+
+///////////// write_combined_spectra_file /////////////
+//
+// Option to write combined spectra file.
+// If true, a single file is written, with one line per spectrum.
+// Type: boolean
+//
+
+write_combined_spectra_file = FALSE;
+
+///////////// min_snr_for_combined_spectra_file ///////
+//
+// Minimum SNR for writing combined spectra to file (dB).
+// The spectrum will only be added if the SNR exceeds this value.
+// Type: double
+//
+
+min_snr_for_combined_spectra_file = -100;
+

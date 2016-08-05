@@ -1,0 +1,12 @@
+#! /bin/csh -f
+
+# run AltCpCompute for today's data
+
+set today=`date +%Y%m%d`
+
+echo Running AltCpCompute for day: $today
+
+cd ~/projDir/analysis/params
+
+AltCpCompute -params AltCpCompute.zdr -f $DATA_DIR/tsarchive/cp/${today}/*.tsarchive -debug
+

@@ -1,0 +1,7 @@
+#! /bin/csh
+
+snuff getSmartrImagesByFtp.py
+
+getSmartrImagesByFtp.py --debug --pastSecs 900 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSmartrImagesByFtp >& /dev/null &
+

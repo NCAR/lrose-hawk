@@ -1,0 +1,114 @@
+# Example config file for Ka
+radar_id                Ka
+
+gates                   980
+
+ldr_mode                true    # if false, then ZDR mode is active
+
+ant_gain                45.9    # dB , H-ch 
+ant_hbeam_width         0.86    # deg
+ant_vbeam_width         0.91    # deg
+
+external_clock          true
+external_start_trigger  true
+
+burst_sample_delay      1.55e-6 # s
+burst_sample_width      5.0e-7  # s
+burst_sample_frequency  1.0e8   # hz
+
+staggered_prt           false
+prt1                    1.0e-3  # s
+
+rcvr_bandwidth          1.37e6  # Hz
+rcvr_digital_gain       -2.67   # dB
+rcvr_filter_mismatch    0.4     # dB
+rcvr_gate0_delay        6.0e-6  # s
+rcvr_noise_figure       8.3     # dB , H-ch
+rcvr_pulse_width        5.0e-7  # s
+rcvr_rf_gain            36.16   # dB , H-ch
+# Coupling differences between the three QuinStar diode power detectors and
+# A/D channel inputs: power@A/D = power@QuinStar + power_corr
+rcvr_h_power_corr       71.93   # dB
+rcvr_v_power_corr       0.00    # dB
+rcvr_tt_power_corr      -59.81  # dB
+
+range_to_gate0          37.5    # m to center of gate
+
+tx_cntr_freq            3.5e10  # Hz
+tx_peak_power           74.69   # dBm
+tx_pulse_width          5.0e-7  # s
+tx_pulse_mod_delay      6.0e-7  # s
+tx_pulse_mod_width      3.0e-7  # s
+tx_delay                0.0     # s
+
+test_target_delay       485.08e-6# s
+test_target_width       5.0e-6  # s
+
+afc_enabled             true
+afc_g0_threshold_dbm    -20.0   # minimum G0 power for good frequency estimates
+afc_coarse_step         5000000 # Hz
+afc_fine_step           100000  # Hz
+
+# iqcount_scale_for_mw: count scaling factor to easily get power in mW from
+# I and Q.  If I and Q are counts from the Pentek, the power at the A/D in 
+# mW is:
+#
+#      (I / iqcount_scale_for_mw)^2 + (Q / iqcount_scale_for_mw)^2
+#
+# This value is determined empirically.
+iqcount_scale_for_mw    9465
+
+# Marshall location
+# latitude                39.9502
+# longitude               -105.1951
+# altitude                1748
+
+# Maldives location
+latitude                -0.630447
+longitude               73.102766
+altitude                10
+
+# processing the IQ data - should we cohere to the burst?
+
+cohere_iq_to_burst      true
+
+# combine every second gate to reduce the number of gates to half
+# this also doubles the gate spacing
+
+combine_every_second_gate   false
+
+# merge queue size
+
+merge_queue_size        20000   # size of queue which acts as buffer
+                                # for the merge
+
+# IWRF data export
+
+iwrf_server_tcp_port                12000   # TCP port
+pulse_interval_per_iwrf_meta_data   5000    # how often to send out meta data
+
+# simulation of antenna angles
+
+simulate_antenna_angles true
+sim_n_elev              10
+sim_start_elev          0.5     # deg
+sim_delta_elev          1.5     # deg
+sim_az_rate             10.0    # deg/s
+
+# Pei format time series files
+
+write_pei_files         false
+max_pei_gates           400
+
+# Enable/disable sector blanking via XML-RPC calls
+
+allow_blanking          false
+
+# Enable/disable simulated PMC-730 card
+
+simulate_pmc730         false
+
+# Enable/disable simulated TTY oscillators (oscillators 0, 1, and 2)
+
+simulate_tty_oscillators    false
+

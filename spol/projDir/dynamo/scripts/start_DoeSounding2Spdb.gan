@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "DoeSounding2Spdb -params DoeSounding2Spdb.gan"
+if ($status == 1) then
+  DoeSounding2Spdb -params DoeSounding2Spdb.gan -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p DoeSounding2Spdb -i gan &
+endif
+

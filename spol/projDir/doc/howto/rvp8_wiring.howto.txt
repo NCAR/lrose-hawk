@@ -1,0 +1,121 @@
+HOWTO DOCUMENT
+==============
+
+Wiring RVP8 and to SPOL
+=======================
+
+This document details the wiring connections between the RVP8 and the
+SPOL radar. The goal is to document the current set-up so that it can
+be re-created in the future should the connections be removed at some
+time, for example during shipping or when the radar is used for some
+other purpose.
+
+RVP8 back panel
+---------------
+
+The SPOL RVP8 has 7 PCI slots, configured as follows:
+
+  1. Extra serial port - not used
+  2. Cross-polar Rx card (RVP8 Rx)
+  3. Co-polar Rx card (RVP8 Rx)
+  4. Tx card (RVP8 Tx)
+  5. Patch panel card (IO-62)
+  6. Spare
+  7. Spare
+
+Connections to RVP8 PCI cards
+-----------------------------
+
+The cards have a number of different types of connection on them:
+
+  fiber
+  coax
+  miscellaneous
+
+In this docuement, we number the connections from top to bottom, with
+1 at the top, increasing number as we go down. The text in parentheses
+shows the labels on the cards.
+
+Cross-polar Rx card
+-------------------
+
+  1 (top): (Fiber) fiber to cross-pol IFD J5
+  2      : (uplink) coax uplink to cross-pol IFD J4
+  3      : (Tr-1/log) not used
+  4 (bot): (Tr-2/in) not used
+
+Co-polar Rx card
+----------------
+
+  1 (top): (Fiber) fiber to co-pol IFD J5
+  2      : (uplink) coax uplink to co-pol IFD J4
+  3      : (Tr-1/log) not used
+  4 (bot): (Tr-2/in) trigger in from '-6 out' on HVFLAG breakout box
+
+Tx card
+-------
+
+  1 (top): (out-1) coho out to J17 on stalo
+  2      : (out-2) not used
+  3      : (clock) 10 Mhz in from Stalo J13
+  4 (bot): (misc i/o) not used
+
+IO-62 patch panel card
+----------------------
+
+  Single large cable to patch panel
+
+Patch panel
+-----------
+
+  J1 (az input) - ribbon cable from Viraq az antenna cable
+  J4 (el input) - ribbon cable from Viraq el antenna cable
+
+Cross-pol IFD
+-------------
+
+  J1: (IF in) from SPOL receiver box J19 (marked spare)
+  J2: (burst) - see burst pulse below
+  J3: (AFC - clock) 10 Mhz signal from stalo J13
+  J4: (uplink) uplink from cross-pol Rx
+  J5: (fiber out) fiber to cross-pol Rx
+
+Co-pol IFD
+----------
+
+  J1: (IF in) from SPOL receiver box J20 (marked spare)
+  J2: (burst) - see burst pulse below
+  J3: (AFC - clock) 10 Mhz signal from stalo J10
+  J4: (uplink) uplink from co-pol Rx
+  J5: (fiber out) fiber to co-pol Rx
+
+Burst pulse circuit
+-------------------
+
+  -----
+  wave |
+       |--[50+db attn]--[10db coupler]---------------------------------|
+  guide|                                                               |
+  -----                                                                |
+                                                                       |
+                                                                       |
+                                                                       |
+           |---[10 + 6dB atten]-------[LO mixer RF]--------------------|
+           |                          [    IF     ]
+           |                               |
+           |                               |
+           |                          10 dB atten
+           |                               |
+    Local oscillator                       |
+    Receiver box J16                   15 dB amp
+                                           |
+                                           |
+                                  |---[splitter]---|
+                                  |                |
+                              IFD J2             IFD J2
+
+
+
+
+  
+

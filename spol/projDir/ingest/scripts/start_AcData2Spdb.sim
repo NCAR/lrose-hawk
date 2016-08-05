@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "AcData2Spdb -params AcData2Spdb.sim"
+if ($status == 1) then
+  AcData2Spdb -params AcData2Spdb.sim -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p AcData2Spdb -i sim &
+endif
+

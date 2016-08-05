@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/pgen/params
+
+running "Dsr2Radx -params Dsr2Radx.moments.spoldrx"
+if ($status == 1) then
+  Dsr2Radx -params Dsr2Radx.moments.spoldrx |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Dsr2Radx -i moments.spoldrx &
+endif
+

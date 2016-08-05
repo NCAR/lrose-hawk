@@ -1,0 +1,43 @@
+##Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081108/0[6-9]*mdv
+##Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081108/0[6-9]*mdv
+##Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081108/0[6-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081108/10*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081108/10*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081108/10*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081125/0[7-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081125/[1-2]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081125/0[7-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081125/[1-2]*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081126/*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081126/*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081126/*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081205/0[6-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081205/0[6-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081205/0[6-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081205/1[0-5]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081205/1[0-5]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081205/1[0-5]*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081206/0[8-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081206/0[8-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081206/0[8-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20081206/1[0-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/rhi/20081206/1[0-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sec/20081206/1[0-9]*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090212/1[3-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090212/2[0-3]*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090220/1[1-7]*mdv
+#
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090219/0[7-9]*mdv
+#Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/cp2_s/sur/20090219/1[0-9]*mdv
+
+ Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/derived_pid_v2/sec/20090123/*mdv
+ Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/derived_pid_v2/sur/20090123/*mdv
+ Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/derived_pid_v2/rhi/20090127/*mdv
+ Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/derived_pid_v2/sec/20090127/*mdv
+ Mdv2Dsr -params Mdv2Dsr.cp2_s -f /d2/data/qld/mdv/radarPolar/derived_pid_v2/sur/20090127/*mdv

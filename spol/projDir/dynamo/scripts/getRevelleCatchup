@@ -1,0 +1,14 @@
+#! /bin/csh
+
+getCatalogFilesByHttp.py --debug --pastSecs=300000 \
+--sourceDir=/dynamo/research/revelle_radar \
+--tmpDir=/tmp/images/revelle_radar \
+--targetDir=${DATA_DIR}/raw/revelle_radar \
+--subStrList=gif --dataType=gif
+
+getCatalogFilesByHttp.py --debug --pastSecs=300000 \
+--sourceDir=/dynamo/data/revelle \
+--tmpDir=/tmp/raw/revelle_posn \
+--targetDir=${DATA_DIR}/raw/revelle_posn \
+--subStrList=txt --dataType=txt --checkNames
+

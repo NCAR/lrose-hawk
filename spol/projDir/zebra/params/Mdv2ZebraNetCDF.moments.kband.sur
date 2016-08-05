@@ -1,0 +1,206 @@
+/**********************************************************************
+ * TDRP params for Mdv2ZebraNetCDF
+ **********************************************************************/
+
+//======================================================================
+//
+// Mdv2ZebraNetCDF reads MDV Cartesian grid files and converts them into 
+//   NetCDF format for displaying in Zebra.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUG AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "moments.kband.sur";
+
+///////////// procmap_register_interval ///////////////
+//
+// Interval for registering with procmap (secs).
+// Sometime this app will spend a long time writing the netCDF file, 
+//   since compression can be quite time-consuming. Setting this to longer 
+//   than 60 secs (say 180) gives the app more time to complete its work. 
+//   The auto-restarter will restart any app which has not registered for 
+//   twice the length of the register interval.
+// Type: int
+//
+
+procmap_register_interval = 120;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_dir ///////////////////////////////
+//
+// Input directory.
+// Path of input directory.
+// Type: string
+//
+
+input_dir = "$(DATA_DIR)/mdv/cart/moments/kband/sur";
+
+///////////// mode ////////////////////////////////////
+//
+// Operational mode.
+// REALTIME: - waits for new data. ARCHIVE: uses start and end times. 
+//   FILELIST: processes specified file list.
+//
+// Type: enum
+// Options:
+//     REALTIME
+//     ARCHIVE
+//     FILELIST
+//
+
+mode = REALTIME;
+
+///////////// max_realtime_valid_age //////////////////
+//
+// Max age of input data.
+// REALTIME mode only. Max age of input data for it to be valid.
+// Minimum val: 0
+// Type: int
+//
+
+max_realtime_valid_age = 300;
+
+///////////// latest_data_info_avail //////////////////
+//
+// Use _latest_data_info files to decide when new data has arrived.
+// REALTIME mode only. If false, the directory input_dir is scanned for 
+//   new files.
+// Type: boolean
+//
+
+latest_data_info_avail = FALSE;
+
+//======================================================================
+//
+// FIELD LIST.
+//
+//======================================================================
+ 
+///////////// set_field_names /////////////////////////
+//
+// Option to specify field names to be included.
+// If false, all fields will be included.
+// Type: boolean
+//
+
+set_field_names = TRUE;
+
+///////////// fields //////////////////////////////////
+//
+// Names of fields to be included in converted file.
+// 	input_name: name of field in input file
+// 	ouput_name: name of field in output file.
+//
+// Type: struct
+//   typedef struct {
+//      string input_name;
+//      string output_name;
+//   }
+//
+// 1D array - variable length.
+//
+
+fields = {
+  { "DBZ", "DBZ"},
+  { "VEL", "VEL"},
+  { "WIDTH", "WIDTH"},
+  { "LDRH", "LDRH"},
+  { "NCP", "NCP"},
+  { "SNRHC", "SNRHC"}
+};
+
+//======================================================================
+//
+// REMAP TO LATLON?.
+//
+//======================================================================
+ 
+///////////// remap_xy_to_latlon //////////////////////
+//
+// Option to remap xy projection to latlon.
+// If true, the method to automatically convert MDV Cartesian data to 
+//   latlon is used for the converstion.
+// Type: boolean
+//
+
+remap_xy_to_latlon = FALSE;
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// output_dir //////////////////////////////
+//
+// Directory for output data.
+// The NetCDF files will be written to this directory.
+// Type: string
+//
+
+output_dir = "$(DATA_DIR)/zebra/moments/kband/sur";
+
+///////////// write_to_day_dir ////////////////////////
+//
+// Option to create a day dir for Zebra data.
+// A subdirectory named yyyymmdd will be created for the files.
+// Type: boolean
+//
+
+write_to_day_dir = TRUE;
+
+///////////// data_set_label //////////////////////////
+//
+// Label to be used in file name.
+// Type: string
+//
+
+data_set_label = "spol";
+
+///////////// data_set_name ///////////////////////////
+//
+// NetCDF global attribute.
+// Type: string
+//
+
+data_set_name = "DYNAMO";
+
+///////////// data_set_source /////////////////////////
+//
+// NetCDF global attribute.
+// Type: string
+//
+
+data_set_source = "SPOL-WHARF";
+

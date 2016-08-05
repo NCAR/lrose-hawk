@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SpolTsMonitor -params SpolTsMonitor.kband"
+if ($status == 1) then
+  SpolTsMonitor -params SpolTsMonitor.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SpolTsMonitor -i kband &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/alg/params
+
+running "RadxPartRain -params RadxPartRain.sur"
+if ($status == 1) then
+  RadxPartRain -params RadxPartRain.sur |& \
+    LogFilter -d $ERRORS_LOG_DIR -p RadxPartRain -i sur &
+endif
+

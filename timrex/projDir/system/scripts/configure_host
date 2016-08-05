@@ -1,0 +1,40 @@
+#! /bin/csh
+
+#--------------------------------------------------------------------
+#
+# script to configure an SPOL host
+#
+# Mike Dixon, RAP, NCAR, Boulder, CO, USA
+# Sept 2007
+#
+#--------------------------------------------------------------------
+#
+# Makes links to the proc_list and crontab files
+#
+#--------------------------------------------------------------------
+
+# go to control dir
+
+cd $HOME/projDir/control
+
+# make backups as required
+
+if ( -e .bak.proc_list ) then
+  /bin/rm -f .bak.proc_list
+endif
+if ( -e proc_list ) then
+  mv proc_list .bak.proc_list
+endif
+
+if ( -e .bak.crontab ) then
+  /bin/rm -f .bak.crontab
+endif
+if ( -e crontab ) then
+  mv crontab .bak.crontab
+endif
+
+# set links based on host type
+
+set host_type = `get_host_type`
+ln -s proc_list.$host_type proc_list
+ln -s crontab.$host_type crontab

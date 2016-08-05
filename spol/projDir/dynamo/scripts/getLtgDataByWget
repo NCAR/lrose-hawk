@@ -1,0 +1,12 @@
+#!/bin/csh
+
+# get LTG data from UW using wget
+
+mkdir -p $DATA_DIR/raw/wwlln
+cd $DATA_DIR/raw/wwlln
+
+wget -nd -nc -c -r \
+    --user=dynamo --password=BrodzikWWLLN \
+    http://wwlln.net/dynamo/
+
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "TsPrint -params TsPrint.server.sband"
+if ($status == 1) then
+  TsPrint -params TsPrint.server.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsPrint -i server.sband &
+endif
+

@@ -1,0 +1,1697 @@
+{
+    "ProcessorControl" : {
+        "PECAN_ppi" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.75,
+            "numGates" : 960,
+            "numSamples" : 83,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "PECAN_rhi" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 0.5,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.25,
+            "numGates" : 960,
+            "numSamples" : 333,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "PECAN_sur" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.75,
+            "numGates" : 960,
+            "numSamples" : 83,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "SYS_IDLE_CFG" : {
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1.2000000476837158,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 1,
+            "numGates" : 960,
+            "numSamples" : 200,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc1" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.25,
+            "numGates" : 960,
+            "numSamples" : 500,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc_rhi" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.25,
+            "numGates" : 960,
+            "numSamples" : 500,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc_solar" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 0.25,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.10000000149011613,
+            "numGates" : 960,
+            "numSamples" : 250,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc_sur" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1,
+            "gateSpacing" : 150,
+            "indexedBeams" : true,
+            "indexedSpacing" : 0.75,
+            "numGates" : 960,
+            "numSamples" : 83,
+            "pol_mode" : 3,
+            "prf" : 1000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        }
+    },
+    "point_scans" : {
+        "bluesky" : {
+            "angle_list" : "?",
+            "azimuth" : 45,
+            "elevation" : 45,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "purge" : {
+            "angle_list" : "?",
+            "azimuth" : 245,
+            "elevation" : 0,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "stow" : {
+            "angle_list" : "?",
+            "azimuth" : 90,
+            "elevation" : 90,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "test" : {
+            "angle_list" : "?",
+            "azimuth" : 270,
+            "elevation" : 0,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        }
+    },
+    "ppi_scans" : {
+        "120Ppi" : {
+            "angle_list" : "120Ppi",
+            "az_left" : 30,
+            "az_right" : 150,
+            "estimatedTime" : 81,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "150Ppi" : {
+            "angle_list" : "150Ppi",
+            "az_left" : 105,
+            "az_right" : 255,
+            "estimatedTime" : 98,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "150Ppi_test" : {
+            "angle_list" : "150Ppi",
+            "az_left" : 105,
+            "az_right" : 255,
+            "estimatedTime" : 138,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 8,
+            "timeLimit" : 0
+        },
+        "180Ppi" : {
+            "angle_list" : "180Ppi",
+            "az_left" : 0,
+            "az_right" : 180,
+            "estimatedTime" : 116,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "CiPpiLow" : {
+            "angle_list" : "CiSurLow",
+            "az_left" : 0.5,
+            "az_right" : 359.5,
+            "estimatedTime" : 31,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "PCI_start_PPI" : {
+            "angle_list" : "PCI_startPPI",
+            "az_left" : 30,
+            "az_right" : 150,
+            "estimatedTime" : 150,
+            "followMode" : 1,
+            "proc_param" : "PECAN_ppi",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "Solar" : {
+            "angle_list" : "ppi_DIA",
+            "az_left" : 2,
+            "az_right" : -2,
+            "estimatedTime" : 2136,
+            "followMode" : 2,
+            "proc_param" : "proc_solar",
+            "rate" : 1,
+            "timeLimit" : 0
+        }
+    },
+    "ppi_sur_angle_lists" : {
+        "120Ppi" : {
+            "angles" : [
+                0.20000000298023229,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10
+            ]
+        },
+        "150Ppi" : {
+            "angles" : [
+                0.20000000298023229,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10
+            ]
+        },
+        "150Ppi_test" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                5,
+                9,
+                12,
+                19,
+                25
+            ]
+        },
+        "180Ppi" : {
+            "angles" : [
+                0.20000000298023229,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10
+            ]
+        },
+        "360Sur" : {
+            "angles" : [
+                0,
+                0.5,
+                1.5,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10,
+                15
+            ]
+        },
+        "CiExpSur" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                10
+            ]
+        },
+        "CiSur" : {
+            "angles" : [
+                0.5,
+                20
+            ]
+        },
+        "CiSurLow" : {
+            "angles" : [
+                0.5
+            ]
+        },
+        "CiSurLowFix" : {
+            "angles" : [
+                0.89999997615814231
+            ]
+        },
+        "HubbertSur" : {
+            "angles" : [
+                0.20000000298023224,
+                0.5,
+                1,
+                1.5
+            ]
+        },
+        "PBORE_EX" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "PCI_UN" : {
+            "angles" : [
+                0,
+                1.3999999761581421,
+                2.5,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "PCI_foc" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "PCI_startPPI" : {
+            "angles" : [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+            ]
+        },
+        "PCiPpi" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10
+            ]
+        },
+        "PCiSur" : {
+            "angles" : [
+                0.5,
+                20
+            ]
+        },
+        "PCiSurE" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                10
+            ]
+        },
+        "PCippi" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                3.7000000476837158,
+                5,
+                20
+            ]
+        },
+        "PLLJ_sur" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.2999999523162842,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "PLLJ_test" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.2999999523162842,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "PPi150" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.7000000476837158,
+                5,
+                7,
+                10
+            ]
+        },
+        "Pcal_sur" : {
+            "angles" : [
+                0,
+                0.20000000298023229,
+                0.40000000596046453,
+                0.5,
+                0.60000002384185791,
+                0.80000001192092907
+            ]
+        },
+        "Pmobile10" : {
+            "angles" : [
+                0.5,
+                1,
+                1.5,
+                2.0999999046325684,
+                2.7999999523162842,
+                3.5999999046325684,
+                4.5,
+                5.5,
+                7,
+                9,
+                20
+            ]
+        },
+        "Pmobile10_orig" : {
+            "angles" : [
+                0.5,
+                1,
+                1.5,
+                2.2999999523162842,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+            ]
+        },
+        "Pmobile5" : {
+            "angles" : [
+                0.5,
+                1,
+                1.5,
+                2.2999999523162842,
+                3.2999999523162842,
+                4.5,
+                5.5
+            ]
+        },
+        "PunPPI" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.5999999046325684,
+                5,
+                7,
+                15
+            ]
+        },
+        "PunSur" : {
+            "angles" : [
+                0.5,
+                1,
+                1.7000000476837158,
+                2.5999999046325684,
+                3.5999999046325684,
+                4.5999999046325684,
+                5.5999999046325684,
+                6.5999999046325684,
+                8,
+                10,
+                20
+            ]
+        },
+        "PunSurFix" : {
+            "angles" : [
+                0.89999997615814231,
+                1.3999999761581421,
+                2.0999999046325684,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8.3999996185302734,
+                10.399999618530273,
+                20.399999618530273
+            ]
+        },
+        "Sur_test" : {
+            "angles" : [
+                0,
+                0.5,
+                1.3999999761581421,
+                2.5,
+                3.5999999046325684,
+                5,
+                7
+            ]
+        },
+        "VAD" : {
+            "angles" : [
+                10
+            ]
+        },
+        "Vpoint" : {
+            "angles" : [
+                89,
+                89.5,
+                90
+            ]
+        },
+        "ppi_DIA" : {
+            "angles" : [
+                0.5,
+                0.80000001192092907,
+                1.1000000238418579,
+                1.7000000476837158,
+                2.7000000476837158,
+                3.7999999523162842
+            ]
+        },
+        "ppi_Easton" : {
+            "angles" : [
+                0.80000001192092907,
+                1.1000000238418579,
+                1.7000000476837158,
+                2.7000000476837158
+            ]
+        },
+        "ppi_Easton_west" : {
+            "angles" : [
+                0.69999998807907104,
+                1.7000000476837158,
+                2.7000000476837158,
+                3.7000000476837158
+            ]
+        },
+        "ppi_GPM" : {
+            "angles" : [
+                1.5
+            ]
+        },
+        "ppi_LVL" : {
+            "angles" : [
+                0.5,
+                0.80000001192092907,
+                1.1000000238418579,
+                1.7000000476837158,
+                2.7000000476837158,
+                3.5999999046325684
+            ]
+        },
+        "ppi_Marshal" : {
+            "angles" : [
+                0.5,
+                0.80000001192092907,
+                1.1000000238418579,
+                1.7000000476837158,
+                2.7000000476837158
+            ]
+        },
+        "ppi_easton" : {
+            "angles" : [
+                0.69999998807907104,
+                1.5,
+                2.5
+            ]
+        },
+        "short_V" : {
+            "angles" : [
+                90
+            ]
+        },
+        "test" : {
+            "angles" : [
+                0.5,
+                1.5,
+                2.5,
+                3.5,
+                4.5,
+                5.5,
+                6.5,
+                7.5,
+                8.5,
+                9.5
+            ]
+        }
+    },
+    "rhi_angle_lists" : {
+        "120Rhi" : {
+            "angles" : [
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140
+            ]
+        },
+        "150Rhi" : {
+            "angles" : [
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140
+            ]
+        },
+        "180Rhi" : {
+            "angles" : [
+                50,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120
+            ]
+        },
+        "Bore5RHI" : {
+            "angles" : [
+                340,
+                350,
+                356,
+                10,
+                20
+            ]
+        },
+        "BraggRhi" : {
+            "angles" : [
+                356,
+                356,
+                356,
+                356
+            ]
+        },
+        "CiExpRhi" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150
+            ]
+        },
+        "OverTop" : {
+            "angles" : [
+                0,
+                90
+            ]
+        },
+        "PBORE_EXRHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "PCI_UNRHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270,
+                300,
+                335
+            ]
+        },
+        "PCI_focRHI" : {
+            "angles" : [
+                140,
+                144,
+                160,
+                165,
+                173,
+                190,
+                195,
+                251,
+                331,
+                340,
+                2,
+                29
+            ]
+        },
+        "PCiRhi" : {
+            "angles" : [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80,
+                90
+            ]
+        },
+        "PCiRhiE" : {
+            "angles" : [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50
+            ]
+        },
+        "PCirhi" : {
+            "angles" : [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50,
+                60,
+                70,
+                80
+            ]
+        },
+        "PLLJ_RHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "PMCS_UNRHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "PMCS_focRHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "PMCS_specRHI" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "PRhi150" : {
+            "angles" : [
+                0,
+                10,
+                20,
+                30,
+                50,
+                60
+            ]
+        },
+        "Pmobile5RHI" : {
+            "angles" : [
+                0,
+                3,
+                6,
+                9,
+                12,
+                15
+            ]
+        },
+        "PunRhi" : {
+            "angles" : [
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270,
+                300,
+                330,
+                356
+            ]
+        },
+        "PunRhimore" : {
+            "angles" : [
+                30,
+                60,
+                90,
+                120,
+                150,
+                165,
+                180,
+                210,
+                240,
+                270,
+                300,
+                330,
+                356
+            ]
+        },
+        "RHI_hub" : {
+            "angles" : [
+                0,
+                45,
+                90,
+                135,
+                180,
+                270
+            ]
+        },
+        "Rhi_test" : {
+            "angles" : [
+                0,
+                30,
+                60,
+                90,
+                120,
+                150,
+                180,
+                210,
+                240,
+                270
+            ]
+        },
+        "rhi_test" : {
+            "angles" : [
+                43.799999237060547,
+                44.799999237060547,
+                45.799999237060547,
+                46.799999237060547,
+                47.799999237060547,
+                48.799999237060547
+            ]
+        }
+    },
+    "rhi_scans" : {
+        "120Rhi" : {
+            "angle_list" : "120Rhi",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 162,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3.5,
+            "timeLimit" : 0
+        },
+        "150Rhi" : {
+            "angle_list" : "150Rhi",
+            "el_bottom" : 0,
+            "el_top" : 40,
+            "estimatedTime" : 108,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 4,
+            "timeLimit" : 0
+        },
+        "180Rhi" : {
+            "angle_list" : "180Rhi",
+            "el_bottom" : 0,
+            "el_top" : 40,
+            "estimatedTime" : 86,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 4,
+            "timeLimit" : 0
+        },
+        "Bore5RHI" : {
+            "angle_list" : "Bore5RHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 66,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3.5999999046325684,
+            "timeLimit" : 0
+        },
+        "BraggRhi" : {
+            "angle_list" : "BraggRhi",
+            "el_bottom" : 0,
+            "el_top" : 10,
+            "estimatedTime" : 40,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 1,
+            "timeLimit" : 0
+        },
+        "CiExpRhi" : {
+            "angle_list" : "CiExpRhi",
+            "el_bottom" : 0,
+            "el_top" : 40,
+            "estimatedTime" : 58,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 4.5,
+            "timeLimit" : 0
+        },
+        "OverTop" : {
+            "angle_list" : "OverTop",
+            "el_bottom" : 0,
+            "el_top" : 180,
+            "estimatedTime" : 180,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 2,
+            "timeLimit" : 0
+        },
+        "PBORE_EXRHI" : {
+            "angle_list" : "PBORE_EXRHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 156,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "PCI_UNRhi" : {
+            "angle_list" : "PCI_UNRHI",
+            "el_bottom" : 0,
+            "el_top" : 40,
+            "estimatedTime" : 117,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 4.5,
+            "timeLimit" : 0
+        },
+        "PCI_focRHI" : {
+            "angle_list" : "PCI_focRHI",
+            "el_bottom" : 0,
+            "el_top" : 40,
+            "estimatedTime" : 167,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "PLLJ_RHI" : {
+            "angle_list" : "PLLJ_RHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 156,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "PMCS_UNRHI" : {
+            "angle_list" : "PMCS_UNRHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 156,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "PMCS_focRHI" : {
+            "angle_list" : "PMCS_focRHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 156,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "PMCS_specRHI" : {
+            "angle_list" : "PMCS_specRHI",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 156,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3,
+            "timeLimit" : 0
+        },
+        "Pmobile5RHI" : {
+            "angle_list" : "Pmobile5RHI",
+            "el_bottom" : 0,
+            "el_top" : 30,
+            "estimatedTime" : 54,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3.5999999046325684,
+            "timeLimit" : 0
+        },
+        "PunRhi" : {
+            "angle_list" : "PunRhi",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 158,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3.5999999046325684,
+            "timeLimit" : 0
+        },
+        "PunRhimore" : {
+            "angle_list" : "PunRhimore",
+            "el_bottom" : 0,
+            "el_top" : 45,
+            "estimatedTime" : 171,
+            "followMode" : 1,
+            "proc_param" : "PECAN_rhi",
+            "rate" : 3.5999999046325684,
+            "timeLimit" : 0
+        }
+    },
+    "schedule" : {
+        "Bore5" : {
+            "repeatTime" : 300,
+            "startMode" : 1,
+            "startTime" : 16800,
+            "tasks" : [
+                {
+                    "taskName" : "Pmobile5",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Bore5RHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "Bragg" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "BraggRhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "CiExp" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiExpSur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "CiExpRhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "PBORE_EX" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PBORE_EX",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PBORE_EXRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PBORE_UN" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_foc",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PMCS_UNRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PCAL_n" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Pcal_sur",
+                    "type" : 8
+                }
+            ]
+        },
+        "PCI_UN" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_UN",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PCI_UNRhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "PCI_foc" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_foc",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PCI_focRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PCI_start" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_start_PPI",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "PCI_focRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PLLJ_spec" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PLLJ_sur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PLLJ_RHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PMCS_UN" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_foc",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PMCS_UNRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PMCS_foc" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_foc",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PMCS_focRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "PMCS_specPPI" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PCI_start_PPI",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "PMCS_specRHI",
+                    "type" : 3
+                }
+            ]
+        },
+        "Pmobile10" : {
+            "repeatTime" : 600,
+            "startMode" : 1,
+            "startTime" : 15600,
+            "tasks" : [
+                {
+                    "taskName" : "Pmobile10",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PunRhimore",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "Pmobile5" : {
+            "repeatTime" : 300,
+            "startMode" : 1,
+            "startTime" : 16800,
+            "tasks" : [
+                {
+                    "taskName" : "Pmobile5",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Pmobile5RHI",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "Pun" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PunSur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PunRhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "PunFix" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "PunSurFix",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "CiSurLowFix",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "PunRhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "SolarCal" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Solar",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "Solar",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "Solar",
+                    "type" : 1
+                }
+            ]
+        },
+        "Start120" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiSur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "120Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "120Rhi",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "120Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "120Rhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "Start150" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiSur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "150Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "150Rhi",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "150Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "150Rhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "Start180" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "CiSur",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "180Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "180Rhi",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "CiSurLow",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "180Ppi",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "180Rhi",
+                    "type" : 3
+                }
+            ]
+        },
+        "Start360" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "360Sur",
+                    "type" : 8
+                }
+            ]
+        },
+        "VertCal" : {
+            "repeatTime" : 0,
+            "startMode" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Vpoint",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Vpoint",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Vpoint",
+                    "type" : 8
+                }
+            ]
+        }
+    },
+    "sur_scans" : {
+        "360Sur" : {
+            "angle_list" : "360Sur",
+            "estimatedTime" : 432,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 7.5,
+            "timeLimit" : 0
+        },
+        "CiExpSur" : {
+            "angle_list" : "CiExpSur",
+            "estimatedTime" : 210,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "CiSur" : {
+            "angle_list" : "CiSur",
+            "estimatedTime" : 60,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "CiSurLow" : {
+            "angle_list" : "CiSurLow",
+            "estimatedTime" : 30,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "CiSurLowFix" : {
+            "angle_list" : "CiSurLowFix",
+            "estimatedTime" : 30,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "HubbertSur" : {
+            "angle_list" : "HubbertSur",
+            "estimatedTime" : 240,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 6,
+            "timeLimit" : 0
+        },
+        "PBORE_EX" : {
+            "angle_list" : "PBORE_EX",
+            "estimatedTime" : 210,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "PCI_UN" : {
+            "angle_list" : "PCI_UN",
+            "estimatedTime" : 270,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 8,
+            "timeLimit" : 0
+        },
+        "PCI_foc" : {
+            "angle_list" : "PCI_foc",
+            "estimatedTime" : 210,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "PLLJ_sur" : {
+            "angle_list" : "PLLJ_sur",
+            "estimatedTime" : 210,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "Pcal_sur" : {
+            "angle_list" : "Pcal_sur",
+            "estimatedTime" : 288,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 7.5,
+            "timeLimit" : 0
+        },
+        "Pmobile10" : {
+            "angle_list" : "Pmobile10",
+            "estimatedTime" : 330,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "Pmobile5" : {
+            "angle_list" : "Pmobile5",
+            "estimatedTime" : 210,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "PunSur" : {
+            "angle_list" : "PunSur",
+            "estimatedTime" : 330,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "PunSurFix" : {
+            "angle_list" : "PunSurFix",
+            "estimatedTime" : 330,
+            "followMode" : 1,
+            "proc_param" : "PECAN_sur",
+            "rate" : 12,
+            "timeLimit" : 0
+        },
+        "VAD" : {
+            "angle_list" : "VAD",
+            "estimatedTime" : 60,
+            "followMode" : 1,
+            "proc_param" : "proc_sur",
+            "rate" : 6,
+            "timeLimit" : 0
+        },
+        "Vpoint" : {
+            "angle_list" : "Vpoint",
+            "estimatedTime" : 180,
+            "followMode" : 1,
+            "proc_param" : "proc_sur",
+            "rate" : 6,
+            "timeLimit" : 0
+        }
+    }
+}

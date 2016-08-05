@@ -1,0 +1,4 @@
+#! /bin/csh
+
+tail -f $PROJ_DIR/logs/errors/today/EsdAcIngest.wxmod.log
+

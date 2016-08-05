@@ -1,0 +1,7 @@
+SPOL Operations Calibration/Settings
+frequency (GHz)
+2.809
+bandwidth_step_size (GHz)
+0.000010
+bandwidth_step_number (n)
+51

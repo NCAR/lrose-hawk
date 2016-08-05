@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/scripts
+
+running "wget_aws_data"
+if ($status == 1) then
+  pkill wget_aws_data
+  wget_aws_data |& \
+    LogFilter -d $ERRORS_LOG_DIR -p wget_aws_data &
+endif

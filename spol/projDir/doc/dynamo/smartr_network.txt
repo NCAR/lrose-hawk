@@ -1,0 +1,9 @@
+This file contains the local network IP addresses for the Smart-R network.   This is also what we are using for the intersiteLan between Smart-R, SPOL, and DOE.
+
+Wireless Password - password
+
+192.168.76.11 - Assigned to NCAR
+192.168.76.12 - Assigned to DOE
+192.168.76.90 - Smart-R SFTP server
+192.168.76.95 - Other smart-r equipement
+192.168.76.100 - 192.168.76.199 - Smart-R DHCP range. 

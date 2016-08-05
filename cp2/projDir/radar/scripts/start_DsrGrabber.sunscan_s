@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/radar/params
+
+running "DsrGrabber -params DsrGrabber.sunscan_s"
+if ($status == 1) then
+  nice DsrGrabber -params DsrGrabber.sunscan_s |& \
+    LogFilter -d $ERRORS_LOG_DIR -p DsrGrabber -i sunscan_s &
+endif
+

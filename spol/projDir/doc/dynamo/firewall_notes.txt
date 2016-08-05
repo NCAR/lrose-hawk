@@ -1,0 +1,45 @@
+S-Pol External address is 27.114.136.58/30
+Remote router is 27.114.136.57
+subnet mask is 255.255.255.252
+DNS: 27.114.138.4, 27.114.140.62
+
+3G modems I.P. addresses -      124.195.193.8/32; 124.195.193.51/32;
+
+
+Router 
+login: root
+passwd: TakeMe2Fr0nt
+
+ssh port forwarding for extern access to S-Pol servers
+
+port 20022  	control1 
+port 20023 	control2
+port 20024 	control3 
+port 20025       catalog
+port 20026	uwraid
+
+http port forwarding
+port 10080	control1
+port 10081	control2
+port 10083	control3
+port 10084	triton
+port 10085	nomad
+port 10086	nomad:8080
+port 8080	control1:8080 (ui_server)
+
+
+Instructions for swapping Juniper Firewalls
+
+We have two Juniper Firewall Appliances - our original SRX 210 and our new SRX240.  Only
+1 of these firewall can be plugged into the Internet and the S-Pol network at any given time.
+(Both firewall have the same I.P. addresses and will probably bring down connection to the 
+Internet if you happened to plug them in at the same time.)
+
+If the SRX 210 were to fail, you'll need to move all the cables to the alternate firewall.
+
+The left most ethernet port (NOT the serial console port!) is the connection to the Internet.
+Ports to the right of the internet port are for internal S-Pol network connections.
+
+You can access the SRX240 via the second ethernet port on control3 as 192.168.1.251, using 
+ge-0/0/15, the right most ethernet port.  This lets us configure the spare firewall without having 
+to attach a laptop.

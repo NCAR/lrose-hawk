@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Keeping the processes running</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+<STYLE TYPE="text/css">
+   <!--
+   .indent50
+      {
+      padding-left: 50pt;
+      padding-right: 50pt;
+      }
+   -->
+</STYLE>
+   
+<STYLE TYPE="text/css">
+   <!--
+   .indent25
+      {
+      padding-left: 25pt;
+      padding-right: 25pt;
+      }
+   -->
+</STYLE>
+   
+</head>
+
+<h2>Keeping the processes running</h2>
+
+<p>
+The processes are kept running using the auto-restart system.
+
+<p>
+This has two components:
+
+<ul>
+<li>procmap - the process mapper</li><p>
+<li>auto_restart - the auto-restart script</li><p>
+</ul>
+
+<h3>procmap</h3>
+
+<p>The process mapper is called <b>procmap</b>. procmap keeps a record
+of which processes are currently running.
+
+<p>At regular intervals, normally once per minute, each process
+registers a 'heartbeat' with procmap. That way procmap can keep track
+of which processes are working and heartbeating correctly.
+
+See <a href="checking_the_processes.html">checking the processes</a>
+for information on how to print out the process list on a host.
+
+<h3>auto_restart</h3>
+
+<p>Also at regular intervals the 'auto_restart' script contacts the procmap
+to get the list of current processes. It compares this list with the required
+process list, which is found the the following file:
+
+<p><pre>    ~/projDir/control/proc_list</pre>
+
+<p>If a process is missing or has not sent a heartbeat recently, the auto_restart
+script will restart the missing process. Before performing the restart it will
+first try to kill the process, just in case it is still running but is in a
+hung state.
+
+<p>The auto_restart script logs all restarts to the following file:
+
+<p><pre>    ~/projDir/logs/restart/today/auto_restart.log</pre>
+

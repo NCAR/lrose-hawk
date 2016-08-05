@@ -1,0 +1,63 @@
+#! /bin/csh
+
+set echo on
+
+# start up Xvfb for screen 9
+
+running "Xvfb :9.0"
+if ($status == 1) then
+  Xvfb :9.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 100000 -ls 10000 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_9 >& /dev/null &
+  sleep 2
+endif
+
+# set display to 9
+
+setenv DISPLAY :9.0
+
+foreach MYDATE ( 20111201 20111202 20111203 20111204 20111205 20111206 20111207) 
+set MYTIME = "${MYDATE}000000"
+
+#set MYDATE = `date --date=yesterday +%Y%m%d`
+
+mkdir -p $DATA_DIR/matlab/analysis/batch_PID
+
+snuff MATLAB
+cd $PROJ_DIR/matlab/scripts
+
+# data timelines
+
+#matlab -nosplash -nodesktop -r "main_timeline_multi_plot({'pgen2' 'pgen1' 'SPOL_a' 'SPOL_b'},'${MYDATE}',{'cfradial' 'dorade'}, 'save')" \
+#       |& LogFilter -d $ERRORS_LOG_DIR -p matlabTimeline >& /dev/null
+
+#set timeline_image_name = "tmln_${MYDATE}.png"
+
+#LdataWriter -dir ${DATA_DIR}/matlab/monitoring \
+#    -rpath ${timeline_image_name} \
+#    -ltime ${MYTIME} \
+#    -writer matlab \
+#    -dtype png
+
+# PID histograms using RHIs
+
+matlab -nosplash -nodesktop -r "PID_RHI_fraction_batch( '${MYDATE}' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null
+
+matlab -nosplash  -r "PID_RHI_readback_plot( '/home/operator/projDir/data/matlab/analysis/PID_RHI_summary.${MYDATE}.out' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null
+
+set pid_summary_image_name = "PID_RHI_summary.${MYDATE}.png"
+LdataWriter -dir ${DATA_DIR}/matlab/analysis \
+    -rpath $pid_summary_image_name \
+    -ltime ${MYTIME} \
+    -writer matlab \
+    -dtype png
+
+set pid_diurnal_image_name = "PID_RHI_diurnal.${MYDATE}.png"
+LdataWriter -dir ${DATA_DIR}/matlab/analysis \
+    -rpath $pid_diurnal_image_name \
+    -ltime ${MYTIME} \
+    -writer matlab \
+    -dtype png
+
+end

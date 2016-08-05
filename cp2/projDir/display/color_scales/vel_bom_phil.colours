@@ -1,0 +1,23 @@
+# NAME vel_bom.colors
+
+# keng 20130219 - mapping from Phils 3dRapic /radar/3DRapic/default.cmap
+# Use an excel spreadsheet to calculate and display colours (VisualBasic) to build
+# Refer: 'cp2radar CIDD colour scales.xlsm'
+
+-28 	-24 	#0a5000
+-24 	-20 	#0a8000
+-20 	-16 	#28ff28
+-16 	-12 	#000082
+-12 	-9 	#0000ff
+-9 	-6 	#0064ff
+-6 	-3 	#64b4ff
+-3 	-1 	#80e6ff
+-1 	1 	#dcdcdc
+1 	3 	#ffff00
+3 	6 	#ffe600
+6 	9 	#ff7800
+9 	12 	#ff0000
+12 	16 	#e60000
+16 	20 	#ff00ff
+20 	24 	#b400aa
+24 	28 	#780066

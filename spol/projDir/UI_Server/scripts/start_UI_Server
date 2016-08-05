@@ -1,0 +1,20 @@
+#!/bin/csh 
+# HAWK startup script for ui_server
+
+#
+# Start UI_Server (user interface server) task
+
+# is there one running?
+pgrep -x "ui_server"
+if ($status == 1) then
+    set me=`hostname`
+    /usr/local/bin/ui_server --no-daemon=1  --syscon $me --sitecon $me --accesslog /dev/null \
+--docroot=/home/spol/projDir/UI_Server/docroot --approot=/home/spol/projDir/UI_Server \
+--config-directory=/home/spol/projDir/UI_Server/config \
+--radar-config=/home/spol/projDir/UI_Server/radar_config.json \
+--radar=spol \
+--login-log-directory=${ERRORS_LOG_DIR}/today \
+--http-address=0.0.0.0 --http-port=8080 \
+--mode-sync=true |& /usr/local/bin/timestamper | \
+LogFilter -d $ERRORS_LOG_DIR -p ui_server  >& /dev/null &
+endif

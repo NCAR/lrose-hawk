@@ -1,0 +1,124 @@
+zdr_cp_cal_howto.txt
+====================
+
+How to perform the cross-polar power analysis for calibrating ZDR.
+
+Mike Dixon
+2008/05/21
+
+Collect CP data - eng/mgen
+--------------------------
+
+Collect data in a low-ppi scan, with the Mitch-switch running.
+This can be done during normal operations.
+
+On 'mgen', click the GREEN 'Start Ts Recording" button
+to start the time series recording.
+
+Collect a few revolutions of time series data, at low elevation angles,
+i.e. less than 3 degrees.
+
+Use the 'Check Ts Recording' to make sure data is being saved.
+
+The line similar to:
+ 
+  tsarchive  tsarchive/save mgen.gate.rtf -00:00:05 -00:00:02 
+
+should have recent times in them, i.e. less than 10 seconds old.
+
+On 'mgen', click the RED 'Stop TsArchive Recording" button
+to stop the time series recording. Check to make sure the times
+in the check window start to grow.
+
+See saving_time_series_howto.txt on how to save the data.
+
+The time-series data will be saved to
+
+  ~/projDir/data/tsarchive/save/yyyymmdd
+
+
+Analyze the CP data - mgen
+--------------------------
+
+To analyze this data, do the following:
+
+  cd ~/projDir/analysis/params
+
+  AltCpCompute -debug -params AltCpCompute.zdr -f ~/projDir/data/tsarchive/save/20080520/*tsarchive
+
+AltCpCompute will analyze the data on and store it in a file.
+
+The file name produced will be printed to the screen.
+
+For example:
+
+  /home/operator/projDir/data/analysis/alt_cp/cp_zdr_cal_20080520_011653.txt
+
+The Pvx-Phx column gives the estimated Cross-polar power.
+
+Example cp power data output.
+-----------------------------
+
+  CP Ratio ZDR calibration
+  Time: 2008/05/20 01:16:53
+  n samples         : 128
+  min snr (dB)      : 10
+  max snr (dB)      : 60
+  min cpa           : 0.95
+  max cpa           : 1
+  min rhohv         : 0
+  min range (km)    : 20
+  max range (km)    : 100
+  min valid ratio   : 0.1
+  max valid ratio   : 10
+
+  Elev(deg) Count snr(dB)   dBZ  zdrm(dB) ldrH(dB) ldrV(dB) rhohv Pvx-Phx(dB) Pvx-PhxSdev
+      2.00 1599  38.677 24.002  -0.622  -5.890    -7.097   0.931  -0.263       0.291
+      3.00 1452  35.804 19.464  -1.024  -4.984    -6.595   0.918  -0.268       0.271
+       All 3051  37.310 21.842  -0.814  -5.459    -6.858   0.925  -0.265       0.282
+
+Collect and analyze sunscan data
+--------------------------------
+
+See sunscan_howto.txt. This will give you the S1S2 value.
+
+
+Compute ZDRM
+------------
+
+From the sunscan, get S1S2. For example,
+
+  mean S1S2 = -0.660
+
+From the cross-polar scan, get Pvx-Phx.
+
+For example:
+
+  Pvx-Phx = -0.265
+
+Then
+
+  ZDRM = (Pvx-Phx) - S1S2 = 0.395
+
+ZDR correction:
+---------------
+
+  ZdrCorrection = -ZDRM - (dbz0Hc - dbz0Vc) + (noiseHc - NoiseVc)
+
+    dbz0Hc = -43.940
+    dbz0Vc = -43.192
+    dbz0Hc - dbz0Vc = -0.748
+
+    noiseHc = -77.7722
+    noiseVc = -77.9013
+    noiseHc - noiseVc = 0.129
+  
+  ZdrCorrection = -0.405 - (-0.748) + 0.1291 = 0.472
+
+This is the correction which should be entered in the spol_cal.xml
+calibration file:
+
+  mgen:projDir/mgen/params/spol_cal.xml
+
+
+

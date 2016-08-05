@@ -1,0 +1,8 @@
+#! /bin/csh
+#
+# check_apps: Check installed application files
+#
+
+check_apps.pl -list $PROJ_DIR/build/params/apps_check_list -dir $PROJ_DIR/bin
+
+

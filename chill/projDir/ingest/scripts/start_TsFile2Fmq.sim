@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "TsFile2Fmq -params TsFile2Fmq.sim"
+if ($status == 1) then
+    TsFile2Fmq -params TsFile2Fmq.sim -debug \
+    -f /data/titan5/sample_data/time_series/cp2_s/20090218/*iwrf_ts |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsFile2Fmq -i sim &
+endif

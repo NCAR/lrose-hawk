@@ -1,0 +1,9 @@
+file = /home/titan5/dx/cp2_antpatt/cp2_antpatt_x.beams
+points = marker "points ="
+format = ascii
+interleaving = field
+field = Year, Month, Day, Hour, Min, Sec, JulDate, Volnum, TiltNum, locations, h, v, diff
+structure = scalar, scalar, scalar, scalar, scalar, scalar, scalar, scalar, scalar, 2-vector, scalar, scalar, scalar
+type = int, int, int, int, int, int, float, int, int, float, float, float, float
+
+end

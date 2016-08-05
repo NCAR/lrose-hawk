@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "LdataWatcher -params LdataWatcher.sounding_timeseries"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.sounding_timeseries |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i sounding_timeseries &
+endif
+

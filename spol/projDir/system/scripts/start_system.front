@@ -1,0 +1,32 @@
+#! /bin/tcsh -f 
+
+# server manager
+
+start_DsServerMgr
+start_procmap
+start_DataMapper
+
+# individual servers
+
+foreach server \
+    (DsServerMgr \
+    DsMdvServer \
+    NcMdvServer \
+    DsFmqServer \
+    DsSpdbServer \
+    DsFCopyServer \
+    Metar2Symprod \
+    Rhi2Symprod \
+    AcTrack2Symprod \
+    Ltg2Symprod \
+    SunCal2Symprod \
+    Tstorms2Symprod)
+
+  running $server
+  if ($status == 1) then
+      $server -instance primary -qmax -1 |& \
+        LogFilter -d $ERRORS_LOG_DIR -p $server -i primary >& /dev/null &
+  endif
+
+end
+

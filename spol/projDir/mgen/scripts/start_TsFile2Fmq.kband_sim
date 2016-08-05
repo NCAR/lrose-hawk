@@ -1,0 +1,17 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "TsFile2Fmq -params TsFile2Fmq.kband_sim"
+
+if ($status == 1) then
+  TsFile2Fmq -debug -params TsFile2Fmq.kband_sim \
+    -f $DATA_DIR/time_series/kband/sim/*iwrf_ts |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsFile2Fmq -i kband_sim &
+endif
+
+#if ($status == 1) then
+#  TsFile2Fmq -params TsFile2Fmq.kband_sim -f $DATA_DIR/time_series/kband/save/20110421/*iwrf_ts |& \
+#    LogFilter -d $ERRORS_LOG_DIR -p TsFile2Fmq -i kband_sim &
+#endif
+

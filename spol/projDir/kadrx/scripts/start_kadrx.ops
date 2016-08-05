@@ -1,0 +1,17 @@
+#! /bin/csh
+
+cd $PROJ_DIR/kadrx/params
+
+running "kadrx --instance ops kadrx.ops"
+if ($status == 0) then
+    exit 0
+endif
+
+snuff_slow kadrx
+
+kadrx --instance ops kadrx.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p kadrx -i ops &
+
+#kadrx --instance ops kadrx.ops --debug KaMonitor |& \
+#    LogFilter -d $ERRORS_LOG_DIR -p kadrx -i ops &
+

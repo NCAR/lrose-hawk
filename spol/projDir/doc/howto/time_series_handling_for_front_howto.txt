@@ -1,0 +1,74 @@
+time_series_handling_for_front.txt
+==================================
+
+Time series on mgen
+-------------------
+
+On mgen the time series data is saved temporarily in:
+
+  projDir/data/time_series/sband/tmp
+
+This is scrubbed at 1 day to prevent the disk from filling,
+because we have less than 1 TB available.
+
+It is also copied across to pgen1 and pgen2 - see below.
+
+Time series on pgen1 and pgen2
+------------------------------
+
+On the pgen hosts, the time series files arrive in:
+
+  projDir/data/time_series/sband/tmp
+  
+These are scrubbed at 7 days to prevent the disk from filling.
+
+To permanently save a day of time series on the pgen hosts, you 
+need to move the day subdirectory into the save directory:
+
+  projDir/data/time_series/sband/save
+
+For example, to save 20140624, you would:
+
+  cd ~/projDir/data/time_series/sband/tmp
+  mv 20140623 ../save
+
+The RAID partition /mnt/data2 has a total of 4.8 TB available. Our experience 
+during FRONT-DE so far is that a typical day takes about 250 GB.
+
+You should only move about 2 TB into save before cleaning it manually. This
+will give 8 operational days of saved data. Keep the other 2.8 TB for tmp data.
+
+Copying the data to eldora.
+---------------------------
+
+!! DO NOT DO THIS DURING OPS - there is not enough bandwidth. !!
+
+On eldora, the time series from SPOL is saved in:
+
+  /export/eldora2/rsfdata/firestone/time_series/save
+
+Run the script:
+
+  rsync_time_series.spol
+
+This will rsync all data from
+
+  pgen1:projDir/data/time_series/sband/save
+
+across to
+ 
+  /export/eldora2/rsfdata/firestone/time_series/save
+
+This script runs in the foreground. It is probably best to run it that
+way, in a window, so that you don't forget about it and leave it running.
+
+If during ops you notice that HawkEye is skipping sectors, this is a sure
+sign that the rsync is running and should be killed.
+
+Cleaning up data on pgen1 and pgen2
+------------------------------------
+
+After the saved time series has been copied to eldora, remove it 
+on pgen1 and pgen2, to keep the disk space available for realtime
+use.
+

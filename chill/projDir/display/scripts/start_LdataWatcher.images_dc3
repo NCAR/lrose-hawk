@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/display/params
+
+running "LdataWatcher -params LdataWatcher.images_dc3"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.images_dc3 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i images_dc3 &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rapic/params
+
+running "Rapic2Dsr -params Rapic2Dsr.Grafton"
+if ($status == 1) then
+  nice Rapic2Dsr -params Rapic2Dsr.Grafton |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rapic2Dsr -i Grafton &
+endif
+

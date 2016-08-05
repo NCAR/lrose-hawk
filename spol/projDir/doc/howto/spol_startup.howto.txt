@@ -1,0 +1,233 @@
+SPOL STARTUP PROCEDURE
+======================
+
+1. Warm up klystron.
+--------------------
+
+Action:
+
+  * RF Disable - UP (below RVP8)
+  * Receiver box switch - Horiz
+  * Mitch Switch - H (check for red lock light)
+  * auxiliary power - ON
+  * cabinet lights - ON
+  * reset mode - MANUAL
+
+Check:
+
+  Filament current should show +- 28 amps.
+  Light should show: "Preheat" - white
+  Wait for "Available" - green - before proceeding to step 5.
+
+2. Power up antenna.
+--------------------
+
+NOTE: DO NOT release the brakes in this step!!
+
+Action:
+
+  * Antenna Control - ON (red main switch with light inside)
+  * AC Power - UP
+  * Servo logic - UP (red lights on servo unit should go out)
+  * Oil pump - UP (should be able to hear oil pump on antenna)
+  * Synchro power - UP
+
+Check:
+
+  All lights green.
+
+3. Reset PMAC. (Scientist trailer)
+----------------------------------
+
+Action:
+
+  * 3 computer monitors - ON
+  * Hit "RESET PMAC" on antenna controller screen
+
+Check:
+
+  Should see "TRYING" and then "PMAC OK".
+
+4. Release antenna brakes.
+--------------------------
+
+Check:
+
+  Antenna angles should show approx 10.0 deg Azimuth, 90.0 deg Elevation.
+
+Action:
+
+  Azimuth:
+
+    * Fan - UP
+    * Brake - UP
+
+Check:
+
+    Watch carefully to make sure the azimuth does not run away.
+    The azimuth should stay pretty much fixed.
+    If it runs away, set the brake DOWN, and reset the PMAC
+    again (step 3) before retrying.
+
+Action:
+
+  Elevation:
+
+    * repeat as for azimuth.
+
+Check:
+
+    Be VERY careful not to let the antenna run away and hit the elevation stops.
+    Set the Brake DOWN if it runs away and reset the PMAC before retrying.
+
+Check:
+
+    The antenna panel should have all GREEN, no RED.
+
+5. Power up transmitter.
+------------------------
+
+Check:
+
+  Check "Preheat" is out, "Available" is GREEN.
+  Check temperature readout working and > 70F
+
+Action:
+
+  * High Voltage Power - ON
+  * If "FAULT" is lit, hit RECYCLE.
+
+Check:
+
+  Check panel below RVP8
+     - if lights show, hit "SWR Reset".
+     - ensure RF Disable is UP, diasable light should show red
+
+Action:
+
+  * HV ON - toggle, switch should light up
+
+Check:
+
+  Check for fault lights
+    - if faults FAULT DISPLAY - RESET
+  
+  Check focus current - should be about 23 amps.
+  Check 3 us pulse on scope.
+  Check Digital HP power meter - about -20 dBM.
+
+Action:
+
+  * Set RF Disable DOWN - light should go out.
+
+Check:
+
+  Check Digital HP Power meter - 6+ dBM.
+  Check TX power - 0.8 mW
+
+6. Start scan (scientist trailer)
+---------------------------------
+
+Action:
+
+  * antenna controller screen: Hit RUN - select desired scan.
+
+Check:
+
+  Visually check antenna is scanning OK.
+
+SPOL SHUTDOWN PROCEDURE
+=======================
+
+1. Stop scan (scientist trailer).
+---------------------------------
+
+Action:
+
+  * antenna controller screen
+
+     Hit STOP
+     Hit Stow, confirm.
+
+Check:
+
+  Visually check that the antenna stows pointing vertically up.
+
+2. Turn off transmitter.
+------------------------
+
+Action:
+
+  * RV Disable - DOWN
+
+Check:
+
+  Red disable light ON.
+  HP Digital power meter: -20 dBM
+
+Action:
+
+  * HV OFF - toggle switch 
+
+Check:
+
+  Wait for cabinet temperature to drop below 95F before proceeding to
+  step 5.
+
+3. Power down antenna.
+----------------------
+
+Check:
+
+  Check antenna has been stowed, Az 10 deg, El 90 deg.
+
+Action:
+
+  * Elevation Brake - DOWN
+  * Elevation Fan - DOWN
+
+  * Azimuth Brake - DOWN
+  * Azimuth Fan - DOWN
+
+  * Servo Logic - DOWN
+  * Oil Pump - DOWN
+  * Synchro power - DOWN
+  
+  * AC Power - DOWN
+
+  * Antenna control (red switch) - OFF
+
+Check:
+
+  All lights out
+
+4. Turn off other equipment.
+----------------------------
+
+Action:
+
+  * Monitors - OFF
+
+5. Power down transmitter.
+--------------------------
+
+Check:
+
+  Cabinet temp: < 95F
+
+Action:
+
+  * High Voltage Power - OFF
+  * Cabinet lights - OFF
+  * Auxiliary power - OFF
+  * Mitch switch - OFF
+  * Trailer lights - OFF
+
+6. Tidy up (scientist trailer)
+------------------------------
+
+Action:
+
+  * turn off monitors
+
+

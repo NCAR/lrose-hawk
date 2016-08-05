@@ -1,0 +1,6 @@
+#! /bin/csh
+
+tcpscope --fmq ~/projDir/data/fmq/spoldrx/shmem_spoldrx_40000 --simul >& /dev/null &
+
+
+

@@ -1,0 +1,4 @@
+#! /bin/csh
+
+stop_all
+start_all

@@ -1,0 +1,5 @@
+#! /bin/csh
+
+snuff SpolTsMonitor.sband
+start_SpolTsMonitor.sband
+

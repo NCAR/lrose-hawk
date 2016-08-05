@@ -1,0 +1,10 @@
+#! /bin/csh
+
+setenv PROJ_DIR /h/eol/dixon/projDir
+
+setenv DATA_HOST front.fl-ext.ucar.edu
+cd $PROJ_DIR/display/params
+
+
+CIDD -p CIDD.timrex >& /dev/null &
+

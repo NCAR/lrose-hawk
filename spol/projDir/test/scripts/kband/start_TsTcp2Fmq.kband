@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/params
+
+running "TsTcp2Fmq -params TsTcp2Fmq.kband"
+if ($status == 1) then
+  TsTcp2Fmq -params TsTcp2Fmq.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsTcp2Fmq -i kband &
+endif
+

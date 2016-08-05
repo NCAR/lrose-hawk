@@ -1,0 +1,11 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/mgen/params
+
+running "RadMon -params RadMon.log.kband"
+if ($status == 1) then
+  RadMon -params RadMon.log.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p RadMon -i log.kband &
+endif
+
+

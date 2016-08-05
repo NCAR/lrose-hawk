@@ -1,0 +1,161 @@
+/**********************************************************************
+ * TDRP params for ChillSdb2CalXml
+ **********************************************************************/
+
+//======================================================================
+//
+// ChillSdb2CalXml reads CHILL moments from the SDB server, extracts 
+//   calibration information, and write the latest cal files to the 
+//   specified directory. _latest_data_info files are also written. The 
+//   cal data is then read by ChillTsTcp2Fmq and the cal packed is merged 
+//   into the time series data stream.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "ops";
+
+//======================================================================
+//
+// TCP DETAILS.
+//
+//======================================================================
+ 
+///////////// sdb_server_host /////////////////////////
+//
+// Host name on which the CHILL SDB server is running.
+// This application normally reads data from Rvp8TsTcpServer running on 
+//   the rvp8 host.
+// Type: string
+//
+
+sdb_server_host = "sigproc";
+
+///////////// sdb_server_port /////////////////////////
+//
+// TCP/IP port on which the CHILL SDB server is running.
+// Type: int
+//
+
+sdb_server_port = 2111;
+
+//======================================================================
+//
+// OUTPUT OF CAL XML FILES.
+//
+//======================================================================
+ 
+///////////// output_dir //////////////////////////////
+//
+// Output dir for CAL xml files.
+// Type: string
+//
+
+output_dir = "$(DATA_DIR)/cal/sdb";
+
+///////////// min_write_interval_secs /////////////////
+//
+// Minimum interval between writes (secs).
+// We do not want to write cal files too frequently, so we check the 
+//   time since the last write and make sure the interval exceeds this 
+//   minimum.
+// Type: int
+//
+
+min_write_interval_secs = 120;
+
+//======================================================================
+//
+// CALIBRATION CONSTANTS.
+//
+//======================================================================
+ 
+///////////// pulseWidthUs ////////////////////////////
+//
+// Transmit pulse width (micro_secs).
+// Type: double
+//
+
+pulseWidthUs = 1;
+
+///////////// twoWayWaveguideLossDbH //////////////////
+//
+// 2-way waveguide loss H (dB).
+// This is the loss from the measurement plane to the feed-horn and 
+//   back. Sometimes it is set to 0 and the loss is incorporated in the 
+//   antenna gain.
+// Type: double
+//
+
+twoWayWaveguideLossDbH = 0;
+
+///////////// twoWayWaveguideLossDbV //////////////////
+//
+// 2-way waveguide loss V (dB).
+// This is the loss from the measurement plane to the feed-horn and 
+//   back. Sometimes it is set to 0 and the loss is incorporated in the 
+//   antenna gain.
+// Type: double
+//
+
+twoWayWaveguideLossDbV = 0;
+
+///////////// twoWayRadomeLossDbH /////////////////////
+//
+// 2-way loss through the radome - H.
+// Set to 0 if no radome.
+// Type: double
+//
+
+twoWayRadomeLossDbH = 0;
+
+///////////// twoWayRadomeLossDbV /////////////////////
+//
+// 2-way loss through the radome - V.
+// Set to 0 if no radome.
+// Type: double
+//
+
+twoWayRadomeLossDbV = 0;
+
+///////////// receiverMismatchLossDb //////////////////
+//
+// Receiver mismatch loss - (dB).
+// This is the loss which results from the fact that the receiver 
+//   bandwidth is not exactly the same as the pulse width. The calibration 
+//   procedure is carries out with a CW signal, so the redeiver bandwidth 
+//   is not a factor. However, during operations, the receiver loses some 
+//   power because of the bandwidth mismatch. This loss must be taken into 
+//   account.
+// Type: double
+//
+
+receiverMismatchLossDb = 2.2;
+

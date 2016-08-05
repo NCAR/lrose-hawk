@@ -1,0 +1,5 @@
+#! /bin/csh
+
+set scriptname = "updateTrimbleMirror"
+
+$scriptname |& LogFilter -d $ERRORS_LOG_DIR -p $scriptname >& /dev/null &

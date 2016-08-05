@@ -1,0 +1,24 @@
+#! /bin/bash
+#
+# Name: get_host_type
+#
+# Purpose: print the host type by interpreting the host name.
+#
+#====================================================================
+
+THIS_HOST=`hostname`
+
+case ${THIS_HOST} in
+	cp2data) host_type=archive;;
+	cp2server.bom.gov.au) host_type=server;;
+	cpolserver.nt.bom.gov.au) host_type=server;;
+	cpolserver.bom.gov.au) host_type=server;;
+	cp2cloud.bom.gov.au) host_type=mirror;;
+	TitanHanger) host_type=hangar;;
+	**) host_type=display;;
+esac
+
+echo $host_type
+
+exit 0
+

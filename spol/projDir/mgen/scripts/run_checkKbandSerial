@@ -1,0 +1,5 @@
+#! /bin/csh
+
+checkKbandSerial.py --statusPath /tmp/nagios/status_kband --verbose |& \
+    LogFilter -d $ERRORS_LOG_DIR -p checkKbandSerial &
+

@@ -1,0 +1,12 @@
+#! /bin/csh -f
+
+ssh prod@control restart_nagios >& /dev/null
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "ChillCal2Xml -params ChillCal2Xml.ops"
+if ($status == 1) then
+  ChillCal2Xml -params ChillCal2Xml.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ChillCal2Xml -i ops &
+endif
+

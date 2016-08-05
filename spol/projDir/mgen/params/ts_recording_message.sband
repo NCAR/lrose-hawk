@@ -1,0 +1,13 @@
+TS RECORDING IN PROGRESS - SBAND
+--------------------------------
+
+Time series data is being recoded to directory:
+
+  projDir/data/time_series/sband/save
+
+To check recording is in progress, enter:
+
+  pdm
+
+and check on data set 'time_series/sband/save'
+

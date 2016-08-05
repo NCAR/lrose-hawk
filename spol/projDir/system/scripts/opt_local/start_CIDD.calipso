@@ -1,0 +1,12 @@
+#! /bin/csh
+
+set_font_path >& /dev/null
+
+setenv PROJ_DIR /h/eol/dixon/projDir
+
+setenv DATA_HOST tesla.eol.ucar.edu
+source $PROJ_DIR/system/params/site_info
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.calipso >& /dev/null &
+

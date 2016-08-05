@@ -1,0 +1,66 @@
+/**********************************************************************
+ * TDRP params for /mnt/home/rjp/titandev/titan20110112/titan5_5/titan5_5/bin/AcPosnAscii2Spdb
+ **********************************************************************/
+
+//======================================================================
+//
+// Program name: AcPosnAscii2Spdb.
+//
+// AcPosnAscii2Spdb converts ascii ac_posn data into SPDB format. The 
+//   usage is 'AcPosnAscii2Spdb -params params_file'.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// malloc_debug_level //////////////////////
+//
+// Malloc debug level.
+// 0 - none, 1 - corruption checking, 2 - records all malloc blocks and 
+//   checks, 3 - printout of all mallocs etc.
+// Minimum val: 0
+// Maximum val: 3
+// Type: int
+//
+
+malloc_debug_level = 0;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "Test";
+
+///////////// input_data_dir //////////////////////////
+//
+// Name of input data directory.
+// ASCII AC_POSN data files are stored in this directory.
+// Type: string
+//
+
+input_data_dir = "$(RAP_DATA_DIR)/ascii/ac_posn";
+
+///////////// output_data_dir /////////////////////////
+//
+// Name of output data directory.
+// SPDB AC_POSN data files are stored in this directory.
+// Type: string
+//
+
+output_data_dir = "$(RAP_DATA_DIR)/spdb/ac_posn";
+

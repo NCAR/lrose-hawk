@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "McidasNcf2Mdv -params McidasNcf2Mdv.ir"
+if ($status == 1) then
+  McidasNcf2Mdv -params McidasNcf2Mdv.ir -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p McidasNcf2Mdv -i ir &
+endif
+

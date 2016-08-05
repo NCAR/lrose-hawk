@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/pgen/params
+
+running "Dsr2Vol -params Dsr2Vol.partrain.sband"
+if ($status == 1) then
+  Dsr2Vol -params Dsr2Vol.partrain.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Dsr2Vol -i partrain.sband &
+endif
+

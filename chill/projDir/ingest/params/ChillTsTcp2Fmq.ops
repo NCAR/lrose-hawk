@@ -1,0 +1,225 @@
+/**********************************************************************
+ * TDRP params for ChillTsTcp2Fmq
+ **********************************************************************/
+
+//======================================================================
+//
+// ChillTsTcp2Fmq reads raw time-series data via TCP/IP, in legacy CHILL 
+//   format. It saves the time series data out to a file message queue 
+//   (FMQ), which can be read by multiple clients.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "ops";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = TRUE;
+
+//======================================================================
+//
+// TCP DETAILS.
+//
+//======================================================================
+ 
+///////////// ts_tcp_server_host //////////////////////
+//
+// Host name on which the CHILL time series server is running.
+// This application normally reads data from Rvp8TsTcpServer running on 
+//   the rvp8 host.
+// Type: string
+//
+
+ts_tcp_server_host = "acq";
+
+///////////// ts_tcp_server_port //////////////////////
+//
+// TCP/IP port on which the CHILL time series server is running.
+// Type: int
+//
+
+ts_tcp_server_port = 2112;
+
+//======================================================================
+//
+// CORRECT THE SWEEP NUMBER.
+//
+//======================================================================
+ 
+///////////// zero_sweep_number_at_start_of_vol ///////
+//
+// Option to correct the sweep number relative to the start of a volume.
+// Some radars set the sweep number to always increase, without 
+//   resetting to 0 when a new volume starts. If this parameter is TRUE, 
+//   the sweep number will be corrected so that it is zero at the start of 
+//   each volume.
+// Type: boolean
+//
+
+zero_sweep_number_at_start_of_vol = FALSE;
+
+//======================================================================
+//
+// CONDITIONING THE IQ DATA.
+//
+//======================================================================
+ 
+///////////// iq_data_scale ///////////////////////////
+//
+// Scale constant for I and Q data. Applied if apply_scale == TRUE.
+// Value written = Value_in * scale + offset.
+// Type: double
+//
+
+iq_data_scale = 1;
+
+///////////// iq_data_offset //////////////////////////
+//
+// Offset for I and Q data. Applied if apply_scale == TRUE.
+// Value written = Value_in * scale + offset.
+// Type: double
+//
+
+iq_data_offset = 0;
+
+///////////// remove_negative_range_gates /////////////
+//
+// Option to remove gates with negative range.
+// CHILL sometimes starts sampling early so that the burst pulse can be 
+//   sampled. If so range_offset_m will be set to indicate how early the 
+//   sampling started. If this parameter is set to TRUE, the gates which 
+//   have negative range will be removed and the start range will be 
+//   adjusted accordingly.
+// Type: boolean
+//
+
+remove_negative_range_gates = FALSE;
+
+//======================================================================
+//
+// ADDING IN THE CALIBRATIONS.
+//
+//======================================================================
+ 
+///////////// read_cal_from_file //////////////////////
+//
+// Option to read calibration from files and merge into data set.
+// The app ChillSdb2CalXml reads the CHILL SDB server and produces 
+//   calibration files every few seconds. This option causes these cal 
+//   files to be read in, and the cal struct to be inserted into the time 
+//   series data.
+// Type: boolean
+//
+
+read_cal_from_file = TRUE;
+
+///////////// cal_file_dir ////////////////////////////
+//
+// Directory for calibration files.
+// See 'read_cal_from_file' above.
+// Type: string
+//
+
+cal_file_dir = "$(DATA_DIR)/cal/sdb";
+
+//======================================================================
+//
+// OUTPUT FMQ MESSAGE DETAILS.
+//
+// The output messages are written to the FMQ. To improve performance, 
+//   each message contains a number of time series pulses.
+//
+//======================================================================
+ 
+///////////// metadata_interval_secs //////////////////
+//
+// Interval between writing the radar info metadata messages (secs).
+// The radar metadata will be send at least at this inteval.
+// Type: int
+//
+
+metadata_interval_secs = 1;
+
+///////////// n_pulses_per_message ////////////////////
+//
+// Number of pulses per output message.
+// The actual number will sometimes be 1 less than this, because an info 
+//   data part may will be written once in a while.
+// Type: int
+//
+
+n_pulses_per_message = 200;
+
+///////////// output_fmq_path /////////////////////////
+//
+// Path to output FMQ.
+// The FMQ consists of 2 files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path = "$(DATA_DIR)/fmq/ts/shmem_10000";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer.
+// Type: int
+//
+
+output_fmq_size = 20000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in the output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 200;
+
+///////////// data_mapper_report_interval /////////////
+//
+// Number of seconds between reports to DataMapper.
+// If > 0, the program will register with the DataMapper when the output 
+//   FMQ is written to. If <= 0, registration will not be performed.
+// Type: int
+//
+
+data_mapper_report_interval = 5;
+

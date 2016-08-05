@@ -1,0 +1,11 @@
+///////////// Recurse /////////////////////////////////
+//
+// Recurse into this directory and subdirectories below it.
+// If FALSE, the current directory and all those below it are ignored. 
+//   This value is controlled by inserting a _scout (or _Scout) parameter 
+//   file into the relevant directory.
+// Type: boolean
+//
+
+Recurse = FALSE;
+

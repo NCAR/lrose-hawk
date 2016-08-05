@@ -1,0 +1,3 @@
+#! /bin/csh
+
+/opt/local/bin/print_procmap -host eldora.eol.ucar.edu -hb -up -status

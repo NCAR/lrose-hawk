@@ -1,0 +1,7 @@
+Source for ui_server is
+/net/src/eol/ui_server
+
+Build with scons
+install to control1:/usr/local/bin
+As operator:
+$ restart_control

@@ -1,0 +1,8 @@
+<TsPrintCommands>
+  <nSamples>1000</nSamples>
+  <startGate>100</startGate>
+  <nGates>800</nGates>
+  <dualChannel>true</dualChannel>
+  <fastAlternating>true</fastAlternating>
+  <labviewRequest>true</labviewRequest>
+</TsPrintCommands>

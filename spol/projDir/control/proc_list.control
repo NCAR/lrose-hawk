@@ -1,0 +1,28 @@
+##############################################################################
+# SYSTEM processes
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+DsFileDist    ext_data   start_DsFileDist.ext_data snuff_inst        localhost
+#Janitor       logs       start_Janitor.logs        kill_Janitor      localhost
+Janitor       sysview    start_Janitor.sysview     kill_Janitor      localhost
+#
+###############################################################################
+# SYSVIEW
+#SysView       ops        start_SysView             kill_SysView      localhost
+LdataWatcher  sysview    start_LdataWatcher.sysview  snuff_inst      localhost
+#
+###############################################################################
+# WATCHING FOR DATA
+InputWatcher  spol_cams  start_InputWatcher.spol_cams  snuff_inst  localhost
+#
+###############################################################################
+# IMAGE GENERATION FOR CATALOG
+#LdataWatcher  catalog_sat          start_LdataWatcher.catalog_sat          snuff_inst  localhost
+#LdataWatcher  catalog_radar        start_LdataWatcher.catalog_radar        snuff_inst  localhost
+#LdataWatcher  catalog_transparent  start_LdataWatcher.catalog_transparent  snuff_inst  localhost
+#LdataWatcher  smartr_images        start_LdataWatcher.smartr_images        snuff_inst  localhost
+LdataWatcher  matlab_analysis      start_LdataWatcher.matlab_analysis      snuff_inst  localhost
+#LdataWatcher  soundings_gan_text   start_LdataWatcher.soundings_gan_text   snuff_inst  localhost
+#LdataWatcher  soundings_gan_netcdf start_LdataWatcher.soundings_gan_netcdf snuff_inst  localhost
+

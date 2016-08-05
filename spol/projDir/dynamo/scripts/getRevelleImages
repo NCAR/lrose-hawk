@@ -1,0 +1,16 @@
+#! /bin/csh
+
+getCatalogFilesBySftp.py --debug --pastSecs=86400 --sshPort=22 \
+--sourceDir=/var/www/html/dynamo/research/revelle_radar \
+--tmpDir=/tmp/images/revelle_radar \
+--targetDir=${DATA_DIR}/raw/revelle_radar \
+--subStrList=gif --dataType=gif --checkNames \
+|& LogFilter -d $ERRORS_LOG_DIR -p getRevelleImages >& /dev/null &
+
+getCatalogFilesByHttp.py --debug --pastSecs=286400 \
+--sourceDir=/dynamo/research/revelle_radar \
+--tmpDir=/tmp/images/revelle_radar \
+--targetDir=${DATA_DIR}/raw/revelle_radar \
+--subStrList=gif --dataType=gif
+|& LogFilter -d $ERRORS_LOG_DIR -p getRevelleImages >& /dev/null &
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "ChillSdb2Dsr -params ChillSdb2Dsr.ops"
+if ($status == 1) then
+  ChillSdb2Dsr -params ChillSdb2Dsr.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ChillSdb2Dsr -i ops &
+endif
+

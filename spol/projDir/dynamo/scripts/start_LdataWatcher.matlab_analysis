@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "LdataWatcher -params LdataWatcher.matlab_analysis"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.matlab_analysis |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i matlab_analysis &
+endif
+

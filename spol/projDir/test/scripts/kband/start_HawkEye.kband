@@ -1,0 +1,8 @@
+#! /bin/csh
+
+cd $PROJ_DIR/params
+
+HawkEye -params HawkEye.kband &
+
+
+

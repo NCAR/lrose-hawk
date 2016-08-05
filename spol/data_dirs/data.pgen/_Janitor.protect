@@ -1,0 +1,38 @@
+//======================================================================
+//
+// TRAVERSING THE DIRECTORY TREE.
+//
+// Controlling the way the Janitor searches the directory tree for files 
+//   to delete or compress.
+//
+//======================================================================
+ 
+///////////// recurse /////////////////////////////////
+//
+// Recurse to lower directories.
+// Set to false to leave directories below the current directory alone.
+// Type: boolean
+//
+
+recurse = FALSE;
+
+///////////// FollowDangerousLinks ////////////////////
+//
+// Follow path relative soft links ./ and ../.
+// Setting this to true is dangerous if recurse is true. Beware of 
+//   circular links.
+// Type: boolean
+//
+
+FollowDangerousLinks = FALSE;
+
+///////////// process /////////////////////////////////
+//
+// Process files in this directory.
+// Set to false to leave the current directory alone. However, subdirs 
+//   are processed unless the recurse parameter is set to false.
+// Type: boolean
+//
+
+process = FALSE;
+

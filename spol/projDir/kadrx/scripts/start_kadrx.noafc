@@ -1,0 +1,14 @@
+#! /bin/csh
+
+cd $PROJ_DIR/kadrx/params
+
+running "kadrx --instance noafc kadrx.noafc"
+if ($status == 0) then
+    exit 0
+endif
+
+snuff_slow kadrx
+
+kadrx --instance noafc kadrx.noafc --debug KaMonitor |& \
+    LogFilter -d $ERRORS_LOG_DIR -p kadrx -i noafc &
+

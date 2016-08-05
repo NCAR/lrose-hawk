@@ -1,0 +1,260 @@
+/**********************************************************************
+ * TDRP params for ./SpdbXml2Table
+ **********************************************************************/
+
+//======================================================================
+//
+// SpdbXml2Table reads XML entries from an SPDB data base, and based on 
+//   the specified parameters in the file, it reformats these into a text 
+//   table.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_url ///////////////////////////////
+//
+// URL to spdb data.
+// This can either be (a) the path to the directory or (b) a url of the 
+//   form 'spdbp:://hostname::dir'. For (a), if the path starts with '/' 
+//   or '.', it will be treated as an absolute path. If not, it will be 
+//   relative to DATA_DIR. For (b) the dir is relative to DATA_DIR on the 
+//   host specified by hostname.
+// Type: string
+//
+
+input_url = "$(DATA_DIR)/spdb/monitor/sband";
+
+///////////// start_time //////////////////////////////
+//
+// The start time for extracting the data.
+// Can be overridden by specifying -start on the command line.
+//
+// Type: struct
+//   typedef struct {
+//      int year;
+//      int month;
+//      int day;
+//      int hour;
+//      int min;
+//      int sec;
+//   }
+//
+//
+
+start_time = { 2011, 12, 4, 0, 0, 0 };
+
+///////////// end_time ////////////////////////////////
+//
+// The end time for extracting the data.
+// Can be overridden by specifying -end on the command line.
+//
+// Type: struct
+//   typedef struct {
+//      int year;
+//      int month;
+//      int day;
+//      int hour;
+//      int min;
+//      int sec;
+//   }
+//
+//
+
+end_time = { 2011, 12, 6, 0, 0, 0 };
+
+///////////// data_type ///////////////////////////////
+//
+// Spdb data type, for constraining search.
+// If non-zero, only entries with this data_type will be retrieved.
+// Type: int
+//
+
+data_type = 0;
+
+///////////// data_type_2 /////////////////////////////
+//
+// Spdb data type 2, for constraining search.
+// If non-zero, only entries with this data_type_2 will be retrieved.
+// Type: int
+//
+
+data_type_2 = 0;
+
+//======================================================================
+//
+// Specify XML entries to be printed out.
+//
+//======================================================================
+ 
+///////////// xml_entries /////////////////////////////
+//
+// Specify which XML entries to include in table.
+// 	xml_tag_list: list of XML tags used to identify entry. These should 
+//   be delimited in xml format, using < and >
+// 	specify_label: do you want to use a label instead of the tags to 
+//   comment the table?
+// 	label: the label to use if specify_label is true
+// .
+//
+// Type: struct
+//   typedef struct {
+//      string xml_tag_list;
+//      boolean specify_label;
+//      string label;
+//   }
+//
+// 1D array - variable length.
+//
+
+xml_entries = {
+  { "<Rvp8Status><NoiseDbmChan0>", FALSE, ""},
+  { "<Rvp8Status><NoiseDbmChan1>", FALSE, ""},
+  { "<SBandXmitPower><XmitPowerDbmH>", FALSE, ""},
+  { "<SBandXmitPower><XmitPowerDbmV>", FALSE, ""},
+  { "<SBandTestPulse><TestPulsePowerDbHc>", FALSE, ""},
+  { "<SBandTestPulse><TestPulsePowerDbVc>", FALSE, ""},
+  { "<SBandTestPulse><TestPulsePowerDbHx>", FALSE, ""},
+  { "<SBandTestPulse><TestPulsePowerDbVx>", FALSE, ""},
+  { "<SBandTestPulse><TestPulseVelHc>", FALSE, ""},
+  { "<SBandTestPulse><TestPulseVelVc>", FALSE, ""},
+  { "<SBandTestPulse><TestPulseVelHx>", FALSE, ""},
+  { "<SBandTestPulse><TestPulseVelVx>", FALSE, ""},
+  { "<SBandAngleErrors><AzErrorMax>", FALSE, ""},
+  { "<SBandAngleErrors><ElErrorMax>", FALSE, ""},
+  { "<SBandAngleErrors><AzErrorMean>", FALSE, ""},
+  { "<SBandAngleErrors><ElErrorMean>", FALSE, ""},
+  { "<SBandAngleErrors><AzErrorSdev>", FALSE, ""},
+  { "<SBandAngleErrors><ElErrorSdev>", FALSE, ""},
+  { "<SpolTransmitStatus><Filament_ps_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Warmup_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Avail_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Waveguide_Switch_Position_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><W_G_PFN_Transfer_Interlock_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><+5_VDC_PS_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><+15_VDC_PS_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><+28_VDC_PS_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><-15_VDC_PS_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><+45_VDC_PS_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Filament_PS_Voltage_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Vacuum_Pump_PS_Voltage_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Focus_Coil_PS_Voltage_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Circulator_Temperature_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Spectrum_Filter_Pressure_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Waveguide_Arc_VSWR_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Cabinet_Interlock_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Cabinet_Air_Temperature_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Cabinet_Airflow_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Spare_0_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Spare_1_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Modulator_Overload_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Modulator_Inverse_Current_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Modulator_Switch_Fail_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Main_Power_Voltage_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Charging_System_Fail_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Inverse_Diode_Current_HV_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Trigger_Amplifier_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Overvoltage_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Overcurrent_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Focus_Coil_Current_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Focus_Coil_Airflow_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Oil_Temperature_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Oil_Level_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><PRF_Limit_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Transmitter_Battery_Charging_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Current_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Filament_Current_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Vacuum_Pump_Current_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Air_Temperature_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Klystron_Airflow_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Wave_Guide_Switch_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><COHO_Gate_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><RF_Disabled_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Wave_Guide_Pressure_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Circulator_Temperature_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><Mitch_Switch_Fault>", FALSE, ""},
+  { "<SpolTransmitStatus><RF_Ladder_Lockout_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Azimuth_Temperature_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Azimuth_Fans_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Azimuth_Brakes_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Oil_Pressure_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Azimuth_Brake_Bypass_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Pedestal_Switch_Disabled_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Temperature_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Fans_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Brakes_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Stowed_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Brake_Bypass_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Antenna_Door_Open_Fault>", FALSE, ""},
+  { "<SpolAntennaStatus><Elevation_Limit_Fault>", FALSE, ""},
+  { "<SpolTemperatures><Klystron_Temperature>", FALSE, ""},
+  { "<SpolTemperatures><SCC>", FALSE, ""},
+  { "<SpolTemperatures><Annex>", FALSE, ""},
+  { "<AntennaMovement><AntennaIsMoving>", FALSE, ""}
+};
+
+//======================================================================
+//
+// OUTPUT DETAILS.
+//
+//======================================================================
+ 
+///////////// add_commented_header ////////////////////
+//
+// If true, write a commented header at the start of the output.
+// Type: boolean
+//
+
+add_commented_header = TRUE;
+
+///////////// comment_character ///////////////////////
+//
+// Character at start of comment lines.
+// Each comment line will be start with this character.
+// Type: string
+//
+
+comment_character = "#";
+
+///////////// column_delimiter ////////////////////////
+//
+// Delimiter between columns.
+// Type: string
+//
+
+column_delimiter = ",";
+
+///////////// convert_boolean_to_integer //////////////
+//
+// If true, a 'false' value will be converted to 0, and a 'true' value 
+//   to 1.
+// Type: boolean
+//
+
+convert_boolean_to_integer = TRUE;
+

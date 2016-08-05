@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/alg/params
+
+running "Titan -params Titan.sband"
+if ($status == 1) then
+  Titan -params Titan.sband -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Titan -i sband &
+endif
+

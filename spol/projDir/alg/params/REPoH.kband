@@ -1,0 +1,1119 @@
+/**********************************************************************
+ * TDRP params for FiltAlgParams
+ **********************************************************************/
+
+//======================================================================
+//
+// FiltAlg.
+//
+// This program does generic and general algorithm data filtering.
+//
+//======================================================================
+ 
+///////////// instance ////////////////////////////////
+//
+// instance.
+// for PMU.
+// Type: string
+//
+
+instance = "kband";
+
+///////////// debug_mode //////////////////////////////
+//
+// debugging mode.
+// NONE=as quiet as possible, DEBUG = minimal debug output, 
+//   DEBUG_VERBOSE=more.
+//
+// Type: enum
+// Options:
+//     NONE
+//     DEBUG
+//     DEBUG_VERBOSE
+//
+
+debug_mode = DEBUG;
+
+///////////// debug_triggering ////////////////////////
+//
+// triggering debug.
+// set to TRUE to debug triggering.
+// Type: boolean
+//
+
+debug_triggering = TRUE;
+
+///////////// realtime ////////////////////////////////
+//
+// realtime.
+// Type: boolean
+//
+
+realtime = TRUE;
+
+///////////// max_wait_minutes ////////////////////////
+//
+// max wait.
+// maximum wait time (minutes) for realtime=TRUE and multiple input 
+//   URLs. Not used in archive mode.
+// Type: double
+//
+
+max_wait_minutes = 1;
+
+///////////// read_tolerance_seconds //////////////////
+//
+// read_tolerance_seconds.
+// maximum allowed difference (seconds) between read request time and 
+//   data time.
+// Type: int
+//
+
+read_tolerance_seconds = 120;
+
+///////////// trigger_url /////////////////////////////
+//
+// trigger url.
+// URL to trigger off.
+// Type: string
+//
+
+trigger_url = "mdvp:://localhost::mdv/radial/moments/sband/sur";
+
+///////////// min_gate_index //////////////////////////
+//
+// min gate index.
+// sometimes the data is bad too close to radar. Don't include data this 
+//   close or closer in computations. Set to -1 for no effect.
+// Type: int
+//
+
+min_gate_index = -1;
+
+///////////// output_url //////////////////////////////
+//
+// output for Algorithm MDV (grids).
+// Type: string
+//
+
+output_url = "mdvp:://localhost::mdv/radial/repoh/rh/sur";
+
+///////////// output_spdb /////////////////////////////
+//
+// output for Algorithm SPDB (1d data).
+// Type: string
+//
+
+output_spdb = "spdbp:://localhost::spdb/repoh";
+
+///////////// filter //////////////////////////////////
+//
+// Filters to apply.
+// field = name of input field to the filter
+// is_input_field = TRUE if field is an actual input FALSE if an 
+//   upstream filters output
+// write_output_field=TRUE to write output field to MDV file, FALSE to 
+//   keep it only as a passthrough to downstream filters
+// filter = The filter to apply
+// filter_index = index into an array of params for that filter type 
+//   (below)
+// app_filter_name = name of filter when type = APPFILTER, empty if not.
+//
+// Type: struct
+//   typedef struct {
+//      string field;
+//      boolean is_input_field;
+//      boolean write_output_field;
+//      string output_field;
+//      filter_t filter;
+//        Options:
+//          ELLIP
+//          DILATE
+//          MEDIAN
+//          SDEV
+//          TEXTURE_X
+//          TEXTURE_Y
+//          REMAP
+//          MAX
+//          AVERAGE
+//          PRODUCT
+//          CLUMP
+//          FULL_MEAN
+//          FULL_SDEV
+//          FULL_MEDIAN
+//          VERT_AVERAGE
+//          VERT_MAX
+//          VERT_PRODUCT
+//          WEIGHTED_SUM
+//          NORM_WEIGHTED_SUM
+//          MASK
+//          DB2LINEAR
+//          LINEAR2DB
+//          PASSTHROUGH
+//          APPFILTER
+//      int filter_index;
+//      string app_filter_name;
+//   }
+//
+// 1D array - variable length.
+//
+
+filter = {
+  {
+    field = "pid",
+    is_input_field = TRUE,
+    write_output_field = TRUE,
+    output_field = "humidity",
+    filter = APPFILTER,
+    filter_index = 0,
+    app_filter_name = "HUMIDITY"
+  }
+};
+
+///////////// input ///////////////////////////////////
+//
+// input fields.
+// The fields read in externally
+// name = name used in filtering as input
+// url = where the data is
+// field = field name within this data.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      string url;
+//      string field;
+//   }
+//
+// 1D array - variable length.
+//
+
+input = {
+  {
+    name = "snoise",
+    url = "mdvp:://localhost::mdv/radial/repoh/sband/sur",
+    field = "SNRHC_F"
+  }
+  ,
+  {
+    name = "sdbz",
+    url = "mdvp:://localhost::mdv/radial/repoh/sband/sur",
+    field = "DBZ_F"
+  }
+  ,
+  {
+    name = "szdr",
+    url = "mdvp:://localhost::mdv/radial/repoh/sband/sur",
+    field = "ZDR_F"
+  }
+  ,
+  {
+    name = "srhohv",
+    url = "mdvp:://localhost::mdv/radial/repoh/sband/sur",
+    field = "RHOHV"
+  }
+  ,
+  {
+    name = "knoise",
+    url = "mdvp:://localhost::mdv/radial/repoh/kband/sur",
+    field = "SNRHC"
+  }
+  ,
+  {
+    name = "kdbz",
+    url = "mdvp:://localhost::mdv/radial/repoh/kband/sur",
+    field = "DBZ"
+  }
+  ,
+  {
+    name = "pid",
+    url = "mdvp:://localhost::mdv/radial/repoh/pid/sur",
+    field = "PID"
+  }
+};
+
+///////////// vlevel //////////////////////////////////
+//
+// vlevel range.
+// range of radar vertical levels to use from input data (degrees). If 
+//   either value < 0, then use all radar vertical levels in the input.
+// Type: double
+// 1D array - fixed length - 2 elements.
+//
+
+vlevel = {
+ -1,
+ -1
+};
+
+///////////// vlevel_tolerance ////////////////////////
+//
+// vlevel tolerance.
+// maximum allowed difference (vlevel units within MDV) between inputs.
+// Type: double
+//
+
+vlevel_tolerance = 0.1;
+
+///////////// parm_2d /////////////////////////////////
+//
+// list of 2d filter params.
+// nr = number of radial points
+// ntheta = number of azimuthal points
+// filters that are 2d are:  ELLIP, DILATE SDEV TEXTURE_X TEXTURE_Y.
+//
+// Type: struct
+//   typedef struct {
+//      int nr;
+//      int ntheta;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_2d = {
+};
+
+///////////// parm_2d_median //////////////////////////
+//
+// list of 2d median filter params.
+// nr = number of radial points
+// ntheta = number of azimuthal points
+// bin_min = minimum data bin value
+// bin_max = maximum data bin value
+// bin_delta = bin delta value resolution
+// filters that are 2d are:  MEDIAN.
+//
+// Type: struct
+//   typedef struct {
+//      int nr;
+//      int ntheta;
+//      double bin_min;
+//      double bin_max;
+//      double bin_delta;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_2d_median = {
+};
+
+///////////// parm_combine ////////////////////////////
+//
+// filters for combining.
+// For AVERAGE, PRODUCT, MAX, WEIGHTED_SUM, NORM_WEIGHTED_SUM
+// input_weight = main input weight, when WEIGHTED_SUM or 
+//   NORM_WEIGHTED_SUM
+// combine_index = index into combine arrays below.
+//
+// Type: struct
+//   typedef struct {
+//      double input_weight;
+//      int combine_index;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_combine = {
+};
+
+///////////// parm_Scalar /////////////////////////////
+//
+// list of scalar filter params.
+// rLwr     = lower bound of radials to calculate scalar statistic over
+// rUpr     = upper bound of radials to calculate scalar statistic over
+// thetaLwr = lower bound of aziumuths to calculate scalar statistic 
+//   over
+// thetaUpr = upper bound of aziumuths to calculate scalar statistic 
+//   over
+// filters that are Scalr are:  FULL_MEAN, FULL_SDEV, FULL_MEDIAN.
+//
+// Type: struct
+//   typedef struct {
+//      int rLwr;
+//      int rUpr;
+//      int thetaLwr;
+//      int thetaUpr;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_Scalar = {
+};
+
+///////////// parm_dummy //////////////////////////////
+//
+// params for filters with no params.
+// dummy    = placeholder. 
+// filts with no parms: VERT_AVERAGE, VERT_MAX, VERT_PRODUCT
+//                      DB2LINEAR, LINEAR2DB, PASSTHROUGH.
+//
+// Type: struct
+//   typedef struct {
+//      int dummy;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_dummy = {
+};
+
+///////////// parm_mask ///////////////////////////////
+//
+// MASK filter params.
+// mask_name = name of mask field
+// mask_is_input = TRUE if this is an input to the program, FALSE if 
+//   derived within the program
+// mask_list_index = index to list of mask ranges below.
+//
+// Type: struct
+//   typedef struct {
+//      string mask_name;
+//      boolean mask_is_input;
+//      int mask_list_index;
+//   }
+//
+// 1D array - variable length.
+//
+
+parm_mask = {
+};
+
+//======================================================================
+//
+// Fuzzy Function params.
+//
+//  Used internally for various filters, and for REMAP filter
+//  index 0 up to 11, each one has any number of :
+//    x = fuzzy x value
+//    y = fuzzy y value.
+//
+//======================================================================
+ 
+///////////// fuzzy0 //////////////////////////////////
+//
+// 0 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy0 = {
+};
+
+///////////// fuzzy1 //////////////////////////////////
+//
+// 1 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy1 = {
+};
+
+///////////// fuzzy2 //////////////////////////////////
+//
+// 2 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy2 = {
+};
+
+///////////// fuzzy3 //////////////////////////////////
+//
+// 3 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy3 = {
+};
+
+///////////// fuzzy4 //////////////////////////////////
+//
+// 4 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy4 = {
+};
+
+///////////// fuzzy5 //////////////////////////////////
+//
+// 5 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy5 = {
+};
+
+///////////// fuzzy6 //////////////////////////////////
+//
+// 6 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy6 = {
+};
+
+///////////// fuzzy7 //////////////////////////////////
+//
+// 7 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy7 = {
+};
+
+///////////// fuzzy8 //////////////////////////////////
+//
+// 8 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy8 = {
+};
+
+///////////// fuzzy9 //////////////////////////////////
+//
+// 9 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy9 = {
+};
+
+///////////// fuzzy10 /////////////////////////////////
+//
+// 10 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy10 = {
+};
+
+///////////// fuzzy11 /////////////////////////////////
+//
+// 11 fuzzy f.
+//
+// Type: struct
+//   typedef struct {
+//      double x;
+//      double y;
+//   }
+//
+// 1D array - variable length.
+//
+
+fuzzy11 = {
+};
+
+//======================================================================
+//
+// Combine params.
+//
+//  for filters AVERAGE, PRODUCT, MAX, WEIGHTED_SUM, NORM_WEIGHTED_SUM
+//  index 0 up to 5, each one has any number of :
+//    name = data name
+//    is_input = TRUE if the input is an original input
+//    weight = weight for WEIGHTED_SUM and NORM_WEIGHTED_SUM.
+//
+//======================================================================
+ 
+///////////// combine0 ////////////////////////////////
+//
+// 0 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine0 = {
+};
+
+///////////// combine1 ////////////////////////////////
+//
+// 1 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine1 = {
+};
+
+///////////// combine2 ////////////////////////////////
+//
+// 2 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine2 = {
+};
+
+///////////// combine3 ////////////////////////////////
+//
+// 3 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine3 = {
+};
+
+///////////// combine4 ////////////////////////////////
+//
+// 4 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine4 = {
+};
+
+///////////// combine5 ////////////////////////////////
+//
+// 5 combine params.
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      boolean is_input;
+//      double weight;
+//   }
+//
+// 1D array - variable length.
+//
+
+combine5 = {
+};
+
+///////////// mask_range0 /////////////////////////////
+//
+// 0 mask_range params.
+//
+// Type: struct
+//   typedef struct {
+//      double mask_min;
+//      double mask_max;
+//   }
+//
+// 1D array - variable length.
+//
+
+mask_range0 = {
+};
+
+///////////// mask_range1 /////////////////////////////
+//
+// 1 mask_range params.
+//
+// Type: struct
+//   typedef struct {
+//      double mask_min;
+//      double mask_max;
+//   }
+//
+// 1D array - variable length.
+//
+
+mask_range1 = {
+};
+
+///////////// mask_range2 /////////////////////////////
+//
+// 2 mask_range params.
+//
+// Type: struct
+//   typedef struct {
+//      double mask_min;
+//      double mask_max;
+//   }
+//
+// 1D array - variable length.
+//
+
+mask_range2 = {
+};
+
+/**********************************************************************
+ * TDRP params for Params
+ **********************************************************************/
+
+//======================================================================
+//
+// REPoH.
+//
+// Radar Estimated Profiles of Humidity. Input is PID and radar data, 
+//   output is humidity and attenutation grids, and ascii data.
+//
+//======================================================================
+ 
+///////////// s_noise_name ////////////////////////////
+//
+// s_noise_name.
+// S band radar noise field name in incoming data.
+// Type: string
+//
+
+s_noise_name = "snoise";
+
+///////////// k_noise_name ////////////////////////////
+//
+// k_noise_name.
+// K band radar noise field name in incoming data.
+// Type: string
+//
+
+k_noise_name = "knoise";
+
+///////////// s_dbz_name //////////////////////////////
+//
+// s_dbz_name.
+// S band DBZ field name in incoming data.
+// Type: string
+//
+
+s_dbz_name = "sdbz";
+
+///////////// k_dbz_name //////////////////////////////
+//
+// k_dbz_name.
+// K band DBZ field name in incoming data.
+// Type: string
+//
+
+k_dbz_name = "kdbz";
+
+///////////// s_zdr_name //////////////////////////////
+//
+// s_zdr_name.
+// S band ZDR field name.
+// Type: string
+//
+
+s_zdr_name = "szdr";
+
+///////////// s_rhohv_name ////////////////////////////
+//
+// s_rhohv_name.
+// S band RHOHV field name.
+// Type: string
+//
+
+s_rhohv_name = "srhohv";
+
+///////////// unfiltered_kernel_ascii_path ////////////
+//
+// location for output ascii unfilterd kernel files.
+// empty for none.
+// Type: string
+//
+
+unfiltered_kernel_ascii_path = "$(DATA_DIR)/repoh/ascii/unfiltered";
+
+///////////// filtered_kernel_ascii_path //////////////
+//
+// location for output ascii filterd kernel files.
+// empty for none.
+// Type: string
+//
+
+filtered_kernel_ascii_path = "$(DATA_DIR)/repoh/ascii/filtered";
+
+///////////// kernel_spdb_url /////////////////////////
+//
+// kernel_spdb_url.
+// url name to which unfiltered (all) kernel spdb GenPoly data is 
+//   written. Each vertical level index gets a subdirectory, so the 5th 
+//   vertical level is writen to kernel_url/vlevel_5  for example. Leave 
+//   this URL string empty for no SPDB output.
+// Type: string
+//
+
+kernel_spdb_url = "spdbp:://localhost::spdb/repoh/kernel";
+
+///////////// kernel_outside_spdb_url /////////////////
+//
+// kernel_outside_spdb_url.
+// url name to which unfiltered 'outside kernel' spdb GenPoly data is 
+//   written, subdirectories same as for kernel_url. Also, set to empty 
+//   string for no output.
+// Type: string
+//
+
+kernel_outside_spdb_url = "spdbp:://localhost::spdb/repoh/kernel_out";
+
+///////////// filtered_kernel_spdb_url ////////////////
+//
+// filtered_kernel_spdb_url.
+// url to which filtered kernel spdb GenPoly data is written, with 
+//   subdirs the same as other for other products. Empty for none.
+// Type: string
+//
+
+filtered_kernel_spdb_url = "spdbp:://localhost::spdb/repoh/fkernel";
+
+///////////// filtered_kernel_outside_spdb_url ////////
+//
+// filtered_kernel_outside_spdb_url.
+// url name to which filtered 'outside kernel' spdb GenPoly data is 
+//   written, subdirs same as others. Set to empty string for no output.
+// Type: string
+//
+
+filtered_kernel_outside_spdb_url = "spdbp:://localhost::spdb/repoh/fkernel_out";
+
+///////////// s_noise_thresh //////////////////////////
+//
+// s_noise_thresh.
+// S band noise threshold.
+// Type: double
+//
+
+s_noise_thresh = -112;
+
+///////////// k_noise_thresh //////////////////////////
+//
+// k_noise_thresh.
+// K band noise threshold.
+// Type: double
+//
+
+k_noise_thresh = -102;
+
+///////////// min_km //////////////////////////////////
+//
+// min_km.
+// minimium length (km) of the attenuation region along a beam.
+// Type: double
+//
+
+min_km = 15;
+
+///////////// max_km_penetration //////////////////////
+//
+// max_km_penetration.
+// maximum (km) penetration into a (clump) cloud to reach the kernel 
+//   compared to the (pid clump) edge before rejecting a kernel.
+// Type: double
+//
+
+max_km_penetration = 1;
+// max_km_penetration = 0.5;
+
+///////////// k_dbz_offset ////////////////////////////
+//
+// k_dbz_offset.
+// systematic bias in K band DBZ, added to data.
+// Type: double
+//
+
+k_dbz_offset = 0;
+
+///////////// pid_non_weather /////////////////////////
+//
+// pid_non_weather.
+// PID values that are not interesting weather. As many as you want.
+// Type: int
+// 1D array - variable length.
+//
+
+pid_non_weather = {
+ 15,
+ 16,
+ 17
+};
+
+///////////// pid_weather /////////////////////////////
+//
+// pid_weather.
+// PID values for interesting weather, as many as you want.
+// Type: int
+// 1D array - variable length.
+//
+
+pid_weather = {
+ 1,
+ 2,
+ 3,
+ 4
+};
+
+///////////// pid_clump ///////////////////////////////
+//
+// pid_clump.
+// PID values for clumping.
+// Type: int
+// 1D array - variable length.
+//
+
+pid_clump = {
+ 2,
+ 3,
+ 4,
+ 5,
+ 6,
+ 7,
+ 8,
+ 9
+};
+
+///////////// clump_min_npt ///////////////////////////
+//
+// clump_min_npt.
+// Minimum number of gridpts in a clump, smaller clumps are ignored.
+// Type: int
+//
+
+clump_min_npt = 10;
+
+///////////// min_kernel_size /////////////////////////
+//
+// min_kernel_size.
+// Minimum number of gridpts in a kernel.
+// Type: int
+//
+
+min_kernel_size = 15;
+
+///////////// max_kernel_size /////////////////////////
+//
+// max_kernel_size.
+// Maximum number of gridpts in a kernel.
+// Type: int
+//
+
+max_kernel_size = 22;
+
+///////////// min_mean_s_dbz //////////////////////////
+//
+// min_mean_s_dbz.
+// minimum mean S band DBZ in a kernel to keep it.
+// Type: double
+//
+
+min_mean_s_dbz = 5;
+//min_mean_s_dbz = 10;
+
+///////////// min_s_dbz_kernel_non_kernel_diff ////////
+//
+// min_s_dbz_kernel_non_kernel_diff.
+// minimum diffence between average S bad DBZ within the kernel compared 
+//   to outside the kernel.
+// Type: double
+//
+
+// min_s_dbz_kernel_non_kernel_diff = 9;
+min_s_dbz_kernel_non_kernel_diff = 12;
+
+///////////// max_s_dbz_kernel_diff ///////////////////
+//
+// max_s_dbz_kernel_diff.
+// maximum differnce between min and max dbz in a kernel.
+// Type: double
+//
+
+max_s_dbz_kernel_diff = 50;
+
+///////////// dbz_diff_threshold //////////////////////
+//
+// max_dbz_kernel_diff.
+// maximum allowed difference between s/k band dbz differences in a 
+//   kernel.
+// Type: double
+//
+
+dbz_diff_threshold = 10;
+
+///////////// max_D0 //////////////////////////////////
+//
+// max_D0.
+// maximum D0 value (mm).
+// Type: double
+//
+
+max_D0 = 0.5;
+
+///////////// min_S_K_dbz_correlation /////////////////
+//
+// min_S_K_dbz_correlation.
+// minimum correlation between the S band and Kband reflectivities 
+//   within the kernel.
+// Type: double
+//
+
+min_S_K_dbz_correlation = 0.7;
+
+///////////// leading_edge_depth //////////////////////
+//
+// depth of leading edge.
+// # of gates in the leading edge data.
+// Type: double
+//
+
+// leading_edge_depth = 10;
+leading_edge_depth = 5;
+
+///////////// mask ////////////////////////////////////
+//
+// masked regions.
+// mask out a range of azimuth and radius values (degrees/km) for a 
+//   range of elevation angle. All data beteween elevation0 and elevation 
+//   1 between azimuth0 and azimuth1 and between range0 and range1 is 
+//   excluded. Azimuths should be between 0 and 359 and are degrees 
+//   clockwise from north.
+//
+// Type: struct
+//   typedef struct {
+//      double elevation0;
+//      double elevation1;
+//      double azimuth0;
+//      double azimuth1;
+//      double range0;
+//      double range1;
+//   }
+//
+// 1D array - variable length.
+//
+
+mask = {
+ { 0.0, 25.0, 287.0, 300.0, 1.0, 75.0 },
+ { 0.45, 1.55, 150.0, 355.0, 1.0, 75.0 },
+ { 2.45, 2.55, 284.0, 305.0, 1.0, 75.0 },
+ { 0.45, 0.55, 90.0, 105.0, 1.0, 75.0 }
+};
+
+///////////// kernel_debug ////////////////////////////
+//
+// debug kernel.
+// extra kernel debugging for a particular range of values.
+//
+// Type: struct
+//   typedef struct {
+//      double elevation0;
+//      double elevation1;
+//      double azimuth0;
+//      double azimuth1;
+//      double range0;
+//      double range1;
+//   }
+//
+// 1D array - variable length.
+//
+
+kernel_debug = {
+};
+

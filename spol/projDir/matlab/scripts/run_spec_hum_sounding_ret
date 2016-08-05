@@ -1,0 +1,7 @@
+#! /bin/csh
+
+$PROJ_DIR/matlab/scripts/repoh/spec_hum_sounding_ret \
+    |& LogFilter -d $ERRORS_LOG_DIR -p spec_hum_sounding_ret >& /dev/null &
+
+
+

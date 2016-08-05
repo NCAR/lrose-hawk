@@ -1,0 +1,154 @@
+Controlling data distribution using the dist_host_list files
+------------------------------------------------------------
+
+Mike Dixon
+
+Purpose.
+--------
+
+To describe the role of the dist_host_list files in data distribution.
+
+Data distribution mechanism
+---------------------------
+
+There are 2 applications which distribute the data between hosts:
+
+  DsFileDist
+  DsSpdbServer
+
+See docs/html/distributing_data.html for details on how the data
+distribution mechanism works.
+
+Parameter files for data distribution.
+--------------------------------------
+
+Both DsFileDist and DsSpdbServer use parameter files in the data
+directory to control distribution. These files are named:
+
+  _DsFileDist
+  _DsSpdbServer.distrib
+
+In these parameter files, you will find the following parameters:
+(the values here are examples)
+
+  ///////////// use_dest_host_list_file /////////////////
+  //
+  // Use host list in the file to create the destination urls.
+  // The host list file contains a list of destination hosts. Each entry 
+  //   in this list is merged with the url_template to create a list of 
+  //   destination urls.
+  // Type: boolean
+  //
+
+  use_dest_host_list_file = TRUE;
+
+  ///////////// dest_host_list_file_path ////////////////
+  //
+  // Path for destination host list file.
+  // Only used if parameter 'use_dest_host_list_file' is TRUE.
+  // Type: string
+  //
+
+  dest_host_list_file_path = "$(RAP_DATA_DIR)_distHostList";
+
+  ///////////// dest_url_list ///////////////////////////
+  //
+  // Specified URL list for destination hosts.
+  // This is only used if parameter 'use_dest_host_list_file' is FALSE. 
+  //   The files will be distributed to this list of hosts. The protocol 
+  //   should match that expected by the ServerMgr for the DsFileCopy 
+  //   service. If the directory part of a URL is empty, the file is copied 
+  //   to the same directory on the target host, relative to RAP_DATA_DIR or 
+  //   DATA_DIR.
+  // Type: string
+  // 1D array - variable length.
+  //
+
+  // for DsFileDist
+
+  dest_url_list = {
+    "fcopyp:://tamc-cdfsv1::",
+    "fcopyp:://tamc-cdfsv2::"
+  };
+
+  // or for DsSpdbServer
+
+  dest_url_list = {
+    "spdbp:://tamc-data1::",
+    "spdbp:://tamc-data2::"
+  };
+
+For some data sets the hosts are listed in the _distHostList file, and
+for some the hosts are listed explicitly in the param file, using the
+dest_url_list parameter. In the latter case, the _distHostList file is
+ignored.
+
+Format of the the _distHostList file.
+-------------------------------------
+
+The file contains a list of hosts, one per line.
+Comments start with '#'.
+
+For example:
+
+  #########################
+  # Distribution hosts
+  #
+  localhost
+  tamc-mds1
+  tamc-mds2
+  tamc-mds3
+  tamc-webcontent
+  sswx-mds1
+  ssfis-mds1
+  tacc-mds1
+  cksrd-mds1
+  khfisi-mds1
+  caf-mds1
+
+Installation of the _distHostList file.
+---------------------------------------
+
+At installation time, the _distHostList file is created as follows:
+
+
+Step 1. Use data directory.
+
+If a _distHostList file exists in the data tree for the specified role,
+it is copied in.
+
+For example, for the 'vppserver' role the file:
+
+  rte/data_dirs/data.vppserver/_distHostList
+
+is copied into $RAP_DATA_DIR/_distHostList.
+
+
+Step 2. Use AOAWS host name.
+
+The install script then looks in:
+
+  rte/system/distHostList
+
+If a file exists which matches the 'aoaws host name', it is copied over
+$RAP_DATA_DIR/_distHostList.
+
+Note that the aoaws host name is returned by the script get_aoaws_hostname.
+The allows us to take aliases into account.
+
+
+Step 3. Use lab host name.
+
+The install script then looks again in:
+
+  rte/system/distHostList
+
+If a file exists which matches the ACTUAL host name, it is copied over
+$RAP_DATA_DIR/_distHostList.
+
+This allows us to insert files specific to the lab simulation setup, 
+rather than the field setup.
+
+
+
+

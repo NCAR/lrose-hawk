@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rvp8/params
+
+running "Rvp8Driver -instance ops"
+if ($status == 1) then
+  Rvp8Driver -instance ops -xml Rvp8Driver.startup.xml |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rvp8Driver -i ops &
+endif
+

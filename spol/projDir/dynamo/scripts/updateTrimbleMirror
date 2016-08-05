@@ -1,0 +1,23 @@
+#!/bin/csh
+#
+# Mirror all Trimble GPS raw data files (with T00, T01, or T02 extensions) from 
+# the ftp server on the Trimble at 192.168.4.100.
+
+# Create a file with the lftp commands to mirror the stuff we want from the
+# Trimble.
+set lftp_cmdfile = "/tmp/lftp_cmds"
+cat > $lftp_cmdfile << _EOF_
+open 192.168.4.100
+user admin dynamo
+# Mirror all files under Internal with T00, T01, and T02 extensions
+cd Internal
+# The --ignore-time below gets us correct file times on this side. Without it,
+# we get file times that are off by about 10 years. Not sure why...
+mirror --ignore-time --verbose --no-empty-dirs --no-perms -I "*.T0[012]" . .
+bye
+_EOF_
+
+# Change directory to the base of our mirror and execute lftp to update it.
+cd ~operator/projDir/data/raw/trimble
+lftp -f $lftp_cmdfile 
+

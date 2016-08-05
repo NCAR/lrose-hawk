@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/display/params
+
+running "LdataWatcher -params LdataWatcher.snapshot_BrisMerge"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.snapshot_BrisMerge |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i snapshot_BrisMerge &
+endif
+

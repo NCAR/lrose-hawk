@@ -1,0 +1,187 @@
+Howto file for plotting sounding time series
+--------------------------------------------
+
+Mike Dixon
+Dec 2011
+
+NOTE: scripts are in
+
+  ~/projDir/matlab/scripts
+
+1. cron script
+--------------
+
+cron calls the csh script
+
+  run_plot_sounding_timeseries
+
+which then calls
+
+  plot_sounding_timeseries
+
+and pipes the output to the log file:
+
+  ~/projDir/logs/errors/today/plot_sounding_timeseries.log
+
+2. plot_sounding_timeseries
+---------------------------
+
+This is a csh script. It creates plots for all of the stations,
+for the period from some specified start time to yesterday.
+
+(a) run Xvfb as display :6.0
+
+    set DISPLAY to :6.0
+
+so that matlab can run in the background.
+
+(b) rsync netcdf sounding data from pgen to sci3
+
+The netcdf data directories are:
+
+  ~/projDir/data/matlab/sounding/gan/nc_data/
+  ~/projDir/data/matlab/sounding/diego/nc_data/
+  ~/projDir/data/matlab/sounding/male/nc_data/
+  ~/projDir/data/matlab/sounding/revelle/nc_data/
+
+(c) call the python script plotSoundingTimeseries.py, for each site:
+
+    gan
+    diego
+    male
+    revelle
+
+(d) kill Xvfb
+
+3. plotSoundingTimeseries.py
+----------------------------
+
+This is a python script to plot timeseries for a give station
+and given time period.
+
+(a) Create .mat files.
+
+For each NetCdf file, search for a corresponding matlab .mat file.
+If the file does not exist, create it.
+
+(b) Create combined .mat files.
+
+Combine the .mat files into a single matlab file, one for each site.
+
+Call the matlab script:
+
+  combine_mat(siteDataDir, combinedMatFilePath, ncFileList)
+
+The list of netcdf files is passed to matlab as a comma-delimited string.
+
+(c) Create the plots:
+
+For each site, call the matlab script :
+
+  do_timeseries_plots(combinedMatFile, siteName, endDate, outputDir)
+
+to create the images.
+
+4. convert_nc_to_mat.m
+----------------------
+
+(a) Reads in a netCdf sounding file.
+
+(b) Writes out a corresponding .mat file.
+
+The .mat files are written to the following directories:
+
+  ~/projDir/data/matlab/sounding/gan/matfiles/
+  ~/projDir/data/matlab/sounding/diego/matfiles/
+  ~/projDir/data/matlab/sounding/male/matfiles/
+  ~/projDir/data/matlab/sounding/revelle/matfiles/
+
+The variables saved are:
+
+  'ncFilePath', 'matFilePath',
+  'P', 'T', 'Td', 'rh',
+  'u', 'v', 'wind','winddir', 'hgt',
+   'rho', 'esat', 'abshum'
+
+5. combine_mat.m
+----------------
+
+(a) Read in all .mat files for the time period.
+
+(b) Create a list of fileDates, which store the Julian day
+    for each sounding. This is determined from the file name.
+
+(c) Create a combined matlab data file, containing data from all of
+the input .mat files.
+
+Map the data onto 200 vertical levels, from 0 to 20 km in 0.1 km steps.
+
+Write out the following variables:
+
+     'numFiles', 'fileDates',
+     'maxHeight', 'nLevels',
+     'ahum', 'arh', 'frdiff', 'amwind',
+     'amresid', 'azwind', 'azresid', 'tresid'
+
+The combined .mat data files created are:
+
+  ~/projDir/data/matlab/sounding/gan/combined.mat
+  ~/projDir/data/matlab/sounding/diego/combined.mat
+  ~/projDir/data/matlab/sounding/male/combined.mat
+  ~/projDir/data/matlab/sounding/revelle/combined.mat
+
+6. do_timeseries_plots.m
+------------------------
+
+(a) Read in combined .mat file
+
+(b) Fill in missing times with NaNs:
+
+Inspect file dates, looing for periods of more than 7 hours
+without valid data.
+
+For those periods, fill in data with Nans.
+
+(c) For each output field, call do_timeseries_plot.m.
+
+7. do_timeseries_plot.m
+-----------------------
+
+(a) Plot data using surfc() - 2-D surface plotting funciton.
+
+(b) Convert to 2-D view.
+
+(c) Label x axis with dates.
+
+(d) Label Y axis with height.
+
+(e) Save .png images to:
+
+  ~/projDir/data/matlab/catalogimages/gan/yyyymmdd
+  ~/projDir/data/matlab/catalogimages/diego/yyyymmdd
+  ~/projDir/data/matlab/catalogimages/male/yyyymmdd
+  ~/projDir/data/matlab/catalogimages/revelle/yyyymmdd
+
+where yyyymmdd is the end date for the analysis period.
+
+8. Send data to catalog
+-----------------------
+
+(a) InputWatcher.matlab_sci3
+
+InputWatcher sees files arriving, writes _latest_data_info files into
+
+  ~/projDir/data/matlab/catalogimages
+
+(b) LdataWatcher.matlab_sci3
+
+LdataWatcher sees _latest_data_info update, and calls the
+
+  ~/projDir/dynamo/scripts/putMatlabResultsToCatalog.py
+
+python script which puts the files to the catalog.
+
+
+
+
+

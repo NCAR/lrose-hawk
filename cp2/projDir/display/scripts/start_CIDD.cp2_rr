@@ -1,0 +1,11 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST cp2server
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.cp2_rr -i cp2 -fn fixed |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CIDD -i cp2 &
+

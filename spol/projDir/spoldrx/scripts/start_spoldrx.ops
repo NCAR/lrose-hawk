@@ -1,0 +1,16 @@
+#! /bin/csh
+
+cd $PROJ_DIR/spoldrx/params
+
+running "spoldrx -params spoldrx.ops"
+if ($status == 0) then
+    exit 0
+endif
+
+snuff_slow spoldrx
+
+# run_fpgaload
+
+spoldrx -params spoldrx.ops --debug all |& \
+    LogFilter -d $ERRORS_LOG_DIR -p spoldrx -i ops &
+

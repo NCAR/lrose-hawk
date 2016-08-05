@@ -1,0 +1,14 @@
+#! /bin/csh
+
+Mdv2ZebraNetCDF -params ~/projDir/zebra/params/tmp/Mdv2ZebraNetCDF.moments.sband.sur \
+    -debug -f ~/projDir/data/mdv/cart/moments/sband/sur/2011*/*mdv
+
+Mdv2ZebraNetCDF -params ~/projDir/zebra/params/tmp/Mdv2ZebraNetCDF.moments.sband.rhi \
+    -debug -f ~/projDir/data/mdv/cart/moments/sband/rhi/2011*/*mdv
+
+Mdv2ZebraNetCDF -params ~/projDir/zebra/params/tmp/Mdv2ZebraNetCDF.moments.kband.sur \
+    -debug -f ~/projDir/data/mdv/cart/moments/kband/sur/2011*/*mdv
+
+Mdv2ZebraNetCDF -params ~/projDir/zebra/params/tmp/Mdv2ZebraNetCDF.moments.kband.rhi \
+    -debug -f ~/projDir/data/mdv/cart/moments/kband/rhi/2011*/*mdv
+

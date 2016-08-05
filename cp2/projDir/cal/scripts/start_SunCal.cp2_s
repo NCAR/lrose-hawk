@@ -1,0 +1,9 @@
+#! /bin/csh
+
+cd $PROJ_DIR/cal/params
+
+running "SunCal -params SunCal.cp2_s"
+if ($status == 1) then
+  SunCal -params SunCal.cp2_s |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SunCal -i cp2_s &
+endif

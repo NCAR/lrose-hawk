@@ -1,0 +1,151 @@
+#! /bin/csh
+
+set echo
+
+cd $DATA_DIR/cfradial/moments/sband/sur/20111219
+mkdir bad_data
+mv cfrad.20111219_003527_568_SPOL_v11891_SUR.nc bad_data
+mv cfrad.20111219_005027_588_SPOL_v11894_SUR.nc bad_data
+mv cfrad.20111219_010527_526_SPOL_v11897_SUR.nc bad_data
+mv cfrad.20111219_012027_514_SPOL_v11900_SUR.nc bad_data
+
+cd $DATA_DIR/cfradial/moments/sband/rhi/20111219
+mkdir bad_data
+mv cfrad.20111219_003029_083_SPOL_v11890_RHI.nc bad_data
+mv cfrad.20111219_004447_707_SPOL_v11892_RHI.nc bad_data
+mv cfrad.20111219_004529_107_SPOL_v11893_RHI.nc bad_data
+mv cfrad.20111219_005947_732_SPOL_v11895_RHI.nc bad_data
+mv cfrad.20111219_010028_944_SPOL_v11896_RHI.nc bad_data
+mv cfrad.20111219_011447_580_SPOL_v11898_RHI.nc bad_data
+mv cfrad.20111219_011529_033_SPOL_v11899_RHI.nc bad_data
+mv cfrad.20111219_012947_656_SPOL_v11901_RHI.nc bad_data
+
+cd $DATA_DIR/cfradial/partrain/sband/sur/20111219
+mkdir bad_data
+mv cfrad.20111219_003527_568_SPOL_v11891_SUR.nc bad_data
+mv cfrad.20111219_005027_588_SPOL_v11894_SUR.nc bad_data
+mv cfrad.20111219_010527_526_SPOL_v11897_SUR.nc bad_data
+mv cfrad.20111219_012027_514_SPOL_v11900_SUR.nc bad_data
+
+cd $DATA_DIR/cfradial/partrain/sband/rhi/20111219
+mkdir bad_data
+
+mv cfrad.20111219_003029_083_SPOL_v11890_RHI.nc bad_data
+mv cfrad.20111219_004447_707_SPOL_v11892_RHI.nc bad_data
+mv cfrad.20111219_004529_107_SPOL_v11893_RHI.nc bad_data
+mv cfrad.20111219_005947_732_SPOL_v11895_RHI.nc bad_data
+mv cfrad.20111219_010028_944_SPOL_v11896_RHI.nc bad_data
+mv cfrad.20111219_011447_580_SPOL_v11898_RHI.nc bad_data
+mv cfrad.20111219_011529_033_SPOL_v11899_RHI.nc bad_data
+mv cfrad.20111219_012947_656_SPOL_v11901_RHI.nc bad_data
+
+
+cd $DATA_DIR/cfradial/covar/sband/sur/20111219
+mkdir bad_data
+mv cfrad.20111219_003538_098_SPOL_v11891_SUR.nc bad_data
+mv cfrad.20111219_005038_102_SPOL_v11894_SUR.nc bad_data
+mv cfrad.20111219_010537_964_SPOL_v11897_SUR.nc bad_data
+mv cfrad.20111219_012038_040_SPOL_v11900_SUR.nc bad_data
+
+cd $DATA_DIR/cfradial/covar/sband/rhi/20111219
+mkdir bad_data
+mv cfrad.20111219_003030_791_SPOL_v11890_RHI.nc bad_data
+mv cfrad.20111219_004447_946_SPOL_v11892_RHI.nc bad_data
+mv cfrad.20111219_004531_349_SPOL_v11893_RHI.nc bad_data
+mv cfrad.20111219_005947_966_SPOL_v11895_RHI.nc bad_data
+mv cfrad.20111219_010031_243_SPOL_v11896_RHI.nc bad_data
+mv cfrad.20111219_011447_809_SPOL_v11898_RHI.nc bad_data
+mv cfrad.20111219_011531_333_SPOL_v11899_RHI.nc bad_data
+mv cfrad.20111219_012947_879_SPOL_v11901_RHI.nc bad_data
+
+cd $DATA_DIR/mdv/radial/moments/sband/sur/20111219
+mkdir bad_data
+mv 003539.mdv bad_data
+mv 005039.mdv bad_data
+mv 010539.mdv bad_data
+mv 012039.mdv bad_data
+
+cd $DATA_DIR/mdv/radial/moments/sband/rhi/20111219
+mkdir bad_data
+mv 003031.mdv bad_data
+mv 004500.mdv bad_data
+mv 004531.mdv bad_data
+mv 010000.mdv bad_data
+mv 010031.mdv bad_data
+mv 011500.mdv bad_data
+mv 011531.mdv bad_data
+mv 013000.mdv bad_data
+
+cd $DATA_DIR/mdv/radial/partrain/sband/sur/20111219
+mkdir bad_data
+mv 003527.mdv bad_data
+mv 005027.mdv bad_data
+mv 010527.mdv bad_data
+mv 012027.mdv bad_data
+
+cd $DATA_DIR/mdv/radial/partrain/sband/rhi/20111219
+mkdir bad_data
+mv 003029.mdv bad_data
+mv 004447.mdv bad_data
+mv 004529.mdv bad_data
+mv 005947.mdv bad_data
+mv 010028.mdv bad_data
+mv 011447.mdv bad_data
+mv 011529.mdv bad_data
+mv 012947.mdv bad_data
+
+cd $DATA_DIR/mdv/cart/moments/sband/sur/20111219
+mkdir bad_data
+mv 003539.mdv bad_data
+mv 005039.mdv bad_data
+mv 010539.mdv bad_data
+mv 012039.mdv bad_data
+
+cd $DATA_DIR/mdv/cart/moments/sband/rhi/20111219
+mkdir bad_data
+mv 004500.mdv bad_data
+mv 010000.mdv bad_data
+mv 011500.mdv bad_data
+mv 013000.mdv bad_data
+
+cd $DATA_DIR/mdv/cart/partrain/sband/sur/20111219
+mkdir bad_data
+mv 003539.mdv bad_data
+mv 005039.mdv bad_data
+mv 010539.mdv bad_data
+mv 012039.mdv bad_data
+
+cd $DATA_DIR/mdv/cart/partrain/sband/rhi/20111219
+mkdir bad_data
+mv 004500.mdv bad_data
+mv 010000.mdv bad_data
+mv 011500.mdv bad_data
+mv 013000.mdv bad_data
+
+cd $DATA_DIR/zebra/moments/sband/sur/20111219
+mkdir bad_data
+mv spol.20111219.003539.nc bad_data
+mv spol.20111219.005039.nc bad_data
+mv spol.20111219.010539.nc bad_data
+mv spol.20111219.012039.nc bad_data
+
+cd $DATA_DIR/zebra/moments/sband/rhi/20111219
+mkdir bad_data
+mv spol.20111219.004500.nc bad_data
+mv spol.20111219.010000.nc bad_data
+mv spol.20111219.011500.nc bad_data
+mv spol.20111219.013000.nc bad_data
+
+cd $DATA_DIR/zebra/partrain/sband/sur/20111219
+mkdir bad_data
+mv spol.20111219.003539.nc bad_data
+mv spol.20111219.005039.nc bad_data
+mv spol.20111219.010539.nc bad_data
+mv spol.20111219.012039.nc bad_data
+
+cd $DATA_DIR/zebra/partrain/sband/rhi/20111219
+mkdir bad_data
+mv spol.20111219.004500.nc bad_data
+mv spol.20111219.010000.nc bad_data
+mv spol.20111219.011500.nc bad_data
+mv spol.20111219.013000.nc bad_data

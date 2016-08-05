@@ -1,0 +1,68 @@
+== HAWK checkout ==
+
+=== Introduction ===
+
+At present, HAWK is checked into the RAL CVS server. This applies to both the code and the system configuration and scripts.
+
+At some point, some or all of this project should be check into a repository at EOL.
+
+=== Setting CVSROOT ===
+
+Set up your CVSROOT to check out from RAL's CVS server.
+
+For example:
+
+{{{ 
+  setenv CVSROOT :pserver:dixon@cvs.rap.ucar.edu:/cvs
+}}}
+
+If you have forwarded CVS to the SPOL machines, and you are checking out on one of these, you can use something like:
+
+{{{
+  setenv CVSROOT :pserver:dixon@localhost:/cvs
+}}}
+
+In order to forward CVS from one host to another using ssh tunneling, use an alias something like:
+
+{{{
+ alias cvsforward 'ssh -a -x -C -R 2401:localhost:2401'
+}}}
+
+The cvsforward alias is included in the .cshrc file for HAWK.
+ 
+=== Check out the SPOL distribs directory ===
+
+{{{
+ mkdir cvs
+ cd cvs
+ cvs co distribs/spol
+}}}
+
+In the directory:
+
+{{{
+  cvs/distribs/spol/hawk
+}}}
+
+you will find the following checkout scripts:
+
+{{{
+  spol_display_checkout
+  spol_gate_checkout
+  spol_mgen_checkout
+  spol_pgen_checkout
+  spol_rvp8_checkout
+}}}
+
+=== Check out HAWK for your host type ===
+
+Check out HAWK using the checkout script for your selected host type.
+
+For example:
+
+{{{
+  cd cvs
+  ./distribs/spol/hawk/spol_mgen_checkout
+}}}
+
+will check out the system for the host type 'mgen'.

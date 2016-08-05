@@ -1,0 +1,121 @@
+/**********************************************************************
+ * TDRP params for MapCircles
+ **********************************************************************/
+
+//======================================================================
+//
+// MapCircles program.
+//
+// MapCircles creates a map file, with circles of a given radius around 
+//   a set of points. Map file data is written to stdout.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "brisbane";
+
+//======================================================================
+//
+// ARC SPECIFICATION.
+//
+//======================================================================
+ 
+///////////// map_file_header /////////////////////////
+//
+// String to go at the head of the map file as a comment.
+// Type: string
+//
+
+map_file_header = "Arcs around points.";
+
+///////////// n_arc_segments //////////////////////////
+//
+// Number of segments in the arc.
+// The arc is divided into this number of segments, and a point is 
+//   computed for the start of each segment.
+// Type: int
+//
+
+n_arc_segments = 360;
+
+///////////// arcs ////////////////////////////////////
+//
+// Array of points around which arcs should be placed.
+// The arcs are computed around each point at the given radius in km. If 
+//   a complete circle is required, set start_az_deg to 0 and end_az_deg 
+//   to 360.0. If a partial circle is required, set the start and end 
+//   azimuths accordingly. If the parial arc crosses north, set the 
+//   start_az_deg to a negative value. The arc is represented by a 
+//   poly-line with the specified number of segments.
+//
+// Type: struct
+//   typedef struct {
+//      string label;
+//      double center_lat;
+//      double center_lon;
+//      double start_az_deg;
+//      double end_az_deg;
+//      double radius_km;
+//      int n_segments;
+//   }
+//
+// 1D array - variable length.
+//
+
+// arcs = {
+//   { "OK-23nm", -27.4000, 151.7367, 208, 058.0, 42.595, 100}
+// };
+
+//  arcs = {
+//    { "OK-7nm", -27.4000, 151.7367, 0, 360.0, 12.96, 180}
+//  };
+
+// arcs = {
+//   { "Abm-43nm", -27.6483, 152.7233, 204, 322.5, 79.63, 50}
+// };
+
+// arcs = {
+//   { "BN-120DME", -27.3667, 153.1400, 215, 289.5, 222.24, 50}
+// };
+
+// arcs = {
+//   { "BN_arp-15nm", -27.3833, 153.1167, 0, 360, 27.77, 180}
+// };
+
+// arcs = {
+//   { "BN-30DME", -27.3667, 153.1400, 0, 360, 55.54, 180}
+// };
+
+arcs = {
+  { "CG-7DME", -28.1683, 153.5033, 292, 198, 12.96, 180},
+  { "CG-15DME", -28.1683, 153.5033, 317, 230, 27.78, 180},
+  { "CG-22DME", -28.1683, 153.5033, 090, 217.3, 40.74, 100},
+  { "CG-30DME", -28.1683, 153.5033, 090, 232, 55.56, 100}
+};
+

@@ -1,0 +1,15 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+Janitor       logs       start_Janitor.logs        kill_Janitor      localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+#
+###############################################################################
+# RVP8 processes
+#
+Rvp8Driver       ops       start_Rvp8Driver.ops        snuff_inst    localhost
+Rvp8TsTcpServer  ops       start_Rvp8TsTcpServer.ops   snuff_inst    localhost
+TsGrabber        server    start_TsGrabber.server      snuff_inst    localhost
+#
+###############################################################################

@@ -1,0 +1,4 @@
+#!/bin/csh
+foreach h (sci1 sci2 sci3 eng )
+	rsync -avz --exclude src --exclude apps --exclude java ~spol/install/ ${h}:/home/spol/install
+end

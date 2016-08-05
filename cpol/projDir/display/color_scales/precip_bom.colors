@@ -1,0 +1,33 @@
+# colorscale precip_bom.colors
+
+# keng 20130219 - mapping from Phils 3dRapic /radar/3DRapic/default.cmap
+# Use an excel spreadsheet to calculate and display colours (VisualBasic) to build
+# Refer: 'cp2radar CIDD colour scales.xlsm'
+
+0.01 	1 	#e3caff
+1 	2 	#d0b3ff
+2 	5 	#bd9cff
+5 	10 	#94c2ff
+10 	15 	#71b2ff
+15 	20 	#489eff
+20 	25 	#00fd87
+25 	30 	#00ee75
+30 	40 	#00d574
+40 	50 	#b18300
+50 	60 	#a07600
+60 	80 	#8e6900
+80 	100 	#9a0000
+100 	125 	#840000
+125 	150	#790000
+150 	175 	#6e0000
+175 	200 	#500000
+200 	250 	#101010
+250 	300 	#ffffff
+300 	400 	#ffa064
+400 	500 	#ffb400
+500 	600 	#ffe600
+600 	2000 	#ffff00
+
+
+
+

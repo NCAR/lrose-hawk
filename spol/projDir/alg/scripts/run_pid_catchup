@@ -1,0 +1,17 @@
+#!/bin/csh
+
+cd $PROJ_DIR/alg/params
+
+RadxPid -params RadxPid.sur -debug -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+RadxPid -params RadxPid.rhi -debug -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+
+MdvPartRain -params MdvPartRain.cart.sur -debug -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+MdvPartRain -params MdvPartRain.cart.rhi -debug -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+
+cd $PROJ_DIR/zebra/params
+
+Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.partrain.sband.sur -debug -in_dir $DATA_DIR/mdv/cart/partrain/sband/sur_2 -out_dir $DATA_DIR/zebra/partrain/sband/sur_2 -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+
+Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.partrain.sband.rhi -debug -in_dir $DATA_DIR/mdv/cart/partrain/sband/rhi_2 -out_dir $DATA_DIR/zebra/partrain/sband/rhi_2 -start "2011 10 14 00 00 00" -end "2011 10 17 00 00 00"
+
+

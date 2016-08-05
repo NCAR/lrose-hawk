@@ -1,0 +1,5 @@
+#! /bin/csh
+
+stop_ts_recording.sband
+stop_ts_recording.kband
+

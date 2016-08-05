@@ -1,0 +1,27 @@
+# NAME sunscan_corr.colors
+
+-5.0    -4.6	dodgerblue3
+-4.6	-4.2	royalblue3
+-4.2	-3.8	blue
+-3.8    -3.4    mediumblue
+-3.4    -3.0    navyblue
+-3.0    -2.6    midnightblue
+-2.6    -2.2    dimgray
+-2.2    -1.8    slategray
+-1.8    -1.4    seagreen
+-1.4    -1.0    forestgreen
+-1.0    -0.5    olivedrab
+-0.5    -0.2    yellowgreen
+-0.2	0.2    Gold3
+0.2 	0.5  	gold
+0.5     1.0	yellow
+1.0	1.4 	orange
+1.4	1.8	coral
+1.8     2.2    tomato
+2.2     2.6    firebrick1
+2.6	3.0	OrangeRed
+3.0     3.4 	Red
+3.4	3.8 	DeepPink
+3.8	4.2	Maroon1
+4.2     4.6    HotPink
+4.6	2.5    Pink

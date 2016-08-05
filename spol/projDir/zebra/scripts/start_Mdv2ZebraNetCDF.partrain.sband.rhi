@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/zebra/params
+
+running "Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.partrain.sband.rhi"
+if ($status == 1) then
+  Mdv2ZebraNetCDF -params Mdv2ZebraNetCDF.partrain.sband.rhi |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Mdv2ZebraNetCDF -i partrain.sband.rhi &
+endif
+

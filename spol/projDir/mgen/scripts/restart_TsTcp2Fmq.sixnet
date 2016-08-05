@@ -1,0 +1,8 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+snuff TsTcp2Fmq.sixnet
+TsTcp2Fmq -params TsTcp2Fmq.sixnet |& \
+  LogFilter -d $ERRORS_LOG_DIR -p TsTcp2Fmq -i sixnet &
+

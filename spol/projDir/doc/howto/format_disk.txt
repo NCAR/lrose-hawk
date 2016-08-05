@@ -1,0 +1,49 @@
+You need to be root to do most of this.  
+
+[ DYNAMO note: You should run these commands as operator on sci2]
+
+To format a WD Passport drive under Linux:
+
+Before connecting the drive, do a 'ls -l /dev/sd*', or something
+similar.  You want to see what hard drives are connected to the
+system, then determine what changes once you plug in the disk.
+
+After connecting (and waiting), do 'ls -l /dev/sd*', again.  Look for
+differences in the two listings, or look for a dev with a recent
+timestamp.  (you can also do 'ls -lt /dev', listing the devices in
+most-recent-timestamp order).
+
+Once you know the device, do:
+
+mke2fs -j -v -L SPOL-HDnn /dev/sdjj
+
+(make a filesystem on the disk; create a journaling area, which sets
+to ext3; show verbose output; label the disk as an SPOL-hard drive,
+with the 'nn' replaced by the disk number; use the proper device name)
+
+Then, remove the disk by simply un-plugging.  Re-plug the disk, and
+wait for a pop-up window showing the mount (the window should show the
+label for the disk, SPOL-HDnn).
+
+Leave the pop-up window alone!  Different disk operations can make it
+difficult to un-mount the disk.  The pop-up has a pull-down option to
+unmount, and this method rarely fails.
+
+To complete the preparation of an S-Pol disk, do something like the
+following commands (actual disk/user/directory names may vary!):
+
+cd /media/SPOL-HD43
+mkdir field_data
+chown operator field_data
+chmod 775 field_data
+touch SPOL-HD43
+chmod 444 SPOL-HDnn
+
+(I scripted these commands when I had a bunch of disks to do)
+
+
+Note that there are other disk commands available, including
+
+e2label
+dumpe2fs
+mkfs  is a more generic version of mke2fs

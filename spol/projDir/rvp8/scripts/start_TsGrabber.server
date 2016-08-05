@@ -1,0 +1,8 @@
+#! /bin/csh
+
+running "TsGrabber -instance server -server"
+if ($status == 1) then
+  TsGrabber -instance server -server |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsGrabber -i server &
+endif
+

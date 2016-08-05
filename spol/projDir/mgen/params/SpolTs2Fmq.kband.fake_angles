@@ -1,0 +1,588 @@
+/**********************************************************************
+ * TDRP params for SpolTs2Fmq
+ **********************************************************************/
+
+//======================================================================
+//
+// SpolTs2Fmq reads raw time-series data via TCP/IP. It saves the time 
+//   series data out to a file message queue (FMQ), which can be read by 
+//   multiple clients. It optionally merges in angles from the S2D system, 
+//   and scan information from syscon.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "kband";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = TRUE;
+
+///////////// do_not_register_on_read /////////////////
+//
+// Option to only register with the process mapper during the write.
+// Sometimes the reader keeps registering, but no data is being written 
+//   to the FMQ. If this parameter is true, we only register with procmap 
+//   during the write. So if no writes are occurring, no registrations 
+//   will occur and the auto_restarter will kill and restart this 
+//   application. This makes it robust when the reading hangs for some 
+//   reason.
+// Type: boolean
+//
+
+do_not_register_on_read = FALSE;
+
+//======================================================================
+//
+// READING TIME SERIES VIA TCP.
+//
+//======================================================================
+ 
+///////////// ts_tcp_server_host //////////////////////
+//
+// Host name on which time series server is running.
+// Type: string
+//
+
+ts_tcp_server_host = "kadrx";
+
+///////////// ts_tcp_server_port //////////////////////
+//
+// TCP/IP port on which time series server is running.
+// Type: int
+//
+
+ts_tcp_server_port = 12000;
+
+//======================================================================
+//
+// MERGING SYSCON INFORMATION.
+//
+// The syscon information is written to an FMQ by SpolSysconRelay. This 
+//   information is optionally read in by this application and merged with 
+//   the time series data. Generally this is scan information and transmit 
+//   power.
+//
+//======================================================================
+ 
+///////////// merge_syscon_info ///////////////////////
+//
+// Option to merge syscon information with the time series.
+// TCP mode only. If true, the latest scan and other information will be 
+//   read from an FMQ. This data is in IWRF format. This information will 
+//   be merged with the time series data.
+// Type: boolean
+//
+
+merge_syscon_info = TRUE;
+
+///////////// syscon_fmq_path /////////////////////////
+//
+// Path for syscon FMQ.
+// Data in this FMQ is written by SpolSysconRelay.
+// Type: string
+//
+
+syscon_fmq_path = "$(DATA_DIR)/fmq/syscon";
+
+///////////// sync_syscon_info_with_pulses ////////////
+//
+// Option to synchronize the syscon info with the pulse stream.
+// The syscon info packets arrive somewhat delayed with respect to the 
+//   pulses. If this is true, the times of the syscon packets and pulse 
+//   packets are inspected, and an appropriate delay is inserted into the 
+//   pulse reading to synchronize the info with the pulses.
+// Type: boolean
+//
+
+sync_syscon_info_with_pulses = FALSE;
+
+///////////// merge_xmit_power_from_syscon ////////////
+//
+// Option to in xmit_power from syscon data.
+// If true, any xmit_power packets coming from syscon will be merged in.
+// Type: boolean
+//
+
+merge_xmit_power_from_syscon = FALSE;
+
+//======================================================================
+//
+// MERGING ANGLES FROM S2D.
+//
+//======================================================================
+ 
+///////////// merge_antenna_angles ////////////////////
+//
+// Option to merge in angle information from the S2D system.
+// Some data streams (e.g. kband) do not contain angles, only time. 
+//   Time-stamped angles are broadcast in UDP. These are read in, and the 
+//   angles are merged with the data stream, using time to synchronize the 
+//   two streams.
+// Type: boolean
+//
+
+merge_antenna_angles = FALSE;
+
+///////////// angle_fmq_path //////////////////////////
+//
+// Name of input FMQ for angle data.
+// Type: string
+//
+
+angle_fmq_path = "$(DATA_DIR)/fmq/angles/shmem_30000";
+
+///////////// position_angle_fmq_at_start /////////////
+//
+// Option to position the angle FMQ at the start of the queue.
+// If false, we start reading at the end of the angle queue. This is the 
+//   default behavior. If true, we position the read pointer at the start 
+//   of the angle queue, and read all data available in the queue before 
+//   starting to read new data. This is generally only used in debug mode.
+// Type: boolean
+//
+
+position_angle_fmq_at_start = FALSE;
+
+///////////// pulse_time_adjustment_secs //////////////
+//
+// Time adjustment to correct time on incoming pulses (secs).
+// This value is ADDED to the incoming pulse time, to correct it as 
+//   necessary. Accurate time is required to match angles correctly with 
+//   the incoming pulses.
+// Type: double
+//
+
+pulse_time_adjustment_secs = 0;
+
+///////////// print_angle_errors //////////////////////
+//
+// Option to print angle errors between time-stamped angles and those in 
+//   the time series data.
+// This is useful for testing the accuracy of the time-stamped angles 
+//   relative to a second source of angles, e.g. the RVP8. If set to true, 
+//   the angle errors will be printed out.
+// Type: boolean
+//
+
+print_angle_errors = FALSE;
+
+///////////// check_angles_for_status_xml /////////////
+//
+// Option to compare the time series angles with the S2D angles, and 
+//   write the angle error statistics to the status XML.
+// This is used to check the RVP8 angles against the S2D angles. 
+//   Differences between these indicate a timing problem either on the 
+//   RVP8 or the S2D ARM computer.
+// Type: boolean
+//
+
+check_angles_for_status_xml = FALSE;
+
+///////////// angle_errors_xml_tag ////////////////////
+//
+// Tag to delineate angle errors in output XML.
+// Type: string
+//
+
+angle_errors_xml_tag = "KaBandAngleErrors";
+
+///////////// n_samples_for_angle_error_stats /////////
+//
+// Number of pulses for computing angle error stats.
+// Type: int
+//
+
+n_samples_for_angle_error_stats = 10000;
+
+///////////// correct_data_angles_using_s2d_angles ////
+//
+// Option to correct the angle if the error exceeds a specified value.
+// If the angles in the time series data differ from the S2D angles by 
+//   more than the specified amount, correct the angles in the data, using 
+//   the S2D angles as truth. This assumes that merge_antenna_angles is 
+//   FALSE, since it makes no sense to do this if merging is active.
+// Type: boolean
+//
+
+correct_data_angles_using_s2d_angles = FALSE;
+
+///////////// angle_error_correction_threshold ////////
+//
+// Angle error threshold for correction (deg).
+// Applies if correct_data_angles_using_s2d_angles it TRUE. If the error 
+//   exceeds this amount, the data angle(s) will be overwritten using the 
+//   S2D angles instead.
+// Type: double
+//
+
+angle_error_correction_threshold = 0.1;
+
+//======================================================================
+//
+// OVERRIDE CALIBRATION.
+//
+// Limited calibration information is passed down from the drx. This 
+//   option allows you to override this calibration information with that 
+//   from a file on disk.
+//
+//======================================================================
+ 
+///////////// override_calibration ////////////////////
+//
+// Option to override calibration, with values from local xml file.
+// If true, the calibration will be read in from an xml file. 
+//   Calibration packets arriving from the drx will be replaced with the 
+//   local information.
+// Type: boolean
+//
+
+override_calibration = TRUE;
+
+///////////// cal_xml_file_path ///////////////////////
+//
+// File path for calibration to be used for override.
+// See 'override_calibration'.
+// Type: string
+//
+
+cal_xml_file_path = "$(PROJ_DIR)/mgen/params/kband_cal.tx_on.xml";
+
+//======================================================================
+//
+// AUGMENTING THE STATUS XML.
+//
+//======================================================================
+ 
+///////////// augment_status_xml //////////////////////
+//
+// Option to augment any status XML packets with extra information.
+// If true, extra information may be appended to status XML packets. 
+//   Test pulse details and transmitter power will be added if available.
+// Type: boolean
+//
+
+augment_status_xml = TRUE;
+
+///////////// status_xml_interval /////////////////////
+//
+// Maximum interval between status XML packets (secs).
+// If no status XML packets have been received in this interval, we will 
+//   generate a status packet based on available information.
+// Type: int
+//
+
+status_xml_interval = 60;
+
+///////////// status_xml_max_age //////////////////////
+//
+// Maximum age for information put into the status XML (secs).
+// When we augment the status XML, we only add information which is 
+//   younger than the specified age. Older information is ignored.
+// Type: int
+//
+
+status_xml_max_age = 120;
+
+///////////// append_xmit_power_to_status_xml /////////
+//
+// Option to augment status XML with transmit power.
+// Type: boolean
+//
+
+append_xmit_power_to_status_xml = FALSE;
+
+///////////// xmit_power_xml_tag //////////////////////
+//
+// Tag to delineate xmit power in output XML.
+// Type: string
+//
+
+xmit_power_xml_tag = "KaBandXmitPower";
+
+///////////// append_test_pulse_to_status_xml /////////
+//
+// Option to augment status XML with test pulse information.
+// Type: boolean
+//
+
+append_test_pulse_to_status_xml = TRUE;
+
+///////////// test_pulse_xml_tag //////////////////////
+//
+// Tag to delineate test pulse block in output XML.
+// Type: string
+//
+
+test_pulse_xml_tag = "KaBandTestPulse";
+
+///////////// merge_secondary_status_from_fmq /////////
+//
+// Option to augment status XML with secondary data from an FMQ.
+// This data is monitoring information provided by a specialized server 
+//   - for example the sixnet monitoring system.
+// Type: boolean
+//
+
+merge_secondary_status_from_fmq = FALSE;
+
+///////////// secondary_status_fmq_path ///////////////
+//
+// Path to FMQ for secondary status information.
+// Type: string
+//
+
+secondary_status_fmq_path = "/tmp/data/fmq/secondary_status";
+
+//======================================================================
+//
+// MONITOR TEST PULSE POWER.
+//
+// If test pulse monitoring is active, an extra XML block will be 
+//   generate to hold the test pulse powers. The main tag for this block 
+//   is specified in test_pulse_tag. Within the test pulse block, the 
+//   following values will the stored, as applicable:
+// 	TestPulsePowerHcDb
+// 	TestPulsePowerVcDb
+// 	TestPulsePowerHxDb
+// 	TestPulsePowerVxDb.
+//
+//======================================================================
+ 
+///////////// monitor_test_pulse //////////////////////
+//
+// Option to compute test pulse power and add to monitoring.
+// Type: boolean
+//
+
+monitor_test_pulse = TRUE;
+
+///////////// test_pulse_range_km /////////////////////
+//
+// Range to test pulse (km).
+// We compute the gate number from this range. The power at this gate is 
+//   averaged over the monitoring interval.
+// Type: double
+//
+
+test_pulse_range_km = 72.9;
+
+///////////// test_pulse_n_samples ////////////////////
+//
+// Number of samples used to compute test pulse power.
+// Type: int
+//
+
+test_pulse_n_samples = 5000;
+
+///////////// dual_pol_alternating_mode ///////////////
+//
+// If this is a dual-polarization system, is it operating in fast 
+//   alternating mode?.
+// If true, the HV flag is used to determine which receiver path to use.
+// Type: boolean
+//
+
+dual_pol_alternating_mode = FALSE;
+
+///////////// dual_pol_switching_receivers ////////////
+//
+// If this is a dual-polarization system, does it have switching 
+//   receivers?.
+// If true, then there is a co-pol receiver path and a cross-pol 
+//   receiver path. If false, there is an H and V receiver path.
+// Type: boolean
+//
+
+dual_pol_switching_receivers = FALSE;
+
+//======================================================================
+//
+// SWEEP NUMBER.
+//
+//======================================================================
+ 
+///////////// zero_sweep_number_at_start_of_vol ///////
+//
+// Option to correct the sweep number relative to the start of a volume.
+// Some radars set the sweep number to always increase, without 
+//   resetting to 0 when a new volume starts. If this parameter is TRUE, 
+//   the sweep number will be corrected so that it is zero at the start of 
+//   each volume.
+// Type: boolean
+//
+
+zero_sweep_number_at_start_of_vol = FALSE;
+
+///////////// delay_sweep_num_change_in_sector_scan ///
+//
+// Option to delay the change of the sweep number in sector scan mode.
+// On some systems (e.g. those which use a PMAC) the scan flags are 
+//   updated at the start of the antenna transition. This means that the 
+//   entire transition is included in the new sweep. If this parameter is 
+//   set to TRUE, and the scan mode is SECTOR, the sweep num change is 
+//   delayed until the antenna  changes direction. This means that the 
+//   first half of the transition will be flagged as the previous sweep, 
+//   and the second half as the next sweep. In non-sector mode, this 
+//   parameter is ignored.
+// Type: boolean
+//
+
+delay_sweep_num_change_in_sector_scan = FALSE;
+
+//======================================================================
+//
+// IQ DATA SCALING.
+//
+//======================================================================
+ 
+///////////// apply_scale /////////////////////////////
+//
+// Option to apply a scale and bias to each I and Q value before 
+//   writing.
+// Type: boolean
+//
+
+apply_scale = FALSE;
+
+///////////// scale ///////////////////////////////////
+//
+// Scale constant for I and Q data. Applied if apply_scale == TRUE.
+// Value written = Value_in * scale + bias.
+// Type: double
+//
+
+scale = 1;
+
+///////////// bias ////////////////////////////////////
+//
+// Bias for I and Q data. Applied if apply_scale == TRUE.
+// Value written = Value_in * scale + bias.
+// Type: double
+//
+
+bias = 0;
+
+//======================================================================
+//
+// OUTPUT FMQ DETAILS.
+//
+//======================================================================
+ 
+///////////// output_fmq_path /////////////////////////
+//
+// Path to output FMQ.
+// The FMQ consists of 2 files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path = "$(DATA_DIR)/fmq/ts/kband/shmem_11000";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer.
+// Type: int
+//
+
+output_fmq_size = 200000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in the output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 1000;
+
+//======================================================================
+//
+// OUTPUT FMQ MESSAGE DETAILS.
+//
+// The output messages are written to the FMQ. To improve performance, 
+//   each message contains a number of time series pulses.
+//
+//======================================================================
+ 
+///////////// n_pulses_per_message ////////////////////
+//
+// Number of pulses per output message.
+// The actual number will sometimes be 1 less than this, because an info 
+//   data part may will be written once in a while.
+// Type: int
+//
+
+n_pulses_per_message = 200;
+
+///////////// n_pulses_per_power_info /////////////////
+//
+// The xmit_power packet will be written each time this number of pulses 
+//   is written.
+// Type: int
+//
+
+n_pulses_per_power_info = 1000;
+
+///////////// data_mapper_report_interval /////////////
+//
+// Number of seconds between reports to DataMapper.
+// If > 0, the program will register with the DataMapper when the output 
+//   FMQ is written to. If <= 0, registration will not be performed.
+// Type: int
+//
+
+data_mapper_report_interval = 5;
+
+///////////// write_end_of_vol_when_data_stops ////////
+//
+// Write end of vol event when data stops.
+// Type: boolean
+//
+
+write_end_of_vol_when_data_stops = FALSE;
+
+///////////// nsecs_no_data_for_end_of_vol ////////////
+//
+// Number of secs before writing end of vol.
+// See 'write_end_of_vol_when_data_stops'.
+// Type: int
+//
+
+nsecs_no_data_for_end_of_vol = 5;
+

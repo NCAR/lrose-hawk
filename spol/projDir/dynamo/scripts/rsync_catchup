@@ -1,0 +1,114 @@
+#! /bin/csh
+
+# zebra
+
+cd $DATA_DIR/zebra
+rsync -av sat/vis/20120114 pgen2:projDir/data/zebra/sat/vis
+rsync -av sat/ir/20120114 pgen2:projDir/data/zebra/sat/ir
+rsync -av sat/wv/20120114 pgen2:projDir/data/zebra/sat/wv
+
+exit
+
+# spdb
+
+cd $DATA_DIR/spdb
+rsync -av synop_obs_ascii/20120114.* pgen2:projDir/data/spdb/synop_obs_ascii/
+rsync -av ship_obs_ascii/20120114.* pgen2:projDir/data/spdb/ship_obs_ascii/
+rsync -av synop_obs/20120114.* pgen2:projDir/data/spdb/synop_obs/
+rsync -av monitor/kband/20120114.* pgen2:projDir/data/spdb/monitor/kband/
+rsync -av monitor/sband/20120114.* pgen2:projDir/data/spdb/monitor/sband/
+rsync -av metar_ascii/20120114.* pgen2:projDir/data/spdb/metar_ascii/
+rsync -av ship_obs/20120114.* pgen2:projDir/data/spdb/ship_obs/
+rsync -av soundings/gan/20120114.* pgen2:projDir/data/spdb/soundings/gan/
+rsync -av metar/20120114.* pgen2:projDir/data/spdb/metar/
+rsync -av wwlln/20120114.* pgen2:projDir/data/spdb/wwlln/
+rsync -av rhi/sband/20120114.* pgen2:projDir/data/spdb/rhi/sband/
+
+# raw
+
+cd $DATA_DIR/raw
+rsync -av smartr/20120114 pgen2:projDir/data/raw/smartr
+rsync -av doe/soundings/gan/netcdf/20120114 pgen2:projDir/data/raw/doe/soundings/gan/netcdf
+rsync -av doe/soundings/gan/text/20120114 pgen2:projDir/data/raw/doe/soundings/gan/text
+rsync -av doe/mplpolfs/20120114 pgen2:projDir/data/raw/doe/mplpolfs
+rsync -av surface_obs/20120114 pgen2:projDir/data/raw/surface_obs
+rsync -av soundings/revelle/20120114 pgen2:projDir/data/raw/soundings/revelle
+rsync -av soundings/diego/20120114 pgen2:projDir/data/raw/soundings/diego
+rsync -av soundings/gts/20120114 pgen2:projDir/data/raw/soundings/gts
+rsync -av sat/20120114 pgen2:projDir/data/raw/sat
+rsync -av wwlln/20120114 pgen2:projDir/data/raw/wwlln
+
+# cfradial sband
+
+cd $DATA_DIR/cfradial/moments/sband/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/sband/sur/20120114
+
+cd $DATA_DIR/cfradial/moments/sband/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/sband/rhi/20120114
+
+cd $DATA_DIR/cfradial/covar/sband/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/covar/sband/sur/20120114
+
+cd $DATA_DIR/cfradial/covar/sband/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/covar/sband/rhi/20120114
+
+cd $DATA_DIR/cfradial/partrain/sband/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/partrain/sband/sur/20120114
+
+cd $DATA_DIR/cfradial/partrain/sband/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/partrain/sband/rhi/20120114
+
+# cfradial kband
+
+cd $DATA_DIR/cfradial/moments/kband/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/kband/sur/20120114
+
+cd $DATA_DIR/cfradial/moments/kband/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/kband/rhi/20120114
+
+cd $DATA_DIR/cfradial/covar/kband/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/covar/kband/sur/20120114
+
+cd $DATA_DIR/cfradial/covar/kband/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/covar/kband/rhi/20120114
+
+
+# cfradial smartr
+
+cd $DATA_DIR/cfradial/moments/smartr/sur
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/smartr/sur/20120114
+
+cd $DATA_DIR/cfradial/moments/smartr/rhi
+rsync -av 20120114/cfrad.20120114_08* pgen2:projDir/data/cfradial/moments/smartr/rhi/20120114
+
+# dorade sband
+
+cd $DATA_DIR/dorade/moments/sband/sur
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/sband/sur/20120114
+
+cd $DATA_DIR/dorade/moments/sband/rhi
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/sband/rhi/20120114
+
+cd $DATA_DIR/dorade/partrain/sband/sur
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/partrain/sband/sur/20120114
+
+cd $DATA_DIR/dorade/partrain/sband/rhi
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/partrain/sband/rhi/20120114
+
+# dorade kband
+
+cd $DATA_DIR/dorade/moments/kband/sur
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/kband/sur/20120114
+
+cd $DATA_DIR/dorade/moments/kband/rhi
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/kband/rhi/20120114
+
+
+# dorade smartr
+
+cd $DATA_DIR/dorade/moments/smartr/sur
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/smartr/sur/20120114
+
+cd $DATA_DIR/dorade/moments/smartr/rhi
+rsync -av 20120114/swp.112011408* pgen2:projDir/data/dorade/moments/smartr/rhi/20120114
+

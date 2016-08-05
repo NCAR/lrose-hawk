@@ -1,0 +1,18 @@
+####################################
+# list of requried SPOL libraries
+####################################
+libFmq.a
+libMdv.a
+libSpdb.a
+libdataport.a
+libdidss.a
+libdsdata.a
+libdsserver.a
+libeuclid.a
+libphysics.a
+librapformats.a
+librapmath.a
+librapplot.a
+libtdrp.a
+libtitan.a
+libtoolsa.a

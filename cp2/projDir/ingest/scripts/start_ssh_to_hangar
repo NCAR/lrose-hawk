@@ -1,0 +1,12 @@
+#! /bin/csh
+
+# start ssh tunnel to hangar 
+
+running "ssh -L 6441:cp2hutcidd.bom.gov.au:5441"
+
+if ($status == 1) then
+ssh -L 6441:cp2hutcidd.bom.gov.au:5441 -L 6445:cp2hutcidd.bom.gov.au:5445 \
+    -R 2401:localhost:2401 -N -v -v -a -x -C 121.215.243.79 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ssh -i hangar &
+endif
+

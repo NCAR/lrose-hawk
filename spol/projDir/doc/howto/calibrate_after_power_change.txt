@@ -1,0 +1,47 @@
+Calibrate after power change
+============================
+
+NOTE: this assumes that the current calibration file is:
+
+  TsCalAuto_20150610_212510.xml
+
+(a) Edit the cal param file:
+
+On control1:
+
+  cd projDir/calibration/params
+
+Edit:
+
+  TsCalAuto.sband_1.0us.alt
+
+and set
+
+  xmitPowerDbmH
+  xmitPowerDbmV
+
+(b) Recompute the cal:
+
+Run:
+
+ TsCalAuto -params TsCalAuto.sband_1.0us.alt -debug -f ~/projDir/data/cal/ate/rvp8_cal/rvp8_cal_20150610_212510.txt
+
+That will recompute the cal and pop up the window showing the curves.
+
+(c) Copy the xml file to mgen1:
+
+   rsync -av /home/spol/projDir/data/cal/sband_1.0us.alt/TsCalAuto_20150610_212510.xml mgen1:projDir/mgen/params/cal_alt/1.0us
+
+(d) check the changes:
+
+On mgen:
+
+  cd projDir/mgen/params/cal_alt/1.0us
+  tkdiff TsCalAuto_20150610_212510.xml
+
+(e) Restart moments computations:
+
+ On mgen1, run:
+
+  restart_Iq2Dsr.sband
+

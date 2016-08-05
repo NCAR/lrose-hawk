@@ -1,0 +1,9 @@
+#! /bin/csh
+
+# touch the main camera directories, so that the 
+# InputWatcher will recurse into them
+
+touch $DATA_DIR/images/spol_cams/north
+touch $DATA_DIR/images/spol_cams/east
+touch $DATA_DIR/images/spol_cams/south
+touch $DATA_DIR/images/spol_cams/west

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "Fmq2Fmq -params Fmq2Fmq.moments.sband"
+if ($status == 1) then
+  Fmq2Fmq -params Fmq2Fmq.moments.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Fmq2Fmq -i moments.sband &
+endif
+

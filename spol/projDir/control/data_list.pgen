@@ -1,0 +1,37 @@
+######################################################
+# required data for pgen
+#
+# Format is:
+#
+#  dir  late_secs  very_late_secs
+######################################################
+
+#fmq/moments/kband/shmem_21000   60      120
+fmq/moments/sband/shmem_20000   60      120
+#fmq/partrain/sband/shmem_25000  60      120
+
+#mdv/sat/ir                      3600    86400
+#mdv/sat/vis                     3600    86400
+#mdv/sat/wv                      3600    86400
+
+cfradial/covar/sband            1000     1200
+#cfradial/covar/kband           1000     1200
+cfradial/moments/sband          1000     1200
+#cfradial/moments/kband         1000     1200
+#cfradial/partrain/sband/sur     1000     1200
+
+#dorade/moments/kband            1000     1200
+dorade/moments/sband            1000     1200
+#dorade/partrain/sband           1000     1200
+
+#images/spol_cams               43200   86400
+#raw/surface_obs                 5400   86400
+#raw/wwlln                       5400   86400
+
+spdb/monitor/sband              120     240
+#spdb/monitor/kband              120     240
+spdb/rhi/sband                  1000    1200
+#spdb/metar                      5400    7200
+#spdb/ship_obs                   5400    7200
+#spdb/synop_obs                  5400    7200
+#spdb/wwlln                      600     1200

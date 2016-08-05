@@ -1,0 +1,240 @@
+/**********************************************************************
+ * TDRP params for TsTcpSmartSave
+ **********************************************************************/
+
+//======================================================================
+//
+// TsTcpSmartSave reads raw time-series data via TCP/IP, from 
+//   TsTcpServer. It saves the time series data out in files in TsArchive 
+//   format. It has the capability of saving out to different 
+//   sub-directories based on the antenna position. For example, sun 
+//   calibrations and vertically-pointing data may be saves to separate 
+//   directories.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_NORM;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "ops";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = TRUE;
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// ts_tcp_server_host //////////////////////
+//
+// Host name on which TsTcpServer is running.
+// This application normally reads data from TsTcpServer running on the 
+//   rvp8 host.
+// Type: string
+//
+
+ts_tcp_server_host = "rvp8";
+
+///////////// ts_tcp_server_port //////////////////////
+//
+// TCP/IP port on which TsTcpServer is listening.
+// Type: int
+//
+
+ts_tcp_server_port = 12000;
+
+//======================================================================
+//
+// DATA FILE OUTPUT.
+//
+//======================================================================
+ 
+///////////// one_file_only ///////////////////////////
+//
+// If true, write one file only and then quit.
+// Type: boolean
+//
+
+one_file_only = FALSE;
+
+///////////// max_az_change_per_file //////////////////
+//
+// Maximum azimuth change per output file (degrees).
+// Once this maximum is exceeded, the current file will be closed and a 
+//   new one started.
+// Type: int
+//
+
+max_az_change_per_file = 90;
+// max_az_change_per_file = 45;
+
+///////////// max_pulses_per_file /////////////////////
+//
+// Maximum number of pulses per output file.
+// Once this maximum is exceeded, the current file will be closed and a 
+//   new one started.
+// Type: int
+//
+
+max_pulses_per_file = 50000;
+
+///////////// normal_output_dir ///////////////////////
+//
+// Normal mode output directory path.
+// Files are written to this directory, unless a special condition 
+//   applies, in which case an alternative directory may be used. See 
+//   VERTICALLY-POINTING and SUN-SCAN sections below.
+// Type: string
+//
+
+normal_output_dir = "$(DATA_DIR)/mgen/tsarchive/save";
+
+//======================================================================
+//
+// VERTICALLY-POINTING DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// save_vert_pointing_data /////////////////
+//
+// Option to save vertically-pointing data to a separate directory.
+// If true, vertically-pointing data will be saved to a separate 
+//   subdirectory. See also 'min_elev_for_vert_pointing_data'.
+// Type: boolean
+//
+
+save_vert_pointing_data = TRUE;
+
+///////////// min_elev_for_vert_pointing //////////////
+//
+// Minimum elevation angle for vert pointing data (deg).
+// If the elevtation angle exceeds this value, the radar will be assumed 
+//   to be in vertically-pointing mode.
+// Type: double
+//
+
+min_elev_for_vert_pointing = 87;
+
+///////////// vert_pointing_lockon_period /////////////
+//
+// Minimim lockon period for determing vert pointing mode (secs).
+// In order to enter vert pointing mode, the antenna elevation must 
+//   exceed 'min_elev_for_vert_pointing_data' for a continuous period 
+//   exceeding this number of seconds. This prevents interpreting vert 
+//   pointing mode when the antenna scans through vertical during normal 
+//   scanning operations.
+// Type: double
+//
+
+vert_pointing_lockon_period = 5;
+
+///////////// vert_pointing_output_dir ////////////////
+//
+// Vertically pointing data output directory path.
+// Files are written to this directory when the radar is in 
+//   vertically-pointing mode.
+// Type: string
+//
+
+vert_pointing_output_dir = "$(DATA_DIR)/mgen/tsarchive/vert";
+
+//======================================================================
+//
+// SUN-SCAN DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// save_sun_scan_data //////////////////////
+//
+// Option to save sun-scan calibtation data to a separate directory.
+// If true, sun-scan data will be saved to a separate subdirectory.
+// Type: boolean
+//
+
+save_sun_scan_data = TRUE;
+
+///////////// sun_scan_pointing_margin ////////////////
+//
+// Pointing margin to determine when radar is in sun-scan mode (deg).
+// If both the azimuth and elevation angles are within this margin of 
+//   the current sun angle for more than sun_scan_lockon_time, the radar 
+//   will be assumed to be in sun-scan mode.
+// Type: double
+//
+
+sun_scan_pointing_margin = 8;
+
+///////////// sun_scan_lockon_period //////////////////
+//
+// Minimim lockon period for determing sun-scan mode (secs).
+// In order to enter sun-scan mode, the antenna must point with 
+//   'sun_scan_pointing_margin' of the sun for a continuous period 
+//   exceeding this number of seconds. This prevents interpreting sun-scan 
+//   mode when the antenna scans across the sun during normal scanning 
+//   operations.
+// Type: double
+//
+
+sun_scan_lockon_period = 5;
+
+///////////// sun_scan_output_dir /////////////////////
+//
+// Sun-scan data output directory path.
+// Files are written to this directory when the radar is in sun-scan 
+//   mode.
+// Type: string
+//
+
+sun_scan_output_dir = "$(DATA_DIR)/mgen/tsarchive/sunscan";
+
+///////////// radar_latitude //////////////////////////
+//
+// Latiitude of radar location (deg).
+// North is positive, South is negative.
+// Type: double
+//
+
+radar_latitude = 39.9321;
+
+///////////// radar_longitude /////////////////////////
+//
+// Longitude of radar location (deg).
+// East is positive, West is negative.
+// Type: double
+//
+
+radar_longitude = -105.182;
+

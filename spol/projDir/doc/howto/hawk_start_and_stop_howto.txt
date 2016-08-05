@@ -1,0 +1,111 @@
+HAWK architecture
+=================
+
+The HAWK system runs on a number of hosts. Most of these run LINUX:
+
+ * control (antenna control, monitoring, external data download)
+ * rvp8 (RVP8 time series generation)
+ * kadrx (Ka-band time series generation)
+ * mgen (moments generation)
+ * pgen1 (product generation host 1)
+ * pgen2 (product generation host 2)
+ * spol-dm (data management)
+ * spol-dm2 (data management backup, also sci3)
+ * sci1, sci2, sci3, sci4, sci5 (displays)
+ * eng (engineering display)
+ * tech (windows host, PMAC access)
+
+HAWK startup
+============
+
+The system is started on each host individually.
+The order of startup is not important.
+
+To start the system on a host:
+
+  Log in as operator
+  Run the command 'start_all'
+
+This will start all of the processes on that host.
+
+The start_all script performs the following:
+
+  start_procmap:
+
+    Starts the process mapper, with which all of the processes
+    register to let the system know they are up and running.
+
+  procmap_list_start:
+
+    Starts all of the processes in the process list:
+
+      ~/projDir/control/proc_list
+
+  start_auto_restart:
+
+    Starts the auto restart script.  This checks with the process
+    mapper every 30 seconds to make sure that all of the processes are
+    running.  Any processes which are not running are restarted.
+
+  install_crontab:
+
+    Installs the cron table:
+
+      ~/projDir/control/crontab
+
+As a minimum, the cron table will contain entries to make sure that
+the process mapper and auto restarter stay alive. It check on these
+every minute. Depending on the host type, the cron table will contain
+other commands as well.
+
+Checking the running system
+===========================
+
+There are a number of aliases set up to help you check the system.
+
+ppm:
+
+  ppm, or
+  print_procmap -hb -up -status
+
+This contacts procmap and obtains a list of running processes.
+
+pcheck:
+
+  pcheck, or
+  procmap_list_check -proc_list $PROJ_DIR/control/proc_list
+
+This checks that all required processes are running.
+
+pdm:
+
+  pdm, or
+  PrintDataMap -all -relt -lreg
+
+This contacts the DataMapper and prints out the status of the data sets on disk.
+
+HAWK shutdown
+=============
+
+Generally, is it not necessary to shutdown HAWK. It can keep running
+for an entire project.
+
+To shut it down:
+
+  Log in as operator
+  Run the command 'stop_all'
+
+The stop_all script runs the following scripts:
+
+  remove_crontab:
+
+    Remove the cron table so that processes are not restarted after
+    the shutdown.
+
+  kill_auto_restart:
+
+    Kill the auto_restart script.
+
+  killall_processes:
+
+    Kill all running processes

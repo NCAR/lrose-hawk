@@ -1,0 +1,111 @@
+Title:	How to set up passphrase-less ssh(1)/scp(1) access between hosts.
+=========================================================================
+
+Overview
+
+    ssh and scp can use RSA public key authentication to control access
+    between hosts.  To do this, you first generate a private/public
+    key pair on each host.  Normally this key is generated using a
+    passphrase for authentication purposes.  If the keys are generated
+    with no passphrase, then none will be required.  The public keys
+    are then collected and distributed to each host, which allows
+    free access.
+
+
+To set up ssh authentication you need to create two files: known_hosts
+and authorized_hosts and copy these files to /home/aoaws/.ssh on
+each machine
+
+To create authorized_hosts:
+===========================
+
+1) Login to any host and open up a file called 
+
+  /home/aoaws/.ssh/authorized_keys.aoaws
+  We will generate host id's on each host and copy
+  them to this file.
+
+2) In another xterm, login to each host and do the following:
+
+   * run the command "ssh-keygen -b 1024 -N '' -t dsa"
+     This will create a file called /home/aoaws/.ssh/id_dsa.pub 
+   * cat /home/aoaws/.ssh/id_dsa.pub
+   * copy and paste the output to your file authorized_keys.aoaws
+   
+   Eg. If running ssh-keygen on machine wmds the output to cat will 
+       look like this:
+
+ssh-dss AAAAB3NzaC1kc3MAAACBALAlhR9YJKqVvU7Nr/7YPk9i98flHeKRIG88rUS6UfGfatmaHZdyRrU91JC
+0g8SVsdTP6Idx1FLfj084iKGZNoH9wVVPNk5fD8HOlXOF+Pjk286IBuXMQtBKVDAIIxS3b/N8bQ9lxwu0zSVITr
+CvGKri1wDaMyen/wCy9X96WqCdAAAAFQCZ/T1sSAqghqq3kPCc10Zna+FQhQAAAIA2WHRpG+QJcX/ABYJNxHINw
+NehjQ5s1QRNYYzqCx5FErs2oFVTk9MxXkjZV90EVrTJYd7BKEtneA8Dx8t5HaZzrfXw8su+zFW4gQ8GipApHnVS
+8C5kV47vnn7ZLN/e7VHNuVIjXnpteaBcs14QFpHgeoUZlWQN1zimUs4ToadxzQAAAIA4/9PQQDR57HVQrZDQSix
+id4swUP9Nd8c9zNrAOHozZrJyylVGpsdzG2IERq3pYROSX6FYqzIYCtgQxjI5djup8dZ46j+Hr2wFg7HklDhvV3
+6kRFECZzSLWJ3Hkwlguqvw/dtI66IXzK3MP+5FqFWJxsVfgwi1tAqOp8ZP0cOS/w== aoaws@wmds
+
+   Make another copy of this line with the modification of having the 
+   fully qualified domain name and also paste it in authorized_keys.aoaws. 
+
+ssh-dss AAAAB3NzaC1kc3MAAACBALAlhR9YJKqVvU7Nr/7YPk9i98flHeKRIG88rUS6UfGfatmaHZdyRrU91JC
+0g8SVsdTP6Idx1FLfj084iKGZNoH9wVVPNk5fD8HOlXOF+Pjk286IBuXMQtBKVDAIIxS3b/N8bQ9lxwu0zSVITr
+CvGKri1wDaMyen/wCy9X96WqCdAAAAFQCZ/T1sSAqghqq3kPCc10Zna+FQhQAAAIA2WHRpG+QJcX/ABYJNxHINw
+NehjQ5s1QRNYYzqCx5FErs2oFVTk9MxXkjZV90EVrTJYd7BKEtneA8Dx8t5HaZzrfXw8su+zFW4gQ8GipApHnVS
+8C5kV47vnn7ZLN/e7VHNuVIjXnpteaBcs14QFpHgeoUZlWQN1zimUs4ToadxzQAAAIA4/9PQQDR57HVQrZDQSix
+id4swUP9Nd8c9zNrAOHozZrJyylVGpsdzG2IERq3pYROSX6FYqzIYCtgQxjI5djup8dZ46j+Hr2wFg7HklDhvV3
+6kRFECZzSLWJ3Hkwlguqvw/dtI66IXzK3MP+5FqFWJxsVfgwi1tAqOp8ZP0cOS/w== aoaws@wmds.aoaws.caa.gov.tw
+
+
+To create known_hosts:
+======================
+
+1) On any machine as aoaws, open up a file called known_hosts.aoaws
+
+2) Open up another xterm on this machine, and login as user aoaws to every other 
+   machine (including the one you are on) and then logout. If prompted while logging in, 
+   answer yes.  This will create  a /home/aoaws/.ssh/known_hosts file with each line
+   containing the machine name, IP address and id of the aoaws machines.
+
+3) Cat /home/aoaws/.ssh/known_hosts.
+   Copy each line into known_hosts.aoaws and  make another copy of each 
+   line with the modification of having a fully qualified domain name and
+   also past it into known_hosts.aoaws
+
+for example, for machine wmds in known_hosts.aoaws we have:
+
+mail,128.117.200.41 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAwEdOOC6tjzVvv
+R58z51H3kJJUvr3JKW6qAzrDxsVKyQD1fAURnR5qPBQNXPCPasq59Q6rW2Z3j4mwV/hay
+OKbtn4/vzY37GWPMaF7vNsBBg4PzOHO+bUqmu9QrFBO4AFu0CeXtuWMRS5HvBU1Iyots
+UEqv2+Rw5PesSNDJppeRE=
+
+mail.aoaws.caa.gov.tw,128.117.200.41 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAwEdOOC6tjzVvv
+R58z51H3kJJUvr3JKW6qAzrDxsVKyQD1fAURnR5qPBQNXPCPasq59Q6rW2Z3j4mwV/hay
+OKbtn4/vzY37GWPMaF7vNsBBg4PzOHO+bUqmu9QrFBO4AFu0CeXtuWMRS5HvBU1Iyots
+UEqv2+Rw5PesSNDJppeRE=
+
+
+Copy the files around:
+======================
+
+Now copy the files:
+
+  cp /home/aoaws/.ssh/authorized_keys.aoaws /home/aoaws/.ssh/authorized_keys
+  cp /home/aoaws/.ssh/known_hosts.aoaws /home/aoaws/.ssh/known_hosts
+
+Then ssh the files to all the hosts in the project:
+ 
+  foreach host (host1 host2 ..... hostn)
+  scp /home/aoaws/.ssh/authorized_keys $host\:.ssh
+  scp /home/aoaws/.ssh/known_hosts $host\:.ssh
+
+Check the permissions:
+======================
+
+In addition, check that the following is true:
+
+  $HOME is not writeable by the group or world
+  $HOME/.ssh is only visible to the owner, i.e., 'chmod 700 $HOME/.ssh'
+  $HOME/.ssh/* is only visible to the owner, i.e., 'chmod 600 $HOME/.ssh/*'
+
+
+
+

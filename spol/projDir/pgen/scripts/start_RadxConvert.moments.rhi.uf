@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/pgen/params
+
+running "RadxConvert -params RadxConvert.moments.rhi.uf"
+if ($status == 1) then
+  RadxConvert -params RadxConvert.moments.rhi.uf |& \
+    LogFilter -d $ERRORS_LOG_DIR -p RadxConvert -i moments.rhi.uf &
+endif
+

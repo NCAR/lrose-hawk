@@ -1,0 +1,14 @@
+#! /bin/csh
+
+cd $PROJ_DIR/kadrx/params
+
+running "kadrx --instance pulse_width_0.4 kadrx.pulse_width_0.4"
+if ($status == 0) then
+    exit 0
+endif
+
+snuff_slow kadrx
+
+kadrx --instance pulse_width_0.4 kadrx.pulse_width_0.4 --debug KaMonitor |& \
+    LogFilter -d $ERRORS_LOG_DIR -p kadrx -i pulse_width_0.4 &
+

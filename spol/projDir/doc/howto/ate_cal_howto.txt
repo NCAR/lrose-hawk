@@ -1,0 +1,104 @@
+ate_cal_howto.txt
+==================
+
+How to perform the ATE calibration on SPOL S-band
+-------------------------------------------------
+Mike Dixon
+2011/12/14
+
+1. Stop scan, turn off transmitter
+----------------------------------
+
+Stop current scan.
+
+Stow antenna vertically.
+
+Turn off transmitter.
+
+2. Run ATE calibration
+----------------------
+
+Log in to control, from an xterm:
+
+  ssh control
+
+Go to labview ops directory:
+
+  cd ate/labview_ops
+
+Start labview:
+
+  labview
+
+Wait a while - the 'Open' menu will show.
+
+Click on:
+
+  ATE_ops_cal.vi
+
+Hit the '=>' run button - top left
+
+Wait for "Ready" to go green
+
+Hit "Calibrate"
+
+The measured points should be plotted on the cal graph.
+The upper graph shows all of the channels.
+The lower graph shows (Hc-Vc) and (Hx-Vx).
+
+When it is done, close the window and exit labview.
+
+The data will be stored in:
+
+  ~/projDir/data/cal/ate/rvp8_cal
+
+3. Re-enable test pulse
+-----------------------
+
+Run labview again:
+
+  labview
+
+Click on:
+
+  SPOL_ops_mode.vi
+
+Hit the '=>' run button - top left
+
+Wait for all the items to go green.
+
+Check that the siggen RF Power shows "Power ON".
+
+Exit from Labview.
+
+4. Turn on transmitter, restart scan
+------------------------------------
+
+Turn on transmitter.
+
+Start scan.
+
+Check HawkEye.
+
+5. Run calibration data check
+-----------------------------
+
+Note: example here is for cal run on 2011/12/14 at 06:04:28.
+
+  cd
+  cd projDir/calibration/params/
+  TsCalAuto -params TsCalAuto.sband -f ~/projDir/data/cal/ate/rvp8_cal/rvp8_cal_20111214_060428.txt
+
+The graph should show a linear response, with smooth transitions at upper
+and lower ends.
+
+Compare the xml with the installed version:
+
+  cd
+  cd projDir/data/cal/sband
+  tkdiff TsCalAuto_20111214_060428.xml ~/projDir/mgen/params/sband_cal.xml
+
+The slopes in all channels should be close to 1.0.
+
+The noise levels and gains should not change by more than 0.1 dB.
+

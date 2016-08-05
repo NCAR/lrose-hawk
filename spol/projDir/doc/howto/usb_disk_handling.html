@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>  NCAR/EOL -- Managing the USB Disks and Recording at S-Pol
+ </title>
+
+<meta name="Author" content="Bob Rilling">
+<LINK REV="made" HREF="http://www.eol.ucar.edu/homes/">
+<META HTTP-EQUIV="KEYWORDS" CONTENT="DYNAMO, spol, spolka, atmospheric science, 
+	remote sensing, radar, weather research">
+
+</head>
+
+<body BGCOLOR=#FFFFFF  TEXT=#OOOOOO margin=0>
+
+<table width="100%"noborder>
+<tr>
+
+<td>
+   <img align="left" border="0" vspace="26" hspace="10" src="DYNAMO_200px_small_clear.png">
+</td>
+
+<td align="left" valign="absmiddle">
+<h1><font color="#003399">
+  Managing the USB Disks<br> and Recording at S-Pol
+</font>
+</h1>
+</td>
+
+<td valign=bottom>
+  <h4 ALIGN="RIGHT">Gan, Maldives<br>Sep-Dec 2011<br>Jan 2012</h4>
+</td>
+</tr>
+</table>
+
+<br clear=all>
+
+<hr size=4 color="#003399" NOSHADE>
+
+<b>This is an incomplete procedure, as not all details have been developed.</b>
+
+<p>The machine spol-dm has been configured for recording S-PolKa
+primary data, and for recording a local copy of SMART-R data.  Two
+removable USB disks should be attached to spol-dm at all times.
+spol-dm must be operational at all times, and it is best if that
+machine is not used for other activities, or at least, any activities
+that could force or require a reboot.  (Scientists, particularly,
+should be discouraged from using spol-dm).
+</p>
+
+<p>sci3 is configured the same as spol-dm, and represents a fail-over
+machine for data recording.  sci3 has the two USB disks attached, and
+those disks are being recorded at the same time as those on spol-dm.
+However, the sci3 disks will be cleaned-off if the spol-dm disks are
+verified as "good".  The sci3 disks get scrubbed and then transferred
+to spol-dm (only after the spol-dm disks are safely removed)</p>
+
+<p><b>How many days on a disk?</b> This is a somewhat uncertain issue.
+Quite a few of the data sets have data thresholded or removed under
+certain, specific circumstances.  For instance, reflectivity with SND
+below, say, -3 dB might be removed, and blank-filled.  This allows
+file compression to make the data sets smaller.  The data sets will be
+smaller on a clear day, than on a day with wide-spread precip. Still,
+on average, we expect to get 5 to 7 days out of a disk.</p>
+
+<h3>Monitoring</h3>
+<ul>
+   <li> Ensure that two USB disks are always attached to spol-dm
+   <li> There are dim flashing lights on each disk showing activity
+   <li> Available disk space is monitored in nagios for each disk
+   <li> Each day, a timeline is produced for each of the USB disks, 
+         comparing the USB data to pgen2 and pgen1 (the primary and
+         secondary RAIDS); review this timeline and flag any problems.
+         [find the "Matlab Monitoring" or the "Data Timelines" link off 
+         of http://control1 homepage.]
+<p>
+   <li> Ensure that two disks are always attached to sci3, as well.
+        Monitor the flashing lights, occasionally, and check the disks
+        while logged into sci3, using the command:
+
+        
+        <pre> <code>df -h /usb/* </code> </pre> 
+
+        (see notes on this, below).  The sci3 disks are not monitored by Nagios.  
+
+</ul>
+
+<h3>Handling</h3>
+
+<ul>
+   <li> To the extent possible, use the USB disks in numerical order
+   <li> Disks are stored in the grey suitcase-shaped box under the spol-dm machine;
+          there is a smaller cardboard box behind this one
+   <li> Disks are labeled as SPOL-HDnn (where nn is the disk number)
+   <li> Secondary labels are also included in the box.  These labels should be filled-out
+          when starting a disk, with the end time added when the disk is removed.
+   <li> Disks have been uglified with blue paint along the edges
+   <li> If a disk fails to mount, move on to the next disk
+   <li> It should require about 6 days to fill a disk (we're working on a more solid number)
+   <li> Disks are managed in pairs, and should ultimately be exact images of each other
+   <li> Disks for spol-dm are used in increasing numerical order.  Disks on sci3 are used in 
+        descending order, starting with numbers in the 60s.
+   <li> Disks on sci3 will be re-used multiple times on sci3 (they will not be transferred to 
+        spol-dm).  The sci3 disks are "safeties", and will be scrubbed when the data on spol-dm's
+        disks are verified.  
+   <li> Sci3 disks can probably be reused about 5 or 6 times before we get
+        concerned with "wearing them out."  [Someone needs to create a label and keep hash
+        marks on these disks; maybe changing at the start of each month makes sense.]
+
+</ul>
+<h3>A Note on logging into Sci3</h3>
+
+<p>Assuming you are working on the spol-dm terminal, you can just open
+another window, then "shell" into sci3.  So:
+
+<ul>
+   <li> Open another X-term (use the "start" menu, or the big X on the 
+        application bar at the bottom of the screen).
+   <li> Within that new window (or, for that matter, in any old window), do
+<pre>
+         ssh sci3
+</pre>
+       You will see that you window prompt changes to sci3.gate.rtf
+<p>
+   <li> To avoid confusion, exit the window when you are done.  Just type "exit", or kill the window
+        in the usual way.
+</ul>
+
+<h3>Changing disks</h3>
+
+<p> When nagios says the spol-dm disks are nearly full (80% to 90% ?), do the following:</p>
+
+<ul>
+   <li> This procedure is ideally done between about 0300 UTC and 0500 UTC.  This is 
+        because a newly inserted disk will try to "catch up" on all the data for the 
+        current day.  If we are too far into a day when a disk is changed, these slow
+        USB disks might never catch up.
+<br><b> [Note that it is not possible to do this prior to 0300: JVA's dismount routine is
+        non-operational until after 0300]</b>
+   <li> check the ID label on the spol-dm disks
+   <li> find the timeline outputs for these disks, and review them.  If there are six days
+        of data on the disk, there should be six timeline plots.  The timelines will be 
+        available on the S-Pol web (http://control1), and are labeled with the 
+        date of the plot.  Within a plot, there are labels on the timelines showing the
+        disk IDs.  Ensure that the pgen2/pgen1 timelines 
+        are complete, and match the SPOL-HDnn timelines.
+   <li> log in to spol-dm as user "operator".  In an available window, execute the command
+        
+        <pre> <code>df -h /usb/* </code> </pre> 
+
+              This command will show the usage of the usb disks.
+              Check that the disks are mostly full, and that the amount of space
+              used is the same for the two disks.
+<p>
+   <li> <b>If you notice any problems with unequal disk sizes, or anything suspicious,
+           contact the on-site software engineer.  Remember that you may need to preserve
+           the data on the sci3 disks if the spol-dm disks have failed.</b>
+
+<p>
+   <li> Execute a dismount, using the "un-plug" application, accessible from
+        the "applications" bar at the bottom of the screen (the icon looks like a 
+        plug being disconnected; it is near the CIDD application buttons)
+   <li> Watch for a change in the USB icons (upper left of desktop), to show that a disk is dismounted
+   <li> Disconnect the disks at the disk side of the cable (we're short on cables -- leave the
+         cables connected to the CPU)
+   <li> Allow a half-minute for the disks to spin-down
+   <li> Complete the info on the larger disk label.
+   <li> Place the disks into their numbered bubble envelopes.
+   <li> Make an entry in the S-Pol logbook (behind the first tab). Enter the disk number,
+        start/end dates (no time is required, since the disks should always start at 00 Z).
+        Provide any comments.
+<p>
+   <li> Plug the next two disks in the numerical sequence into spol-dm.  Watch the icons appear, 
+        then change to a shape like a memory stick.
+   <li> Monitor the new disks in a few hours with the <code>df -h /usb/* </code> command.
+<p>
+   <li> Find a courier going directly back to Boulder, and have them carry a few disks.  
+        Note that any flight back to the US should not have matched disks sent on that 
+        same flight.  I would expect that no one person would have to carry more than three disks.
+   <li> Note the name of the courier in the logbook.
+   <li> Send Bob Rilling an email detailing who is carry which disks
+</ul>
+
+<h3>Handling the backup disks from sci3</h3>
+
+<ul>
+   <li> Log on to sci3
+   <li> Review the usb disks
+   <li> Determine if the sci3 usb disks are needed to replace a bad spol-dm disk.  (If not, 
+        proceed.) 
+
+   <li> If the sci3 disks have been used about 5 or 6 times, unmount these disks and
+        treat them the same way as valid data disks: log on/off dates, and send to Boulder.
+   <li> If the sci3 disks have not hit their usage limit, simply run the scrubber, and 
+        allow them to be re-used.
+<p>
+
+   <li> Mike Dixon still needs to write a "scrub" procedure.  This
+        procedure should run only on sci3.  [Do not run the scrub
+        until you have verified the completness of the disks on
+        spol-dm.]  According to Dixon, the scrub will "take a
+        significant amount of time," but we don't know yet how much.
+
+
+   <li> After the scrub, verify that the disks are empty with the same command you used before:
+        
+        <pre> 
+           <code>df -h /usb/* </code> 
+        </pre> 
+
+   <li> Done.  Check back for flashing lights, watch nagios, and be sure to review the next timeline plot
+
+<p>(Is this procedure complex enough???!!  You have my apologies.
+After a change or two, I think most steps will be pretty obvious.)</p>
+
+</ul>
+
+<h3>A note about general disk reliability</h3>
+
+<p>It is expected that the USB Passport Drives could have a high
+failure rate.  JVA (?) had a discussion with a Western Digital
+engineer.  The engineer stated that the error rates are phenomenally
+high on these small, consumer USB disks.  However, most of these
+errors are somewhat transient, and they are able to fix the errors in
+the software (using pretty fancy parity/error checking).  When these
+disks fail hard, they fail completely and quickly.</p>
+
+<p>We purchased 72 of the Passport drives.  Each was slow-formatted,
+completely written with test bits, then purged.  There were 3 that did
+not pass the tests, and another two that were very slow to write, so
+were not brought to Gan.  Web reviews complain about failures, but an
+actual failure rate cannot be determined.  We simply expect some of
+the disks to fail.</p>
+
+<p>See <a href = "format_disk.txt">here</a> for formatting of USB disks for use by
+the archival system.</p>
+
+<p>Failure modes might include:</p>
+
+<ul>
+   <li> Very slow write rates (evidenced by gaps in the timeline, possibly)
+   <li> Failure of disk to mount
+   <li> Disappearance of all data from the disk
+</ul>
+
+<p>If any of these happen, put a note on the disk, and use another.  If
+the disk should have been written, replace the disk with one from sci3.</p>
+
+<hr>
+<address>
+<font size=-2>--- <a href="http://www.eol.ucar.edu/homes/">Bob Rilling</a> --- 
+ / NCAR Earth Observing Laboratory <br>
+Created: Sun Oct  2 09:57:31 GMT 2011
+ <br>
+Last modified:
+<script>
+<!--//hide
+    document.write(document.lastModified);
+//end hide-->
+</script>
+
+</address>
+</font>
+</body>
+
+</html>

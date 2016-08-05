@@ -1,0 +1,18 @@
+#! /bin/csh
+
+# set the font path
+  
+set hostname = `hostname`
+switch ($hostname)
+  case old_host:
+  xset fp= /usr/X11R6/lib/X11/fonts/misc/,/usr/X11R6/lib/X11/fonts/75dpi/,/usr/X11R6/lib/X11/fonts/100dpi/
+  breaksw
+case cp2rapic.bom.gov.au:
+case cp2server.bom.gov.au:
+case cp2titan.bom.gov.au:
+case cp2cidd.bom.gov.au:
+default:
+  xset fp= /usr/share/X11/fonts/misc/,/usr/share/X11/fonts/75dpi/,/usr/share/X11/fonts/100dpi/
+endsw
+
+

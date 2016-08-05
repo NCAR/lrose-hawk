@@ -1,0 +1,5 @@
+#/bin/sh
+
+# restart the system controller and control GUI on control1
+
+ssh control restart_control

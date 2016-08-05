@@ -1,0 +1,7 @@
+#! /bin/csh
+
+snuff getSatFilesByFtp.py
+
+getSatFilesByFtp.py --debug --checkNames \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSatFilesByFtp >& /dev/null &
+

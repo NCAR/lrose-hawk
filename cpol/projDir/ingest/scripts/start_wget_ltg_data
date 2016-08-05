@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/scripts
+
+running "wget_ltg_data"
+if ($status == 1) then
+  pkill wget_ltg_data
+  wget_ltg_data |& \
+    LogFilter -d $ERRORS_LOG_DIR -p wget_ltg_data &
+endif

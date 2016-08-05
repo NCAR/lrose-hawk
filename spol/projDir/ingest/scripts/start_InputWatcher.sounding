@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/pgen/params
+
+running "InputWatcher -params InputWatcher.sounding"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.sounding |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i sounding &
+endif
+

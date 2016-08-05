@@ -1,0 +1,54 @@
+# NAME pressure_mb.colors
+# jaimi 	12/2/1998 13:20:33
+# MIN    MAX    NAME        COLOR LABEL
+
+#-1 	49 	saddle brown 	!
+#49 	99 	brown 	!
+#99 	149 	indian red 	!
+#149 	199 	rosy brown 	!
+#199 	249 	tan 	!
+#249 	299 	light goldenrod 	!
+#299 	349 	dark khaki 	!
+#349 	399 	dark sea green 	!
+#399 	449 	medium sea green 	!
+#449 	499 	olive drab 	!
+#499 	549 	sea green 	!
+#549 	599 	light sea green 	!
+#599 	649 	cadet blue 	!
+#649 	699 	steel blue 	!
+#699 	749 	dodger blue 	!
+#749 	799 	royal blue 	!
+#799 	849 	medium blue 	!
+#849 	899 	medium slate blue 	!
+#899 	949 	slate blue 	!
+#949 	999 	dark slate blue 	!
+#999 	1049 	navy 	!
+#1049 	1099 	midnight blue 	!
+
+
+900     920	dodgerblue3
+920	925	royalblue3
+925	930	blue
+930     935    mediumblue
+935     940    navyblue
+940     945    midnightblue
+945     950    dimgray
+950     955     slategray
+955     960     seagreen
+960     965     forestgreen
+965     970     olivedrab
+970     975     yellowgreen
+975	980	Gold3
+980 	985	gold
+985     990	yellow
+990	995	orange
+995     1000	coral
+1000    1005    tomato
+1005    1010    firebrick1
+1010 	1015	OrangeRed
+1015	1020	Red
+1020 	1025	DeepPink
+1025	1030	Maroon1
+1030    1035      HotPink
+1035	1060	Pink
+

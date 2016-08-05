@@ -1,0 +1,61 @@
+HOW TO CHANGE THE MONITORING THRESHOLDS - mgen
+==============================================
+
+1. Applications in use
+----------------------
+
+The applications
+
+  SpolTsMonitor, instance 'sband'
+  SpolTsMonitor, instance 'kband'
+
+run on mgen.
+
+They generate the information which nagios uses for warnings etc.
+
+2. Adjust the thresholds
+------------------------
+
+Log on to mgen
+
+cd projDir/mgen/params
+
+Edit:
+
+  SpolTsMonitor.sband
+
+or
+
+  SpolTsMonitor.kband
+
+and adjust the thresholds as needed.
+
+There are 2 sets of limits.
+
+Normal ops:
+
+  ok_value_lower_limit
+  ok_value_upper_limit
+
+Ops with warnings:
+ 
+  impaired_value_lower_limit
+  impaired_value_upper_limit
+
+If the value lies outside the impaired limits, a critical
+message is triggered.
+
+3. Restart the app
+------------------
+
+Use
+
+  restart_SpolTsMonitor.sband
+
+or 
+
+  restart_SpolTsMonitor.sband
+
+as appropriate.
+
+

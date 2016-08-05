@@ -1,0 +1,13 @@
+#############################################
+# site-specific parameters
+#
+# Mike Dixon Oct 2008
+#############################################
+
+setenv SITE_NAME                  "CP2 Redbank Plains"
+setenv RADAR_LAT                  -27.6692
+setenv RADAR_LON                  152.862
+setenv RADAR_ALT_KM               0.168
+setenv RADAR_ALT_M                168
+
+#############################################

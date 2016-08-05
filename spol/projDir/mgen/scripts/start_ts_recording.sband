@@ -1,0 +1,4 @@
+#! /bin/csh
+
+ssh -XY mgen "xterm -title TsSmartSave.manual_sband -bg black -fg yellow -font 8x13bold -g 80x11-0+130 -e do_ts_recording.sband" >& /dev/null &
+

@@ -1,0 +1,12 @@
+#! /bin/csh
+
+setenv DATA_HOST eldora.eol.ucar.edu
+
+cd $PROJ_DIR/mgen/params
+
+running "Fmq2Fmq -params Fmq2Fmq.relay.moments.sband"
+if ($status == 1) then
+  Fmq2Fmq -params Fmq2Fmq.relay.moments.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Fmq2Fmq -i relay.moments.sband &
+endif
+

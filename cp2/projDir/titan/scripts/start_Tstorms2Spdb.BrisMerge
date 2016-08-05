@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/titan/params
+
+running "Tstorms2Spdb -params Tstorms2Spdb.BrisMerge"
+if ($status == 1) then
+  nice Tstorms2Spdb -params Tstorms2Spdb.BrisMerge |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Tstorms2Spdb -i BrisMerge &
+endif
+

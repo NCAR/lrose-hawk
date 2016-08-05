@@ -1,0 +1,4 @@
+#!/bin/csh 
+# HAWK stop script for ui_server
+
+snuff ui_server

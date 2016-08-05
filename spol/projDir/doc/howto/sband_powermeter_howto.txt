@@ -1,0 +1,36 @@
+HOW TO SET UP S-BAND POWER-METER INTERFACE
+==========================================
+
+The S-band powermeters, on H and V, are accessed via a 
+Prologix GPIB-to_ethernet interface.
+
+This device is on the 10.1.10 net, with address 10.1.10.50.
+
+The calsvr app reads the powers from this interface, and
+then sends the data to syscon. This is then read by
+SpolTs2Fmq, and merged into the data stream.
+
+The GPIB interface device seems to lose its IP address
+setting when the power to it is removed.
+
+This can be restored to the desired setting (10.1.10.50) using
+the nfcli utility provided by Prologix.
+
+The prologix code is located in:
+
+  /usr/local/src/prologix
+
+and the 'nfcli' app is installed in
+
+  /usr/local/bin
+
+The script
+
+  projDir/syscon/scripts/set_powermeter_ipaddress
+
+runs nfcli to set the IP address.
+
+This script is run periodically by cron, which calls
+
+  run_set_powermeter_ipaddress
+

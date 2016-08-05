@@ -1,0 +1,10 @@
+#################################################
+# required data for rvp8
+#
+# Format is:
+#
+#  dir               late_secs  very_late_secs
+#################################################
+#
+fmq/spoldrx/shmem_high_40000  30   60
+

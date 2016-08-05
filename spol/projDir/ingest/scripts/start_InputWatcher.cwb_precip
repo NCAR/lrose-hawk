@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "InputWatcher -params InputWatcher.cwb_precip"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.cwb_precip |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i cwb_precip &
+endif
+

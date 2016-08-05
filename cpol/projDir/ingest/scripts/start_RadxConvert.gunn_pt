@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "RadxConvert -params RadxConvert.gunn_pt"
+if ($status == 1) then
+  nice RadxConvert -debug -params RadxConvert.gunn_pt |& \
+    LogFilter -d $ERRORS_LOG_DIR -p RadxConvert -i gunn_pt &
+endif
+

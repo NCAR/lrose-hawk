@@ -1,0 +1,11 @@
+#! /bin/csh
+
+cd $PROJ_DIR/display/params
+
+setenv DATA_HOST localhost
+
+Rview -params Rview.MtStapl |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rview -i MtStapl &
+
+
+

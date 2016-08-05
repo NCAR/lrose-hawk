@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<messages>
+  <message id="ui-login">
+    <div class="login-box">
+       ${name} ${passwd} ${login-button} ${login-link}  ${login-message}
+    </div>
+  </message>
+
+  <message id="ui-register">
+    <h4>Register</h4>
+    <p>
+      To register as a user 
+      please fill out the following form.
+    </p>
+    <table style="margin: 5px auto;">
+      <tr>
+	<td>Login:</td>
+	<td>${name}</td>
+      </tr>
+
+      <tr>
+	<td>Password:</td>
+	<td>${passwd}</td>
+      </tr>
+
+      <tr>
+	<td>Repeat password:</td>
+	<td>${passwd2}</td>
+      </tr>
+
+      <tr>
+	<td colspan="2" style="text-align: center">
+	  ${ok-button}
+	  ${cancel-button}
+	</td>
+      </tr>
+
+      <tr>
+	<td colspan="2" class="login-error">
+	  ${error}
+	</td>
+      </tr>
+
+    </table>
+  </message>
+
+
+  <message id="ui-logout">
+    <div class="login-box">
+      <b>${user}</b> ${logout-link}
+    </div>
+  </message>
+
+
+  <message id="login">Login</message>
+  <message id="login-tooshort">Login too short (must be at least {1} characters)</message>
+  <message id="register">Register</message>
+  <message id="logout">Logout</message>
+  <message id="delete">Delete</message>
+  <message id="edit">Edit</message>
+  <message id="save">Save</message>
+  <message id="cancel">Cancel</message>
+</messages>

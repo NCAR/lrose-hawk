@@ -1,0 +1,7 @@
+#! /bin/csh
+
+snuff Iq2Dsr.kband
+snuff TsTcp2Fmq.kband
+snuff RadMon.kband
+snuff HawkEye.kband
+

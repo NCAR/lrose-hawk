@@ -1,0 +1,890 @@
+{
+    "ProcessorControl" : {
+        "SYS_IDLE_CFG" : {
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1.200000047683716,
+            "gateSpacing" : 150.0000000000000,
+            "indexedBeams" : true,
+            "indexedSpacing" : 1.000000000000000,
+            "numGates" : 960,
+            "numSamples" : 200,
+            "pol_mode" : 3,
+            "prf" : 1000.000000000000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1.000000000000000,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc1" : {
+            "calibration_type" : 1,
+            "clutter_filter_number" : 0,
+            "description" : "proc1",
+            "dwellWidth" : 0.05000000074505807,
+            "gateSpacing" : 150.0000000000000,
+            "indexedBeams" : true,
+            "indexedSpacing" : 1.500000000000000,
+            "numGates" : 960,
+            "numSamples" : 250,
+            "pol_mode" : 3,
+            "prf" : 1000.000000000000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1.000000000000000,
+            "useDwellWidth" : false,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        }
+    },
+    "point_scans" : {
+        "Ballon_sphere_cal" : {
+            "angle_list" : "?",
+            "azimuth" : 174.0000000000000,
+            "elevation" : 10.30000019073486,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "Ka_Band_RCVR" : {
+            "angle_list" : "?",
+            "azimuth" : 135.0000000000000,
+            "elevation" : 1.500000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "SF6_Bottle" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 45.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "STOW" : {
+            "angle_list" : "?",
+            "azimuth" : 0.000000000000000,
+            "elevation" : 90.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "bluesky" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 45.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowEast" : {
+            "angle_list" : "?",
+            "azimuth" : 90.00000000000000,
+            "elevation" : 0.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowNE" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 0.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowNW" : {
+            "angle_list" : "?",
+            "azimuth" : 315.0000000000000,
+            "elevation" : 0.5000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowNorth" : {
+            "angle_list" : "?",
+            "azimuth" : 0.000000000000000,
+            "elevation" : 0.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowSouth" : {
+            "angle_list" : "?",
+            "azimuth" : 180.0000000000000,
+            "elevation" : 0.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "lowWest" : {
+            "angle_list" : "?",
+            "azimuth" : 270.0000000000000,
+            "elevation" : 0.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "off_solar" : {
+            "angle_list" : "?",
+            "azimuth" : 110.0000000000000,
+            "elevation" : 20.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "solar" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 45.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 2,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        },
+        "sphere_cal" : {
+            "angle_list" : "?",
+            "azimuth" : 224.0000000000000,
+            "elevation" : 5.500000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "timeLimit" : 0
+        }
+    },
+    "ppi_scans" : {
+        "BAO_Tower" : {
+            "angle_list" : "BAO_Tower",
+            "az_left" : 45.00000000000000,
+            "az_right" : 65.00000000000000,
+            "estimatedTime" : 141,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 1.000000000000000,
+            "timeLimit" : 0
+        },
+        "Ballon_Cal_South" : {
+            "angle_list" : "alist_Ballon_Cal_South",
+            "az_left" : 172.0000000000000,
+            "az_right" : 176.0000000000000,
+            "estimatedTime" : 420,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 0.2000000029802322,
+            "timeLimit" : 0
+        },
+        "Dynamo_towers" : {
+            "angle_list" : "Dynamo_towers",
+            "az_left" : 310.0000000000000,
+            "az_right" : 350.0000000000000,
+            "estimatedTime" : 101,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 2.000000000000000,
+            "timeLimit" : 0
+        },
+        "Router_Test" : {
+            "angle_list" : "Router_Test",
+            "az_left" : 285.0000000000000,
+            "az_right" : 325.0000000000000,
+            "estimatedTime" : 268,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 5.000000000000000,
+            "timeLimit" : 0
+        },
+        "crane" : {
+            "angle_list" : "crane",
+            "az_left" : 330.0000000000000,
+            "az_right" : 265.0000000000000,
+            "estimatedTime" : 246,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 10.00000000000000,
+            "timeLimit" : 0
+        },
+        "interference" : {
+            "angle_list" : "BAO_Tower",
+            "az_left" : 350.0000000000000,
+            "az_right" : 190.0000000000000,
+            "estimatedTime" : 800,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 1.000000000000000,
+            "timeLimit" : 0
+        },
+        "ppi1" : {
+            "angle_list" : "alist2",
+            "az_left" : 180.0000000000000,
+            "az_right" : 270.0000000000000,
+            "estimatedTime" : 49,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        },
+        "ppi2" : {
+            "angle_list" : "alist2",
+            "az_left" : 60.00000000000000,
+            "az_right" : 120.0000000000000,
+            "estimatedTime" : 34,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        },
+        "solar" : {
+            "angle_list" : "solar",
+            "az_left" : -5.000000000000000,
+            "az_right" : 5.000000000000000,
+            "estimatedTime" : 233,
+            "followMode" : 2,
+            "proc_param" : "proc1",
+            "rate" : 1.000000000000000,
+            "timeLimit" : 0
+        },
+        "sphere_cal" : {
+            "angle_list" : "alist5_sphere_cal",
+            "az_left" : 226.0000000000000,
+            "az_right" : 230.0000000000000,
+            "estimatedTime" : 640,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 0.1000000014901161,
+            "timeLimit" : 0
+        },
+        "wards" : {
+            "angle_list" : "wards",
+            "az_left" : 270.0000000000000,
+            "az_right" : 90.00000000000000,
+            "estimatedTime" : 77,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 10.00000000000000,
+            "timeLimit" : 0
+        }
+    },
+    "ppi_sur_angle_lists" : {
+        "1deg" : {
+            "angles" : [
+                0.8999999761581421,
+                0.9499999880790708,
+                1.000000000000000,
+                1.049999952316284,
+                1.100000023841858
+            ]
+        },
+        "BAO_Tower" : {
+            "angles" : [
+                0.1000000014901161,
+                0.2000000029802322,
+                0.3000000119209290,
+                0.4000000059604645
+            ]
+        },
+        "Dynamo_SUR" : {
+            "angles" : [
+                0.5000000000000000,
+                1.500000000000000,
+                2.500000000000000,
+                3.500000000000000,
+                5.000000000000000,
+                7.000000000000000,
+                9.000000000000000,
+                11.00000000000000
+            ]
+        },
+        "Dynamo_towers" : {
+            "angles" : [
+                0.5000000000000000,
+                0.7500000000000000,
+                1.000000000000000,
+                1.250000000000000,
+                1.500000000000000
+            ]
+        },
+        "Router_Test" : {
+            "angles" : [
+                0.000000000000000,
+                2.000000000000000,
+                4.000000000000000,
+                6.000000000000000,
+                8.000000000000000,
+                10.00000000000000,
+                12.00000000000000,
+                14.00000000000000,
+                16.00000000000000,
+                18.00000000000000,
+                20.00000000000000,
+                22.00000000000000,
+                24.00000000000000,
+                26.00000000000000,
+                28.00000000000000,
+                30.00000000000000,
+                32.00000000000000,
+                34.00000000000000,
+                36.00000000000000,
+                38.00000000000000,
+                40.00000000000000,
+                42.00000000000000,
+                44.00000000000000,
+                46.00000000000000,
+                48.00000000000000,
+                50.00000000000000,
+                52.00000000000000,
+                54.00000000000000,
+                56.00000000000000,
+                58.00000000000000,
+                60.00000000000000
+            ]
+        },
+        "Short_Dyn_SUR" : {
+            "angles" : [
+                0.5000000000000000,
+                1.500000000000000
+            ]
+        },
+        "alist1" : {
+            "angles" : [
+                0.5000000000000000,
+                1.500000000000000,
+                2.500000000000000,
+                3.500000000000000,
+                5.000000000000000,
+                6.500000000000000,
+                8.000000000000000,
+                9.500000000000000,
+                11.00000000000000
+            ]
+        },
+        "alist2" : {
+            "angles" : [
+                1.000000000000000,
+                2.000000000000000,
+                3.000000000000000,
+                4.000000000000000
+            ]
+        },
+        "alist3" : {
+            "angles" : [
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000,
+                1.000000000000000
+            ]
+        },
+        "alist5_sphere_cal" : {
+            "angles" : [
+                3.500000000000000,
+                3.700000047683716,
+                3.900000095367432,
+                4.099999904632568,
+                4.300000190734863,
+                4.500000000000000,
+                4.699999809265137,
+                4.900000095367432,
+                5.099999904632568,
+                5.300000190734863,
+                5.500000000000000,
+                5.699999809265137,
+                5.900000095367432,
+                6.099999904632568,
+                6.300000190734863,
+                6.500000000000000
+            ]
+        },
+        "alist_Balloon_Cal_South" : {
+            "angles" : [
+                9.500000000000000,
+                9.600000381469727,
+                9.699999809265137,
+                9.800000190734863,
+                9.899999618530273,
+                10.00000000000000,
+                10.10000038146973,
+                10.19999980926514,
+                10.30000019073486,
+                10.39999961853027,
+                10.50000000000000,
+                10.60000038146973,
+                10.69999980926514,
+                10.80000019073486,
+                10.89999961853027,
+                11.00000000000000,
+                11.10000038146973,
+                11.19999980926514,
+                11.30000019073486,
+                11.39999961853027,
+                11.50000000000000
+            ]
+        },
+        "clutter" : {
+            "angles" : [
+                0.5000000000000000,
+                0.5000000000000000,
+                0.5000000000000000,
+                0.5000000000000000,
+                0.5000000000000000,
+                0.5000000000000000
+            ]
+        },
+        "crane" : {
+            "angles" : [
+                0.5000000000000000,
+                1.500000000000000,
+                2.500000000000000,
+                3.500000000000000,
+                5.000000000000000,
+                7.000000000000000,
+                9.000000000000000,
+                11.00000000000000
+            ]
+        },
+        "solar" : {
+            "angles" : [
+                -2.200000047683716,
+                -2.000000000000000,
+                -1.799999952316284,
+                -1.600000023841858,
+                -1.399999976158142,
+                -1.200000047683716,
+                -1.000000000000000,
+                -0.8000000119209290,
+                -0.6000000238418579,
+                -0.4000000059604645,
+                -0.2000000029802322,
+                0.000000000000000,
+                0.2000000029802322,
+                0.4000000059604645,
+                0.6000000238418579,
+                0.8000000119209290,
+                1.000000000000000,
+                1.200000047683716,
+                1.399999976158142,
+                1.600000023841858,
+                1.799999952316284,
+                2.000000000000000,
+                2.200000047683716
+            ]
+        },
+        "vert" : {
+            "angles" : [
+                90.00000000000000,
+                89.94999694824219,
+                90.00000000000000,
+                89.94999694824219,
+                90.00000000000000
+            ]
+        },
+        "wards" : {
+            "angles" : [
+                1.000000000000000,
+                2.000000000000000,
+                3.000000000000000,
+                4.000000000000000
+            ]
+        }
+    },
+    "rhi_angle_lists" : {
+        "Dynamo_DOE" : {
+            "angles" : [
+                140.8999938964844,
+                141.8999938964844
+            ]
+        },
+        "Dynamo_sector" : {
+            "angles" : [
+                4.000000000000000,
+                6.000000000000000,
+                8.000000000000000,
+                10.00000000000000,
+                12.00000000000000,
+                14.00000000000000,
+                16.00000000000000,
+                18.00000000000000,
+                20.00000000000000,
+                22.00000000000000,
+                24.00000000000000,
+                26.00000000000000,
+                28.00000000000000,
+                30.00000000000000,
+                32.00000000000000,
+                34.00000000000000,
+                36.00000000000000,
+                38.00000000000000,
+                40.00000000000000,
+                42.00000000000000,
+                44.00000000000000,
+                46.00000000000000,
+                48.00000000000000,
+                50.00000000000000,
+                52.00000000000000,
+                54.00000000000000,
+                56.00000000000000,
+                58.00000000000000,
+                60.00000000000000,
+                62.00000000000000,
+                64.00000000000000,
+                66.00000000000000,
+                68.00000000000000,
+                70.00000000000000,
+                72.00000000000000,
+                74.00000000000000,
+                76.00000000000000,
+                78.00000000000000,
+                80.00000000000000,
+                82.00000000000000,
+                114.0000000000000,
+                116.0000000000000,
+                118.0000000000000,
+                120.0000000000000,
+                122.0000000000000,
+                124.0000000000000,
+                126.0000000000000,
+                128.0000000000000,
+                130.0000000000000,
+                132.0000000000000,
+                134.0000000000000,
+                136.0000000000000,
+                138.0000000000000,
+                140.0000000000000
+            ]
+        },
+        "Dynamo_sector2" : {
+            "angles" : [
+                114.0000000000000,
+                116.0000000000000,
+                118.0000000000000,
+                120.0000000000000,
+                122.0000000000000,
+                124.0000000000000,
+                126.0000000000000,
+                128.0000000000000,
+                130.0000000000000,
+                132.0000000000000,
+                134.0000000000000,
+                136.0000000000000,
+                138.0000000000000,
+                140.0000000000000
+            ]
+        },
+        "alist1" : {
+            "angles" : [
+                55.20000076293945,
+                56.20000076293945,
+                57.20000076293945,
+                58.20000076293945,
+                59.20000076293945
+            ]
+        },
+        "alist2" : {
+            "angles" : [
+                56.20000076293945,
+                57.20000076293945,
+                58.20000076293945
+            ]
+        },
+        "short_Dyn_sect" : {
+            "angles" : [
+                10.00000000000000,
+                13.00000000000000,
+                16.00000000000000,
+                19.00000000000000,
+                22.00000000000000,
+                25.00000000000000,
+                28.00000000000000,
+                31.00000000000000,
+                34.00000000000000,
+                37.00000000000000,
+                40.00000000000000,
+                43.00000000000000
+            ]
+        }
+    },
+    "rhi_scans" : {
+        "Dynamo_DOE" : {
+            "angle_list" : "Dynamo_DOE",
+            "el_bottom" : 0.000000000000000,
+            "el_top" : 65.00000000000000,
+            "estimatedTime" : 28,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 5.000000000000000,
+            "timeLimit" : 0
+        },
+        "Dynamo_sector" : {
+            "angle_list" : "Dynamo_sector",
+            "el_bottom" : -0.5000000000000000,
+            "el_top" : 40.00000000000000,
+            "estimatedTime" : 491,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 5.000000000000000,
+            "timeLimit" : 0
+        },
+        "Dynamo_sector2" : {
+            "angle_list" : "Dynamo_sector",
+            "el_bottom" : -0.5000000000000000,
+            "el_top" : 40.00000000000000,
+            "estimatedTime" : 473,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 5.000000000000000,
+            "timeLimit" : 0
+        },
+        "rhi1" : {
+            "angle_list" : "alist1",
+            "el_bottom" : 0.5000000000000000,
+            "el_top" : 30.00000000000000,
+            "estimatedTime" : 30,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 6.000000000000000,
+            "timeLimit" : 0
+        },
+        "rhi2" : {
+            "angle_list" : "alist2",
+            "el_bottom" : 1.000000000000000,
+            "el_top" : 30.00000000000000,
+            "estimatedTime" : 22,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 4.500000000000000,
+            "timeLimit" : 0
+        },
+        "short_Dyn_sect" : {
+            "angle_list" : "short_Dyn_sect",
+            "el_bottom" : -0.5000000000000000,
+            "el_top" : 40.00000000000000,
+            "estimatedTime" : 109,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 5.000000000000000,
+            "timeLimit" : 0
+        }
+    },
+    "schedule" : {
+        "Dynamo" : {
+            "repeatTime" : 900,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Dynamo_DOE",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "Dynamo_SUR",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Dynamo_sector",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "Dynamo2" : {
+            "repeatTime" : 600,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Dynamo_DOE",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "Dynamo_SUR",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "Dynamo_sector2",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "Dynamo_crane" : {
+            "repeatTime" : 900,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Dynamo_DOE",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "crane",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "Dynamo_sector",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "ShortDynamo" : {
+            "repeatTime" : 300,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "Dynamo_DOE",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "Short_Dynamo_SUR",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "short_Dyn_sect",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "icing" : {
+            "repeatTime" : 450,
+            "startTime" : 10560,
+            "tasks" : [
+                {
+                    "taskName" : "sur1",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "rhi1",
+                    "type" : 3
+                }
+            ]
+        },
+        "sched1" : {
+            "repeatTime" : 300,
+            "startTime" : 28800,
+            "tasks" : [
+                {
+                    "taskName" : "ppi1",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "rhi1",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        },
+        "sched2" : {
+            "repeatTime" : 300,
+            "startTime" : 79200,
+            "tasks" : [
+                {
+                    "taskName" : "sur2",
+                    "type" : 8
+                },
+                {
+                    "taskName" : "ppi2",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "rhi2",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "SYS_IDLE",
+                    "type" : 7
+                }
+            ]
+        }
+    },
+    "sur_scans" : {
+        "Dynamo_SUR" : {
+            "angle_list" : "Dynamo_SUR",
+            "estimatedTime" : 288,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 10.00000000000000,
+            "timeLimit" : 0
+        },
+        "Short_Dynamo_SUR" : {
+            "angle_list" : "Short_Dyn_SUR",
+            "estimatedTime" : 72,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 10.00000000000000,
+            "timeLimit" : 0
+        },
+        "clutter" : {
+            "angle_list" : "clutter",
+            "estimatedTime" : 270,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        },
+        "sur1" : {
+            "angle_list" : "alist1",
+            "estimatedTime" : 360,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 9.000000000000000,
+            "timeLimit" : 0
+        },
+        "sur2" : {
+            "angle_list" : "alist2",
+            "estimatedTime" : 160,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 9.000000000000000,
+            "timeLimit" : 0
+        },
+        "sur3" : {
+            "angle_list" : "alist3",
+            "estimatedTime" : 400,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 9.000000000000000,
+            "timeLimit" : 0
+        },
+        "vert" : {
+            "angle_list" : "vert",
+            "estimatedTime" : 225,
+            "followMode" : 1,
+            "proc_param" : "proc1",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        }
+    }
+}

@@ -1,0 +1,15 @@
+#! /bin/csh
+
+set_font_path >& /dev/null
+
+xrdb -nocpp -override $PROJ_DIR/display/params/XResources4CIDD
+
+if (-e ~/.Xdefaults) then
+  xrdb -nocpp -override ~/.Xdefaults
+endif
+
+source $PROJ_DIR/system/params/site_info
+
+cd $PROJ_DIR/display/params
+CIDD -p CIDD.spol -font fixed >& /dev/null &
+

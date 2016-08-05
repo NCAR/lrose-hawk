@@ -1,0 +1,16 @@
+######################################################
+# required data for server
+#
+# Format is:
+#
+#  dir                   late_secs  very_late_secs
+######################################################
+dorade/moments/kband         900    1800
+dorade/moments/sband         900    1800
+dorade/partrain/sband        900    1800
+cfradial/moments/kband       900    1800
+cfradial/moments/sband       900    1800
+cfradial/partrain/sband      900    1800
+zebra/sat/ir                3600   86400
+zebra/sat/vis               3600   86400
+zebra/sat/wv                3600   86400

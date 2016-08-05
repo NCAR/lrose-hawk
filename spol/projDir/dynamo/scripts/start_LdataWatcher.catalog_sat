@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "LdataWatcher -params LdataWatcher.catalog_sat"
+if ($status == 1) then
+  LdataWatcher -params LdataWatcher.catalog_sat |& \
+    LogFilter -d $ERRORS_LOG_DIR -p LdataWatcher -i catalog_sat &
+endif
+

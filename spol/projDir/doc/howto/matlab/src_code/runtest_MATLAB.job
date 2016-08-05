@@ -1,0 +1,33 @@
+#! /bin/csh
+
+# start up Xvfb for screen 9
+
+running "Xvfb :9.0"
+if ($status == 1) then
+  Xvfb :9.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 100000 -ls 10000 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_9 >& /dev/null &
+  sleep 2
+endif
+
+# set display to 9
+
+setenv DISPLAY :9.0
+
+#setenv MYDATE `date --date=yesterday +%Y%m%d`
+setenv MYDATE `date  +%Y%m%d`
+
+setenv OFILE "job_${MYDATE}.out"
+date >> & $OFILE
+
+snuff MATLAB
+
+cd /home/operator/matlab
+
+#matlab -nosplash -nodesktop -r "main_timeline_multi_plot({'pgen2' 'pgen1' 'SPOL_a' 'SPOL_b'},'${MYDATE}',{'cfradial' 'dorade'}, 'save')" \
+#       |& LogFilter -d $ERRORS_LOG_DIR -p matlabTimeline >& /dev/null
+
+matlab -nosplash -nodesktop -r "PID_fraction( '${MYDATE}' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null
+
+matlab -nosplash  -r "PID_readback_plot( '/home/operator/projDir/data/matlab/analysis/PID_summary.${MYDATE}.out' )" \
+       |& LogFilter -d $ERRORS_LOG_DIR -p matlabPID >& /dev/null

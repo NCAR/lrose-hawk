@@ -1,0 +1,14 @@
+#!/bin/csh 
+# HAWK startup script for calsvr
+#
+# Start cal server task
+
+# is there one running?
+running "calsvr"
+if ($status == 1) then
+    /usr/local/bin/calsvr \
+    --config=${PROJ_DIR}/calsvr/spol_powermeter.cfg \
+    --verbose --daemonize |& \
+    LogFilter -d $ERRORS_LOG_DIR -p calsvr >& /dev/null &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+setenv DATA_HOST eldora.eol.ucar.edu
+setenv PROJ_DIR ~dixon/projDir
+
+cd $PROJ_DIR/display/params
+
+HawkEye -params HawkEye.relay.sband >& /dev/null &
+
+

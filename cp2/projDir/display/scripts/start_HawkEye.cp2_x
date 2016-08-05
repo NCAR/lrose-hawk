@@ -1,0 +1,8 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/display/params
+
+setenv DISPLAY :0.0
+
+HawkEye -params HawkEye.cp2_x >& /dev/null &
+

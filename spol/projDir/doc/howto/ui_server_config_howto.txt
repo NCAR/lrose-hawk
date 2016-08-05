@@ -1,0 +1,14 @@
+ui_server_config_howto.txt
+==========================
+
+Howto file for dealing with ui server.
+
+Configs
+-------
+
+One config file is:
+
+  control1:/etc/local/UI_Server/UI_Server.cfg
+
+This allows you to set the pulse width, which then affects the power showing in the GUI.
+

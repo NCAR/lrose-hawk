@@ -1,0 +1,41 @@
+#! /bin/csh
+
+# revelle
+
+getSoundingsByFtp.py --debug \
+    --ftpServer ftp.eol.ucar.edu \
+    --sourceDir /pub/archive/iss/dynamo/iss2/class \
+    --targetDir $DATA_DIR/raw/soundings/revelle \
+    --tmpDir /tmp/raw/soundings \
+    --pastSecs 86400 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSoundingsByFtp
+
+# diego
+
+getSoundingsByFtp.py --debug \
+    --ftpServer ftp.eol.ucar.edu \
+    --sourceDir /pub/archive/iss/dynamo/iss3/class \
+    --targetDir $DATA_DIR/raw/soundings/diego \
+    --tmpDir /tmp/raw/soundings \
+    --pastSecs 86400 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSoundingsByFtp
+
+# male
+
+getSoundingsByFtp.py --debug \
+    --ftpServer ftp.eol.ucar.edu \
+    --sourceDir /pub/archive/iss/dynamo/male/class \
+    --targetDir $DATA_DIR/raw/soundings/male \
+    --tmpDir /tmp/raw/soundings \
+    --pastSecs 86400 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSoundingsByFtp
+
+# vtjr
+
+getSoundingsByFtp.py --debug \
+    --ftpServer ftp.eol.ucar.edu \
+    --sourceDir /pub/archive/iss/dynamo/vtjr/class \
+    --targetDir $DATA_DIR/raw/soundings/vtjr \
+    --tmpDir /tmp/raw/soundings \
+    --pastSecs 86400 \
+    |& LogFilter -d $ERRORS_LOG_DIR -p getSoundingsByFtp

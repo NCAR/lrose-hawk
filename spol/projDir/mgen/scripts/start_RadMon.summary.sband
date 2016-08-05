@@ -1,0 +1,8 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+RadMon -params RadMon.summary.sband
+
+
+

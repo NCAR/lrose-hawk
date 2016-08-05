@@ -1,0 +1,5 @@
+#! /bin/csh
+
+cd $PROJ_DIR/test/params/HawkEye
+HawkEye -params HawkEye.test
+

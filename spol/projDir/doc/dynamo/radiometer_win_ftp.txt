@@ -1,0 +1,13 @@
+I've gone ahead and setup a few simple scripts for the Radiometer to automatically send files to the Local Field Catlog.  On her Radiometer computer, here are the locations of the files and scripts.
+
+Current Data that has not been sent - C:\operating\Data\
+Data that has been sent to the field Catalog - C:\operating\Data_Processed\
+FTP Script directory - C:\operating\ftpscripts\
+
+Within that ftpscripts directory I have two scripts.  
+
+ftp.scr - This script contains the instructions that the FTP client understands.  It uploads all .png and .csv files in the c:\operating\data directory to 192.168.4.38 (nomad) to the /pub/incoming/radiometer directory.
+
+ftp.bat - This calls the ftp.scr and then moves all the .csv and .png files in C:\operating\data\ to c:\operating\data_proccessed\
+
+Windows Task Schedule then calls the ftp.bat script and runs it every hour currently.  You can find more about windows task scheduler and how it works here - http://support.microsoft.com/kb/308671.  Or just google it.  There is quite a bit of information out there on it.  

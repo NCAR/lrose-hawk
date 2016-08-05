@@ -1,0 +1,13 @@
+##############################################################################
+# SYSTEM processes
+#
+Janitor       logs       start_Janitor.logs        kill_Janitor      localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+#
+###############################################################################
+# KA DRX processes
+#
+kadrx         ops        start_kadrx.ops           snuff_inst    localhost
+ka_xmitd      unique     start_ka_xmitd.unique     snuff_inst    localhost
+#
+###############################################################################

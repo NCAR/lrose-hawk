@@ -1,0 +1,18 @@
+#! /bin/csh
+
+#
+# ensure that no copy tasks are still running
+#
+
+kill_copy_to_remote
+
+#
+# run archive job
+#
+
+runCopyToRemote.py \
+    --debug \
+    --primaryListPath $PROJ_DIR/archive/params/primaryDirList \
+    --secondaryListPath $PROJ_DIR/archive/params/secondaryDirList \
+    |& LogFilter -d $ERRORS_LOG_DIR -p runCopyToRemote >& /dev/null &
+

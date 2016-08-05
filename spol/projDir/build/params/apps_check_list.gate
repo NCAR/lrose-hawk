@@ -1,0 +1,20 @@
+####################################
+# list of TITAN applications
+####################################
+auto_restart
+auto_restart_stats
+Janitor
+LogFilter
+print_procmap
+procmap
+procmap_auto_restart
+procmap_list_check
+procmap_list_kill
+procmap_list_start
+procmap_register
+procmap_unregister
+rm_junk
+running
+snuff
+snuff_inst
+tdrp_gen

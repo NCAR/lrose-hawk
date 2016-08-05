@@ -1,0 +1,11 @@
+#! /bin/csh
+
+setenv PROJ_DIR ~dixon/cvs64/projDir
+
+setenv DATA_HOST tesla.eol.ucar.edu
+source $PROJ_DIR/system/params/site_info
+cd $PROJ_DIR/display/params
+#set_font_path
+
+CIDD -p CIDD.pid_test -t 20111208000000 >& /dev/null &
+

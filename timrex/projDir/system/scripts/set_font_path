@@ -1,0 +1,16 @@
+#! /usr/bin/perl
+#
+# set the font path
+
+$debian_version=`get_debian_version`;
+chop($debian_version);
+
+# print STDERR "debain_version is $debian_version\n";
+
+if ($debian_version > 3.1)
+{
+  system("xset fp= /usr/share/fonts/X11/misc/,/usr/share/fonts/X11/75dpi/,/usr/share/fonts/X11/100dpi/");
+} else {
+  system("xset fp= /usr/X11R6/lib/X11/fonts/misc/,/usr/X11R6/lib/X11/fonts/75dpi/,/usr/X11R6/lib/X11/fonts/100dpi/");
+}
+

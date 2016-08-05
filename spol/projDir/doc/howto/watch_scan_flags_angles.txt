@@ -1,0 +1,5 @@
+To watch scan flags and angles:
+slogin mgen1
+
+RadMon -fmq ~/projDir/data/fmq/moments/sband/shmem_20000.lock -summary \
+	-update -5

@@ -1,0 +1,8 @@
+#! /bin/csh
+
+#
+# mount the archive disks
+#
+
+mount /usb/SPOL_a
+mount /usb/SPOL_b

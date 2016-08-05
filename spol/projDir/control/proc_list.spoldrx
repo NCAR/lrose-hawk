@@ -1,0 +1,18 @@
+##############################################################################
+# SYSTEM processes
+#
+Janitor       logs       start_Janitor.logs        kill_Janitor      localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+#
+###############################################################################
+# SPOL DRX processes
+#
+spoldrx       ops         start_spoldrx.ops            kill_spoldrx  localhost
+TsFmq2Tcp     spoldrx     start_TsFmq2Tcp.spoldrx      snuff_inst    localhost
+TsPrint   spoldrx_server  start_TsPrint.spoldrx_server snuff_inst    localhost
+#
+###############################################################################
+# GPS POSITION
+#
+#GetGpsPosn.py  primary  start_GetGpsPosn.primary    snuff_inst    localhost
+###############################################################################

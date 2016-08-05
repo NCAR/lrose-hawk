@@ -1,0 +1,13 @@
+#!/bin/csh
+
+# insure no flight track fetches are running
+
+kill_falcon_flight_tracks
+
+#
+# run the getFalconTracksByHttp
+#
+
+getFalconTracksByHttp.py |& LogFilter -d $ERRORS_LOG_DIR -p getFalconTracksByHttp >& /dev/null &
+
+

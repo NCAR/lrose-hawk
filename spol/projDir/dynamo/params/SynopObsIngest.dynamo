@@ -1,0 +1,264 @@
+/**********************************************************************
+ * TDRP params for SynopObsIngest
+ **********************************************************************/
+
+//======================================================================
+//
+// SynopObsIngest reads SYNOP OBS records from ASCII files, decodes 
+//   them, converts them to station_report_t format and writes them to an 
+//   SPDB data base.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed with the appropriate level of 
+//   detail.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "dynamo";
+
+//======================================================================
+//
+// PROGRAM MODES OF OPERATION.
+//
+//======================================================================
+ 
+///////////// mode ////////////////////////////////////
+//
+// Operating mode.
+// In REALTIME mode, the program waits for a new input file. In this 
+//   mode it is optional to watch for a latest_data_info file. In ARCHIVE 
+//   mode, it processes all of the data files in the input directory 
+//   between the start and end times set on the command line. In FILELIST 
+//   mode, it processes all of the files in the list specified on the 
+//   command line. In FILELIST mode paths must be fully qualified with 
+//   respect to the date and time - so if each date has a separate 
+//   subdirectory the date part of the path must be included.
+//
+// Type: enum
+// Options:
+//     ARCHIVE
+//     REALTIME
+//     FILELIST
+//
+
+mode = REALTIME;
+
+//======================================================================
+//
+// STATION LOCATIONS FROM FILE.
+//
+//======================================================================
+ 
+///////////// station_location_path ///////////////////
+//
+// Path to station location file.
+// Since the SYNOP reports do not contain lat/lon information, we must 
+//   determine this from a separate file.
+// The C format to be read is as follows:
+// 	%4s %6d %35s %2s %5d %6d %5d
+// for the following fields:
+// 	icaoName stationId longName countryCode lat*100 lon*100 htM.
+// Type: string
+//
+
+station_location_path = "$(PROJ_DIR)/system/params/syworld.tbl";
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_dir ///////////////////////////////
+//
+// Input directory.
+// Directory where input data files can be found.
+// Type: string
+//
+
+input_dir = "$(DATA_DIR)/raw/surface_obs";
+
+///////////// latest_data_info_avail //////////////////
+//
+// Set to true if there is a latest_data_info file available in the 
+//   input directory.
+// REALTIME mode only.
+// Type: boolean
+//
+
+latest_data_info_avail = TRUE;
+
+///////////// max_realtime_valid_age //////////////////
+//
+// Max valid age of rdata input files in realtime mode (secs).
+// This the max valid age for an incoming file. The program will wait 
+//   for a data file more recent than this age.
+// Minimum val: 1
+// Type: int
+//
+
+max_realtime_valid_age = 3600;
+
+///////////// strict_subdir_check /////////////////////
+//
+// When set, only checks input_dir for subdirs of the form YYYYMMDD.
+// Only in REALTIME mode with latest_data_info_avail FALSE.
+// Type: boolean
+//
+
+strict_subdir_check = FALSE;
+
+///////////// file_name_check /////////////////////////
+//
+// When set, check file name contains specified sub-string.
+// See file_match_string.
+// Type: boolean
+//
+
+file_name_check = FALSE;
+
+///////////// file_match_string ///////////////////////
+//
+// Input filename match string.
+// Files must contain this string to be processed.
+// Type: string
+//
+
+file_match_string = "SYN";
+
+//======================================================================
+//
+// STATION SELECTION.
+//
+//======================================================================
+ 
+///////////// check_bounding_box //////////////////////
+//
+// Set to TRUE to check that OBS is within a bounding box.
+// Type: boolean
+//
+
+check_bounding_box = FALSE;
+
+///////////// bounding_box ////////////////////////////
+//
+// Bounding box to check if check_bounding_box is TRUE.
+// Only obs which fall inside this box will be stored.
+//
+// Type: struct
+//   typedef struct {
+//      double min_lat;
+//      double max_lat;
+//      double min_lon;
+//      double max_lon;
+//   }
+//
+//
+
+bounding_box = { -40, 40, 0, 110 };
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// write_decoded_obs ///////////////////////
+//
+// Option to store decoded OBS.
+// If TRUE, decoded OBS will be written to decoded_output_url.
+// Type: boolean
+//
+
+write_decoded_obs = TRUE;
+
+///////////// decoded_output_url //////////////////////
+//
+// Output URL for decoded obs.
+// See the DIDSS docs for details on URL usage.
+// Type: string
+//
+
+decoded_output_url = "spdbp:://localhost::spdb/synop_obs";
+
+///////////// decoded_compression /////////////////////
+//
+// Option to compress the decoded OBS.
+// Set desired output compression. Compression should only be done for 
+//   data in which the individual chunks are large.
+//
+// Type: enum
+// Options:
+//     COMPRESSION_NONE
+//     COMPRESSION_GZIP
+//     COMPRESSION_BZIP2
+//
+
+decoded_compression = COMPRESSION_NONE;
+
+///////////// write_ascii_obs /////////////////////////
+//
+// Option to store ASCII OBS.
+// If TRUE, ascii OBS will be written to ascii_output_url.
+// Type: boolean
+//
+
+write_ascii_obs = TRUE;
+
+///////////// ascii_output_url ////////////////////////
+//
+// Output URL for ASCII obs.
+// See the DIDSS docs for details on URL usage.
+// Type: string
+//
+
+ascii_output_url = "spdbp:://localhost::spdb/synop_obs_ascii";
+
+///////////// expire_seconds //////////////////////////
+//
+// Expire time in seconds for each obs.
+// This value will be added to the obs time to determine the expire time 
+//   for the obs.
+// Type: int
+//
+
+expire_seconds = 14400;
+
+///////////// output_report_type //////////////////////
+//
+// Type of station report to put in the output SPDB database.
+//
+// Type: enum
+// Options:
+//     STATION_REPORT
+//     REPORT_PLUS_FULL_XML
+//     XML_ONLY
+//
+
+output_report_type = XML_ONLY;
+

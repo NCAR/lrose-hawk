@@ -1,0 +1,11 @@
+#! /bin/csh
+
+#
+# ensure that no archive tasks are still running
+#
+
+snuff doArchive.py
+snuff rsync
+snuff runArchive.py
+snuff doDayArchive.py
+

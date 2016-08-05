@@ -1,0 +1,3 @@
+#! /bin/csh
+
+snuff "DrawFmqPolygonStats -params DrawFmqPolygonStats.cp2_draw"

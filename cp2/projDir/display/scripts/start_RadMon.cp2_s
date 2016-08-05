@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+xterm -title RadMon_S -bg black -fg cyan -g 74x3-0+0 -e "ssh cp2server RadMon -params /home/titan5/projDir/display/params/RadMon.cp2_s " &
+

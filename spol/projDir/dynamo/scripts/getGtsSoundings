@@ -1,0 +1,8 @@
+#! /bin/csh
+
+getCatalogFilesBySftp.py --debug --pastSecs=86400 --sshPort=22 \
+--sourceDir=/var/www/html/dynamo/data/gts_sounding \
+--tmpDir=/tmp/raw/soundings/gts \
+--targetDir=${DATA_DIR}/raw/soundings/gts \
+--subStrList=txt --dataType=txt --checkNames \
+|& LogFilter -d $ERRORS_LOG_DIR -p getCatalogSoundings >& /dev/null &

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rapic/params/Dsr2Rapic
+
+running "Dsr2Rapic -params Dsr2Rapic.ops"
+if ($status == 1) then
+  nice Dsr2Rapic -params Dsr2Rapic.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Dsr2Rapic -i ops &
+endif
+

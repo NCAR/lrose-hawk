@@ -1,0 +1,957 @@
+/**********************************************************************
+ * TDRP params for spoldrx
+ **********************************************************************/
+
+//======================================================================
+//
+// Digital receiver for NCAR SPOL radar.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Program instance for process registration.
+// This application registers with procmap. This is the instance used 
+//   for registration.
+// Type: string
+//
+
+instance = "ops";
+
+//======================================================================
+//
+// RADAR PLATFORM DETAILS.
+//
+//======================================================================
+ 
+///////////// radar_name //////////////////////////////
+//
+// Name of radar.
+// Type: string
+//
+
+radar_name = "SPOL";
+
+///////////// gps_posn_file_path //////////////////////
+//
+// Path to file containing the GPS position data.
+// This file is written by the GetGpsPosn.py script. It is in XML 
+//   format. We read it at least once per second to get the latest GPS 
+//   position update.
+// Type: string
+//
+
+gps_posn_file_path = "/home/spol/projDir/data/gps/GPS_POSN";
+
+///////////// radar_latitude_deg //////////////////////
+//
+// Latitude (deg).
+// This will be overridden by the GPS data if available.
+// Type: double
+//
+
+radar_latitude_deg = 40.1233;
+
+///////////// radar_longitude_deg /////////////////////
+//
+// Longitude (deg).
+// This will be overridden by the GPS data if available.
+// Type: double
+//
+
+radar_longitude_deg = -104.891;
+
+///////////// radar_altitude_m ////////////////////////
+//
+// Altitude (meters).
+// This will be overridden by the GPS data if available.
+// Type: double
+//
+
+radar_altitude_m = 1552.96;
+
+///////////// antenna_beam_width_h ////////////////////
+//
+// Beam width H channel (deg).
+// Type: double
+//
+
+antenna_beam_width_h = 0.92;
+
+///////////// antenna_beam_width_v ////////////////////
+//
+// Beam width V channel (deg).
+// Type: double
+//
+
+antenna_beam_width_v = 0.92;
+
+///////////// antenna_gain_h //////////////////////////
+//
+// Antenna gain in H channel (dB).
+// Type: double
+//
+
+antenna_gain_h = 45.2;
+
+///////////// antenna_gain_v //////////////////////////
+//
+// Antenna gain in V channel (dB).
+// Type: double
+//
+
+antenna_gain_v = 45.5;
+
+//======================================================================
+//
+// PENTEK CONTROL.
+//
+//======================================================================
+ 
+///////////// operate_high_range //////////////////////
+//
+// Option to run the high-range card.
+// Type: boolean
+//
+
+operate_high_range = TRUE;
+
+///////////// pentek_address_high /////////////////////
+//
+// Address of pentek for high power range.
+// Type: int
+//
+
+pentek_address_high = 1;
+
+///////////// operate_low_range ///////////////////////
+//
+// Option to run the low-range card.
+// Type: boolean
+//
+
+operate_low_range = FALSE;
+
+///////////// pentek_address_low //////////////////////
+//
+// Address of pentek for low power range.
+// Type: int
+//
+
+pentek_address_low = 2;
+
+///////////// start_on_1pps ///////////////////////////
+//
+// Start downconverter on 1PPS from GPS.
+// This will synchronize the first pulse to the GPS 1 Pulse-Per-Second 
+//   signal.
+// Type: boolean
+//
+
+start_on_1pps = TRUE;
+
+///////////// ignore_t0minus6 /////////////////////////
+//
+// Ignore 'T0 minus 6' secondary trigger when starting timers.
+// This will drop requirement of the secondary 'T0 minus 6' timer start 
+//   trigger.
+// Type: boolean
+//
+
+ignore_t0minus6 = FALSE;
+
+///////////// gps_reference_frequency_hz //////////////
+//
+// Frequency of GPS reference (Hz).
+// Generally this will be 10 MHz.
+// Type: double
+//
+
+gps_reference_frequency_hz = 1e+07;
+
+///////////// use_external_clock //////////////////////
+//
+// Use external oscillator for downconverter.
+// If false, use the Pentek's internal clock - this should be used for 
+//   debugging only.
+// Type: boolean
+//
+
+use_external_clock = TRUE;
+
+///////////// pentek_clock_frequency_hz ///////////////
+//
+// Frequency of the external or internal clock used by the Pentek (Hz).
+// The raw ADC IQ data will be produced at half this rate.
+// Type: double
+//
+
+pentek_clock_frequency_hz = 8e+07;
+
+///////////// RF_hz ///////////////////////////////////
+//
+// Nominal RF frequency (Hz).
+// Type: double
+//
+
+RF_hz = 2.809e+09;
+
+///////////// IF_hz ///////////////////////////////////
+//
+// Apparent intermediate frequency for the system (Hz).
+// This should be 1/4 of pentek clock frequency.
+// Type: double
+//
+
+IF_hz = 2e+07;
+
+//======================================================================
+//
+// TRANSMITTER CONFIGURATION.
+//
+//======================================================================
+ 
+///////////// prt_sec /////////////////////////////////
+//
+// Primary Pulse Repetition Time (secs).
+// PRF = 1.0 / PRT.
+// Type: double
+//
+
+prt_sec = 0.001;
+
+///////////// prt_is_staggered ////////////////////////
+//
+// Operatte in staggered PRT mode.
+// This will synchronize the first pulse to the GPS 1 Pulse-Per-Second 
+//   signal.
+// Type: boolean
+//
+
+prt_is_staggered = FALSE;
+
+///////////// staggered_prt_ratio /////////////////////
+//
+// Ratio for staggered PRT mode. Only applies in simultaneous mode.
+// STAGGER_2_3 gives the smallest nyquist, but the best data quality. 
+//   STAGGER_4_5 gives the largest nyquist, but the lowest quality data.
+//
+// Type: enum
+// Options:
+//     STAGGER_2_3
+//     STAGGER_3_4
+//     STAGGER_4_5
+//
+
+staggered_prt_ratio = STAGGER_2_3;
+
+///////////// tx_mode /////////////////////////////////
+//
+// Transmit mode.
+// TX_ALT_HV: alternating transmit/receive. TX_SIM_HV: simultaneous 
+//   transmit, receive both. TX_H_ONLY: transmit H, receive both. 
+//   TX_V_ONLY: transmit V, receive both.
+//
+// Type: enum
+// Options:
+//     TX_ALT_HV
+//     TX_SIM_HV
+//     TX_H_ONLY
+//     TX_V_ONLY
+//
+
+tx_mode = TX_ALT_HV;
+
+///////////// max_duty_cycle //////////////////////////
+//
+// Max allowable duty cycle for the transmitter.
+// This is a decimal, not a percent.
+// Type: double
+//
+
+max_duty_cycle = 0.002;
+
+//======================================================================
+//
+// TRANSMITTER TIMING.
+//
+//======================================================================
+ 
+///////////// tx_nominal_pulse_width //////////////////
+//
+// Nominal pulse width (secs).
+// The receiver filters are matched to this width.
+// Minimum val: 1e-06
+// Type: double
+//
+
+tx_nominal_pulse_width = 1.5e-06;
+
+///////////// tx_delay ////////////////////////////////
+//
+// Delay from T0 to start of tx pulse (secs).
+// This is the time from the main trigger to the start of the modulation 
+//   pulse.
+// Minimum val: 0
+// Type: double
+//
+
+tx_delay = 0;
+
+//======================================================================
+//
+// RECEIVER CONFIGURATION.
+//
+//======================================================================
+ 
+///////////// n_gates /////////////////////////////////
+//
+// Number of gates to digitize.
+// This may be automatically reduced, depending on the PRT. The longer 
+//   the PRT, the more gates you can have. If this value exceeds the max 
+//   possible gates, it will be reduced accordingly.
+// Type: int
+//
+
+n_gates = 980;
+
+///////////// rx_gate_width ///////////////////////////
+//
+// Sample gate width (secs).
+// Sample time per digitized gate. For non-over-sampled operations this 
+//   should be set to the tx_nominal_pulse_width. To over-sample in range, 
+//   set this to some fraction of the tx_nominal_pulse_width.
+// Minimum val: 1e-07
+// Type: double
+//
+
+rx_gate_width = 1e-06;
+
+///////////// tx_to_rx_delay_high /////////////////////
+//
+// Delay from start of tx pulse to start of rx sampling for high range 
+//   (secs).
+// We delay the receiver gate sampling relative to the transmit pulse.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_rx_delay_high = 16.0e-06;
+
+///////////// tx_to_rx_delay_low //////////////////////
+//
+// Delay from start of tx pulse to start of rx sampling for low range 
+//   (secs).
+// We delay the receiver gate sampling relative to the transmit pulse.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_rx_delay_low = 1e-06;
+
+//======================================================================
+//
+// BURST SAMPLING.
+//
+// The burst pulse sampling must start some small time before the 
+//   transmit pulse, and end some small time after the end of the pulse.
+//
+//======================================================================
+ 
+///////////// tx_to_burst_sample_delay_high ///////////
+//
+// Delay from start of tx pulse to start of burst sampling - high range 
+//   (secs).
+// We delay the burst sampling relative to the transmit pulse.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_burst_sample_delay_high = 7.5e-06;
+
+///////////// tx_to_burst_sample_delay_low ////////////
+//
+// Delay from start of tx pulse to start of burst sampling - low range 
+//   (secs).
+// We delay the burst sampling relative to the transmit pulse.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_burst_sample_delay_low = 0;
+
+///////////// burst_sample_width_stretch_high /////////
+//
+// Burst sample stretch width - high range (secs).
+// The sample period for the burst is computed as the 
+//   nominal_pulse_width plus this stretch width. We need to make this 
+//   long enough to effectively sample the entire burst.
+// Minimum val: 0
+// Type: double
+//
+
+burst_sample_width_stretch_high = 2e-06;
+
+///////////// burst_sample_width_stretch_low //////////
+//
+// Burst sample stretch width - low range (secs).
+// The sample period for the burst is computed as the 
+//   nominal_pulse_width plus this stretch width. We need to make this 
+//   long enough to effectively sample the entire burst.
+// Minimum val: 0
+// Type: double
+//
+
+burst_sample_width_stretch_low = 5e-07;
+
+///////////// burst_n_pulses_for_props ////////////////
+//
+// Number of pulses from which to compute burst properties.
+// We compute the burst pulse width, power and frequency by accumulating 
+//   data from this number of pulses. This helps to smooth out 
+//   fluctuations.
+// Type: int
+//
+
+burst_n_pulses_for_props = 2500;
+
+///////////// burst_power_threshold_dbm ///////////////
+//
+// Threshold for the burst power while scanning the frequency (dbm).
+// Because of the action of the upstream filters, the burst power will 
+//   be low when the freqency is not centered on the nominal stage 2 IF.
+// Type: double
+//
+
+burst_power_threshold_dbm = -20;
+
+//======================================================================
+//
+// TEST PULSE TIMING.
+//
+//======================================================================
+ 
+///////////// tx_to_test_pulse_delay_high /////////////
+//
+// Delay from start of tx pulse to start of test pulse - high range 
+//   (secs).
+// A test pulse will be inserted into the receiver at this delay.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_test_pulse_delay_high = 0.00048508;
+
+///////////// tx_to_test_pulse_delay_low //////////////
+//
+// Delay from start of tx pulse to start of test pulse - low range 
+//   (secs).
+// A test pulse will be inserted into the receiver at this delay.
+// Minimum val: 0
+// Type: double
+//
+
+tx_to_test_pulse_delay_low = 0.00048508;
+
+///////////// test_pulse_width_high ///////////////////
+//
+// Width of test pulse - high range (secs).
+// A test target of this width will be inserted.
+// Minimum val: 1e-07
+// Type: double
+//
+
+test_pulse_width_high = 5e-06;
+
+///////////// test_pulse_width_low ////////////////////
+//
+// Width of test pulse - low range (secs).
+// A test target of this width will be inserted.
+// Minimum val: 1e-07
+// Type: double
+//
+
+test_pulse_width_low = 5e-06;
+
+//======================================================================
+//
+// RECEIVER SIGNAL PROCESSING.
+//
+//======================================================================
+ 
+///////////// ts_length ///////////////////////////////
+//
+// Time series length for downconverter.
+// Generally the default is just fine.
+// Type: int
+//
+
+ts_length = 256;
+
+///////////// iqcount_scale_for_mw_high ///////////////
+//
+// Count scaling factor to compute power in mW from I and Q - high 
+//   range.
+
+
+// If I and Q are counts from the Pentek, the power at the A/D in mW is:
+
+// 	(I / iqcount_scale_for_mw)^2 + (Q / iqcount_scale_for_mw)^2
+
+// This value is determined empirically.
+// Type: double
+//
+
+iqcount_scale_for_mw_high = 13000;
+
+///////////// iqcount_scale_for_mw_low ////////////////
+//
+// Count scaling factor to compute power in mW from I and Q - low range.
+
+
+// If I and Q are counts from the Pentek, the power at the A/D in mW is:
+
+// 	(I / iqcount_scale_for_mw)^2 + (Q / iqcount_scale_for_mw)^2
+
+// This value is determined empirically.
+// Type: double
+//
+
+iqcount_scale_for_mw_low = 13000;
+
+///////////// filter_directory_path ///////////////////
+//
+// Path to directory containing the filter files.
+// Filter files are stored in this directory.
+// Type: string
+//
+
+filter_directory_path = "$(HOME)/spoldrx/filters";
+
+///////////// gaussian_filters ////////////////////////
+//
+// List of filter names vs pulse widths.
+// spoldrx will select the filter with the pulse width closest to the 
+//   tx_nominal_pulse_width. If the name is empty, the Pentek library 
+//   supplies the default coefficients. Set to a real file name to 
+//   override the defaults. This name is appended to the 
+//   filter_directory_path to compute the file path.
+//
+// Type: struct
+//   typedef struct {
+//      double pulse_width;
+//      string name;
+//   }
+//
+// 1D array - variable length.
+//
+
+gaussian_filters = {
+  {
+    pulse_width = 2e-07,
+    name = "ddc10_0.2.gcf"
+  }
+  ,
+  {
+    pulse_width = 3e-07,
+    name = "ddc10_0.3.gcf"
+  }
+  ,
+  {
+    pulse_width = 4e-07,
+    name = "ddc10_0.4.gcf"
+  }
+  ,
+  {
+    pulse_width = 5e-07,
+    name = "ddc10_0.5.gcf"
+  }
+  ,
+  {
+    pulse_width = 6e-07,
+    name = "ddc10_0.6.gcf"
+  }
+  ,
+  {
+    pulse_width = 8e-07,
+    name = "ddc10_0.8.gcf"
+  }
+  ,
+  {
+    pulse_width = 1e-06,
+    name = "SPOL_1usec.gcf"
+  }
+  ,
+  {
+    pulse_width = 1.5e-06,
+    name = "SPOL_1_5.gcf"
+  }
+};
+
+///////////// kaiser_filter_file_name /////////////////
+//
+// Name of file containing kaiser filter coefficients.
+// If this is empty, the Pentek library supplies the default 
+//   coefficients. Set to a real file name to override the defaults. This 
+//   name is appended to the filter_directory_path to compute the file 
+//   path.
+// Type: string
+//
+
+kaiser_filter_file_name = "SPOL_5MHz.kcf";
+
+///////////// simulate_down_converter /////////////////
+//
+// Simulate the downconverter.
+// Useful for testing.
+// Type: boolean
+//
+
+simulate_down_converter = FALSE;
+
+///////////// simulation_data_length //////////////////
+//
+// Data length (samples) in simulate mode.
+// Number of samples for simulator.
+// Type: int
+//
+
+simulation_data_length = 5000;
+
+///////////// simulation_pause_ms /////////////////////
+//
+// Simulate pause (millisecs) between beams.
+// Type: double
+//
+
+simulation_pause_ms = 0.1;
+
+///////////// free_running_mode ///////////////////////
+//
+// Set the receiver into free running mode.
+// Useful to see what is happening on the ADCs.
+// Type: boolean
+//
+
+free_running_mode = FALSE;
+
+///////////// cohere_iq_to_burst //////////////////////
+//
+// Cohere the IQ phase to the burst phase.
+// This adjusts for the random magnetron transmit phase.
+// Type: boolean
+//
+
+cohere_iq_to_burst = FALSE;
+
+///////////// swap_hv_flag ////////////////////////////
+//
+// Option to change the logical sense of the HV flag.
+// In the time series, the intention is that for H transmit the HV-flag 
+//   will be 1, and for V transmit the flag will be 0. If this is not the 
+//   case in the data coming from the digitizer, you can swap it by 
+//   setting this to true.
+// Type: boolean
+//
+
+swap_hv_flag = TRUE;
+
+///////////// check_angle_change //////////////////////
+//
+// Check that angles do not change by more than a specified amount from 
+//   pulse to pulse.
+// If the elevation or azimuth change exceeds this, the previous angle 
+//   will be used.
+// Type: boolean
+//
+
+check_angle_change = TRUE;
+
+///////////// max_angle_change ////////////////////////
+//
+// Max valid angle change between pulses (deg).
+// See 'check_angle_change'.
+// Type: double
+//
+
+max_angle_change = 0.5;
+
+//======================================================================
+//
+// DATA EXPORT.
+//
+//======================================================================
+ 
+///////////// max_mbytes_per_sec //////////////////////
+//
+// Max network bandwidth in mega-bytes per second.
+// This should be set to the practical upper limit on communication 
+//   bandwidth with mgen. spoldrx will limit the number of gates to ensure 
+//   that this bandwidth is not exceeded.
+// Type: double
+//
+
+max_mbytes_per_sec = 40;
+
+///////////// merge_queue_size ////////////////////////
+//
+// Size of queue which acts as buffer for the merge.
+// The H and V channels are merged into a single time series data 
+//   stream. We need a buffer to ensure we do not miss pulses.
+// Type: int
+//
+
+merge_queue_size = 20000;
+
+///////////// pulse_interval_per_iwrf_meta_data ///////
+//
+// How often to send meta data.
+// The meta data will be sent at this pulse interval.
+// Type: int
+//
+
+pulse_interval_per_iwrf_meta_data = 5000;
+
+///////////// export_mode /////////////////////////////
+//
+// Mechanism for export_modeing data.
+// EXPORT_MODE_TCP: listen for a client, send data over a socket. 
+//   EXPORT_MODE_FMQ: write into an FMQ.
+//
+// Type: enum
+// Options:
+//     EXPORT_MODE_TCP
+//     EXPORT_MODE_FMQ
+//
+
+export_mode = EXPORT_MODE_FMQ;
+
+///////////// iwrf_server_tcp_port_high ///////////////
+//
+// Port number for TCP server for iwrf data for high range.
+// EXPORT_MODE_TCP.
+// Type: int
+//
+
+iwrf_server_tcp_port_high = 6601;
+
+///////////// iwrf_server_tcp_port_low ////////////////
+//
+// Port number for TCP server for iwrf data for low range.
+// EXPORT_MODE_TCP.
+// Type: int
+//
+
+iwrf_server_tcp_port_low = 6602;
+
+///////////// output_fmq_path_high ////////////////////
+//
+// EXPORT_MODE_FMQ. Path to output FMQ - high range.
+// If the file name starts with 'shmem', then shared memory is used to 
+//   the queue, and the number is the key. If not, the FMQ consists of 2 
+//   files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path_high = "$(DATA_DIR)/fmq/spoldrx/shmem_spoldrx_40000";
+
+///////////// output_fmq_path_low /////////////////////
+//
+// EXPORT_MODE_FMQ. Path to output FMQ - low range.
+// If the file name starts with 'shmem', then shared memory is used to 
+//   the queue, and the number is the key. If not, the FMQ consists of 2 
+//   files, ??.buf and ??.stat.
+// Type: string
+//
+
+output_fmq_path_low = "$(DATA_DIR)/fmq/spoldrx/shmem_spoldrx_21000";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer.
+// Type: int
+//
+
+output_fmq_size = 1000000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in the output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 30000;
+
+///////////// n_pulses_per_message ////////////////////
+//
+// EXPORT_MODE_FMQ. Number of pulses per output message.
+// The actual number will sometimes be 1 less than this, because an info 
+//   data part may will be written once in a while.
+// Type: int
+//
+
+n_pulses_per_message = 200;
+
+///////////// data_mapper_report_interval /////////////
+//
+// EXPORT_MODE_FMQ: Number of seconds between reports to DataMapper.
+// If > 0, the program will register with the DataMapper when the output 
+//   FMQ is written to. If <= 0, registration will not be performed.
+// Type: int
+//
+
+data_mapper_report_interval = 5;
+
+//======================================================================
+//
+// COMMUNICATING WITH GUI.
+//
+//======================================================================
+ 
+///////////// gui_tcp_port ////////////////////////////
+//
+// TCP port for listening on for GUI connections.
+// Listen on this port for connections from the control GUI. Once 
+//   connected, communications with the GUI will be handled over this TCP 
+//   connection.
+// Type: int
+//
+
+gui_tcp_port = 14000;
+
+//======================================================================
+//
+// ANTENNA ANGLES.
+//
+//======================================================================
+ 
+///////////// swap_az_and_el //////////////////////////
+//
+// Option to swap the azimuth and elevation angles.
+// Can be used to unswap the angles if the wiring leads to swapped 
+//   angles.
+// Type: boolean
+//
+
+swap_az_and_el = FALSE;
+
+///////////// simulate_antenna_angles /////////////////
+//
+// Option to simulate antenna angles.
+// Instead of reading the antenna angles, we simulate them and insert 
+//   them into the data. Useful for testing when not attached to a real 
+//   antenna.
+// Type: boolean
+//
+
+simulate_antenna_angles = FALSE;
+
+///////////// sim_n_elevations ////////////////////////
+//
+// Number of elevation angles to simulate.
+// Type: int
+//
+
+sim_n_elevations = 10;
+
+///////////// sim_start_elevation /////////////////////
+//
+// Starting elevation angle for simulation (deg).
+// Type: double
+//
+
+sim_start_elevation = 0.5;
+
+///////////// sim_delta_elevation /////////////////////
+//
+// Delta elevation angle for simulation (deg).
+// Type: double
+//
+
+sim_delta_elevation = 1;
+
+///////////// sim_azimuth_rate ////////////////////////
+//
+// Azimuth rate for simulation (deg/s).
+// Type: double
+//
+
+sim_azimuth_rate = 15;
+
+//======================================================================
+//
+// INSERT TEST DATA.
+//
+//======================================================================
+ 
+///////////// insert_test_iq_data /////////////////////
+//
+// Option to modify the IQ data based on time/az.
+// Option to insert test IQ values based on the time, in order to check 
+//   that the data is handled correctly downstream.
+// Type: boolean
+//
+
+insert_test_iq_data = FALSE;
+
+///////////// test_power_dbm //////////////////////////
+//
+// Power to be inserted in the test data (dBm).
+// This power will be added to the IQ data, within the azimuth limits.
+// Type: double
+//
+
+test_power_dbm = -10;
+
+///////////// test_start_az ///////////////////////////
+//
+// Starting azimuth for insertion of test data (deg).
+// The azimuth is computed from the time, assuming a constant az rate.
+// Type: double
+//
+
+test_start_az = 0;
+
+///////////// test_end_az /////////////////////////////
+//
+// Ending azimuth for insertion of test data (deg).
+// The azimuth is computed from the time, assuming a constant az rate.
+// Type: double
+//
+
+test_end_az = 10;
+
+///////////// test_az_secs_per_rev ////////////////////
+//
+// Simulated az rate - seconds per revolution.
+// The simulated azimuth will be 0 at the start of each revolution.
+// Type: int
+//
+
+test_az_secs_per_rev = 6;
+

@@ -1,0 +1,4 @@
+#! /bin/csh -f
+
+xterm -title RadMon_for_SDB -bg black -fg orange -g 74x3-0+70 -e "RadMon -params $PROJ_DIR/display/params/RadMon.sdb " &
+

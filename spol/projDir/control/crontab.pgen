@@ -1,0 +1,19 @@
+####################################################################
+# SYSTEM
+#
+# Process restarters
+*/1 * * * *  csh -c "start_auto_restart_check_cron" 1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "start_procmap_check_cron"      1> /dev/null 2> /dev/null
+#
+# Build links to log date subdirs
+*/5 * * * *   csh -c "start_build_logdir_links" 1> /dev/null 2> /dev/null
+#
+####################################################################
+# COPY DATA TO spol-dm and spol-dm2 - backup for DsFileDist
+#
+#*/5 * * * *   csh -c "run_copy_to_remote" 1> /dev/null 2> /dev/null
+####################################################################
+# RSYNC spdb data to uwraid
+#
+#*/15 * * * *   csh -c "rsync_spdb_to_uwraid" 1> /dev/null 2> /dev/null
+

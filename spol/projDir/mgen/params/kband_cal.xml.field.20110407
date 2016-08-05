@@ -1,0 +1,59 @@
+<DsRadarCalib>
+  <radarName>Spol-KaBand</radarName>
+  <calibTime>2011-02-15T21:36:15</calibTime>
+  <wavelengthCm>0.865202</wavelengthCm>
+  <beamWidthDegH>0.86</beamWidthDegH>
+  <beamWidthDegV>0.91</beamWidthDegV>
+  <antGainDbH>45.9</antGainDbH>
+  <antGainDbV>45.4</antGainDbV>
+  <pulseWidthUs>0.5</pulseWidthUs>
+  <xmitPowerDbmH>74.69</xmitPowerDbmH>
+  <xmitPowerDbmV>74.69</xmitPowerDbmV>
+  <twoWayWaveguideLossDbH>0</twoWayWaveguideLossDbH>
+  <twoWayWaveguideLossDbV>0</twoWayWaveguideLossDbV>
+  <twoWayRadomeLossDbH>0</twoWayRadomeLossDbH>
+  <twoWayRadomeLossDbV>0</twoWayRadomeLossDbV>
+  <receiverMismatchLossDb>0.4</receiverMismatchLossDb>
+  <radarConstH>61.6434</radarConstH>
+  <radarConstV>61.6434</radarConstV>
+  <noiseDbmHc>-63.485</noiseDbmHc> <!-- lab 65.442 -->
+  <noiseDbmHx>-63.485</noiseDbmHx>
+  <noiseDbmVc>-62.905</noiseDbmVc> <!-- lab 65.137 -->
+  <noiseDbmVx>-62.905</noiseDbmVx>
+  <i0DbmHc>-102.906</i0DbmHc>
+  <i0DbmHx>-102.906</i0DbmHx>
+  <i0DbmVc>-101.473</i0DbmVc>
+  <i0DbmVx>-101.473</i0DbmVx>
+  <receiverGainDbHc>37.4644</receiverGainDbHc>
+  <receiverGainDbHx>37.4644</receiverGainDbHx>
+  <receiverGainDbVc>36.3358</receiverGainDbVc>
+  <receiverGainDbVx>36.3358</receiverGainDbVx>
+  <receiverSlopeDbHc>0.995218</receiverSlopeDbHc>
+  <receiverSlopeDbHx>0.995218</receiverSlopeDbHx>
+  <receiverSlopeDbVc>0.995343</receiverSlopeDbVc>
+  <receiverSlopeDbVx>0.995343</receiverSlopeDbVx>
+  <dynamicRangeDbHc>77.9527</dynamicRangeDbHc>
+  <dynamicRangeDbHx>77.9527</dynamicRangeDbHx>
+  <dynamicRangeDbVc>77.4544</dynamicRangeDbVc>
+  <dynamicRangeDbVx>77.4544</dynamicRangeDbVx>
+  <baseDbz1kmHc>-37.502</baseDbz1kmHc> <!-- lab 42.759 -->
+  <baseDbz1kmHx>-37.502</baseDbz1kmHx>
+  <baseDbz1kmVc>-35.795</baseDbz1kmVc> <!-- lab 41.327 -->
+  <baseDbz1kmVx>-35.795</baseDbz1kmVx>
+  <sunPowerDbmHc>-9999</sunPowerDbmHc>
+  <sunPowerDbmHx>-9999</sunPowerDbmHx>
+  <sunPowerDbmVc>-9999</sunPowerDbmVc>
+  <sunPowerDbmVx>-9999</sunPowerDbmVx>
+  <noiseSourcePowerDbmH>-9999</noiseSourcePowerDbmH>
+  <noiseSourcePowerDbmV>-9999</noiseSourcePowerDbmV>
+  <powerMeasLossDbH>0</powerMeasLossDbH>
+  <powerMeasLossDbV>0</powerMeasLossDbV>
+  <couplerForwardLossDbH>0</couplerForwardLossDbH>
+  <couplerForwardLossDbV>0</couplerForwardLossDbV>
+  <zdrCorrectionDb>0</zdrCorrectionDb>
+  <ldrCorrectionDbH>0</ldrCorrectionDbH>
+  <ldrCorrectionDbV>0</ldrCorrectionDbV>
+  <systemPhidpDeg>0</systemPhidpDeg>
+  <testPowerDbmH>-9999</testPowerDbmH>
+  <testPowerDbmV>-9999</testPowerDbmV>
+</DsRadarCalib>

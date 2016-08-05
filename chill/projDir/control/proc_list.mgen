@@ -1,0 +1,24 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary     start_DsServerMgr         snuff_inst
+Scout         primary     start_Scout               kill_Scout        
+Janitor       logs        start_inst(system)        snuff_inst
+Janitor       time_series start_inst(system)        snuff_inst
+DataMapper    primary     start_DataMapper          kill_DataMapper   
+DsFileDist    primary     start_DsFileDist          snuff_inst
+#
+###############################################################################
+# Time series and moments
+#
+#TsFile2Fmq      sim        start_TsFile2Fmq.sim         snuff_inst
+ChillTsTcp2Fmq   ops        start_ChillTsTcp2Fmq.ops     snuff_inst
+ChillCal2Xml     ops        start_ChillCal2Xml.ops       snuff_inst
+ChillSdb2Dsr     ops        start_ChillSdb2Dsr.ops       snuff_inst
+Iq2Dsr           ops        start_Iq2Dsr.ops             snuff_inst
+Fmq2Fmq          moments    start_Fmq2Fmq.moments        snuff_inst
+Fmq2Fmq          sdb        start_inst(ingest)           snuff_inst
+###############################################################################
+# Time series recording
+#
+TsSmartSave      ops        start_inst(ingest)           snuff_inst

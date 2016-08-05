@@ -1,0 +1,8 @@
+#! /bin/csh
+
+snuff tcpscope
+
+start_Iq2Dsr.kband
+start_TsTcp2Fmq.kband
+start_RadMon.kband
+start_HawkEye.kband

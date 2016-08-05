@@ -1,0 +1,9 @@
+#! /bin/csh
+
+start_procmap
+start_spoldrx.test
+start_Iq2Dsr.drx
+start_HawkEye.drx
+start_TsFmq2Tcp.drx
+start_tcpscope.drx
+

@@ -1,0 +1,29 @@
+#! /bin/csh
+
+# start up Xvfb for screen 8
+
+snuff "Xvfb :8.0"
+Xvfb :8.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 100000 -ls 10000 |& \
+	LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_8 >& /dev/null &
+sleep 2
+
+# set display to 8
+
+setenv DISPLAY :8.0
+set_font_path
+setenv DATA_HOST localhost
+
+# fire up CIDD
+
+cd $PROJ_DIR/display/params
+CIDD -p CIDD.snapshot_sat -i snapshot -fn fixed -v 2 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CIDD -i snapshot_sat
+
+# kill Xvfb
+
+snuff "Xvfb :8.0"
+
+
+
+
+

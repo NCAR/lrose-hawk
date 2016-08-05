@@ -1,0 +1,30 @@
+#! /bin/csh
+
+# start up Xvfb for screen 7
+
+snuff "Xvfb :7.0"
+Xvfb :7.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 100000 -ls 10000 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_7 >& /dev/null &
+sleep 2
+
+# set display to 7
+
+setenv DISPLAY :7.0
+set_font_path
+setenv DATA_HOST pgen
+
+# fire up CIDD
+
+cd $PROJ_DIR/dynamo/params
+CIDD -p CIDD.catalog_transparent -i catalog_transparent -fn fixed -v 2 |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CIDD -i catalog_transparent
+
+snuff "Xvfb :7.0"
+
+
+
+
+
+
+
+

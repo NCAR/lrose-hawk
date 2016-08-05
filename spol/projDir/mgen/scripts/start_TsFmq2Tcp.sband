@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "TsFmq2Tcp -params TsFmq2Tcp.sband"
+if ($status == 1) then
+  TsFmq2Tcp -params TsFmq2Tcp.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsFmq2Tcp -i sband &
+endif
+

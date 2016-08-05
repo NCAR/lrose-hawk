@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/pgen/params
+
+running "Rhi2Spdb -params Rhi2Spdb.sband"
+if ($status == 1) then
+  Rhi2Spdb -params Rhi2Spdb.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rhi2Spdb -i sband &
+endif
+

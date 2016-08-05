@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/dynamo/params
+
+running "InputWatcher -params InputWatcher.matlab_sci3"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.matlab_sci3 -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i matlab_sci3 &
+endif
+

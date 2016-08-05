@@ -1,0 +1,13 @@
+# rpcomm.ini for cp2server Dsr2Rapic utility
+
+radarstatusfile=rpcomm.status.dsr2rapic
+
+rapicServerPort=15557
+
+txdevice=Socket 15557 debug
+txdevice=Socket 15557 debug
+txdevice=Socket 15557 debug
+txdevice=Socket 15557 debug
+
+create_txdev_on_demand
+

@@ -1,0 +1,158 @@
+/**********************************************************************
+ * TDRP params for Dsr2UF
+ **********************************************************************/
+
+//======================================================================
+//
+// Dsr2UF reads radar beam-by-beam data from a DSR-format FMQ and saves 
+//   the data out in Universal Format files.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed with the appropriate level of 
+//   detail.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "Test";
+
+//======================================================================
+//
+// DATA INPUT.
+//
+//======================================================================
+ 
+///////////// input_fmq_url ///////////////////////////
+//
+// Input URL for DsRadar data via FMQ.
+// Type: string
+//
+
+input_fmq_url = "$(DATA_DIR)/fmq/moments_s";
+
+//======================================================================
+//
+// RADAR PROCESSING OPTIONS.
+//
+//======================================================================
+ 
+///////////// override_radar_location /////////////////
+//
+// Option to override Dsr radar location.
+// If TRUE, the UF output will use location information specified in 
+//   'radar_location'.
+// Type: boolean
+//
+
+override_radar_location = FALSE;
+
+///////////// radar_location //////////////////////////
+//
+// .
+// The radar_location need only be set if 'override_radar_location' is 
+//   TRUE.
+//
+// Type: struct
+//   typedef struct {
+//      double latitude;
+//      double longitude;
+//      double altitude;
+//   }
+//
+//
+
+radar_location = { 0, 0, 0 };
+
+///////////// end_of_vol_decision /////////////////////
+//
+// Decision type for end-of-volume.
+// If END_OF_VOL_FLAG, the end-of-volume flag in the data will be used 
+//   to trigger the end of volume. If LAST_TILT_IN_VOL, the end of the 
+//   tilt number given by 'last_tilt_in_vol' will be used  to trigger the 
+//   end-of-volume.
+//
+// Type: enum
+// Options:
+//     END_OF_VOL_FLAG
+//     LAST_TILT_IN_VOL
+//
+
+end_of_vol_decision = END_OF_VOL_FLAG;
+
+///////////// last_tilt_in_vol ////////////////////////
+//
+// The tilt number used to end the volume.
+// Only applies if 'end_of_vol_decision' is set to LAST_TILT_IN_VOL.
+// Type: long
+//
+
+last_tilt_in_vol = 0;
+
+//======================================================================
+//
+// DATA OUTPUT.
+//
+//======================================================================
+ 
+///////////// output_fields ///////////////////////////
+//
+// Array of output field names.
+// The program will only output these fields. The dsr_name is the field 
+//   name in the dsr data. UF names are limited to 2 characters. Only the 
+//   first 2 characters of the UF name will be used.
+//
+// Type: struct
+//   typedef struct {
+//      string dsr_name;
+//      string uf_name;
+//   }
+//
+// 1D array - variable length.
+//
+
+output_fields = {
+  { "DBZ_F", "DZ"},
+  { "VEL_F", "VR"},
+  { "WIDTH_F", "SW"},
+  { "DBM", "DM"},
+  { "ZDR_F", "ZD"},
+  { "PHIDP_F", "PH"},
+  { "RHOHV_F", "RH"},
+  { "KDP_F", "KD"}
+};
+
+///////////// output_uf_dir ///////////////////////////
+//
+// Dir of output UF files.
+// This directory must exist.
+// Type: string
+//
+
+output_uf_dir = "$(DATA_DIR)/uf";
+
+///////////// byte_swap ///////////////////////////////
+//
+// Option to perform byte swapping before outputting data. Default is 
+//   false.
+// Type: boolean
+//
+
+byte_swap = FALSE;
+

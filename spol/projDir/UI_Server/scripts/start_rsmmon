@@ -1,0 +1,7 @@
+#!/bin/csh 
+
+running "rsmmon"
+if ($status == 1) then
+    rsmmon |&  /usr/local/bin/timestamper |& \
+	LogFilter -d $ERRORS_LOG_DIR -p rsmmon >& /dev/null &
+endif

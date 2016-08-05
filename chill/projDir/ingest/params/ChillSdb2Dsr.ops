@@ -1,0 +1,261 @@
+/**********************************************************************
+ * TDRP params for ChillSdb2Dsr
+ **********************************************************************/
+
+//======================================================================
+//
+// ChillSdb2Dsr reads CHILL moments from the SDB server, reformats it 
+//   into DsRadar format and writes to a DsRadar FMQ.
+//
+// Optionally, ChillSdb2Dsr also extracts calibration information, and 
+//   writee the latest cal files to the specified directory. 
+//   _latest_data_info files are also written to this location. The cal 
+//   data is then read by ChillTsTcp2Fmq and the cal packet is merged into 
+//   the time series data stream.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// DEBUGGING AND PROCESS CONTROL.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// instance ////////////////////////////////
+//
+// Process instance.
+// Used for registration with procmap.
+// Type: string
+//
+
+instance = "ops";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register with the process mapper.
+// If true, this application will try to register with procmap once per 
+//   minute. (If unable to do so, no error occurs.).
+// Type: boolean
+//
+
+register_with_procmap = TRUE;
+
+//======================================================================
+//
+// TCP DETAILS.
+//
+//======================================================================
+ 
+///////////// sdb_server_host /////////////////////////
+//
+// Host name on which the CHILL SDB server is running.
+// This application normally reads data from Rvp8TsTcpServer running on 
+//   the rvp8 host.
+// Type: string
+//
+
+sdb_server_host = "sigproc";
+
+///////////// sdb_server_port /////////////////////////
+//
+// TCP/IP port on which the CHILL SDB server is running.
+// Type: int
+//
+
+sdb_server_port = 2111;
+
+//======================================================================
+//
+// WRITING OUTPUT TO DS-RADAR FMQ.
+//
+// This is the normal usage of this application.
+//
+//======================================================================
+ 
+///////////// output_fmq_url //////////////////////////
+//
+// Output URL for DsRadar data via FMQ.
+// Type: string
+//
+
+output_fmq_url = "$(DATA_DIR)/fmq/moments/shmem_sdb_21000";
+
+///////////// output_fmq_size /////////////////////////
+//
+// Size of output FMQ, in bytes.
+// This is the total size of the output FMQ buffer. Some of this buffer 
+//   will be used for control bytes (12 bytes per message).
+// Type: int
+//
+
+output_fmq_size = 500000000;
+
+///////////// output_fmq_nslots ///////////////////////
+//
+// Number of slots in output FMQ.
+// The number of slots corresponds to the maximum number of messages 
+//   which may be written to the buffer before overwrites occur. However, 
+//   overwrites may occur sooner if the size is not set large enough.
+// Type: int
+//
+
+output_fmq_nslots = 5000;
+
+///////////// output_fmq_compress /////////////////////
+//
+// FMQ compression option.
+// If TRUE FMQ messages are compressed.
+// Type: boolean
+//
+
+output_fmq_compress = FALSE;
+
+///////////// nbeams_for_params_and_calib /////////////
+//
+// Number of beams between sending params and calibration.
+// The params and calibration data is sent when the radar operation 
+//   changes, as well as once every tilt. However, if none of these 
+//   triggers a change, the params will be sent regardless when this 
+//   number of beams have been written.
+// Type: int
+//
+
+nbeams_for_params_and_calib = 90;
+
+///////////// data_mapper_report_interval /////////////
+//
+// Number of seconds between reports to DataMapper.
+// If > 0, the program will register with the DataMapper when the output 
+//   FMQ is written to. If <= 0, registration will not be performed.
+// Type: int
+//
+
+data_mapper_report_interval = 5;
+
+//======================================================================
+//
+// OUTPUT OF CAL XML FILES.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// WRITING CAL XML FILES.
+//
+// This is the normal usage of this application.
+//
+//======================================================================
+ 
+///////////// write_cal_xml_files /////////////////////
+//
+// Option to write calibration XML files for use by time series.
+// If false, no calibration data will be written.
+// Type: boolean
+//
+
+write_cal_xml_files = TRUE;
+
+///////////// calibration_xml_dir /////////////////////
+//
+// Output dir for CAL xml files.
+// Type: string
+//
+
+calibration_xml_dir = "$(DATA_DIR)/cal/sdb";
+
+///////////// min_write_interval_secs /////////////////
+//
+// Minimum interval between writes (secs).
+// We do not want to write cal files too frequently, so we check the 
+//   time since the last write and make sure the interval exceeds this 
+//   minimum.
+// Type: int
+//
+
+min_write_interval_secs = 120;
+
+//======================================================================
+//
+// CALIBRATION CONSTANTS.
+//
+// Required for computing the calibration correctly.
+//
+//======================================================================
+ 
+///////////// pulseWidthUs ////////////////////////////
+//
+// Transmit pulse width (micro_secs).
+// Type: double
+//
+
+pulseWidthUs = 1;
+
+///////////// twoWayWaveguideLossDbH //////////////////
+//
+// 2-way waveguide loss H (dB).
+// This is the loss from the measurement plane to the feed-horn and 
+//   back. Sometimes it is set to 0 and the loss is incorporated in the 
+//   antenna gain.
+// Type: double
+//
+
+twoWayWaveguideLossDbH = 0;
+
+///////////// twoWayWaveguideLossDbV //////////////////
+//
+// 2-way waveguide loss V (dB).
+// This is the loss from the measurement plane to the feed-horn and 
+//   back. Sometimes it is set to 0 and the loss is incorporated in the 
+//   antenna gain.
+// Type: double
+//
+
+twoWayWaveguideLossDbV = 0;
+
+///////////// twoWayRadomeLossDbH /////////////////////
+//
+// 2-way loss through the radome - H.
+// Set to 0 if no radome.
+// Type: double
+//
+
+twoWayRadomeLossDbH = 0;
+
+///////////// twoWayRadomeLossDbV /////////////////////
+//
+// 2-way loss through the radome - V.
+// Set to 0 if no radome.
+// Type: double
+//
+
+twoWayRadomeLossDbV = 0;
+
+///////////// receiverMismatchLossDb //////////////////
+//
+// Receiver mismatch loss - (dB).
+// This is the loss which results from the fact that the receiver 
+//   bandwidth is not exactly the same as the pulse width. The calibration 
+//   procedure is carries out with a CW signal, so the redeiver bandwidth 
+//   is not a factor. However, during operations, the receiver loses some 
+//   power because of the bandwidth mismatch. This loss must be taken into 
+//   account.
+// Type: double
+//
+
+receiverMismatchLossDb = 2.2;
+

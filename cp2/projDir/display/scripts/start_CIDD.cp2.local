@@ -1,0 +1,11 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST localhost
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.cp2 -i cp2 -fn fixed >& /dev/null &
+
+

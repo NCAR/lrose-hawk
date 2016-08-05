@@ -1,0 +1,9 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "InputWatcher -params InputWatcher.gunn_pt"
+if ($status == 1) then
+  nice InputWatcher -params InputWatcher.gunn_pt |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i gunn_pt &
+endif

@@ -1,0 +1,90 @@
+#!/bin/csh
+
+# start up Xvfb for screen 6
+
+set echo=true
+set matlab_data_dir=~/projDir/data/matlab
+set sounding_data_dir=${matlab_data_dir}/sounding
+set script_dir=~/projDir/matlab/scripts
+cd ${script_dir}
+
+snuff "Xvfb :6.0"
+Xvfb :6.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 2000000 -bs -ls 10000 |& \
+  LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_9 >& /dev/null &
+  sleep 2
+endif
+
+# set display to 6
+
+setenv DISPLAY :6.0
+
+# rsync in the data we need
+
+set startDate = 20111215
+set endDate = `date --date='-1 day' +%Y%m%d`
+
+#set startDate = 20111101
+#set endDate = 20111130
+
+mkdir -p ${sounding_data_dir}/gan/nc_data
+mkdir -p ${sounding_data_dir}/diego/nc_data
+mkdir -p ${sounding_data_dir}/male/nc_data
+mkdir -p ${sounding_data_dir}/revelle/nc_data
+
+rsync -av pgen:/data/operator/data.pgen/raw/doe/soundings/gan/netcdf/$endDate/\*.cdf ${sounding_data_dir}/gan/nc_data
+rsync -av pgen:/data/operator/data.pgen/raw/soundings/diego/$endDate/\*.nc ${sounding_data_dir}/diego/nc_data
+rsync -av pgen:/data/operator/data.pgen/raw/soundings/male/$endDate/\*.nc ${sounding_data_dir}/male/nc_data
+rsync -av pgen:/data/operator/data.pgen/raw/soundings/revelle/$endDate/\*.nc ${sounding_data_dir}/revelle/nc_data
+
+# make plot for Gan
+
+plotSoundingTimeseries.py --verbose \
+    --soundingDataDir ${sounding_data_dir} \
+    --siteSubDir gan \
+    --siteName "Gan" \
+    --startDate ${startDate} \
+    --endDate ${endDate} \
+    --outputImageDir ${matlab_data_dir}/catalogimages \
+    --matlabPath /usr/local/MATLAB/R2011a/bin/matlab \
+    --minNcFileSize 60000
+
+# make plot for Diego
+
+plotSoundingTimeseries.py --debug \
+    --soundingDataDir ${sounding_data_dir} \
+    --siteSubDir diego \
+    --siteName "Diego Garcia" \
+    --startDate ${startDate} \
+    --endDate ${endDate} \
+    --outputImageDir ${matlab_data_dir}/catalogimages \
+    --matlabPath /usr/local/MATLAB/R2011a/bin/matlab \
+    --minNcFileSize 60000
+
+# make plot for Male
+
+#plotSoundingTimeseries.py --debug \
+#    --soundingDataDir ${sounding_data_dir} \
+#    --siteSubDir male \
+#    --siteName "Male" \
+#    --startDate ${startDate} \
+#    --endDate ${endDate} \
+#    --outputImageDir ${matlab_data_dir}/catalogimages \
+#    --matlabPath /usr/local/MATLAB/R2011a/bin/matlab \
+#    --minNcFileSize 60000
+
+# make plot for Revelle
+
+#plotSoundingTimeseries.py --debug \
+#    --soundingDataDir ${sounding_data_dir} \
+#    --siteSubDir revelle \
+#    --siteName "Revelle" \
+#    --startDate ${startDate} \
+#    --endDate ${endDate} \
+#    --outputImageDir ${matlab_data_dir}/catalogimages \
+#    --matlabPath /usr/local/MATLAB/R2011a/bin/matlab \
+#    --minNcFileSize 60000
+
+# kill X server
+
+snuff "Xvfb :6.0"
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST cp2server
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.BrisMerge -i BrisMerge -fn fixed >& /dev/null &
+

@@ -1,0 +1,13 @@
+#! /bin/csh
+
+cd $PROJ_DIR/analysis/params
+
+Mdv2Dsr -debug -params Mdv2Dsr.cp2_s -indir ~/projDir/data/mdv/radarPolar/cp2_s/sec -start "2008 03 24 04 06 38" -end "2008 03 24 07 27 00"
+
+Mdv2Dsr -debug -params Mdv2Dsr.cp2_s -indir ~/projDir/data/mdv/radarPolar/cp2_s/sur -start "2008 03 24 07 27 00" -end "2008 03 26 05 09 00"
+
+Mdv2Dsr -debug -params Mdv2Dsr.cp2_s -indir ~/projDir/data/mdv/radarPolar/cp2_s/sec -start "2008 03 26 05 09 00" -end "2008 03 26 05 55 00"
+
+Mdv2Dsr -debug -params Mdv2Dsr.cp2_s -indir ~/projDir/data/mdv/radarPolar/cp2_s/sur -start "2008 03 26 05 55 00" -end "2008 03 26 14 00 00"
+
+

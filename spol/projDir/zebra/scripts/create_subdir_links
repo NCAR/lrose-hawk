@@ -1,0 +1,17 @@
+#!/bin/csh
+
+set dir=$1
+
+echo "Creating links for dir: $dir"
+
+cd $dir
+mkdir -p file_links
+cd $dir/file_links
+
+foreach subdir (../20*)
+  foreach file ($subdir/*20*)
+    echo "creating link for file: $file"
+    echo "root part: $file:r"
+    ln -s $file
+  end
+end

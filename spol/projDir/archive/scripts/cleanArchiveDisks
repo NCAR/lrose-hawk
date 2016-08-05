@@ -1,0 +1,30 @@
+#! /bin/csh
+
+# check we are on the correct host
+
+set host=`hostname`
+echo "===================================="
+echo "  Running cleanArchiveDisks"
+echo "  host is $host"
+echo "===================================="
+
+if ($host != "sci2.gate.rtf") then
+  echo "ERROR - you are on the wrong machine"
+  echo "  You need to be on sci2"
+  exit
+endif
+
+echo "Disks to be cleaned are:"
+df -h | grep /media/SPOL-HD
+
+# clean the archive disks
+
+echo "Cleaning archive disks"
+
+foreach usb (/media/SPOL-HD??)
+
+  echo "Cleaning USB disk: $usb"
+  /bin/rm -rfv ${usb}/field_data/dynamo/*
+
+end
+

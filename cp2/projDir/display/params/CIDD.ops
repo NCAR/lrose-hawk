@@ -1,0 +1,10 @@
+# Extra params for CIDD to guide aircraft operations
+
+# Report clicks in the status window
+# By default distance are in km and bearings in degT
+
+cidd.report_clicks_in_status_window: 1
+cidd.report_click_move_dist_in_nm: 1
+cidd.report_click_move_dirn_in_mag: 1
+cidd.magnetic_variation: 11
+

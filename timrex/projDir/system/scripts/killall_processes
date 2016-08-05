@@ -1,0 +1,18 @@
+#!/bin/csh -f
+# kills all processes that may be running on an AOAWS machine 
+# 
+# This is done by running killall on all executable files in
+# ~/projDir/bin
+#
+
+cd ~/projDir/bin
+
+foreach file (*)
+  if (-f $file && -x $file) then
+    pkill $file >& /dev/null
+#    killall -q $file >& /dev/null
+  endif
+end
+
+pkill java
+pkill Xvfb

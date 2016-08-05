@@ -1,0 +1,30 @@
+# NAME wvel.colors
+
+# wind velocityfhage 	6/9/1993 12:19:36
+
+0.0     0.1 	dodgerblue3
+0.1	0.2	royalblue3
+0.2	0.3	blue
+0.3     0.4    mediumblue
+0.4     0.5    navyblue
+0.5     0.75   midnightblue
+0.75    1.0    dimgray
+1.0     2.0     slategray
+2.0     3.0     seagreen
+3.0     4.0     forestgreen
+4.0     5.0     olivedrab
+5.0     7.5     yellowgreen
+7.5	10.0	Gold3
+10.0	15.0	gold
+15.0    20.0	yellow
+20.0	25.0	orange
+25.0    30.0	coral
+30.0    40.0    tomato
+40.0    50.0    firebrick1
+50.0 	60.0	OrangeRed
+60.0	70.0	Red
+70.0 	80.0	DeepPink
+80.0 	90.0	Maroon1
+90.0    100.0     HotPink
+100.0	500.0	Pink
+

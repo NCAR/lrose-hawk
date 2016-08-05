@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "CwbAws2Spdb -params CwbAws2Spdb.precip"
+if ($status == 1) then
+  CwbAws2Spdb -params CwbAws2Spdb.precip |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CwbAws2Spdb -i precip &
+endif
+

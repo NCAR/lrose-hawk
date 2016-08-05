@@ -1,0 +1,9 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "Fmq2Fmq -params Fmq2Fmq.cp2_x"
+if ($status == 1) then
+  nice Fmq2Fmq -params Fmq2Fmq.cp2_x |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Fmq2Fmq -i cp2_x &
+endif

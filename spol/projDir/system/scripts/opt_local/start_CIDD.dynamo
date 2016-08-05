@@ -1,0 +1,19 @@
+#! /bin/csh
+
+set_font_path >& /dev/null
+
+setenv PROJ_DIR /h/eol/dixon/projDir
+
+setenv DATA_HOST tesla.eol.ucar.edu
+
+setenv PROJECT_NAME               "dynamo"
+setenv SITE_NAME                  "WHARF"
+setenv RADAR_LAT                  -0.630447
+setenv RADAR_LON                  73.102766
+setenv RADAR_ALT_KM               0.010
+setenv RADAR_ALT_M                10
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.dynamo >& /dev/null &
+

@@ -1,0 +1,32 @@
+# NAME dbz_bom.colors
+
+# keng 20130219 - mapping from Phils 3dRapic /radar/3DRapic/default.cmap
+# Use an excel spreadsheet to calculate and display colours (VisualBasic) to build
+# Refer: 'cp2radar CIDD colour scales.xlsm'
+
+-30 	-20	#1e1e1e 	
+-20 	-12	#3c3c3c 	
+-12 	-6 	#646464
+-6 	1 	#8c8c8c
+1 	3 	#000060
+3 	6 	#000082
+6 	9 	#0000a0
+9 	12 	#0000c8
+12 	15 	#0000ff
+15 	18 	#0050ff
+18 	21 	#0078ff
+21 	24 	#0096ff
+24 	28 	#00b4ff
+28 	31 	#00ffff
+31 	35 	#46e6f0
+35 	39 	#64dcc8
+39 	44 	#ffff00
+44 	49 	#00ff00
+49 	55 	#ff00ff
+55 	60 	#ff0000
+60 	65 	#d20000
+65 	70 	#800000
+70 	75 	#f9eca4
+75 	80 	#ffffff
+80 	95 	#c8ffff
+95 	100 	#81eae6

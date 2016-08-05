@@ -1,0 +1,8 @@
+#! /bin/csh
+
+cd $PROJ_DIR/analysis/params
+
+Rview -params Rview.cases &
+
+
+

@@ -1,0 +1,75 @@
+######################################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary       start_DsServerMgr                snuff_inst
+#Janitor       logs          start_Janitor.logs               snuff_inst
+Janitor       time_series   start_Janitor.time_series        snuff_inst
+Scout         primary       start_Scout                      snuff_inst
+DataMapper    primary       start_DataMapper                 snuff_inst
+DsFileDist    time_series   start_DsFileDist.time_series     snuff_inst
+DsFileDist    suncal        start_DsFileDist.suncal          snuff_inst
+#
+######################################################################################
+# TIME SERIES FROM RVP8 and KBAND
+SpolTs2Fmq     sband         start_SpolTs2Fmq.sband          snuff_inst
+SpolTs2Fmq     spoldrx       start_SpolTs2Fmq.spoldrx        snuff_inst
+#SpolTs2Fmq    kband         start_SpolTs2Fmq.kband          snuff_inst
+######################################################################################
+# Data ingest
+#
+TsPrint         server.sband  start_TsPrint.server.sband    snuff_inst
+SpolSysconRelay sband         start_SpolSysconRelay.sband   snuff_inst
+SpolAngles2Fmq  s2d           start_SpolAngles2Fmq.s2d      snuff_inst
+######################################################################################
+# Sector blanking for Kband
+#
+#KbandBlanking  kband         start_KbandBlanking.kband     snuff_inst
+######################################################################################
+# Saving time series
+#
+TsSmartSave      sband         start_TsSmartSave.sband        snuff_inst
+#TsSmartSave      spoldrx       start_TsSmartSave.spoldrx      snuff_inst
+#TsSmartSave     kband         start_TsSmartSave.kband        snuff_inst
+#Janitor  time_series.sband  start_Janitor.time_series.sband  snuff_inst
+######################################################################################
+# Moments
+#
+Iq2Dsr          sband         start_Iq2Dsr.sband            snuff_inst
+Iq2Dsr          spoldrx       start_Iq2Dsr.spoldrx          snuff_inst
+#Iq2Dsr         kband         start_Iq2Dsr.kband            snuff_inst
+ChillSdbServer  sband         start_ChillSdbServer.sband    snuff_inst
+RadMon          log.sband     start_RadMon.log.sband        snuff_inst
+#RadMon         log.kband     start_RadMon.log.kband        snuff_inst
+#
+######################################################################################
+# Transferring moments to pgen1 and pgen2
+#
+Fmq2Fmq      moments.sband     start_Fmq2Fmq.moments.sband   snuff_inst
+#Fmq2Fmq     moments.kband     start_Fmq2Fmq.moments.kband   snuff_inst
+Fmq2Fmq      moments.sband2    start_Fmq2Fmq.moments.sband2  snuff_inst
+#Fmq2Fmq     moments.kband2    start_Fmq2Fmq.moments.kband2  snuff_inst
+#
+Fmq2Fmq      moments.spoldrx   start_Fmq2Fmq.moments.spoldrx snuff_inst
+######################################################################################
+# Time series data for AScope
+#
+TsFmq2Tcp        sband         start_TsFmq2Tcp.sband         snuff_inst
+#TsFmq2Tcp       kband         start_TsFmq2Tcp.kband         snuff_inst
+######################################################################################
+# Monitoring
+#
+TsTcp2Fmq        sixnet        start_TsTcp2Fmq.sixnet        snuff_inst
+SpolTsMonitor    sband         start_SpolTsMonitor.sband     snuff_inst
+#SpolTsMonitor   kband         start_SpolTsMonitor.kband     snuff_inst
+######################################################################################
+# PID, Rain-rate (S-band only)
+#
+#PartRain     sband             start_PartRain.sband           snuff_inst
+#Fmq2Fmq      partrain.sband    start_Fmq2Fmq.partrain.sband   snuff_inst
+#Fmq2Fmq      partrain.sband2   start_Fmq2Fmq.partrain.sband2  snuff_inst
+######################################################################################
+# Solar cals
+#
+SunCal           sband          start_SunCal.sband             snuff_inst
+#SunCal          kband          start_SunCal.kband             snuff_inst
+######################################################################################

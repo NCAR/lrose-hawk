@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "KbandBlanking -params KbandBlanking.kband"
+if ($status == 1) then
+  KbandBlanking -params KbandBlanking.kband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p KbandBlanking -i kband &
+endif
+

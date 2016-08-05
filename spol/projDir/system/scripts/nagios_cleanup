@@ -1,0 +1,13 @@
+#! /bin/bash
+
+#--------------------------------------------------------------------
+#
+# clean up nagios status
+#
+# This must be run as user prod
+#
+#--------------------------------------------------------------------
+
+cmk -II # run inventory
+cmk -R # regenerate Nagios configuration
+check_mk -O   

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "InputWatcher -params InputWatcher.ts_save"
+if ($status == 1) then
+  InputWatcher -params InputWatcher.ts_save |& \
+    LogFilter -d $ERRORS_LOG_DIR -p InputWatcher -i ts_save &
+endif
+

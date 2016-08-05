@@ -1,0 +1,117 @@
+== HAWK directory structure ==
+
+=== Account name ===
+
+HAWK runs under the operator account.
+
+=== CVS directory ===
+
+The HAWK project is checked out under the following directory:
+
+{{{
+  ~/cvs/projects/spol/hawk
+}}}
+
+=== Project directory ===
+
+The directories used at runtime reside in the top-level project directory, which is a symbolic link:
+
+{{{
+  ~/projDir ---> ~/cvs/projects/spol/hawk/projDir
+}}}
+
+The environment variable $PROJ_DIR is set to ~/projDir
+
+Most of the files in ~/projDir reside in-place with respect to CVS. Therefore they can be modified and checked in in place.
+
+=== Data directory ===
+
+The top-level data directory used by HAWK is:
+
+{{{
+  /data/operator/data
+}}}
+
+There is a symbolic link to the data dir:
+
+{{{
+  ~/projDir/data --> /data/operator/data
+}}}
+
+The environment variable $DATA_DIR is set to ~/projDir/data
+
+The contents of the data directory is copied in from the CVS tree:
+
+{{{
+  cp -r ~/cvs/projects/spol/hawk/projDir/data /data/operator
+}}}
+
+=== System-wide sub directories ===
+
+{{{
+ ~/projDir/system/scripts: system-wide scripts
+ ~/projDir/system/params: system-wide parameters
+ ~/projDir/control: process lists and cron tables for each host type
+}}}
+
+=== RVP8-specific sub directories ===
+
+{{{
+ ~/projDir/rvp8/scripts: scripts for rvp8-specific tasks
+ ~/projDir/rvp8/params: parameters for rvp8-specific tasks
+}}}
+
+=== MGEN-specific sub directories ===
+
+{{{
+ ~/projDir/mgen/scripts: scripts for mgen-specific tasks
+ ~/projDir/mgen/params: parameters for mgen-specific tasks
+}}}
+
+=== PGEN-specific sub directories ===
+
+{{{
+ ~/projDir/pgen/scripts: scripts for pgen-specific tasks
+ ~/projDir/pgen/params: parameters for pgen-specific tasks
+}}}
+
+=== DISPLAY-specific sub directories ===
+
+{{{
+ ~/projDir/display/scripts: scripts for display-specific tasks
+ ~/projDir/display/params: parameters for display-specific tasks
+ ~/projDir/gtkdisplay/params: parameters for the engineering display
+}}}
+
+=== GATE-specific sub directories ===
+
+{{{
+ ~/projDir/htdocs: html docs for the web pages
+ ~/projDir/sysview/scripts: system monitor scripts
+ ~/projDir/sysview/params: system monitor parameter files
+}}}
+
+=== RAL source code directories ===
+
+{{{
+  ~/cvs/incs: RAL non-library specific includes
+  ~/cvs/libs: RAL libraries
+  ~/cvs/apps: RAL applications and scripts
+  ~/cvs/java: RAL Java applications
+}}}
+
+=== HAWK application and library installation directories ===
+
+{{{
+  ~/projDir/bin
+  ~/projDir/lib
+  ~/projDir/include
+}}}
+
+=== Third-party installation directories ===
+
+{{{
+  /opt/local/bin
+  /opt/local/lib
+  /opt/local/bin
+}}}

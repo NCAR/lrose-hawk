@@ -1,0 +1,7 @@
+#! /bin/csh
+
+# kill ssh tunnel to hangar 
+
+snuff "ssh -L 6441:cp2hutcidd.bom.gov.au:5441"
+
+

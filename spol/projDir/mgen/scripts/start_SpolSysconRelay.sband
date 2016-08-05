@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "SpolSysconRelay -params SpolSysconRelay.sband"
+if ($status == 1) then
+  SpolSysconRelay -params SpolSysconRelay.sband |& \
+    LogFilter -d $ERRORS_LOG_DIR -p SpolSysconRelay -i sband &
+endif
+

@@ -1,0 +1,22 @@
+####################################################################
+# SYSTEM
+#
+# Process restarters
+*/1 * * * *  csh -c "start_auto_restart_check_cron" 1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "start_procmap_check_cron"      1> /dev/null 2> /dev/null
+#
+# Build links to log date subdirs
+*/5 * * * *   csh -c "start_build_logdir_links" 1> /dev/null 2> /dev/null
+#
+#####################################################################
+# VCHILL
+*/1 * * * *   csh -c "start_vchilld.sband" 1> /dev/null 2> /dev/null
+#
+#####################################################################
+# CHECK K-BAND SERIAL CONNECTION
+#*/1 * * * *   csh -c "run_checkKbandSerial" 1> /dev/null 2> /dev/null
+#
+#####################################################################
+# SIMULATOR - comment out for realtime ops
+# * 0,3,6,9,12,15,18,21 * * *   csh -c "restart_sim" 1> /dev/null 2> /dev/null
+#

@@ -1,0 +1,11 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rapic/params/rapicDataServer
+
+running "rapicDataServer"
+if ($status == 1) then
+  
+rapicDataServer |& \
+    LogFilter -d $ERRORS_LOG_DIR -p rapicDataServer &
+endif
+

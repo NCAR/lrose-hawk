@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "Rhi2Spdb -params Rhi2Spdb.cpol"
+if ($status == 1) then
+  nice Rhi2Spdb -params Rhi2Spdb.cpol |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rhi2Spdb -i cpol &
+endif
+

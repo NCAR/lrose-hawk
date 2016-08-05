@@ -1,0 +1,17 @@
+#!/bin/csh 
+# HAWK startup script for syscon
+#
+# Start syscon (system control) task
+
+# is there one running?
+set PIDFILE=/var/run/spol/syscon.pid
+running "syscon"
+if ($status == 1) then
+  # since we're sure that syscon is not running, remove the PID file
+  rm -f $PIDFILE
+  /usr/local/bin/syscon --no-txmitc  -a \
+    --config=/home/spol/projDir/syscon/spol.syscon.conf \
+    --ui-detail --debug --debug --verbose --verbose --verbose  --pidfile=$PIDFILE |& \
+    /usr/local/bin/timestamper | \
+    LogFilter -d $ERRORS_LOG_DIR -p syscon >& /dev/null &
+endif

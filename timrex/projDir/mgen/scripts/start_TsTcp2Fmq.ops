@@ -1,0 +1,7 @@
+#! /bin/csh
+
+running "TsTcp2Fmq -instance ops"
+if ($status == 1) then
+    TsTcp2Fmq -instance ops -procmap -host rvp8 -port 12000 -fmq $DATA_DIR/mgen/fmq/ts -nparts 32 -ninfo 10000 -reformat -nslots 2000 -nbytes 500000000 |& \
+	LogFilter -d $ERRORS_LOG_DIR -p TsTcp2Fmq -i ops &
+endif

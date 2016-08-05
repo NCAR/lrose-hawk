@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "Dsr2CP2Mom -params Dsr2CP2Mom.ops"
+if ($status == 1) then
+  nice Dsr2CP2Mom -params Dsr2CP2Mom.ops |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Dsr2CP2Mom -i ops &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/ingest/params
+
+running "TsSmartSave -params TsSmartSave.cpol"
+if ($status == 1) then
+  TsSmartSave -params TsSmartSave.cpol |& \
+    LogFilter -d $ERRORS_LOG_DIR -p TsSmartSave -i cpol &
+endif
+

@@ -1,0 +1,10 @@
+#! /bin/csh
+
+set_font_path
+
+setenv DATA_HOST cpolserver
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.cfradial -i cfradial -fn fixed >& /dev/null &
+

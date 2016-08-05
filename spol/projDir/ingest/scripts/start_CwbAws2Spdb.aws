@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+cd $PROJ_DIR/ingest/params
+
+running "CwbAws2Spdb -params CwbAws2Spdb.aws"
+if ($status == 1) then
+  CwbAws2Spdb -params CwbAws2Spdb.aws |& \
+    LogFilter -d $ERRORS_LOG_DIR -p CwbAws2Spdb -i aws &
+endif
+

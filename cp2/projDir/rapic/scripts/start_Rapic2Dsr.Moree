@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/rapic/params
+
+running "Rapic2Dsr -params Rapic2Dsr.Moree"
+if ($status == 1) then
+  nice Rapic2Dsr -params Rapic2Dsr.Moree |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Rapic2Dsr -i Moree &
+endif
+

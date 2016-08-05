@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/titan/params
+
+running "Mdvx2Vil -params Mdvx2Vil.MtStapl"
+if ($status == 1) then
+  nice Mdvx2Vil -params Mdvx2Vil.MtStapl |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Mdvx2Vil -i MtStapl &
+endif
+

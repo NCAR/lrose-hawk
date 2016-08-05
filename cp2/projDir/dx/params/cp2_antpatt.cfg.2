@@ -1,0 +1,123 @@
+//
+// time: Wed Nov  7 16:33:47 2007
+//
+// version: 3.2.0 (format), 4.4.4 (DX)
+//
+// panel group: "cp2 Antenna Pattern Controls" 0 1 3
+//
+// panel[0]: position = (0.0331,0.7908), size = 0.1550x0.1167, startup = 0, devstyle = 1, screen = 0
+// title: value = S AntPatt Name
+//
+// workspace: width = 500, height = 500
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+// panel[1]: position = (0.0975,0.3058), size = 0.1263x0.1167, startup = 1, devstyle = 1, screen = 0
+// title: value = Field Selector
+//
+// workspace: width = 107, height = 63
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+// panel[3]: position = (0.0644,0.6408), size = 0.1663x0.2942, startup = 1, devstyle = 1, screen = 0
+// title: value = Isosurface Values
+//
+// workspace: width = 264, height = 313
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+// panel[4]: position = (0.4206,0.1917), size = 0.1950x0.3750, startup = 0, devstyle = 1, screen = 0
+// title: value = X AntPatt Filename
+//
+// workspace: width = 500, height = 500
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+// panel[8]: position = (0.0356,0.4450), size = 0.1669x0.1825, startup = 1, devstyle = 1, screen = 0
+// title: value = S/X AntPatt File Switch
+// comment: S/X beam file selector
+// comment: 1=S Band
+// comment: 2 = X Band
+//
+//
+    //
+    // decorator Label	pos=(32,9) size=248x60 style(Label), value = <NULL>
+    // annotation user_begin: 88
+    // annotation user: S/X Beam File Selector
+    // annotation user: 1 = S Band (cp2_antpatt_s.beams)
+    // annotation user: 2 = X Band (cp2_antpatt_x.beams)
+    // annotation user_end: <NULL>
+// workspace: width = 280, height = 129
+// layout: snap = 0, width = 50, height = 50, align = NN
+//
+// interactor Value[1]: num_components = 1, value = 1
+// instance: panel = 8, x = 84, y = 78, style = Text, vertical = 1, size = 126x51
+//
+// interactor FileSelector[2]: num_components = 1, value = "/home/titan5/dx/cp2_antpatt/cp2_antpatt_s.general"
+// instance: panel = 0, x = 0, y = 4, style = FileSelector, vertical = 1, size = 295x55
+// filter = /home/titan5/dx/cp2_antpatt/*.general
+//
+// interactor String[3]: num_components = 1, value = "general"
+//
+// interactor Selector[8]: num_components = 1, value = 10 
+// selections: maximum = 12, current = 10 
+// option[0]: name = "Year", value = 0
+// option[1]: name = "Month", value = 1
+// option[2]: name = "Day", value = 2
+// option[3]: name = "Hour", value = 3
+// option[4]: name = "Min", value = 4
+// option[5]: name = "Sec", value = 5
+// option[6]: name = "JulDate", value = 6
+// option[7]: name = "Volnum", value = 7
+// option[8]: name = "TiltNum", value = 8
+// option[9]: name = "h", value = 9
+// option[10]: name = "v", value = 10
+// option[11]: name = "diff", value = 11
+// instance: panel = 1, x = 5, y = 5, style = Option Menu, vertical = 1, size = 102x58
+//
+// interactor FileSelector[3]: num_components = 1, value = "/home/titan5/dx/cp2_antpatt/cp2_antpatt_x.general"
+// instance: panel = 4, x = 5, y = 5, style = FileSelector, vertical = 1, size = 180x55
+// filter = /home/titan5/dx/cp2_antpatt/*.general
+//
+// interactor Reset[2]: num_components = 1, value = 0
+// toggle : 0, set = 1, reset = 0
+//
+// interactor ScalarList[3]: num_components = 1, value = { -111.353 -110.67209 -109.99118 -109.31027 -108.62936 -107.94846 -107.26754 -106.58663 -105.90572 -105.22482 -104.54391 -103.863 }
+// component[0]: minimum = -111.614, maximum = -60.595, global increment = 0.5, decimal = 1, global continuous = 0
+// instance: panel = 3, x = 7, y = 9, style = List Editor, vertical = 1, size = 257x304
+// local continuous: value = 0, mode = global
+// local increment[0]: value = 1, mode = global
+//
+// interactor Reset[8]: num_components = 1, value = 0
+// toggle : 0, set = 1, reset = 0
+//
+// node Image[3]:
+// inaccessible panels: 0 4
+// inaccessible groups: "cp2 Antenna Pattern Controls"
+// title: value = CP2 Antenna Pattern Viewer
+// depth: value = 24
+// window: position = (0.2156,0.0925), size = 0.7788x0.8258, screen = 0
+// input[1]: defaulting = 0, value = "Image_3"
+// input[4]: defaulting = 0, value = 1
+// input[5]: defaulting = 0, value = [-315.285 0.0431975 0]
+// input[6]: defaulting = 0, value = [-315.285 0.0431975 108.031]
+// input[7]: defaulting = 1, value = 57.8935
+// input[8]: defaulting = 0, value = 1232
+// input[9]: defaulting = 0, value = 0.768263
+// input[10]: defaulting = 0, value = [0 1 0]
+// input[11]: defaulting = 0, value = 30.0
+// input[12]: defaulting = 0, value = 1
+// input[14]: defaulting = 0, value = 1
+// input[15]: defaulting = 1, value = "none"
+// input[16]: defaulting = 0, value = "none"
+// input[17]: defaulting = 0, value = 1
+// input[18]: defaulting = 0, value = 1
+// input[19]: defaulting = 0, value = 1
+// input[29]: defaulting = 0, value = 1
+// input[31]: defaulting = 0, value = { 40 20 15 }
+// input[32]: defaulting = 1, value = {[0 0 0] [0 0 0]}
+// input[33]: defaulting = 0, value = 1
+// input[34]: defaulting = 0, value = 1
+// input[35]: defaulting = 0, value = [0,0,0]
+// input[36]: defaulting = 0, value = 1
+// input[37]: defaulting = 0, value = {"grey30", "grey80", "yellow", "white"}
+// input[38]: defaulting = 0, value = {"background", "grid", "ticks", "labels"}
+// input[41]: defaulting = 0, value = "panzoom"
+// input[42]: defaulting = 0, value = "CP2 Antenna Pattern Viewer"
+// internal caching: 1

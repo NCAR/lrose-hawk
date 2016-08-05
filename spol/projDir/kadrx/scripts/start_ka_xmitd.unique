@@ -1,0 +1,10 @@
+#! /bin/csh
+set XMITTER_TTY_DEV="/dev/ttyS0"
+set XMITD_PORT=8080
+
+running "ka_xmitd"
+if ($status == 1) then
+  ka_xmitd --instance unique $XMITTER_TTY_DEV $XMITD_PORT |& \
+    LogFilter -d $ERRORS_LOG_DIR -p ka_xmitd -i unique &
+endif
+

@@ -1,0 +1,4 @@
+#! /bin/csh
+
+kill_DrawFmqPolygonStats.cp2_draw
+start_DrawFmqPolygonStats.cp2_draw

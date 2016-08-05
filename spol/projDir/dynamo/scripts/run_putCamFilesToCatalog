@@ -1,0 +1,5 @@
+#! /bin/csh
+
+putCamFilesToCatalog.py --debug \
+    |& LogFilter -d $ERRORS_LOG_DIR -p putCamFilesToCatalog >& /dev/null &
+

@@ -1,0 +1,16 @@
+#!/bin/csh
+
+# check the host is pgen2
+
+if ($HOST == "pgen2.gate.rtf") then
+  echo "host is pgen2.gate.rtf"
+else
+  echo "host is not pgen2.gate.rtf"
+  exit 0
+endif
+
+# rysnc the spdb data across to uwraid
+
+cd $DATA_DIR
+rsync -av spdb uwraid:projDir/data
+

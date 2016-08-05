@@ -1,0 +1,13 @@
+#! /bin/csh
+
+# kill any remaining processes
+
+snuff plot_sounding_timeseries
+
+# produce the plots, using MatLab
+
+plot_sounding_timeseries \
+    |& LogFilter -d $ERRORS_LOG_DIR -p plot_sounding_timeseries >& /dev/null &
+
+
+

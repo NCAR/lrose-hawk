@@ -1,0 +1,9 @@
+#/bin/sh
+
+# kill the system controller and control GUI
+
+snuff syscon
+snuff calsvr
+snuff ui_server
+snuff sitecon_server
+snuff rsmmon

@@ -1,0 +1,19 @@
+###################################################################
+# SYSVIEW
+#
+# Run SysView to generate web pages
+#
+####################################################################
+# Start the virtual X server on :1.0
+#
+*/2 * * * *  csh -c "start_Xvfb" 1> /dev/null 2> /dev/null
+#
+####################################################################
+# Start Sysview under cron
+#
+*/1 * * * *  csh -c "start_SysView_check_cron" 1> /dev/null 2> /dev/null
+#
+####################################################################
+# Restart SysView at 10 mins after midnight Taiwan time
+#
+10 16 * * * csh -c "restart_SysView >& /dev/null"

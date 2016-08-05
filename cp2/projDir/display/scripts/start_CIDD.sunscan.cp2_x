@@ -1,0 +1,10 @@
+#! /bin/csh
+
+setenv DATA_HOST cp2server
+
+$PROJ_DIR/system/scripts/set_font_path >& /dev/null
+
+cd $PROJ_DIR/display/params
+
+CIDD -p CIDD.sunscan.cp2_x -i sunscan.cp2_x -font fixed >& /dev/null &
+

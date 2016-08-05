@@ -1,0 +1,12 @@
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+#Janitor       primary    start_Janitor             kill_Janitor      localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+DsFileDist    matlab     start_DsFileDist.matlab   snuff_inst        localhost
+###############################################################################
+# sounding and humidity analysis
+InputWatcher  matlab_sci3 start_InputWatcher.matlab_sci3 snuff_inst  localhost
+LdataWatcher  matlab_sci3 start_LdataWatcher.matlab_sci3 snuff_inst  localhost

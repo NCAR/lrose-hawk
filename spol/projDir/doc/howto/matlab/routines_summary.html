@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<title>  NCAR/EOL -- Summary of Matlab Routines
+ </title>
+
+<meta name="Author" content="Bob Rilling">
+<LINK REV="made" HREF="http://www.eol.ucar.edu/homes/">
+<META HTTP-EQUIV="KEYWORDS" CONTENT="DYNAMO, spol, spolka, atmospheric science, 
+	remote sensing, radar, weather research">
+
+</head>
+
+<body BGCOLOR=#FFFFFF  TEXT=#OOOOOO margin=0>
+
+<table width="100%"noborder>
+<tr>
+
+<td>
+   <img align="left" border="0" vspace="26" hspace="10" src="../DYNAMO_200px_small_clear.png">
+</td>
+
+<td align="left" valign="absmiddle">
+<h1><font color="#003399">
+  Summary of Matlab Routines
+</font>
+</h1>
+</td>
+
+<td valign=bottom>
+  <h4 ALIGN="RIGHT">Gan, Maldives<br>Sep-Dec 2011</h4>
+</td>
+</tr>
+</table>
+
+<br clear=all>
+
+<hr size=4 color="#003399" NOSHADE>
+
+<p>Almost all routines show examples for use in the source code.  This
+text provides a short summary of each routine.</p>
+
+<dl>
+  <dt><font size="+2"><code><b>AntPerf.fig</b></code></font></dt>
+
+      <dd>The antenna performace user interface GUI.  Allows directory selection, and 
+          lets you choose to save images.  Run from a matlab prompt by stating AntPerf</dd>
+
+  <p>
+  <dt><font size="+2"><code><b>AntPerf.m</b></code></font></dt>
+
+      <dd>The antenna performance code.  Plots five graphs showing scanning attributes.  
+          Capable of processing multiple scans in a serial fashion.  Called through the GUI.</dd>
+
+  <p>
+  <dt><font size="+2"><code><b>PID_fraction.m</b></code></font></dt>
+
+      <dd>Computes a volume-weighted fraction of Particle ID type.  Directly accesses
+          PID data in cfradial format.  Integrates over a 
+          full scan volume.  Capable of processing multiple volumes in a serial fashion.
+          Outputs summary inforamtion to a text file for processing by PID_readback_plot</dd>
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>PID_readback_plot.m</b></code></font></dt>
+
+      <dd>Processes the PID_fraction output file.  Includes logic to try to find
+          faulty volumes.  Note that you might still review the 
+          PID_fraction output file to clean up anything missed by the automatic logic.
+          Processing includes production of a final bar chart for the particle types.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>determine_radar_fields.m</b></code></font></dt>
+
+      <dd>A simple function to determine which of the many CfRadial field names
+          correspond to radar parameters.  Uses the sizes of the parameters to 
+          determine if they are dimensioned by range and time.  You must use the
+          function <code>get_hdf5_param_atts</code> before using this routine.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_and_scale_hdf5_data.m</b></code></font></dt>
+
+      <dd>Recover the requested data values from an HDF5 file.  This
+          routine properly scales any scaleable parameters, and
+          reblocks parameters to remove the effect of ragged beams
+          (created originally by truncating data above a certain
+          altitiude).  You must use the function
+          <code>get_hdf5_param_atts</code> before using this routine.
+      </dd>
+
+  <p>
+
+  <dt><font size="+2"><code><b>get_hdf5_param_atts.m</b></code></font></dt>
+
+      <dd>Recovers all parameter attributes from an hdf5 cfradial file. 
+          Uses the matlab high-level h5info  command.  
+          Packs the returned information into a matlab structure.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_scan_daysecs.m</b></code></font></dt>
+
+      <dd>Recovers the beam time offsets from a cfradial file, for either hdf5 or 
+          netcdf classic convention files.  Returns values in the number of seconds
+          from the start of a day.  Works only with a single day of data.  This routine
+          is used by <code>main_timeline_multi_plot</code>.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_sorted_file_list.m</b></code></font></dt>
+
+      <dd>The storage convention used by spol data places files in a "scan type"
+          directory, followed by a date subdirectory.  Files are typically scatterd in
+          directories of type rhi, sec, sur, and vert, followed by the date.  If you wish
+          to process files in a time-sequential order, you need to properly sort the 
+          filenames.  This routine is used by the <code>main_timeline_multi_plot</code>,
+          and by several other routines..
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_time_from_fname.m</b></code></font></dt>
+
+      <dd>General purpose routine to find the day second offset from the name 
+          of a file.  Currently supports extraction of time from dorade and 
+          cfradial file names.  Can be easily extended to other time-stamped files.
+          Used by the <code>main_timeline_multi_plot</code> routine to determine 
+          times of DORADE files.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_unscaled_hdf5_data.m</b></code></font></dt>
+
+      <dd>Gets the requested parameters from an hdf5 file, without applying scaling.
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>get_unscaled_nc_data.m</b></code></font></dt>
+
+      <dd>Gets the requested parameters from an netcdf classic file, without
+          applying scaling.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>label_timeline_axes.m</b></code></font></dt>
+
+      <dd>Re-labels the timeline axis, transforming seconds labels into
+          hh:mm:ss format, and preserves that re-labeling when
+          the axis is resized.  This is a very specific routine for the 
+          timeline application.  This routine is paired with myXtickResize.m
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>main_bscan.m</b></code></font></dt>
+
+      <dd>A demo application showing how all the various cfradial routines can
+          come together and usefully display data.  Note that this routine is
+          not polished or complete, but is a really good example of how to 
+          handle CfRadial data using these routines.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>main_timeline_multi_plot.m</b></code></font></dt>
+
+      <dd>A very specific application for the S-PolKa data network.  This routine 
+          is used to compare various datasets, possibly multiple copies on different
+          disks, to ensure that there are no missing or dropped data.  This routine
+          is essential for S-Pol data management, and has already proved its value
+          by finding several omissions in S-Pol intra network data transfer.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>myXtickResize.m</b></code></font></dt>
+
+      <dd>This is a routine specific to the timeline plot.  This code
+      prevents resizing in the vertical when zooming or roaming in a 
+      timeline plot.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>nc_radar_read.m</b></code></font></dt>
+
+      <dd>Somewhat older code to read netcdf classic file format.  Recovers all
+      attributes and parameters, and places the information in named structures.
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>plot_pointing_info.m</b></code></font></dt>
+
+      <dd>The working code for the antenna performance plots (AntPerf), and is called
+      by those routines.  Plots azimuth, elevation and beamnumber data in a series of 
+      slightly different plots.  Does this on a volume-by-volume basis.  This routine
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>read_pointing_info_h5.m</b></code></font></dt>
+
+      <dd>Does what it says.  Uses the high-level matlab routine <code>h5read</code>
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>run_antenna_plots.m</b></code></font></dt>
+
+      <dd>Permits calling of the plot_pointing_info routine without the use of the AntPerf GUI.
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>select_files.m</b></code></font></dt>
+
+      <dd>Calls the matlab routine <code>uigetfile</code> to select files, then structures those
+          filenames in an array for use by other routines.
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>select_params.m</b></code></font></dt>
+
+      <dd>Assists in selecting radar data fields.
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>start_antenna_plots.m</b></code></font></dt>
+
+      <dd>This is the interface between the AntPerf gui and the <code>plot_pointing_info</code>
+          code.  Allows selection of filenames and iteration through the selected files.
+
+      </dd>
+
+  <p>
+  <dt><font size="+2"><code><b>zdr_bias_dynamo.m</b></code></font></dt>
+
+      <dd>Computes Zdr bias for a selected vertical pointing data set.  If multiple files
+          are selected, produces a single analysis for the sum of the files.  Note that this
+          routine is currently configured to perform computations on ZDR_M, the uncorrected 
+          ZDR field.
+
+      </dd>
+
+
+</dl>
+
+<hr>
+<address>
+<font size=-2>--- <a href="http://www.eol.ucar.edu/homes/">Bob Rilling</a> --- 
+ / NCAR Earth Observing Laboratory <br>
+Created: Wed Sep 28 09:28:26 GMT 2011
+ <br>
+Last modified:
+<script>
+<!--//hide
+    document.write(document.lastModified);
+//end hide-->
+</script>
+
+</address>
+</font>
+</body>
+
+</html>

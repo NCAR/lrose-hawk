@@ -1,0 +1,18 @@
+#################################################
+# required data for control
+#
+# Format is:
+#
+#  dir               late_secs  very_late_secs
+#################################################
+#
+#sysview               300     600
+#images/spol_cams    43200   86400
+#
+#################################################
+# Following for DYNAMO
+#
+#raw/sat              3600   86400
+#raw/surface_obs      5400   86400
+#raw/wwlln            1800   86400
+

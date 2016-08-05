@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# get latest sounding file
+
+while ( true )
+do
+today=$(date -u +%Y%m%d)
+mkdir -p $DATA_DIR/raw/sounding/tmp/darwin
+cd $DATA_DIR/raw/sounding/tmp/darwin
+wget -N -nv -nd -r http://aifs-nt.bom.gov.au/data/skewt/text/94120.axf
+sleep 120
+done
+

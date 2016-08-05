@@ -1,0 +1,115 @@
+# NOTE - #! comments are used to comment out stuff that was uncommented on cp2
+
+##############################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+###############################################################################
+# Data managenemt
+#
+Janitor       logs       start_Janitor.logs        snuff_inst        localhost
+Janitor       rapic      start_Janitor.rapic       snuff_inst        localhost
+Janitor   time_series  start_Janitor.time_series   snuff_inst        localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+###############################################################################
+# TIME SERIES DATA
+#
+TsTcp2Fmq   cpol        start_TsTcp2Fmq.cpol     snuff_inst    localhost
+TsSmartSave cpol        start_TsSmartSave.cpol   snuff_inst    localhost
+###############################################################################
+# MOMENTS
+Iq2Dsr      cpol        start_Iq2Dsr.cpol        snuff_inst    localhost
+Dsr2Radx    moments     start_Dsr2Radx.moments   snuff_inst    localhost
+Dsr2Radx    minimal     start_Dsr2Radx.minimal   snuff_inst    localhost
+RadMon      log         start_RadMon.log         snuff_inst    localhost
+###############################################################################
+# RHI location - from CfRadial files
+#
+Rhi2Spdb      cpol      start_Rhi2Spdb.cpol      snuff_inst  localhost
+###############################################################################
+# Sending data off-site
+#
+#DsFileDist    primary    start_DsFileDist          snuff_inst        localhost
+###############################################################################
+# RAPIC
+# Converting RAPIC to DSR radial data - incoming BOM radars
+#
+InputWatcher  gunn_pt    start_InputWatcher.gunn_pt snuff_inst    localhost
+InputWatcher  berrima    start_InputWatcher.berrima snuff_inst    localhost
+InputWatcher  warruwi    start_InputWatcher.warruwi snuff_inst    localhost
+InputWatcher  tindal     start_InputWatcher.tindal  snuff_inst    localhost
+#
+RadxConvert   gunn_pt    start_RadxConvert.gunn_pt  snuff_inst    localhost
+RadxConvert   berrima    start_RadxConvert.berrima  snuff_inst    localhost
+RadxConvert   warruwi    start_RadxConvert.warruwi  snuff_inst    localhost
+RadxConvert   tindal     start_RadxConvert.tindal   snuff_inst    localhost
+#
+###############################################################################
+# PID and PRECIP
+#
+RadxPartRain   sur      start_RadxPartRain.sur      snuff_inst  localhost
+RadxPartRain   rhi      start_RadxPartRain.rhi      snuff_inst  localhost
+#
+#!PrecipAccum  single    start_PrecipAccum.single     snuff_inst  localhost
+#!PrecipAccum  1hr       start_PrecipAccum.1hr        snuff_inst  localhost
+#!PrecipAccum  24hr      start_PrecipAccum.24hr       snuff_inst  localhost
+#
+###############################################################################
+# Lightning data ingest
+#
+InputWatcher  ltg        start_InputWatcher.ltg    snuff_inst    localhost
+Ltg2Spdb      ops        start_Ltg2Spdb.ops        snuff_inst    localhost
+#
+###############################################################################
+# Surface station ingest
+#
+InputWatcher  aws        start_InputWatcher.aws     snuff_inst    localhost
+BomAws2Spdb   ops        start_BomAws2Spdb.ops      snuff_inst    localhost
+###############################################################################
+# Sounding ingest
+#
+InputWatcher  sounding.darwin start_InputWatcher.sounding.darwin     snuff_inst    localhost
+BomSounding2Spdb darwin start_BomSounding2Spdb.darwin   snuff_inst    localhost
+#
+###############################################################################
+# Sat ingest
+#
+#!McidasNcf2Mdv bris       start_McidasNcf2Mdv.bris   snuff_inst    localhost
+###############################################################################
+# LEGACY - RETIRED - converting DSR radial data to MDV
+#
+# Dsr2Vol   cpol_titan  start_Dsr2Vol.cpol_titan   snuff_inst    localhost
+# Dsr2Vol   cpol        start_Dsr2Vol.cpol         snuff_inst    localhost
+# Dsr2Vol   derived     start_Dsr2Vol.derived      snuff_inst    localhost
+###############################################################################
+# Vertical pointing calibration from moments
+#
+#!VertCompute   mom      start_VertCompute.mom      snuff_inst  localhost
+###############################################################################
+# Aircraft data ingest
+#
+#!EsdAcIngest   seeda1   start_EsdAcIngest.seeda1   snuff_inst  localhost
+#!AcSpdb2Rapic  ops      start_AcSpdb2Rapic.ops     snuff_inst  localhost 
+#
+###############################################################################
+# Merging volumes into a regional grid
+#
+#MdvMerge2     DarwinMerge  start_MdvMerge2.DarwinMerge snuff_inst    localhost
+#
+###############################################################################
+# TITAN
+#
+#!Titan         BrisMerge  start_Titan.BrisMerge         snuff_inst    localhost
+#!Tstorms2Spdb  BrisMerge  start_Tstorms2Spdb.BrisMerge  snuff_inst    localhost
+#!Mdvx2Vil      BrisMerge  start_Mdvx2Vil.BrisMerge      snuff_inst    localhost
+#
+#!Titan         MtStapl    start_Titan.MtStapl           snuff_inst    localhost
+#!Tstorms2Spdb  MtStapl    start_Tstorms2Spdb.MtStapl    snuff_inst    localhost
+#!Mdvx2Vil      MtStapl    start_Mdvx2Vil.MtStapl        snuff_inst    localhost
+#
+#############################################################################
+# SysView
+#
+#SysView       ops      start_SysView                kill_SysView localhost
+#LdataWatcher  SysView  start_LdataWatcher.SysView   snuff_inst   localhost

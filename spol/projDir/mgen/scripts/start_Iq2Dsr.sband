@@ -1,0 +1,10 @@
+#! /bin/csh
+
+cd $PROJ_DIR/mgen/params
+
+running "Iq2Dsr -params Iq2Dsr.sband"
+if ($status == 1) then
+  Iq2Dsr -params Iq2Dsr.sband -debug |& \
+    LogFilter -d $ERRORS_LOG_DIR -p Iq2Dsr -i sband &
+endif
+

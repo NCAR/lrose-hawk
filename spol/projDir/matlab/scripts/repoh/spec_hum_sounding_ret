@@ -1,0 +1,96 @@
+#!/bin/csh
+
+set echo=true
+set repoh_dir=${PROJ_DIR}/data/matlab
+set script_dir=${PROJ_DIR}/matlab/scripts/repoh
+set today = `date --date='-1 days' +%Y%m%d`
+
+# start up Xvfb for screen 5
+
+snuff "Xvfb :5.0"
+Xvfb :5.0 -screen 0 1600x1200x24 -pixdepths 24 -ac -ld 100000 -ls 10000 |& \
+  LogFilter -d $ERRORS_LOG_DIR -p Xvfb -i display_5 >& /dev/null &
+  sleep 2
+endif
+
+# set display to 5
+
+setenv DISPLAY :5.0
+
+# Get sounding data from gan
+
+mkdir -p ${repoh_dir}/sounding
+cd ${repoh_dir}/sounding
+/bin/cp $DATA_DIR/raw/doe/soundings/gan/text/$today/*.raw .
+
+# remove first 27 lines - header
+# reverse lines, get first 25 lines, reverse again
+
+foreach file (*.raw)
+  if( -e $file ) then 
+    perl -i -ne 'print unless 1 .. 27' "$file"
+    tac "$file" | tail -n +25 | tac > hold
+    mv hold "$file"
+  endif 
+end
+
+# replace /// with 999
+
+perl -pi -e 's/\//9/g' *.raw
+
+# create mat files from gan soundings
+# these are put into 
+#   ~/projDir/data/matlab/gan/matfiles/tmp
+
+cd ${script_dir}
+matlab -nodesktop -nosplash -r "make_mat_files_gan('${repoh_dir}')"
+
+cd ${repoh_dir}
+/bin/rm -f out
+mkdir -p sounding/matfiles
+/bin/rm -rf sounding/matfiles/*
+/bin/cp gan/matfiles/tmp/*.mat sounding/matfiles
+
+# accumulate sounding files in gan/matfiles
+
+/bin/mv gan/matfiles/tmp/*.mat gan/repoh_matfiles
+
+# save raw files in sounding/old
+
+cd ${repoh_dir}/sounding
+mkdir -p old_gan_textfiles
+/bin/mv -f *.raw old_gan_textfiles
+
+# get REPOH data
+
+/bin/rm -rf ${repoh_dir}/REPoH/*
+mkdir -p ${repoh_dir}/REPoH/ascii
+mkdir -p ${repoh_dir}/REPoH/images
+
+cd ${repoh_dir}/REPoH/ascii
+/bin/cp $DATA_DIR/repoh/ascii/filtered/$today/* .
+
+# make daily products
+
+mkdir -p ${repoh_dir}/REPoH/userview
+/bin/cp ${script_dir}/*.m ${repoh_dir}/REPoH/userview
+
+cd ${script_dir}
+matlab -nodesktop -nosplash -r "product_driver('${today}')"
+
+/bin/rm -rf ${repoh_dir}/REPoH/$today/temp
+mkdir -p ${repoh_dir}/REPoH/images/$today
+mkdir -p ${repoh_dir}/catalogimages/repoh/$today
+/bin/cp ${repoh_dir}/REPoH/userview/repoh*.png ${repoh_dir}/catalogimages/repoh/$today
+/bin/mv ${repoh_dir}/REPoH/userview/repoh*.png ${repoh_dir}/REPoH/images/$today
+
+cd ${repoh_dir}/REPoH
+/bin/rm -f out.* *.ascii
+mkdir -p $DATA_DIR/images/REPoH
+rsync -av ${repoh_dir}/REPoH/images/$today/* $DATA_DIR/images/REPoH
+rsync -av ${repoh_dir}/REPoH/images/* spol-dm:projDir/data/images/REPoH
+
+# kill X server
+
+snuff "Xvfb :5.0"
+

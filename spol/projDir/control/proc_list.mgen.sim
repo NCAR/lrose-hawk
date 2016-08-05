@@ -1,0 +1,75 @@
+######################################################################################
+# SYSTEM processes
+#
+DsServerMgr   primary    start_DsServerMgr         snuff_inst        localhost
+#Janitor       logs       start_Janitor.logs        kill_Janitor.logs localhost
+Scout         primary    start_Scout               kill_Scout        localhost
+DataMapper    primary    start_DataMapper          kill_DataMapper   localhost
+#DsFileDist   primary    start_DsFileDist          snuff_inst        localhost
+#
+######################################################################################
+# SIMULATOR - comment out for realtime ops
+#             and uncomment SpolTs2Fmq
+TsFile2Fmq      sband_sim     start_TsFile2Fmq.sband_sim    snuff_inst    localhost
+#TsFile2Fmq      kband_sim     start_TsFile2Fmq.kband_sim    snuff_inst    localhost
+#
+######################################################################################
+# TIME SERIES FROM RVP8 and KBAND
+#SpolTs2Fmq     sband         start_SpolTs2Fmq.sband        snuff_inst    localhost
+#SpolTs2Fmq     kband         start_SpolTs2Fmq.kband        snuff_inst    localhost
+######################################################################################
+# Data ingest
+#
+TsPrint      server.sband     start_TsPrint.server.sband    snuff_inst    localhost
+SpolSysconRelay sband         start_SpolSysconRelay.sband   snuff_inst    localhost
+SpolAngles2Fmq  s2d           start_SpolAngles2Fmq.s2d      snuff_inst    localhost
+######################################################################################
+# Sector blanking for Kband
+#
+#KbandBlanking  kband         start_KbandBlanking.kband     snuff_inst    localhost
+######################################################################################
+# Saving time series
+#
+TsSmartSave     sband         start_TsSmartSave.sband       snuff_inst    localhost
+#TsSmartSave     kband         start_TsSmartSave.kband       snuff_inst    localhost
+#Janitor  time_series.sband  start_Janitor.time_series.sband snuff_inst    localhost
+######################################################################################
+# Moments
+#
+Iq2Dsr          sband         start_Iq2Dsr.sband            snuff_inst    localhost
+#Iq2Dsr          kband         start_Iq2Dsr.kband            snuff_inst    localhost
+ChillSdbServer  sband         start_ChillSdbServer.sband    snuff_inst    localhost
+RadMon       log.sband        start_RadMon.log.sband        snuff_inst    localhost
+#RadMon       log.kband        start_RadMon.log.kband        snuff_inst    localhost
+#
+######################################################################################
+# Transferring moments to pgen1 and pgen2
+#
+Fmq2Fmq     moments.sband     start_Fmq2Fmq.moments.sband   snuff_inst    localhost
+#Fmq2Fmq     moments.kband     start_Fmq2Fmq.moments.kband   snuff_inst    localhost
+Fmq2Fmq     moments.sband2    start_Fmq2Fmq.moments.sband2  snuff_inst    localhost
+#Fmq2Fmq     moments.kband2    start_Fmq2Fmq.moments.kband2  snuff_inst    localhost
+#
+######################################################################################
+# Time series data for AScope
+#
+TsFmq2Tcp       sband         start_TsFmq2Tcp.sband         snuff_inst    localhost
+#TsFmq2Tcp       kband         start_TsFmq2Tcp.kband         snuff_inst    localhost
+######################################################################################
+# Monitoring
+#
+TsTcp2Fmq       sixnet        start_TsTcp2Fmq.sixnet        snuff_inst    localhost
+SpolTsMonitor   sband         start_SpolTsMonitor.sband     snuff_inst    localhost
+#SpolTsMonitor   kband         start_SpolTsMonitor.kband     snuff_inst    localhost
+######################################################################################
+# PID, Rain-rate (S-band only)
+#
+PartRain        sband          start_PartRain.sband           snuff_inst    localhost
+Fmq2Fmq      partrain.sband    start_Fmq2Fmq.partrain.sband   snuff_inst    localhost
+Fmq2Fmq      partrain.sband2   start_Fmq2Fmq.partrain.sband2  snuff_inst    localhost
+######################################################################################
+# Solar cals
+#
+SunCal          sband          start_SunCal.sband             snuff_inst    localhost
+#SunCal          kband          start_SunCal.kband             snuff_inst    localhost
+######################################################################################

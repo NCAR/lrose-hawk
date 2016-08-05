@@ -1,0 +1,4 @@
+#! /bin/csh
+
+snuff_slow kadrx.ops
+start_kadrx.ops
