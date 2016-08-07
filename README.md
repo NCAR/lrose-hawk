@@ -1,6 +1,18 @@
 # lrose-hawk
 
-lrose-hawk contains the configuration files and scripts for running the LROSE software for the following radars and projects:
+## Purpose
+
+lrose-hawk stores the parameter files, scripts and the real-time control configuration
+for projects that make use of the LROSE software for radar processing, starting with 
+time-series processing and clutter filtering.
+
+Also included are algorithms, Cartesian transformation, merging with other data sets,
+displays and data archival.
+
+The intention is that these configurations can be used as templates, from which
+the real-time setup for other projects may be derived.
+
+## Supported projects and radars
 
   * chill: CSU CHILL S-band dual polarization radar near Fort Collins, CO
   * cpol: Australian BOM C-band dual polarization radar near Darwin
@@ -8,6 +20,4 @@ lrose-hawk contains the configuration files and scripts for running the LROSE so
   * front: NCAR S-band radar for FRONT range project, Colorado
   * spol: NCAR S-band dual polarization radar
   * timrex: NCAR S-band radar at TIMREX experiment in Taiwan
-
-The scripts and parameter files may be used as templates for other projects.
 
