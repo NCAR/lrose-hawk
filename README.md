@@ -4,7 +4,7 @@
 
 lrose-hawk stores the parameter files, scripts and the real-time control configuration
 for projects that make use of the LROSE software for radar processing, starting with 
-time-series processing and clutter filtering.
+**time-series processing** and clutter filtering.
 
 Also included are algorithms, Cartesian transformation, merging with other data sets,
 displays and data archival.
