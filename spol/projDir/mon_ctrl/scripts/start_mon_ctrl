@@ -1,0 +1,13 @@
+#!/bin/csh 
+# HAWK startup script for Spol_Mon_Ctrl
+#
+
+# is there one running?
+running "Spol_Mon_Ctrl"
+if ($status == 1) then
+  rm -f /tmp/sixnet_status.*   # remove old status - probably not current
+  /usr/local/bin/Spol_Mon_Ctrl \
+-params ${PROJ_DIR}/mon_ctrl/params/Spol_Mon_Ctrl.params |& \
+    /usr/local/bin/timestamper | \
+    LogFilter -d $ERRORS_LOG_DIR -p mon_ctrl >& /dev/null &
+endif

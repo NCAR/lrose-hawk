@@ -7,3 +7,4 @@ snuff calsvr
 snuff ui_server
 snuff sitecon_server
 snuff rsmmon
+snuff Spol_Mon_Ctrl

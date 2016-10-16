@@ -1,0 +1,8 @@
+# .gitignore at top level
+
+# cvs
+
+CVS
+Entries.Log
+Entries.static
+

@@ -1,0 +1,135 @@
+{
+    "ProcessorControl" : {
+        "SYS_IDLE_CFG" : {
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1.200000047683716,
+            "gateSpacing" : 150.0000000000000,
+            "indexedBeams" : true,
+            "indexedSpacing" : 1.000000000000000,
+            "numGates" : 960,
+            "numSamples" : 200,
+            "pol_mode" : 3,
+            "prf" : 1000.000000000000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1.000000000000000,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        },
+        "proc1" : {
+            "clutter_filter_number" : 0,
+            "description" : "Default",
+            "dwellWidth" : 1.200000047683716,
+            "gateSpacing" : 150.0000000000000,
+            "indexedBeams" : true,
+            "indexedSpacing" : 1.000000000000000,
+            "numGates" : 960,
+            "numSamples" : 200,
+            "pol_mode" : 3,
+            "prf" : 1000.000000000000,
+            "pulse_type" : 2,
+            "pulse_width_us" : 1.000000000000000,
+            "useDwellWidth" : true,
+            "xmitPhaseMode" : 1,
+            "xmit_rcv_mode" : 3
+        }
+    },
+    "point_scans" : {
+        "az45el4" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 4.000000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "bluesky" : {
+            "angle_list" : "?",
+            "azimuth" : 45.00000000000000,
+            "elevation" : 45.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        },
+        "stow" : {
+            "angle_list" : "?",
+            "azimuth" : 0.000000000000000,
+            "elevation" : 90.00000000000000,
+            "estimatedTime" : 0,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "timeLimit" : 0
+        }
+    },
+    "ppi_scans" : {
+        "ppi1" : {
+            "angle_list" : "alist1",
+            "az_left" : 10.00000000000000,
+            "az_right" : 90.00000000000000,
+            "estimatedTime" : 11,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        }
+    },
+    "ppi_sur_angle_lists" : {
+        "alist1" : {
+            "angles" : [
+                1.000000000000000
+            ]
+        }
+    },
+    "rhi_angle_lists" : {
+        "alist1" : {
+            "angles" : [
+                1.000000000000000
+            ]
+        }
+    },
+    "rhi_scans" : {
+        "rhi1" : {
+            "angle_list" : "alist1",
+            "el_bottom" : 1.000000000000000,
+            "el_top" : 30.00000000000000,
+            "estimatedTime" : 6,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 6.000000000000000,
+            "timeLimit" : 0
+        }
+    },
+    "schedule" : {
+        "sched1" : {
+            "repeatTime" : 0,
+            "startTime" : 0,
+            "tasks" : [
+                {
+                    "taskName" : "ppi1",
+                    "type" : 1
+                },
+                {
+                    "taskName" : "rhi1",
+                    "type" : 3
+                },
+                {
+                    "taskName" : "sur1",
+                    "type" : 8
+                }
+            ]
+        }
+    },
+    "sur_scans" : {
+        "sur1" : {
+            "angle_list" : "alist1",
+            "estimatedTime" : 45,
+            "followMode" : 1,
+            "proc_param" : "SYS_IDLE_CFG",
+            "rate" : 8.000000000000000,
+            "timeLimit" : 0
+        }
+    }
+}

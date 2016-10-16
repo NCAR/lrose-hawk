@@ -8,12 +8,12 @@
 
 # PECAN - HAYS
 
-setenv PROJECT_NAME               "PECAN"
-setenv SITE_NAME                  "McCracken"
-setenv RADAR_LAT                  38.55347
-setenv RADAR_LON                  -99.53611
-setenv RADAR_ALT_KM               0.660
-setenv RADAR_ALT_M                660.0
+#setenv PROJECT_NAME               "PECAN"
+#setenv SITE_NAME                  "McCracken"
+#setenv RADAR_LAT                  38.55347
+#setenv RADAR_LON                  -99.53611
+#setenv RADAR_ALT_KM               0.660
+#setenv RADAR_ALT_M                660.0
 
 # FRONT - FIRESTONE
 
@@ -35,12 +35,12 @@ setenv RADAR_ALT_M                660.0
 
 # Marshall
 
-#setenv PROJECT_NAME               "marshall"
-#setenv SITE_NAME                  "MARSHALL"
-#setenv RADAR_LAT                  39.9502
-#setenv RADAR_LON                  -105.1951
-#setenv RADAR_ALT_KM               1.748
-#setenv RADAR_ALT_M                1748
+setenv PROJECT_NAME               "marshall"
+setenv SITE_NAME                  "MARSHALL"
+setenv RADAR_LAT                  39.9502
+setenv RADAR_LON                  -105.1951
+setenv RADAR_ALT_KM               1.748
+setenv RADAR_ALT_M                1748
 
 # TIMREX
 #setenv SITE_NAME                  "TIMREX"

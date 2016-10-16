@@ -15,11 +15,6 @@ PATH=/home/spol/projDir/UI_Server/scripts:/home/spol/projDir/alg/scripts:/home/s
 #
 #####################################################################
 #
-# Make sure powermeter GPIB device has address
-#
-#*/10 * * * *  csh -c "source ~/.cshrc; run_set_powermeter_ipaddress"  1> /dev/null 2> /dev/null
-#####################################################################
-#
 # Keep Xvfb running for SysView
 #
 */1 * * * *  csh -c "source ~/.cshrc; start_Xvfb"      1> /dev/null 2> /dev/null
@@ -32,6 +27,7 @@ PATH=/home/spol/projDir/UI_Server/scripts:/home/spol/projDir/alg/scripts:/home/s
 */1 * * * *  csh -c "source ~/.cshrc; start_UI_Server"   1> /dev/null 2> /dev/null
 */1 * * * *  csh -c "source ~/.cshrc; start_rsmmon"  1> /dev/null 2> /dev/null
 */1 * * * *  csh -c "source ~/.cshrc; start_sitecon"  1> /dev/null 2> /dev/null
+*/1 * * * *  csh -c "source ~/.cshrc; start_mon_ctrl"  1> /dev/null 2> /dev/null
 #####################################################################
 #
 # Download external data

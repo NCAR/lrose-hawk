@@ -37,10 +37,10 @@
 # verify h2odata is being transferred
 #
 # rsync dial data from field
-*/5 * * * * csh -c "run_rsync_dial_data" 1> /dev/null 2> /dev/null
-*/5 * * * * csh -c "run_rsync_hsrl_data" 1> /dev/null 2> /dev/null
+*/10 * * * * csh -c "run_rsync_dial_data" 1> /dev/null 2> /dev/null
+#*/5 * * * * csh -c "run_rsync_hsrl_data" 1> /dev/null 2> /dev/null
 #
-# disabled 2015/7/16 - PECAN project is done
+# enable 2016/4/1 : Water Vapor dial is being tested in the EOL Parking lot
 # 15 * * * *  /home/rsfdata/etc/check_h2o_transfer.py 1>> /tmp/check_h2o_transfer.log 2&>1
 ####################################################################
 # TRANSFER IMAGES FROM RAL WEATHER PAGE TO CATALOG
@@ -49,4 +49,4 @@
 ####################################################################
 # TRANSFER HCR data into correct location
 #
-*/10 * * * *  csh -c "rsync_cset_hcr_moments" 1> /dev/null 2> /dev/null
+#*/10 * * * *  csh -c "rsync_cset_hcr_moments" 1> /dev/null 2> /dev/null

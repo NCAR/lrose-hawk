@@ -1,0 +1,877 @@
+/**********************************************************************
+ * TDRP params for ./Spol_Mon_Ctrl
+ **********************************************************************/
+
+//======================================================================
+//
+// SpolMonCtrl monitors and controls the S-Pol hardware.
+//
+//======================================================================
+ 
+///////////// deviceName //////////////////////////////
+//
+// modbus port.
+// Serial port to access Modbus (e.g. /dev/ttyUSB0) .
+// Type: string
+//
+
+deviceName = "/dev/ttyUSB_mon_ctrl";
+
+//======================================================================
+//
+// DEBUGGING configuration.
+//
+//======================================================================
+ 
+///////////// debug ///////////////////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug = DEBUG_OFF;
+
+///////////// debug_xmit_monitor //////////////////////
+//
+// Debug option.
+// If set, debug messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug_xmit_monitor = DEBUG_OFF;
+
+///////////// debug_spol_control //////////////////////
+//
+// Debug option.
+// If set, SpolControl messages will be printed appropriately.
+//
+// Type: enum
+// Options:
+//     DEBUG_OFF
+//     DEBUG_NORM
+//     DEBUG_VERBOSE
+//     DEBUG_EXTRA
+//
+
+debug_spol_control = DEBUG_NORM;
+
+///////////// debug_modbus ////////////////////////////
+//
+// Debug option for modbus.
+// If set, modbus debug messages will be printed .
+// Type: boolean
+//
+
+debug_modbus = FALSE;
+
+///////////// debug_modbus_retries ////////////////////
+//
+// Debug option for modbus retries.
+// If set, modbus error messages will be printed for retried operations .
+// Type: boolean
+//
+
+debug_modbus_retries = TRUE;
+
+///////////// debug_temp_fault ////////////////////////
+//
+// Debug option for temperature faults.
+// If set, temperature fault debug messages will be printed .
+// Type: boolean
+//
+
+debug_temp_fault = FALSE;
+
+///////////// debug_xmit_debounce /////////////////////
+//
+// Debug option for transmitter debounce.
+// If set, xmitter debounce debug messages will be printed .
+// Type: boolean
+//
+
+debug_xmit_debounce = TRUE;
+
+//======================================================================
+//
+// Procmap registration.
+//
+//======================================================================
+ 
+///////////// instance ////////////////////////////////
+//
+// Program instance for process registration.
+// This application registers with procmap. This is the instance used 
+//   for registration.
+// Type: string
+//
+
+instance = "test";
+
+///////////// register_with_procmap ///////////////////
+//
+// Option to register this process with the process mapper (procmap).
+// If TRUE, every minute this process will register a heartbeat with 
+//   procmap. If the process hangs, it will be restared by the 
+//   auto_restarter.
+// Type: boolean
+//
+
+register_with_procmap = FALSE;
+
+///////////// procmap_register_interval ///////////////
+//
+// Interval for registering with procmap (secs).
+// The app will register with procmap at this interval, to update its 
+//   status. If it does not register within twice this interval, the 
+//   auto_restart script will restart the app.
+// Type: int
+//
+
+procmap_register_interval = 60;
+
+//======================================================================
+//
+// polling intervals.
+//
+//======================================================================
+ 
+///////////// fault_polling_interval_secs /////////////
+//
+// Polling Interval fault monitoring.
+// The app poll modbus modules at this rate.
+// Type: int
+//
+
+fault_polling_interval_secs = 2;
+
+///////////// modbus_max_retries //////////////////////
+//
+// Max retries for Modbus operations.
+// How many times to retry failed modbus operations.
+// Type: int
+//
+
+modbus_max_retries = 5;
+
+///////////// modbus_retry_delay_ms ///////////////////
+//
+// delay between retries for Modbus operations.
+// delay in ms between retries.
+// Type: int
+//
+
+modbus_retry_delay_ms = 50;
+
+///////////// temp_median_filter_length ///////////////
+//
+// size of temperature monitoring median filter.
+// Type: int
+//
+
+temp_median_filter_length = 7;
+
+///////////// modbus_response_timeout_us //////////////
+//
+// Modbus timeout - us .
+// timeout in us for modbus reponse.
+// Type: int
+//
+
+modbus_response_timeout_us = 500000;
+
+///////////// modbus_byte_timeout_us //////////////////
+//
+// Modbus byte timeout - us .
+// timeout in us for modbus reponse.
+// Type: int
+//
+
+modbus_byte_timeout_us = 500000;
+
+///////////// modbus_slave_interrogate_delay_us ///////
+//
+// delay changing modbus RTU context.
+// delay in us before calling modbus_set_slave().
+// Type: int
+//
+
+modbus_slave_interrogate_delay_us = 20000;
+
+//======================================================================
+//
+// Output filenames .
+//
+//======================================================================
+ 
+///////////// xml_output //////////////////////////////
+//
+// output filename for XML status.
+// output filename for XML status.
+// Type: string
+//
+
+xml_output = "/tmp/sixnet_status.xml";
+
+///////////// omd_output //////////////////////////////
+//
+// output filename for OMD status.
+// output filename for Open Management Distribution status output.
+// Type: string
+//
+
+omd_output = "/tmp/sixnet_status.txt";
+
+///////////// xml_rpc_port_num ////////////////////////
+//
+// port_number .
+// XML-RPC port number.
+// Type: int
+//
+
+xml_rpc_port_num = 8880;
+
+///////////// xml_rpc_log /////////////////////////////
+//
+// log file for XML-RPC.
+// Type: string
+//
+
+xml_rpc_log = "/tmp/xml_rpc.log";
+
+//======================================================================
+//
+// digital fault definition.
+//
+//======================================================================
+ 
+///////////// digital_faults //////////////////////////
+//
+// array of digital fault definitions.
+// defines the expected value, the Modbus id.and the channel number 
+//   (starting with 0)
+// 	NOTE: SpolMonitor::checkDigitalFaults() adds a 'DF_' prefix.
+//
+// Type: struct
+//   typedef struct {
+//      char* faultName;
+//      boolean expectedValue;
+//      int moduleID;
+//      int channelNumber;
+//   }
+//
+// 1D array - variable length.
+//
+
+digital_faults = {
+  { "Azimuth_Temperature_Fault", TRUE, 11, 0},
+  { "Azimuth_Fans_Fault", TRUE, 11, 1},
+  { "Azimuth_Brakes_Fault", TRUE, 11, 2},
+  { "Azimuth_Stowed_Fault", TRUE, 11, 3},
+  { "Oil_Pressure_Fault", TRUE, 11, 4},
+  { "Azimuth_Brake_Bypass_Fault", FALSE, 11, 5},
+  { "Pedestal_Switch_Disabled_Fault", FALSE, 11, 6},
+  { "Az_Run_Line_Active", FALSE, 11, 7},
+  { "Elevation_Temperature_Fault", TRUE, 10, 0},
+  { "Elevation_Fans_Fault", TRUE, 10, 1},
+  { "Elevation_Brakes_Fault", TRUE, 10, 2},
+  { "Elevation_Stowed_Fault", TRUE, 10, 3},
+  { "Elevation_Brake_Bypass_Fault", FALSE, 10, 4},
+  { "Antenna_Door_Open_Fault", TRUE, 10, 5},
+  { "Elevation_Limit_Fault", FALSE, 10, 6},
+  { "El_Run_Line_Active", FALSE, 10, 7},
+  { "RF_Ladder_Lockout_Fault", FALSE, 20, 0},
+  { "Wave_Guide_Switch_Fault", FALSE, 20, 1},
+  { "COHO_Gate_Fault", FALSE, 20, 2},
+  { "RF_Disabled_Fault", FALSE, 20, 3},
+  { "Wave_Guide_Pressure_Fault", FALSE, 20, 4},
+  { "Circulator_Temperature_Fault", FALSE, 20, 5},
+  { "Mitch_Switch_Fault", FALSE, 20, 6}
+};
+
+//======================================================================
+//
+// digital control definitions.
+//
+//======================================================================
+ 
+///////////// digital_controls ////////////////////////
+//
+// array of digital control definitions.
+// defines the control name, the Modbus id.and the channel number 
+//   (starting with 0).
+//
+// Type: struct
+//   typedef struct {
+//      char* controlName;
+//      int moduleID;
+//      int channelNumber;
+//      boolean invert;
+//   }
+//
+// 1D array - variable length.
+//
+
+digital_controls = {
+  { "power_xmit_panel", 22, 6, FALSE},
+  { "power_xmit_hv", 22, 7, FALSE},
+  { "enable_antenna", 22, 10, TRUE},
+  { "rcvr_simul_mode", 23, 9, FALSE}
+};
+
+//======================================================================
+//
+// temperature monitoring definitions.
+//
+//======================================================================
+ 
+///////////// temperature_mon_array ///////////////////
+//
+// array of temperature monitoring definitions.
+// if remoteAddress is supplied, use modbus over TCP to read a remote 
+//   temperature.
+//
+// Type: struct
+//   typedef struct {
+//      int moduleID;
+//      int channelNumber;
+//      char* remoteAddress;
+//      char* tempName;
+//      float lowCriticalValue;
+//      float lowWarningValue;
+//      float highWarningValue;
+//      float highCriticalValue;
+//      float minValue;
+//      float maxValue;
+//      float tcMinRange;
+//      float tcMaxRange;
+//   }
+//
+// 1D array - variable length.
+//
+
+temperature_mon_array = {
+  { 30, 0, "", "Klystron", 5, 10, 40, 43, 15, 45, 0, 760},
+  { 30, 2, "", "TX_Rear_Cab", 5, 10, 40, 43, 15, 45, 0, 1370},
+  { 31, 0, "", "Vert_LNA", 5, 10, 23, 30, 0, 40, -100, 400},
+  { 31, 1, "", "Horiz_LNA", 5, 10, 23, 30, 0, 40, -100, 400},
+  { 31, 2, "", "Rcvr_Enclosure", 10, 12, 27, 30, 0, 40, -100, 400},
+  { 31, 3, "", "Front_Cab_Ambient", 10, 12, 27, 30, 0, 40, 0, 1370},
+  { -1, 0, "192.168.4.54", "SCC", 5, 8, 32, 35, 0, 40, 0, 760},
+  { -1, 1, "192.168.4.54", "Annex", 5, 8, 32, 35, 0, 40, 0, 760},
+  { -1, 0, "192.168.4.58", "UPS_Container", 10, 12, 35, 37, 0, 40, 0, 1370}
+};
+
+//======================================================================
+//
+// current sensing for transmitter panel and high voltage.
+//
+//======================================================================
+ 
+///////////// xmit_power_on_array /////////////////////
+//
+// array of current sense definitions.
+// we monitor whether the 'panel' and the HV sections of the S-Pol 
+//   transmitter are powered on.
+//
+// Type: struct
+//   typedef struct {
+//      char* name;
+//      int on_threshold;
+//      int moduleID;
+//      int channelNumber;
+//   }
+//
+// 1D array - variable length.
+//
+
+xmit_power_on_array = {
+  { "XMIT_High_Voltage_ON", 40000, 30, 3},
+  { "XMIT_Panel_ON", 40000, 30, 1}
+};
+
+///////////// monitor_field_generator_status //////////
+//
+// Whether to monitor UPS/Generator container power status.
+// If set, monitor the field generator transfer switch.
+// Type: boolean
+//
+
+monitor_field_generator_status = TRUE;
+
+//======================================================================
+//
+// UPS/Generator Container:  Transfer switch status.
+//
+//======================================================================
+ 
+///////////// gen_switch_fault_reset_interval_min /////
+//
+// After this interval (minutes), reset a generator switch fault.
+// When we change power sources, we indicate a fault.  Clear the fault 
+//   after this many minutes.
+// Type: int
+//
+
+gen_switch_fault_reset_interval_min = 15;
+
+///////////// generator_monitor_config ////////////////
+//
+// I.P. address for UPS/Generator Transfer Switch monitor.
+// address for IOLAN_Converter attached to transfer switch.
+//
+// Type: struct
+//   typedef struct {
+//      char* ip_address;
+//      int reg_base;
+//      int num_regs;
+//   }
+//
+//
+
+generator_monitor_config = { "192.168.4.121", 1000, 36 };
+
+///////////// generator_mon_array /////////////////////
+//
+// array of power monitoring info structures.
+// state from monitoring circuit in transfer switch in UPS/generator van.
+//
+// Type: struct
+//   typedef struct {
+//      char* name;
+//      int regOffset;
+//      int lowCriticalValue;
+//      int lowWarningValue;
+//      int hiWarningValue;
+//      int hiCriticalValue;
+//      int minValue;
+//      int maxValue;
+//   }
+//
+// 1D array - variable length.
+//
+
+generator_mon_array = {
+  { "Frequency", 18, 580, 590, 610, 620, 500, 650},
+  { "VoltageA", 26, 95, 100, 125, 130, 90, 130},
+  { "VoltageB", 27, 95, 100, 125, 130, 90, 130},
+  { "VoltageC", 28, 95, 100, 125, 130, 90, 130},
+  { "TotalKW", 21, 5000, 6000, 12000, 13000, 5000, 15000}
+};
+
+//======================================================================
+//
+// transmitter summary status bits value = txhvoff <<2 | txrecycle << 1 
+//   | self.txinop.
+//
+//======================================================================
+ 
+///////////// xmit_summary_bits ///////////////////////
+//
+// array of xmit status summary bits .
+// defines the Modbus id.the channel number (starting with 0)and whether 
+//   to invert the read value.
+//
+// Type: struct
+//   typedef struct {
+//      int moduleID;
+//      int channelNumber;
+//      boolean invert;
+//   }
+//
+// 1D array - variable length.
+//
+
+xmit_summary_bits = {
+  { 21, 10, TRUE},
+  { 21, 8, TRUE},
+  { 21, 9, TRUE}
+};
+
+//======================================================================
+//
+// transmitter fault status.
+//
+//======================================================================
+ 
+///////////// xmit_bank_interval_secs /////////////////
+//
+// Transmitter Bank Selection Interval .
+// The XmitMonitor polls each bank for this many seconds.
+// Type: int
+//
+
+xmit_bank_interval_secs = 6;
+
+///////////// transmitterStatusRegs ///////////////////
+//
+// channel numbers for transmitter fault status.
+// these registers read the bits of status of the current bank
+// The current bank is selected by setting the registers in 
+//   xmit_fault_bank_select.
+// Type: int
+// 1D array - variable length.
+//
+
+transmitterStatusRegs = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
+///////////// transmitterStatusChannelId //////////////
+//
+// channel ID for transmitter status value registers.
+// Type: int
+//
+
+transmitterStatusChannelId = 21;
+
+///////////// transmitterDebounceCount ////////////////
+//
+// how many consecutive faults must occur to be treated as a fault.
+// Type: int
+//
+
+transmitterDebounceCount = 3;
+
+///////////// transmitterBankSelectModuleId ///////////
+//
+// channel ID for transmitter bank selection registers.
+// Type: int
+//
+
+transmitterBankSelectModuleId = 21;
+
+///////////// transmitterBankSelectChannelNumbers /////
+//
+// channel numbers for bank selection registers.
+// Type: int
+// 1D array - variable length.
+//
+
+transmitterBankSelectChannelNumbers = { 0, 1, 2, 3, 4, 5 };
+
+///////////// xmitFaultBankSelection //////////////////
+//
+// defines the bits to write to select a given fault bank.
+// each row are the values for the bank selection registersfor a given 
+//   status bank.
+// Type: int
+// 2D array - fixed size (8 x 6).
+//
+
+xmitFaultBankSelection = {
+  { 0, 1, 0, 1, 0, 1 },
+  { 1, 0, 0, 1, 0, 1 },
+  { 0, 1, 1, 0, 0, 1 },
+  { 1, 0, 1, 0, 0, 1 },
+  { 0, 1, 0, 1, 1, 0 },
+  { 1, 0, 0, 1, 1, 0 },
+  { 0, 1, 1, 0, 1, 0 },
+  { 1, 0, 1, 0, 1, 0 }
+};
+
+///////////// xmit_faults /////////////////////////////
+//
+// 1d array of xmit faults.
+// bank, bit #, name of fault, with expected value
+//  expectedValue =2 to ignore the fault 
+//   Note: XmitMonitor::updateStatus() adds 'TX_' prefix .
+//
+// Type: struct
+//   typedef struct {
+//      int bank;
+//      int bitNumber;
+//      char* faultName;
+//      int expectedValue;
+//   }
+//
+// 1D array - variable length.
+//
+
+xmit_faults = {
+  { 0, 0, "Filament_ps_Fault", 1},
+  { 0, 1, "Klystron_Warmup_Fault", 1},
+  { 0, 2, "Transmitter_Avail_Fault", 1},
+  { 0, 3, "Waveguide_Switch_Position_Fault", 1},
+  { 0, 4, "W_G_PFN_Transfer_Interlock_Fault", 1},
+  { 0, 5, "Maintenance_Mode_Fault", 2},
+  { 0, 6, "Maintenance_Required_Fault", 1},
+  { 0, 7, "PFN_Switch_Position", 2},
+  { 1, 0, "P5_VDC_PS_Fault", 1},
+  { 1, 1, "P15_VDC_PS_Fault", 1},
+  { 1, 2, "P28_VDC_PS_Fault", 1},
+  { 1, 3, "M15_VDC_PS_Fault", 1},
+  { 1, 4, "P45_VDC_PS_Fault", 1},
+  { 1, 5, "Filament_PS_Voltage_Fault", 1},
+  { 1, 6, "Vacuum_Pump_PS_Voltage_Fault", 1},
+  { 1, 7, "Focus_Coil_PS_Voltage_Fault", 1},
+  { 2, 0, "Circulator_Temperature_Fault", 1},
+  { 2, 1, "Spectrum_Filter_Pressure_Fault", 1},
+  { 2, 2, "Waveguide_Arc_VSWR_Fault", 1},
+  { 2, 3, "Cabinet_Interlock_Fault", 1},
+  { 2, 4, "Cabinet_Air_Temperature_Fault", 1},
+  { 2, 5, "Cabinet_Airflow_Fault", 1},
+  { 2, 6, "Transmitter_Spare_0_Fault", 1},
+  { 2, 7, "Transmitter_Spare_1_Fault", 1},
+  { 3, 0, "Modulator_Overload_Fault", 1},
+  { 3, 1, "Modulator_Inverse_Current_Fault", 1},
+  { 3, 2, "Modulator_Switch_Fail_Fault", 1},
+  { 3, 3, "Main_Power_Voltage_Fault", 1},
+  { 3, 4, "Charging_System_Fail_Fault", 1},
+  { 3, 5, "Inverse_Diode_Current_HV_Fault", 1},
+  { 3, 6, "Trigger_Amplifier_Fault", 1},
+  { 3, 7, "Transmitter_Spare", 2},
+  { 4, 0, "Transmitter_Overvoltage_Fault", 1},
+  { 4, 1, "Transmitter_Overcurrent_Fault", 1},
+  { 4, 2, "Focus_Coil_Current_Fault", 1},
+  { 4, 3, "Focus_Coil_Airflow_Fault", 1},
+  { 4, 4, "Transmitter_Oil_Temperature_Fault", 1},
+  { 4, 5, "Transmitter_Oil_Level_Fault", 1},
+  { 4, 6, "PRF_Limit_Fault", 1},
+  { 4, 7, "Transmitter_Battery_Charging_Fault", 1},
+  { 5, 0, "Klystron_Current_Fault", 1},
+  { 5, 1, "Klystron_Filament_Current_Fault", 1},
+  { 5, 2, "Klystron_Vacuum_Pump_Current_Fault", 1},
+  { 5, 3, "Klystron_Air_Temperature_Fault", 1},
+  { 5, 4, "Klystron_Airflow_Fault", 1},
+  { 5, 5, "One_Test_Bit_5_Fault", 2},
+  { 5, 6, "One_Test_Bit_6_Fault", 2},
+  { 5, 7, "One_Test_Bit_7_Fault", 2},
+  { 6, 0, "One_Test_Bit_0_Fault", 2},
+  { 6, 1, "One_Test_Bit_1_Fault", 2},
+  { 6, 2, "One_Test_Bit_2_Fault", 2},
+  { 6, 3, "One_Test_Bit_3_Fault", 2},
+  { 6, 4, "One_Test_Bit_4_Fault", 2},
+  { 6, 5, "Modulator_Switch_Maintenance_Fault", 1},
+  { 6, 6, "Post_Charge_Regulator_Fault", 1},
+  { 6, 7, "Waveguide_Pressure_Humidity_Fault", 1},
+  { 7, 0, "zero_Test_Bit_0_Fault", 2},
+  { 7, 1, "zero_Test_Bit_1_Fault", 2},
+  { 7, 2, "zero_Test_Bit_2_Fault", 2},
+  { 7, 3, "zero_Test_Bit_3_Fault", 2},
+  { 7, 4, "zero_Test_Bit_4_Fault", 2},
+  { 7, 5, "zero_Test_Bit_5_Fault", 2},
+  { 7, 6, "zero_Test_Bit_6_Fault", 2},
+  { 7, 7, "zero_Test_Bit_7_Fault", 2}
+};
+
+//======================================================================
+//
+// digital input definitions for XML-RPC.
+//
+//======================================================================
+ 
+///////////// digital_inputs //////////////////////////
+//
+// array of digital input definitions.
+// defines the control name, the Modbus id.the channel number (starting 
+//   with 0)and whether to invert the read value.
+//
+// Type: struct
+//   typedef struct {
+//      char* inputName;
+//      int moduleID;
+//      int channelNumber;
+//      boolean invert;
+//   }
+//
+// 1D array - variable length.
+//
+
+digital_inputs = {
+  { "local_mode", 20, 9, TRUE},
+  { "dual_pol_lock", 23, 6, TRUE},
+  { "vert_lock", 23, 7, TRUE},
+  { "horiz_lock", 23, 8, TRUE},
+  { "read_rf_disable", 21, 3, TRUE}
+};
+
+//======================================================================
+//
+// define OMD status values detected by SpolMonitor that SpolControl
+//  reads from the params.omd_output file and returns as XML-RPC queries.
+//
+//======================================================================
+ 
+///////////// system_status ///////////////////////////
+//
+// array system status indications.
+// defines mapping between XML-RPC method name and the OMD status name.
+//
+// Type: struct
+//   typedef struct {
+//      char* methodName;
+//      char* faultName;
+//   }
+//
+// 1D array - variable length.
+//
+
+system_status = {
+  { "read_xmit_avail", "TX_Transmitter_Avail_Fault"},
+  { "read_klystron_warmup", "TX_Klystron_Warmup_Fault"},
+  { "query_xmit_power_panel", "XMIT_Panel_ON"},
+  { "query_xmit_power_hv", "XMIT_High_Voltage_ON"},
+  { "query_az_run_line_active", "DF_Az_Run_Line_Active"},
+  { "query_el_run_line_active", "DF_El_Run_Line_Active"}
+};
+
+//======================================================================
+//
+// -------------------CONTROL DEFINITIONS ---------------------.
+//
+//======================================================================
+ 
+//======================================================================
+//
+// wave guide switch control definitions.
+//
+//======================================================================
+ 
+///////////// wgs_controls ////////////////////////////
+//
+// array of wave guide switch control definitions.
+// defines the Modbus id.and the channel number (starting with 0).
+//
+// Type: struct
+//   typedef struct {
+//      int moduleID;
+//      int channelNumber;
+//   }
+//
+// 1D array - variable length.
+//
+
+wgs_controls = {
+  { 25, 0},
+  { 25, 3},
+  { 25, 6}
+};
+
+//======================================================================
+//
+// registers to control the Mechanical Polarization Switch(aka Mitch 
+//   Switch).
+//
+//======================================================================
+ 
+///////////// mps_values //////////////////////////////
+//
+// 2D array of MPS values for each command.
+// rows are the commands: 'spin', 'off', 'vertical', 'horizontal', 
+//   'center', 'local' 
+// columns are the registers: RemoteSel, Inhibit, HallIn, Hall1Sel, 
+//   Hall2Sel, Hall3Sec.
+// Type: int
+// 2D array - fixed size (6 x 6).
+//
+
+mps_values = {
+  { 1, 1, 0, 0, 0, 0 },
+  { 1, 0, 0, 0, 0, 0 },
+  { 1, 1, 1, 1, 0, 0 },
+  { 1, 1, 1, 0, 1, 1 },
+  { 1, 1, 1, 0, 0, 1 },
+  { 0, 0, 0, 1, 1, 1 }
+};
+
+///////////// mps_commands ////////////////////////////
+//
+// Mechanical Polarization Switch commands.
+// Type: string
+// 1D array - fixed length - 6 elements.
+//
+
+mps_commands = { "spin", "off", "vertical", "horizontal", "center", "local" };
+
+//======================================================================
+//
+// registers must be defined in the order: 
+// RemoteSel, Inhibit, HallIn, Hall1Sel, Hall2Sel, Hall3Sec.
+//
+//======================================================================
+ 
+///////////// mps_registers ///////////////////////////
+//
+// array of Mechanical Polarization Switch (MPS) control registers.
+// defines the name, Modbus id.and the channel number (starting with 0).
+//
+// Type: struct
+//   typedef struct {
+//      string name;
+//      int moduleID;
+//      int channelNumber;
+//   }
+//
+// 1D array - variable length.
+//
+
+mps_registers = {
+  { "RemoteSel", 23, 2},
+  { "Inhibit", 23, 0},
+  { "HallIn", 23, 1},
+  { "Hall1Sel", 23, 3},
+  { "Hall2Sel", 23, 4},
+  { "Hall3Sel", 23, 5}
+};
+
+//======================================================================
+//
+// registers to control HV enable: bi-polar:  
+//  ON: HV_ON_P=1, HV_ON_M=0
+// OFF: HV_ON_P=0, HV_ON_M=1.
+//
+//======================================================================
+ 
+///////////// hv_enable ///////////////////////////////
+//
+// array of HV enable register definitions.
+// defines the Modbus id.and the channel number (starting with 0).
+//
+// Type: struct
+//   typedef struct {
+//      int moduleID;
+//      int channelNumber;
+//   }
+//
+// 1D array - variable length.
+//
+
+hv_enable = {
+  { 22, 9},
+  { 22, 8}
+};
+
+//======================================================================
+//
+// registers to control transmitter power contactorsNOTE: need 
+//   consistent definitions in digital_controls[] array.
+//
+//======================================================================
+ 
+///////////// xmit_contactor_info /////////////////////
+//
+// module and channels for transmitter contactors.
+//
+// Type: struct
+//   typedef struct {
+//      int moduleID;
+//      int panelPowerContactorChannel;
+//      int hvPowerContactorChannel;
+//      int onOff;
+//   }
+//
+//
+
+xmit_contactor_info = { 22, 6, 7, 0 };
+

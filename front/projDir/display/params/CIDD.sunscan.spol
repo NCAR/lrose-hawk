@@ -110,6 +110,7 @@ S1S2-S   S1S2-S  mdvp:://front.eol.ucar.edu:8080:$(project)/mdv/spol/suncal/sban
 #------------------------------------------------------------------------------------------
 
 Grid   Grid   sunscan_grid.map   1      0.0      10000.0     blue
+Grid   Grid   sunscan_grid.map   0      0.0      10000.0     blue
 
 </MAPS>
 

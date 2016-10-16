@@ -257,6 +257,7 @@ if ($?prompt) then
 
   setprompt
   alias ackl ' ack --pager="less -R" $*'
+  alias  SC 'cd ~vanandel/code/spol_control/monitoring/SiteCon'
 
 endif
 

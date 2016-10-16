@@ -2,6 +2,10 @@
 
 # start the system controller and control GUI
 
+# start Monitoring and Control first, since sitecon 
+# queries it on startup
+start_mon_ctrl
+# 
 start_syscon
-start_UI_Server
 start_sitecon
+start_UI_Server

@@ -185,18 +185,6 @@ start_gate = 750;
 
 n_gates = 200;
 
-///////////// use_peak_power //////////////////////////
-//
-// Option to compute power from the peak value.
-//
-// If false, the mean power in range is used.
-//
-//
-// Type: boolean
-//
-
-use_peak_power = FALSE;
-
 ///////////// alternating_mode ////////////////////////
 //
 // Does this system transmit alternating H and V pulses.
@@ -220,7 +208,7 @@ alternating_mode = TRUE;
 //   pulses. This is done to create a co-polar and cross-polar receiver 
 //   system which is more stable for ZDR. If this is set to TRUE, then the 
 //   receiver is assumed to switch and the data for each channel is 
-//   gathered accordingly.
+//   gathered accordingly. NOTE - this only applies in alternating mode.
 //
 //
 // Type: boolean
@@ -241,6 +229,19 @@ switching_receiver = TRUE;
 //
 
 invert_hv_flag = FALSE;
+
+///////////// print_missing_pulses ////////////////////
+//
+// Option to print message about missing pulses.
+//
+// Only applies to time series data input. If true, a message will be 
+//   printed to stderr if a missing pulse is noted in the time series.
+//
+//
+// Type: boolean
+//
+
+print_missing_pulses = FALSE;
 
 //======================================================================
 //
@@ -909,6 +910,19 @@ cross_polar_min_valid_ratio_db = -5;
 
 cross_polar_max_valid_ratio_db = 5;
 
+///////////// cross_polar_min_rho_vx_hx ///////////////
+//
+// Minimum valid Vx-Hx correlation (dB).
+//
+// Sometimes, odd data leads to inappropriate ratios. This sets a 
+//   minimum value for the correlation between vx and hx.
+//
+//
+// Type: double
+//
+
+cross_polar_min_rho_vx_hx = 0.97;
+
 ///////////// min_angle_offset_for_cross_pol_ratio ////
 //
 // Min angle offset from sun center for cross polar ratio (deg).
@@ -920,6 +934,149 @@ cross_polar_max_valid_ratio_db = 5;
 //
 
 min_angle_offset_for_cross_pol_ratio = 2;
+
+//======================================================================
+//
+// OPTION TO RETRIEVE XPOL RATIO from SPDB.
+//
+//======================================================================
+ 
+///////////// read_xpol_ratio_from_spdb ///////////////
+//
+// Option to read the cross-polar ratio from SPDB.
+//
+// We can compute the x-polar ratio using the AltCpCompute app, which 
+//   stores the results in SPDB. So, in addition to computing it from the 
+//   sun scan data itself, we can retrieve the results from AltCpCompute 
+//   and add that to the output for comparison purposes.
+//
+//
+// Type: boolean
+//
+
+read_xpol_ratio_from_spdb = FALSE;
+
+///////////// use_xpol_ratio_from_spdb ////////////////
+//
+// Option to use the the cross-polar ratio from SPDB instead of that 
+//   computed from the solar.
+//
+// With S1S2 from the solar, and the xpol ratio, we can compute ZDR 
+//   bias. This option allows us to use the ratio retrieved from SPDB 
+//   instead of the value computed from the solar scan itself.
+//
+//
+// Type: boolean
+//
+
+use_xpol_ratio_from_spdb = FALSE;
+
+///////////// xpol_ratio_spdb_url /////////////////////
+//
+// URL for reading x-polar ratio from SPDB.
+//
+// See 'get_xpol_ratio_from_spdb'.
+//
+//
+// Type: string
+//
+
+xpol_ratio_spdb_url = "spdb/xpol_ratio";
+
+///////////// xpol_ratio_radar_name ///////////////////
+//
+// Name of station for xpol ratio data.
+//
+// If empty, we will use the closest data in time.
+//
+//
+// Type: string
+//
+
+xpol_ratio_radar_name = "";
+
+///////////// xpol_ratio_search_margin_secs ///////////
+//
+// Search margin when finding xpol ratio (secs).
+//
+// We search for the xpol ratio result closest in time to the radar 
+//   volume. This is the search margin on either side of the sunscan time.
+//
+//
+// Type: int
+//
+
+xpol_ratio_search_margin_secs = 3600;
+
+//======================================================================
+//
+// OPTION TO RETRIEVE SITE TEMP from SPDB.
+//
+//======================================================================
+ 
+///////////// read_site_temp_from_spdb ////////////////
+//
+// Option to read the site ambient temperature from SPDB.
+//
+// It can be useful to check for dependency between the solar data, xpol 
+//   ratio and temperature. This gives you the option of retrieving the 
+//   temperature from SPDB and including it in the analysis.
+//
+//
+// Type: boolean
+//
+
+read_site_temp_from_spdb = TRUE;
+
+///////////// site_temp_spdb_url //////////////////////
+//
+// URL for reading temperature data from SPDB.
+//
+// See 'get_temperature_from_spdb'.
+//
+//
+// Type: string
+//
+
+site_temp_spdb_url = "$(DATA_DIR)/spol_temp/spdb";
+
+///////////// site_temp_station_name //////////////////
+//
+// Name of station for site temp data.
+//
+// If empty, we will use the closest data in time.
+//
+//
+// Type: string
+//
+
+site_temp_station_name = "SPOL";
+
+///////////// site_temp_data_type /////////////////////
+//
+// Data type instead of station name.
+//
+// If this is -1, site_temp_station_name is used. If not -1, this value 
+//   is used instead of specifying the station name.
+//
+//
+// Type: int
+//
+
+site_temp_data_type = 0;
+
+///////////// site_temp_search_margin_secs ////////////
+//
+// Search margin when finding site temp data (secs).
+//
+// We search for the temperature closest in time to the radar volume. 
+//   This is the search margin on either side of the sunscan time.
+//
+//
+// Type: int
+//
+
+site_temp_search_margin_secs = 3600;
 
 //======================================================================
 //
