@@ -54,7 +54,7 @@ fi
 
 # set directory paths
 
-hawk_git_dir=$HOME/cvs/projects/hawk/spol
+hawk_git_dir=$HOME/git/lrose-hawk/projects/hawk/spol
 git_proj_dir=$hawk_git_dir/projDir
 system_dir=$git_proj_dir/system
 
@@ -142,11 +142,18 @@ echo
 
 # create directory for backup links
 
+echo 000000000000000000000000000000
+
 prev_install_backup_dir=$HOME/.prev_install_backup
-/bin/rm -rf $prev_install_backup_dir
-mkdir -p $prev_install_backup_dir
+echo 111111111111111111111111111
+echo /bin/rm -rf $prev_install_backup_dir
+echo 222222222222222222222222222
+echo mkdir -p $prev_install_backup_dir
 
 # make links to dotfiles in git
+
+echo 333333333333333333333333333
+exit 0
 
 cd $HOME
 for dotfile in cshrc bashrc emacs gitignore Xdefaults sigmet_env
@@ -160,6 +167,7 @@ done
 
 cd $HOME
 /bin/mv -f projDir $prev_install_backup_dir
+echo ln -s $git_proj_dir
 ln -s $git_proj_dir
 
 ############################################
