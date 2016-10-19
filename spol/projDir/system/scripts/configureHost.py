@@ -25,7 +25,7 @@ def main():
     usage = "usage: %prog [options]"
     parser = OptionParser(usage)
     parser.add_option('--debug',
-                      dest='debug', default=True,
+                      dest='debug', default=False,
                       action="store_true",
                       help='Set debugging on')
     parser.add_option('--verbose',
@@ -40,6 +40,11 @@ def main():
     if (options.verbose):
         options.debug = True
 
+    # compute paths
+
+    gitProjDir = os.path.join(options.hawkGitDir, 'projDir')
+    gitSystemDir = os.path.join(gitProjDir, 'system')
+    
     # debug print
 
     if (options.debug):
@@ -48,12 +53,9 @@ def main():
         print >>sys.stderr, "    Debug: ", options.debug
         print >>sys.stderr, "    Verbose: ", options.verbose
         print >>sys.stderr, "    hawkGitDir: ", options.hawkGitDir
+        print >>sys.stderr, "    gitProjDir: ", gitProjDir
+        print >>sys.stderr, "    gitSystemDir: ", gitSystemDir
 
-    # compute paths
-
-    gitProjDir = os.path.join(options.hawkGitDir, 'projDir')
-    gitSystemDir = os.path.join(gitProjDir, 'system')
-    
     # read current host type if previously set
 
     installedHostType = 'display'
@@ -67,18 +69,11 @@ def main():
 
     # get the host type interactively
 
-    hostTypes = []
-    hostTypes.append('mgen')
-    hostTypes.append('pgen')
-    hostTypes.append('control')
-    hostTypes.append('rvp8')
-    hostTypes.append('kadrx')
-    hostTypes.append('spoldrx')
-    hostTypes.append('dmgt')
-    hostTypes.append('display')
+    hostTypes = [ 'mgen', 'pgen', 'control', 'rvp8', 
+                  'kadrx', 'spoldrx', 'dmgt', 'display' ]
 
     print "Choose host type from the following list"
-    print " or hit enter to use existing host type as shown:"
+    print "       or hit enter to use host type shown:"
     for hostType in hostTypes:
         print "     ", hostType
     hostType = raw_input('    ............. (' + installedHostType + ')? ')
@@ -93,8 +88,13 @@ def main():
             print >>sys.stderr, "ERROR - invalid host type: ", hostType
             sys.exit(1)
 
-    if (options.debug):
-        print >>sys.stderr, "    hostType: ", hostType
+    print "Setting host type to: ", hostType
+
+    # save the host type to ~/.host_type
+
+    hostTypeFile = open(hostTypePath, "w")
+    hostTypeFile.write(hostType + '\n')
+    hostTypeFile.close()
 
     sys.exit(0)
 
