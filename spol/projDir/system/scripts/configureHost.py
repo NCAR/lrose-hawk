@@ -9,6 +9,7 @@
 import os
 import sys
 from optparse import OptionParser
+import datetime
 import subprocess
 import string
 
@@ -88,16 +89,28 @@ def main():
             print >>sys.stderr, "ERROR - invalid host type: ", hostType
             sys.exit(1)
 
-    print "Setting host type to: ", hostType
-
     # save the host type to ~/.host_type
 
     hostTypeFile = open(hostTypePath, "w")
     hostTypeFile.write(hostType + '\n')
     hostTypeFile.close()
 
-    sys.exit(0)
+    # banner
 
+    print " "
+    print "*********************************************************************"
+    print
+    print "  configure_host for SPOL HAWK"
+    print
+    print "  runtime: " + str(datetime.datetime.now())
+    print
+    print "  host type: ", hostType
+    print
+    print "*********************************************************************"
+    print " "
+    
+    sys.exit(0)
+    
     # make the install dir
 
     try:
