@@ -54,9 +54,10 @@ fi
 
 # set directory paths
 
-hawk_git_dir=$HOME/git/lrose-hawk/projects/hawk/spol
-git_proj_dir=$hawk_git_dir/projDir
-system_dir=$git_proj_dir/system
+cvs_dir=$BUILD_DIR
+cvs_hawk_dir=$cvs_dir/projects/hawk/spol
+cvs_proj_dir=$cvs_hawk_dir/projDir
+system_dir=$cvs_proj_dir/system
 
 #-- get current host type if possible -------------------------------
 #
@@ -142,60 +143,43 @@ echo
 
 # create directory for backup links
 
-echo 000000000000000000000000000000
+backup_links_dir=$HOME/.backup_links
+/bin/rm -rf $backup_links_dir
+mkdir -p $backup_links_dir
 
-prev_install_backup_dir=$HOME/.prev_install_backup
-echo 111111111111111111111111111
-echo /bin/rm -rf $prev_install_backup_dir
-echo 222222222222222222222222222
-echo mkdir -p $prev_install_backup_dir
-
-# make links to dotfiles in git
-
-echo 333333333333333333333333333
-exit 0
+# make links to dotfiles in cvs
 
 cd $HOME
-for dotfile in cshrc bashrc emacs gitignore Xdefaults sigmet_env
+for dotfile in cshrc bashrc emacs cvsignore Xdefaults sigmet_env
 do
-    echo "/bin/mv -f .$dotfile $prev_install_backup_dir"
-    /bin/mv -f .$dotfile $prev_install_backup_dir
+    echo "/bin/mv -f .$dotfile $backup_links_dir"
+    /bin/mv -f .$dotfile $backup_links_dir
     ln -s $system_dir/dotfiles/$dotfile .$dotfile
 done
 
 # make link to projDir
 
 cd $HOME
-/bin/mv -f projDir $prev_install_backup_dir
-echo ln -s $git_proj_dir
-ln -s $git_proj_dir
+/bin/mv -f projDir $backup_links_dir
+ln -s $cvs_proj_dir
 
 ############################################
 # data dir - specific to the host type
-# populate installed data dir /data/spol
-
-template_data_dir=$hawk_git_dir/data_dirs/data.${host_type}
-install_data_dir=/data/spol/data.${host_type}
-
-cd $HOME/projDir
-
-/bin/mv -f data $prev_install_backup_dir
-ln -s $install_data_dir data
-
-/bin/mv -f template $prev_install_backup_dir
-ln -s $tempate_data_dir template
-
-$system_dir/scripts/createParamLinks.py --debug --templateDir $template_data_dir --installDir $install_data_dir
-/bin/cp -r $template_data_dir /data/spol
-
+# copy data dir into /data/spol,
+#   which must be writable by spol
 # make link to data dir
 
+cvs_data_dir=$cvs_hawk_dir/data_dirs/data.${host_type}
+inst_data_dir=/data/spol/data.${host_type}
+
 cd $HOME/projDir
-ln -s $install_data_dir data
+/bin/cp -r $cvs_data_dir /data/spol
+/bin/mv -f data $backup_links_dir
+ln -s $inst_data_dir data
 
 # log dir
 
-/bin/mv -f logs $prev_install_backup_dir
+/bin/mv -f logs $backup_links_dir
 ln -s data/logs
 
 # set current to raid dir
@@ -217,9 +201,9 @@ cd $HOME/projDir/control
 
 # make backups as required
 
-/bin/mv -f crontab $prev_install_backup_dir
-/bin/mv -f proc_list $prev_install_backup_dir
-/bin/mv -f data_list $prev_install_backup_dir
+/bin/mv -f crontab $backup_links_dir
+/bin/mv -f proc_list $backup_links_dir
+/bin/mv -f data_list $backup_links_dir
 
 # set links based on host type
 
