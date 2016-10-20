@@ -27,7 +27,7 @@ def main():
     usage = "usage: %prog [options]"
     parser = OptionParser(usage)
     parser.add_option('--debug',
-                      dest='debug', default=False,
+                      dest='debug', default=True,
                       action="store_true",
                       help='Set debugging on')
     parser.add_option('--verbose',
@@ -162,9 +162,9 @@ def main():
 
     # create symlink to template
 
-    removeSymlink(projDir, 'template')
-    cmd = "ln -s " + templateDataDir + " template"
-    runCommand(cmd)
+    # removeSymlink(projDir, 'template')
+    # cmd = "ln -s " + templateDataDir + " template"
+    # runCommand(cmd)
 
     # create symlinks from data tree back into the template
 

@@ -72,7 +72,8 @@ def main():
 def handleParamFile(dirPath, paramFileName):
 
     if (options.debug):
-        print >>sys.stderr, "Handling param file, dir, paramFile: ", dirPath, ", ", paramFileName
+        print >>sys.stderr, "Handling param file, dir, paramFile: ", \
+            dirPath, ", ", paramFileName
 
     # compute sub dir
 
@@ -121,7 +122,7 @@ def runCommand(cmd):
         if retcode < 0:
             print >>sys.stderr, "Child was terminated by signal: ", -retcode
         else:
-            if (options.debug == True):
+            if (options.verbose == True):
                 print >>sys.stderr, "Child returned code: ", retcode
     except OSError, e:
         print >>sys.stderr, "Execution failed:", e
