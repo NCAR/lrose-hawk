@@ -165,7 +165,31 @@ def main():
     debugStr = ""
     if (options.debug):
         debugStr = " --debug"
-    cmd = "createParamLinks.py --templateDir " + templateDataDir + " --installDir " + installDataDir + debugStr
+    cmd = "createParamLinks.py --templateDir " + \
+          templateDataDir + " --installDir " + installDataDir + debugStr
+    runCommand(cmd)
+
+    # create symlink to .display
+
+    os.chdir(homeDir)
+    removeSymlink(homeDir, '.display')
+    cmd = "ln -s projDir/gtkdisplay/params .display"
+    runCommand(cmd)
+
+    # set up control dir links
+
+    controlDir = os.path.join(projDir, 'control')
+
+    removeSymlink(controlDir, 'crontab')
+    cmd = "ln -s crontab." + hostType + " crontab"
+    runCommand(cmd)
+
+    removeSymlink(controlDir, 'data_list')
+    cmd = "ln -s data_list." + hostType + " data_list"
+    runCommand(cmd)
+
+    removeSymlink(controlDir, 'proc_list')
+    cmd = "ln -s proc_list." + hostType + " proc_list"
     runCommand(cmd)
 
     # done
