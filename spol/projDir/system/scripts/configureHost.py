@@ -19,7 +19,8 @@ def main():
 
     homeDir = os.environ['HOME']
     projDir = os.path.join(homeDir, 'projDir')
-    defaultHawkGitDir = os.path.join(homeDir, "git/lrose-hawk/spol")
+    controlDir = os.path.join(projDir, 'control')
+    defaultGitHawkDir = os.path.join(homeDir, "git/lrose-hawk/spol")
 
     # parse the command line
 
@@ -33,8 +34,8 @@ def main():
                       dest='verbose', default=False,
                       action="store_true",
                       help='Set verbose debugging on')
-    parser.add_option('--hawkGitDir',
-                      dest='hawkGitDir', default=defaultHawkGitDir,
+    parser.add_option('--gitHawkDir',
+                      dest='gitHawkDir', default=defaultGitHawkDir,
                       help='Path of hawk directory in git')
     (options, args) = parser.parse_args()
     
@@ -43,43 +44,48 @@ def main():
 
     # compute paths
 
-    gitProjDir = os.path.join(options.hawkGitDir, 'projDir')
+    gitProjDir = os.path.join(options.gitHawkDir, 'projDir')
     gitSystemDir = os.path.join(gitProjDir, 'system')
     
     # debug print
 
     if (options.debug):
         print >>sys.stderr, "Running script: ", os.path.basename(__file__)
+        print >>sys.stderr, ""
         print >>sys.stderr, "  Options:"
         print >>sys.stderr, "    Debug: ", options.debug
         print >>sys.stderr, "    Verbose: ", options.verbose
-        print >>sys.stderr, "    hawkGitDir: ", options.hawkGitDir
+        print >>sys.stderr, "    homeDir: ", homeDir
+        print >>sys.stderr, "    projDir: ", projDir
+        print >>sys.stderr, "    controlDir: ", controlDir
+        print >>sys.stderr, "    gitHawkDir: ", options.gitHawkDir
         print >>sys.stderr, "    gitProjDir: ", gitProjDir
         print >>sys.stderr, "    gitSystemDir: ", gitSystemDir
 
     # read current host type if previously set
 
-    installedHostType = 'display'
+    prevHostType = 'display'
     hostTypePath = os.path.join(homeDir, '.host_type')
     if (os.path.exists(hostTypePath)):
         hostTypeFile = open(hostTypePath, 'r')
-        installedHostType = hostTypeFile.read()
-        installedHostType = installedHostType.strip(string.whitespace)
+        prevHostType = hostTypeFile.read()
+        prevHostType = prevHostType.strip(string.whitespace)
     if (options.debug):
-        print >>sys.stderr, "    installedHostType: ", installedHostType
+        print >>sys.stderr, "    prevHostType: ", prevHostType
 
     # get the host type interactively
 
     hostTypes = [ 'mgen', 'pgen', 'control', 'rvp8', 
                   'kadrx', 'spoldrx', 'dmgt', 'display' ]
 
+    print ""
     print "Choose host type from the following list"
     print "       or hit enter to use host type shown:"
     for hostType in hostTypes:
         print "     ", hostType
-    hostType = raw_input('    ............. (' + installedHostType + ')? ')
+    hostType = raw_input('    ............. (' + prevHostType + ')? ')
     if (len(hostType) < 4):
-        hostType = installedHostType
+        hostType = prevHostType
     else:
         typeIsValid = False
         for htype in hostTypes:
@@ -132,7 +138,7 @@ def main():
     # data dir - specific to the host type
     # populate installed data dir /data/spol
     
-    templateDataDir = os.path.join(options.hawkGitDir, 'data_dirs')
+    templateDataDir = os.path.join(options.gitHawkDir, 'data_dirs')
     templateDataDir = os.path.join(templateDataDir, 'data.' + hostType)
     installDataDir = '/data/spol/data.' + hostType
 
@@ -177,8 +183,6 @@ def main():
     runCommand(cmd)
 
     # set up control dir links
-
-    controlDir = os.path.join(projDir, 'control')
 
     removeSymlink(controlDir, 'crontab')
     cmd = "ln -s crontab." + hostType + " crontab"
