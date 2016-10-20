@@ -165,7 +165,7 @@ def main():
     debugStr = ""
     if (options.debug):
         debugStr = " --debug"
-    cmd = "createParamLinks.py --templateDir template --installDir data" + debugStr
+    cmd = "createParamLinks.py --templateDir " + templateDataDir + " --installDir " + installDataDir + debugStr
     runCommand(cmd)
 
     # done
@@ -198,7 +198,7 @@ def removeSymlink(dir, linkName):
 
 def runCommand(cmd):
 
-    if (options.verbose == True):
+    if (options.debug == True):
         print >>sys.stderr, "running cmd:",cmd
     
     try:
