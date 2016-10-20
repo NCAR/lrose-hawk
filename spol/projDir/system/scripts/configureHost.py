@@ -16,9 +16,9 @@ import string
 def main():
 
     global options
-    homeDir = os.environ['HOME']
-    # projDir = os.environ['PROJ_DIR']
 
+    homeDir = os.environ['HOME']
+    projDir = os.path.join(homeDir, 'projDir')
     defaultHawkGitDir = os.path.join(homeDir, "git/lrose-hawk/spol")
 
     # parse the command line
@@ -114,18 +114,8 @@ def main():
     os.chdir(homeDir)
     for rootName in ['cshrc', 'bashrc', 'emacs',
                      'Xdefaults', 'sigmet_env', 'valgrindrc' ]:
-
         dotName = '.' + rootName
-
-        # remove if exists
-        if (os.path.islink(dotName)):
-            os.unlink(dotName)
-        elif (os.path.exists(dotName)):
-            # link name exists but is not a link
-            print >>sys.stderr, "ERROR - dot file is not a link: ~/", dotName
-            print >>sys.stderr, "  Remove this file before rerunning script"
-            sys.exit(1)
-
+        removeSymlink(homeDir, dotName)
         sourceDir = os.path.join(gitSystemDir, 'dotfiles')
         sourcePath = os.path.join(sourceDir, rootName)
         cmd = "ln -s " + sourcePath + " " + dotName
@@ -133,83 +123,75 @@ def main():
 
     # make link to projDir
 
+    removeSymlink(homeDir, 'projDir')
     os.chdir(homeDir)
-    linkName = 'projDir'
-    # remove if exists
-    if (os.path.islink(linkName)):
-        os.unlink(linkName)
-    elif (os.path.exists(linkName)):
-        # link name exists but is not a link
-        print >>sys.stderr, "ERROR - ~/projDir is not a link"
-        print >>sys.stderr, "  Remove this dir before rerunning script"
-        sys.exit(1)
     cmd = "ln -s " + gitProjDir
     runCommand(cmd)
+    
+    ############################################
+    # data dir - specific to the host type
+    # populate installed data dir /data/spol
+    
+    templateDataDir = os.path.join(options.hawkGitDir, 'data_dirs')
+    templateDataDir = os.path.join(templateDataDir, 'data.' + hostType)
+    installDataDir = '/data/spol/data.' + hostType
 
+    # rync template dir into data area
+
+    os.chdir(projDir)
+    cmd = "rsync -av " + templateDataDir + " /data/spol"
+    runCommand(cmd)
+
+    # create symlink to data
+
+    removeSymlink(projDir, 'data')
+    cmd = "ln -s " + installDataDir + " data"
+    runCommand(cmd)
+
+    # create symlink to logs
+
+    removeSymlink(projDir, 'logs')
+    cmd = "ln -s data/logs"
+    runCommand(cmd)
+
+    # create symlink to template
+
+    removeSymlink(projDir, 'template')
+    cmd = "ln -s " + templateDataDir + " template"
+    runCommand(cmd)
+
+    # create symlinks from data tree back into the template
+
+    debugStr = ""
+    if (options.debug):
+        debugStr = " --debug"
+    cmd = "createParamLinks.py --templateDir template --installDir data" + debugStr
+    runCommand(cmd)
 
     # done
 
     sys.exit(0)
     
-    # make the install dir
-
-    try:
-        os.makedirs(options.installDir)
-    except OSError as exc:
-        if (options.debug):
-            print >>sys.stderr, "WARNING: trying to create install dir"
-            print >>sys.stderr, "  ", exc
-
-    # Walk the template directory tree
-
-    for dirPath, subDirList, fileList in os.walk(options.templateDir):
-        for fileName in fileList:
-            if (fileName[0] == '_'):
-                handleParamFile(dirPath, fileName)
-
-    sys.exit(0)
-
 ########################################################################
-# Handle a parameter file entry
+# Remove a symbolic link
+# Exit on error
 
-def handleParamFile(dirPath, paramFileName):
+def removeSymlink(dir, linkName):
 
-    if (options.debug):
-        print >>sys.stderr, "Handling param file, dir, paramFile: ", dirPath, ", ", paramFileName
+    os.chdir(dir)
 
-    # compute sub dir
+    # remove if exists
+    if (os.path.islink(linkName)):
+        os.unlink(linkName)
+        return
 
-    subDir = dirPath[len(options.templateDir):]
-
-    # compute install sub dir
-
-    installSubDir = options.installDir + subDir
-
-    if (options.debug):
-        print >>sys.stderr, "subDir: ", subDir
-        print >>sys.stderr, "installSubDir: ", installSubDir
-
-    # make the install sub dir and go there
-
-    try:
-        os.makedirs(installSubDir)
-    except OSError as exc:
-        pass
-
-    os.chdir(installSubDir)
-
-    # remove the link if it exists
-
-    if (os.path.exists(paramFileName)):
-        os.remove(paramFileName)
-
-    # create the link
-
-    paramFilePath = os.path.join(options.templateDir + subDir, paramFileName)
-    cmd = "ln -s " + paramFilePath
-    runCommand(cmd)
-
-    return
+    if (os.path.exists(linkName)):
+        # link name exists but is not a link
+        print >>sys.stderr, "ERROR - trying to remove symbolic link"
+        print >>sys.stderr, "  dir: ", dir
+        print >>sys.stderr, "  linkName: ", linkName
+        print >>sys.stderr, "This is NOT A LINK"
+        sys.exit(1)
 
 ########################################################################
 # Run a command in a shell, wait for it to complete
