@@ -108,7 +108,47 @@ def main():
     print
     print "*********************************************************************"
     print " "
+
+    # make links to the dotfiles in git projDir
     
+    os.chdir(homeDir)
+    for rootName in ['cshrc', 'bashrc', 'emacs',
+                     'Xdefaults', 'sigmet_env', 'valgrindrc' ]:
+
+        dotName = '.' + rootName
+
+        # remove if exists
+        if (os.path.islink(dotName)):
+            os.unlink(dotName)
+        elif (os.path.exists(dotName)):
+            # link name exists but is not a link
+            print >>sys.stderr, "ERROR - dot file is not a link: ~/", dotName
+            print >>sys.stderr, "  Remove this file before rerunning script"
+            sys.exit(1)
+
+        sourceDir = os.path.join(gitSystemDir, 'dotfiles')
+        sourcePath = os.path.join(sourceDir, rootName)
+        cmd = "ln -s " + sourcePath + " " + dotName
+        runCommand(cmd)
+
+    # make link to projDir
+
+    os.chdir(homeDir)
+    linkName = 'projDir'
+    # remove if exists
+    if (os.path.islink(linkName)):
+        os.unlink(linkName)
+    elif (os.path.exists(linkName)):
+        # link name exists but is not a link
+        print >>sys.stderr, "ERROR - ~/projDir is not a link"
+        print >>sys.stderr, "  Remove this dir before rerunning script"
+        sys.exit(1)
+    cmd = "ln -s " + gitProjDir
+    runCommand(cmd)
+
+
+    # done
+
     sys.exit(0)
     
     # make the install dir
@@ -184,7 +224,7 @@ def runCommand(cmd):
         if retcode < 0:
             print >>sys.stderr, "Child was terminated by signal: ", -retcode
         else:
-            if (options.debug == True):
+            if (options.verbose == True):
                 print >>sys.stderr, "Child returned code: ", retcode
     except OSError, e:
         print >>sys.stderr, "Execution failed:", e
