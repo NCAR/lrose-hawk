@@ -15,28 +15,15 @@ set autologout=0
 
 umask 002
 setenv TAPE /dev/st0
-#setenv PRINTER color.gate.rtf
-setenv PRINTER color
+setenv PRINTER color.gate.rtf
 
 # Set the build environment
 
 setenv LANG C
 
-setenv HOST_OS LINUX
-setenv BUILD_DIR $HOME/install
-setenv RAP_MAKE_INC_DIR $BUILD_DIR/make_include
-setenv RAP_MAKE_BIN_DIR $BUILD_DIR/make_bin
-setenv RAP_INC_DIR $BUILD_DIR/include
-setenv RAP_LIB_DIR $BUILD_DIR/lib
-setenv RAP_SHARED_LIB_DIR $BUILD_DIR/lib
-setenv RAP_BIN_DIR $BUILD_DIR/bin
-setenv RAP_MAN_DIR $BUILD_DIR/man
-setenv RAP_DOC_DIR $BUILD_DIR/doc
-
-setenv RAP_INST_LIB_DIR $BUILD_DIR/lib
-setenv RAP_SHARED_INC_DIR $RAP_INC_DIR
-setenv RAP_SHARED_LIB_DIR $RAP_LIB_DIR
-setenv RAP_SHARED_BIN_DIR $RAP_BIN_DIR
+setenv LROSE_INSTALL_DIR $HOME/install
+setenv LROSE_CORE_DIR $HOME/git/lrose-core
+source $LROSE_CORE_DIR/build/set_build_env.csh
 
 setenv KADIR "~/src/ka"
 
@@ -76,7 +63,7 @@ setenv NCARG_ROOT /usr/local/ncarg
 
 setenv JAVA_HOME /usr/java/latest
 setenv ANT_HOME /usr/local/ant
-setenv RAP_JAR_DIR $BUILD_DIR/java/dist/lib
+setenv RAP_JAR_DIR $LROSE_INSTALL_DIR/java/dist/lib
 
 # --- RUNTIME ---
 
@@ -121,15 +108,15 @@ if ( -d $PROJ_DIR ) then
   end
 endif
 
-if ($?BUILD_DIR) then
-  if ( -d $BUILD_DIR/bin64 ) then
-    set path = ($path $BUILD_DIR/bin64)
+if ($?LROSE_INSTALL_DIR) then
+  if ( -d $LROSE_INSTALL_DIR/bin64 ) then
+    set path = ($path $LROSE_INSTALL_DIR/bin64)
   endif
-  if ( -d $BUILD_DIR/bin32 ) then
-    set path = ($path $BUILD_DIR/bin32)
+  if ( -d $LROSE_INSTALL_DIR/bin32 ) then
+    set path = ($path $LROSE_INSTALL_DIR/bin32)
   endif
-  if ( -d $BUILD_DIR/bin ) then
-    set path = ($path $BUILD_DIR/bin)
+  if ( -d $LROSE_INSTALL_DIR/bin ) then
+    set path = ($path $LROSE_INSTALL_DIR/bin)
   endif
 endif
 
@@ -206,7 +193,13 @@ if ($?prompt) then
   alias cvsmms 'ssh -a -x -C -Y -R 2401:localhost:2401 titan@202.21.178.204'
   alias cvsin 'ssh -a -x -C -L 2401:cvs:2401'
   alias cvsout 'ssh -a -x -C -R 2401:cvs:2401'
-  
+
+  alias gstat 'git status'
+  alias gcom 'git commit -am \!*'
+  alias gpush 'git push'
+  alias gpull 'git pull'
+  alias gdiff 'git diff '
+  alias gdtool 'git difftool -g -y '
   alias gitstat 'git status -uno'
 
   alias gate 'ssh -a -XY -C -L 2401:cvs.rap.ucar.edu:2401 -L 8888:svn.eol.ucar.edu:80 dixon@gate.ucar.edu'
@@ -257,7 +250,6 @@ if ($?prompt) then
 
   setprompt
   alias ackl ' ack --pager="less -R" $*'
-  alias  SC 'cd ~vanandel/code/spol_control/monitoring/SiteCon'
 
 endif
 
